@@ -21,14 +21,18 @@ util.object.addToPrototype()
 class Config
   @_data: {}
   @_load: (name) ->
-    
+    @_data[name] = {}
+        
   @_has: (name, key) ->
+    @_load name unless @_data[name]?
     @_data[name]?[key]?
   @_get: (name, key) ->
+    @_load name unless @_data[name]?
     @_data[name]?[key]
+    
   constructor: (@name) ->
-  has: (key) -> @_has @name, key
-  get: (key) -> @_get @name, key
+  has: (key) -> @constructor._has @name, key
+  get: (key) -> @constructor._get @name, key
 
 module.exports = Config
 
