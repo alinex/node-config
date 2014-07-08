@@ -5,13 +5,29 @@ Package: alinex-config
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-config/badge.png?branch=master)](https://coveralls.io/r/alinex/node-config?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-config.png)](https://gemnasium.com/alinex/node-config)
 
-Description comes here...
+This package will give you an easy way to load and use configuration settings in 
+your application or module.
+
+It will read named files in different formats (YAML, JSON, JavaScript, CoffeeScript) 
+and supports validation and optimization/completion. Also the configuration will 
+automatically be updated on changes in the file system and may inform it's 
+dependent objects.
 
 
 Install
 -------------------------------------------------
 
+The easiest way is to let npm add the module directly:
+
+    > npm install alinex-config --save
+
 [![NPM](https://nodei.co/npm/alinex-config.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-config/)
+
+
+Usage
+-------------------------------------------------
+
+To use ...
 
 
 License

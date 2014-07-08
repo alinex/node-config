@@ -26,7 +26,9 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "debug": "1.x"
+  },
   "devDependencies": {
     "alinex-make": "0.2.x"
   },

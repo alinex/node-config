@@ -1,7 +1,9 @@
-# Server Configuration
+# Configuration
 # =================================================
-# To configure the system add some `config.yml` file in the `local` folder like
-# done in the `src` folder.
+# This package will give you an easy way to load and use configuration settings in 
+# your application or module.
+
+
 
 # Node Modules
 # -------------------------------------------------
@@ -14,6 +16,26 @@ debug = require('debug')('server:startup')
 errorHandler = require 'alinex-error'
 util = require 'alinex-util'
 util.object.addToPrototype()
+
+
+class Config
+  @_data: {}
+  @_load: (name) ->
+    
+  @_has: (name, key) ->
+    @_data[name]?[key]?
+  @_get: (name, key) ->
+    @_data[name]?[key]
+  constructor: (@name) ->
+  has: (key) -> @_has @name, key
+  get: (key) -> @_get @name, key
+
+module.exports = Config
+
+#Config = require 'alinex-config'
+#config = new Config 'test'
+#config.get 'db'
+
 
 
 # Load configuration files
