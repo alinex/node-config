@@ -27,10 +27,13 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "debug": "1.x"
+    "debug": "1.x",
+    "async": "0.9.x"
   },
   "devDependencies": {
-    "alinex-make": "0.2.x"
+    "alinex-make": "0.2.x",
+    "chai": "1.x",
+    "alinex-util": "0.1.x"
   },
   "optionalDependencies": {},
   "engines": {

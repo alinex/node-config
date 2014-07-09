@@ -1,46 +1,27 @@
 chai = require 'chai'
 expect = chai.expect
 
-describe "Configuration loading", ->
+describe "Load configuration", ->
 
-  object = require '../data/object.js'
-  errorHandler = require '../../lib/index.js'
-  errorHandler.install()
-  config = errorHandler.config
+  Config = require '../../lib/index.js'
 
   beforeEach ->
-    config = errorHandler.config =
-      colors: false
-      # Define whether and which stack lines to show
-      stack:
-        view: false
-        modules: false
-        system: false
-      # Define if and how much code to show
-      code:
-        view: false
-        before: 0
-        after: 0
-        modules: false
-        all: false
-      # Display of the errors cause if there is one
-      cause:
-        view: false
-        stack: false
-      # Should command exit after an uncaught error is reported
-      uncaught:
-        exit: true
-        timeout: 100
-        code: 2
+    Config._data = {}
 
-  describe "test object", ->
-    it "can return a string", ->
-      expect(object.returnString()).is.equal 'Something went wrong'
+  describe "initial state", ->
+    it "have to be missing data", ->
+      expect(Config._data['test1'], 'test data missing').to.not.exist
 
-  describe "for strings", ->
-    err = object.returnString()
-    it "can format the message", ->
-      expect(errorHandler.format err).is.equal 'Error: Something went wrong'
-    it "can format the message with colors", ->
-      config.colors = true
-      expect(errorHandler.format err).is.equal '\u001b[31m\u001b[1mError: Something went wrong\u001b[22m\u001b[39m'
+  describe "called", ->
+    it "direct", ->
+      Config._load 'test1'
+      expect(Config._data['test1'], 'test data exist').to.exist
+    it "from has method", ->
+      config = new Config 'test1'
+      config.has 'one'
+      expect(Config._data['test1'], 'test data exist').to.exist
+    it "from get method", ->
+      config = new Config 'test1'
+      config.get 'one'
+      expect(Config._data['test1'], 'test data exist').to.exist
+
