@@ -13,20 +13,24 @@ debug = require('debug')('server:startup')
 path = require 'path'
 fs = require 'alinex-fs'
 async = require 'async'
-util = require 'alinex-util'
-util.object.addToPrototype()
+object = require('alinex-util').object
 
 #yaml = require 'js-yaml'
 
-
+# Configuration class
+# -------------------------------------------------
 class Config
+  # set the search path for configs
   base = ROOT_DIR ? '.'
   search = [
     path.join base, 'var', 'local', 'config'
     path.join base, 'var', 'src', 'config'
   ]
+  # central storage for all configuration data
   @_data: {}
+  # load or reload the configuration
   @_load: (name) ->
+    debug "loading config for '#{name}'"
     @_data[name] = {}
     async.map search, (dir, cb) ->
       fs.find dir,
@@ -34,23 +38,27 @@ class Config
       , (err, list) ->
         return cb err if err
         async.map list, (file, cb) ->
+          debug "reading #{file}..."
           fs.readfile file, 'utf8', (err, data) ->
             return cb err if err
             # convert data to object
-            cb null, values
+            switch path.extname file
+              when '.yml', '.yaml'
+                cb null, yaml.safeLoad data
+              when '.jason'
+              when '.js'
+              when '.coffee'
+              else
+                cb "config type not supported: #{file}"
         , (err, results) ->          
-          # extend
+          # combine if multiple files found
+          values = object.extend.apply @, results
           # cb
     , (err, results) ->
-
-
-
-      exists path.join(dir, file, (exists) ->
-      return cb null, {} unless exists
-    fs.readfile file, 'utf8', (err, data) ->
-      return cb err if err
-      cb yaml.safeLoad data
-    console.log search
+      values = object.extend.apply @, results
+      # validate and optimize values
+      @-data[name] = values
+      cb()
         
   @_has: (name, key) ->
     @_load name unless @_data[name]?
