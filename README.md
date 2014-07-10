@@ -27,7 +27,13 @@ The easiest way is to let npm add the module directly:
 Usage
 -------------------------------------------------
 
-To use ...
+    var Config = require('alinex-config');
+    config = new Config('server', function() {
+      // ...
+      if (config.has('url')) {
+        console.log('Started at '+config.get('url'));
+      }
+    });
 
 
 License

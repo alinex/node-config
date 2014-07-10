@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+require('alinex-error').install()
 
 describe "Load configuration", ->
 
@@ -12,7 +13,7 @@ describe "Load configuration", ->
     it "have to be missing data", ->
       expect(Config._data['test1'], 'test data missing').to.not.exist
 
-  describe "called", ->
+  describe.skip "called", ->
     it "direct", ->
       Config._load 'test1'
       expect(Config._data['test1'], 'test data exist').to.exist
