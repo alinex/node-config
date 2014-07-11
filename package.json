@@ -30,7 +30,8 @@
     "debug": "1.x",
     "async": "0.9.x",
     "alinex-fs": "^0.1.5",
-    "js-yaml": "^3.1.0"
+    "js-yaml": "^3.1.0",
+    "coffee-script": "^1.7.1"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",

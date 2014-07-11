@@ -51,10 +51,13 @@ class Config
                 yaml = require 'js-yaml'
                 cb null, yaml.safeLoad data
               when '.json'
-                cb null
+                cb null, JSON.parse Config._stripComments data
               when '.js'
+#                cb null, require './'+file
                 cb null
               when '.coffee'
+#                coffee = require 'coffee-script'
+#                cb null, require './'+file
                 cb null
               else
                 cb "config type not supported: #{file}"
@@ -69,21 +72,45 @@ class Config
       Config._data[name] = values
       cb()
 
+  @_stripComments = (code) ->
+    uid = "_" + +new Date()
+    primitives = []
+    primIndex = 0
+    # remove the strings
+    code.replace(/(['"])(\\\1|.)+?\1/g, (match) ->
+      primitives[primIndex] = match
+      (uid + "") + primIndex++
+    )
+    # remove regular expressions
+    .replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, (match, $1, $2) ->
+      primitives[primIndex] = $2
+      $1 + (uid + "") + primIndex++
+    )
+    # Remove single-line comments that contain would-be multi-line delimiters
+    # E.g. // Comment /* <--
+    # Remove multi-line comments that contain would be single-line delimiters
+    # E.g. /* // <--
+    .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, "")
+    # Remove single and multi-line comments, no consideration of inner-contents
+    .replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, "")
+    # Remove multi-line comments that have a replaced ending (string/regex)
+    # Greedy, so no inner strings/regexes will stop it.
+    .replace(RegExp("\\/\\*[\\s\\S]+" + uid + "\\d+", "g"), "")
+    # Bring back strings & regexes
+    .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
+
   # ### Create instance for access
-  constructor: (@name, cb = ->) ->
+  constructor: (name, cb = ->) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
-    Config._load name, (err) ->
+#    @_name = name
+    Config._load name, (err) =>
       throw err if err
+      @_init name
       cb()
 
-  # ### Check if key exist
-  has: (key) ->
-    throw new Error "Configuration for #{name} is not loaded." unless Config._data[@name]?
-    Config._data[@name]?[key]?
-  # ### Get the value of a key
-  get: (key) ->
-    throw new Error "Configuration for #{name} is not loaded." unless Config._data[@name]?
-    Config._data[@name]?[key]
+  _init: (name) ->
+    delete @key for key of @
+    @[key] = value for key, value of Config._data[name]
     
 module.exports = Config

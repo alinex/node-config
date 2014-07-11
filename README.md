@@ -30,8 +30,8 @@ Usage
     var Config = require('alinex-config');
     config = new Config('server', function() {
       // ...
-      if (config.has('url')) {
-        console.log('Started at '+config.get('url'));
+      if (config.url) {
+        console.log('Started at '+config.url);
       }
     });
 
