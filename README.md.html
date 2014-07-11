@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/README.md", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#package%3A%20alinex-config">Package: alinex-config</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration%20file%20formats">Configuration File Formats</a>
+      </div>
+      <div class="heading h3">
+        <a href="#yaml">YAML</a>
+      </div>
+      <div class="heading h3">
+        <a href="#json">JSON</a>
+      </div>
+      <div class="heading h3">
+        <a href="#javascript">JavaScript</a>
+      </div>
+      <div class="heading h3">
+        <a href="#coffeescript">CoffeeScript</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="package%3A%20alinex-config">
+  <h1>
+    <a href="#package%3A%20alinex-config" name="package%3A%20alinex-config" class="pilcrow">&#182;</a>
+    Package: alinex-config
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-config"><img src="https://travis-ci.org/alinex/node-config.svg?branch=master" alt="Build Status" title="" /></a> 
+<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://coveralls.io/repos/alinex/node-config/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-config"><img src="https://gemnasium.com/alinex/node-config.png" alt="Dependency Status" title="" /></a></p>
+
+<p>This package will give you an easy way to load and use configuration settings in 
+your application or module.</p>
+
+<p>It will read named files in different formats (YAML, JSON, JavaScript, CoffeeScript) 
+and supports validation and optimization/completion. Also the configuration will 
+automatically be updated on changes in the file system and may inform it's 
+dependent objects.</p>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p>The easiest way is to let npm add the module directly:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">config</span> <span class="o">--</span><span class="nx">save</span>
+</code></pre></div>
+
+
+
+<p><a href="https://nodei.co/npm/alinex-config/"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>To easily make your module configurable you need to load the class first:</p>
+
+
+<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">Config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-config&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+<p>To configure where to look for files you may give a list of directories:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s1">&#39;var/local/config&#39;</span><span class="p">];</span>
+</code></pre></div>
+
+
+
+<p>If nothing specified it will search in the above directories under the directory
+specified in the global variabl <code>ROOT_DIR</code>. See more about the
+<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html">Alinex File Structure</a></p>
+
+<p>Now you have to instantiate a new Config instance and have the settings as
+properties for easy access:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>The asynchronous creation of an instance will load and import the settings.</p>
+
+
+<div class="pilwrap" id="configuration%20file%20formats">
+  <h2>
+    <a href="#configuration%20file%20formats" name="configuration%20file%20formats" class="pilcrow">&#182;</a>
+    Configuration File Formats
+  </h2>
+</div>
+
+
+<p>This config class allows multiple formats to be used alternatively or combined.
+So you may use the format you know best.</p>
+
+
+<div class="pilwrap" id="yaml">
+  <h3>
+    <a href="#yaml" name="yaml" class="pilcrow">&#182;</a>
+    YAML
+  </h3>
+</div>
+
+
+<p>This is a simplified and best human readable language to write structured
+information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
+
+<p>Use the file extensions <code>yml</code> or <code>yaml</code>.</p>
+
+
+<div class="pilwrap" id="json">
+  <h3>
+    <a href="#json" name="json" class="pilcrow">&#182;</a>
+    JSON
+  </h3>
+</div>
+
+
+<p>This format uses the javascript object notation a human readable structure. It
+is widely used in different languages not only JavaScript. See description at
+<a href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>.</p>
+
+<p>JSON won't allow comments but you may use JavaScript like comments using
+<code>//</code> and <code>/*...*/</code> like known in javascript. They will be removed before 
+interpreting the file contents.</p>
+
+<p>Use the file extension <code>json</code>.</p>
+
+
+<div class="pilwrap" id="javascript">
+  <h3>
+    <a href="#javascript" name="javascript" class="pilcrow">&#182;</a>
+    JavaScript
+  </h3>
+</div>
+
+
+<p>Also allowed are normal JavaScript modules like done in node.js. The module must
+export the configuration object. </p>
+
+<p>Use the file extension <code>js</code>.</p>
+
+
+<div class="pilwrap" id="coffeescript">
+  <h3>
+    <a href="#coffeescript" name="coffeescript" class="pilcrow">&#182;</a>
+    CoffeeScript
+  </h3>
+</div>
+
+
+<p>Like above you may write the modules in CoffeeScript.</p>
+
+<p>Use the file extension <code>coffee</code>.</p>
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2014 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>
