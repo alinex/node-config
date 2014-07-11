@@ -6,10 +6,6 @@ individual versions:
 
 Version 0.1.0 (2014-07-11)
 -------------------------------------------------
-- 
-
-Version 0.0.1 (2014-07-11)
--------------------------------------------------
 - Added support for JavaScript and CoffeeScript files.
 - Changed syntax to access instance properties without function.
 - Made base structure with YAML loading working.
@@ -18,6 +14,5 @@ Version 0.0.1 (2014-07-11)
 - Changed structure with static data storage.
 - Restructure into classes.
 - Added mocha test.
-- Added initial script.
 - Initial commit
 
