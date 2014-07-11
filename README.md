@@ -49,7 +49,31 @@ properties for easy access:
       }
     });
 
-The asynchronous creation of an instance will load and import the settings.
+The asynchronous creation of an instance will load and import the settings. It
+will look for files in each directory in the search path, which have the given
+name (in the example above 'server') or start with it and at least a following 
+dash sign:
+
+- server.yml
+- server.jason
+- server-part1.yml
+- server-part2.yml
+
+
+Overloading
+-------------------------------------------------
+
+If multiple directories given and/or multiple files (maybe in different formats)
+were found they will overload each other.
+
+This means if a value is set in two or more files the last will overwrite the
+one before. But it will also combine the contents if different keys in an object
+are used.
+
+The files overload in the following order:
+
+1. files alphabetically in directory
+2. directories as specified in search path
 
 
 Configuration File Formats
