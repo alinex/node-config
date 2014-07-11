@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.0 (2014-07-11)
+-------------------------------------------------
+- 
+
 Version 0.0.1 (2014-07-11)
 -------------------------------------------------
 - Added support for JavaScript and CoffeeScript files.
