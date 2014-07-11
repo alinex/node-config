@@ -27,13 +27,68 @@ The easiest way is to let npm add the module directly:
 Usage
 -------------------------------------------------
 
+To easily make your module configurable you need to load the class first:
+
     var Config = require('alinex-config');
+
+To configure where to look for files you may give a list of directories:
+
+    Config.search = ['var/src/config', 'var/local/config'];
+
+If nothing specified it will search in the above directories under the directory
+specified in the global variabl `ROOT_DIR`. See more about the
+[Alinex File Structure](http://alinex.github.io/node-alinex/src/doc/filestructure.md.html)
+
+Now you have to instantiate a new Config instance and have the settings as
+properties for easy access:
+
     config = new Config('server', function() {
       // ...
       if (config.url) {
         console.log('Started at '+config.url);
       }
     });
+
+The asynchronous creation of an instance will load and import the settings.
+
+
+Configuration File Formats
+-------------------------------------------------
+
+This config class allows multiple formats to be used alternatively or combined.
+So you may use the format you know best.
+
+### YAML
+
+This is a simplified and best human readable language to write structured
+information. See some examples at [Wikipedia](http://en.wikipedia.org/wiki/YAML).
+
+Use the file extensions `yml` or `yaml`.
+
+### JSON
+
+This format uses the javascript object notation a human readable structure. It
+is widely used in different languages not only JavaScript. See description at
+[Wikipedia](http://en.wikipedia.org/wiki/Json).
+
+JSON won't allow comments but you may use JavaScript like comments using
+`//` and `/*...*/` like known in javascript. They will be removed before 
+interpreting the file contents.
+
+Use the file extension `json`.
+
+### JavaScript
+
+Also allowed are normal JavaScript modules like done in node.js. The module must
+export the configuration object. 
+
+Use the file extension `js`.
+
+### CoffeeScript
+
+Like above you may write the modules in CoffeeScript.
+
+Use the file extension `coffee`.
 
 
 License

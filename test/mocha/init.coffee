@@ -1,7 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 
-describe "Config", ->
+describe "Configuration", ->
 
   Config = require '../../lib/index.js'
 
@@ -12,13 +12,13 @@ describe "Config", ->
       'test/data/local'
     ]
 
-  describe "object", ->
+  describe "structure", ->
 
-    it "class has static storage", ->
+    it "should have static storage in class", ->
       expect(Config).to.have.property '_data'
       expect(Config._data).to.be.an 'object'
 
-    it "instance can be created", ->
+    it "should allow instantiation", ->
       config = new Config 'test1'
       expect(config, 'instance').to.exist
       expect(config, 'instance').to.be.instanceof Config
@@ -29,7 +29,7 @@ describe "Config", ->
 #      expect(config.has, 'method has').to.be.a 'function'
 #      expect(config.get, 'method get').to.be.a 'function'
 
-  describe "init", ->
+  describe "loading", ->
 
     it "should get empty object without files", (cb) ->
       Config.search = ['/not/existing/path']
@@ -42,7 +42,7 @@ describe "Config", ->
       config = new Config 'test1', ->
         expect(Config._data).to.have.keys 'test1'
         expect(Config._data.test1, 'test1').to.contain.keys 'title'
-        expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json'
+        expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
         cb()
 
     it "should have the properties in instance", (cb) ->

@@ -1,6 +1,6 @@
 module.exports =
   # language test
-  coffeescript:
+  coffee:
     # include a string
     name: "test"
     # and a list of numbers

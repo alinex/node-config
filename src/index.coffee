@@ -53,12 +53,14 @@ class Config
               when '.json'
                 cb null, JSON.parse Config._stripComments data
               when '.js'
-#                cb null, require './'+file
-                cb null
+                m = new module.constructor
+                m._compile data, file
+                cb null, m.exports
               when '.coffee'
-#                coffee = require 'coffee-script'
-#                cb null, require './'+file
-                cb null
+                coffee = require 'coffee-script'
+                m = new module.constructor
+                m._compile coffee.compile(data), file
+                cb null, m.exports
               else
                 cb "config type not supported: #{file}"
         , (err, results) ->

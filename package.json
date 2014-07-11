@@ -29,17 +29,18 @@
   "dependencies": {
     "debug": "1.x",
     "async": "0.9.x",
-    "alinex-fs": "^0.1.5",
-    "js-yaml": "^3.1.0",
-    "coffee-script": "^1.7.1"
+    "alinex-fs": "0.1.x",
+    "js-yaml": "3.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
     "chai": "1.x",
     "alinex-util": "0.1.x",
-    "alinex-error": "^0.2.1"
+    "alinex-error": "0.2.x"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+    "coffee-script": "1.x"
+  },
   "engines": {
     "node": ">=0.10"
   },
