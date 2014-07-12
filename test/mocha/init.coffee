@@ -11,6 +11,7 @@ describe "Configuration", ->
       'test/data/src'
       'test/data/local'
     ]
+    Config.default = {}
 
   describe "structure", ->
 
@@ -31,13 +32,6 @@ describe "Configuration", ->
 
   describe "loading", ->
 
-    it "should get empty object without files", (cb) ->
-      Config.search = ['/not/existing/path']
-      config = new Config 'test1', ->
-        expect(Config._data).to.have.keys 'test1'
-        expect(Config._data.test1, 'test1').to.be.empty
-        cb()
-
     it "should load files into class", (cb) ->
       config = new Config 'test1', ->
         expect(Config._data).to.have.keys 'test1'
@@ -50,8 +44,27 @@ describe "Configuration", ->
         expect(config).to.contain.keys 'title'
         cb()
 
-    it "overloading should work", (cb) ->
+    it "should support overloading", (cb) ->
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'title'
+        expect(config.title).to.equal 'YAML Test 2'
+        cb()
+
+    it "should use default values", (cb) ->
+      Config.default =
+        test1:
+          default: "This is the default"
+      config = new Config 'test1', ->
+        expect(config).to.contain.keys 'default'
+        expect(config.default).to.equal 'This is the default'
+        cb()
+
+    it "should allow overriding default values", (cb) ->
+      Config.default =
+        test1:
+          title: "Not supported"
+          default: "This is the default"          
+      config = new Config 'test1', ->
+        expect(config).to.contain.keys 'default'
         expect(config.title).to.equal 'YAML Test 2'
         cb()

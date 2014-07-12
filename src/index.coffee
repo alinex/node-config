@@ -15,10 +15,12 @@ fs = require 'alinex-fs'
 async = require 'async'
 object = require('alinex-util').object
 
+require('alinex-error').install()
+
 # Configuration class
 # -------------------------------------------------
 class Config
-  # ### Setup of the configuration loading
+  # ### Setup of the configuration loader
   # set the search path for configs
   base = ROOT_DIR ? '.'
   @search = [
@@ -27,11 +29,13 @@ class Config
   ]
   # central storage for all configuration data
   @_data: {}
+  # storage for default values, which have to be set with config name
+  @default: {}
 
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
   @_load: (name, cb = ->) ->
-    debug "start loading config for '#{name}'"
+    debug "start loading config for '#{name}'", Config.search
     async.map Config.search, (dir, cb) ->
       fs.find dir,
         include: name + '?(-?*).{yml,yaml,json,js,coffee}'
@@ -64,16 +68,24 @@ class Config
               else
                 cb "config type not supported: #{file}"
         , (err, results) ->
-
           # combine if multiple files found
           values = object.extend.apply @, results
           cb null, values
     , (err, results) ->
+      # add default values
+      if Config.default?[name]?
+        results.unshift {}, Config.default[name]
+      # combine everything together
       values = object.extend.apply @, results
       # validate and optimize values
+
+
+      # store resulting object
       Config._data[name] = values
       cb()
 
+  # ### Remove comments helper
+  # This is used within th JSON importer because JSON won't allow comments.
   @_stripComments = (code) ->
     uid = "_" + +new Date()
     primitives = []
@@ -102,15 +114,21 @@ class Config
     .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
   # ### Create instance for access
+  # This will also load the data if not already done.
   constructor: (name, cb = ->) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
 #    @_name = name
+    # only initialize instance if data already loaded
+    if Config._data[name]?
+      @_init name
+      return cb()
     Config._load name, (err) =>
       throw err if err
       @_init name
       cb()
 
+  # ### Initialize or reinitialize the instance data
   _init: (name) ->
     delete @key for key of @
     @[key] = value for key, value of Config._data[name]

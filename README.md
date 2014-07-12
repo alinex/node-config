@@ -115,6 +115,17 @@ Like above you may write the modules in CoffeeScript.
 Use the file extension `coffee`.
 
 
+Default values
+-------------------------------------------------
+
+It is possible to set default values for each configuration on the class.
+
+    Config.default = { server: { url: 'http://localhost' } };
+
+This will be set if not overwritten in any configuration file for the `server`
+configuration.
+
+
 License
 -------------------------------------------------
 
