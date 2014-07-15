@@ -13,6 +13,9 @@ and supports validation and optimization/completion. Also the configuration will
 automatically be updated on changes in the file system and may inform it's 
 dependent objects.
 
+It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
+following the code standards defined there.
+
 
 Install
 -------------------------------------------------
@@ -124,6 +127,25 @@ It is possible to set default values for each configuration on the class.
 
 This will be set if not overwritten in any configuration file for the `server`
 configuration.
+
+
+Validation and Optimization
+-------------------------------------------------
+
+If asynchronous check-functions are given it is possible to validate and 
+manipulate the loaded configuration values, before they are used.
+
+    function myCheck(name, values, cb) {
+      // change or check the values
+      // ...
+      // on error call cb('something is not ok');
+      cb();
+    }
+
+If an errer is return it will result in stopping the config import and throwing 
+the error. But keep in mind that these functions are called in parallel.
+
+This checks have to be added to the Config class using `Config.addCheck(name, check):`
 
 
 License

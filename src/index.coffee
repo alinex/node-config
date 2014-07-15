@@ -32,6 +32,16 @@ class Config
   # storage for default values, which have to be set with config name
   @default: {}
 
+  # ### Add function for checks
+  @_check: {}
+  @addCheck = (name, check) ->
+    Config._check[name] = [] unless Config._check[name]?
+    Config._check[name].push check
+    # run the check on the already loaded data
+    if Config._data?[name]?
+      check name, Config._data[name], (err) ->
+        throw "The configuration for #{name} was checked: #{err}" if err
+
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
   @_load: (name, cb = ->) ->
@@ -77,12 +87,18 @@ class Config
         results.unshift {}, Config.default[name]
       # combine everything together
       values = object.extend.apply @, results
-      # validate and optimize values
-
-
-      # store resulting object
-      Config._data[name] = values
-      cb()
+      # use values if no checks defined
+      unless Config._check?[name]?
+        Config._data[name] = values
+        return cb()
+      # run given checks for validation and optimization of values
+      async.each Config._check, (check, cb) ->
+        check name, values, cb
+      , (err) ->
+        throw "The configuration for #{name} was checked: #{err}" if err
+        # store resulting object
+        Config._data[name] = values
+        cb()
 
   # ### Remove comments helper
   # This is used within th JSON importer because JSON won't allow comments.
