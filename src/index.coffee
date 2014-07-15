@@ -40,7 +40,7 @@ class Config
     # run the check on the already loaded data
     if Config._data?[name]?
       check name, Config._data[name], (err) ->
-        throw "The configuration for #{name} was checked: #{err}" if err
+        throw new Error "The configuration for #{name} was checked: #{err}" if err
 
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
@@ -95,7 +95,7 @@ class Config
       async.each Config._check, (check, cb) ->
         check name, values, cb
       , (err) ->
-        throw "The configuration for #{name} was checked: #{err}" if err
+        throw new Error "The configuration for #{name} was checked: #{err}" if err
         # store resulting object
         Config._data[name] = values
         cb()
