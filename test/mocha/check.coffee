@@ -16,17 +16,22 @@ describe "Checks", ->
 
   describe "for validation", ->
 
-    it "should succeed", ->
-      expect(Config).to.have.property '_data'
-      expect(Config._data).to.be.an 'object'
+    it "should succeed", (done) ->
+      Config.addCheck 'test1', (name, values, cb) ->
+        return cb "No title defined!" unless values.title
+        cb()
+      expect(Config._check).to.exist
+      expect(Config._check.test1).to.exist
+      expect(Config._check.test1).to.have.length 1
+      config = new Config 'test1', done
 
-    it "should fail", ->
-      config = new Config 'test1'
-      expect(config, 'instance').to.exist
-      expect(config, 'instance').to.be.instanceof Config
+    it.only "should fail", (done) ->
+      Config.addCheck 'test1', (name, values, cb) ->
+        unless values.subtitle
+          return cb "No subtitle defined!"
+      config = new Config 'test1', (err) ->
+        return done new Error 'Error not thrown' unless err
+        done()
 
-
-# add checks that work
-# add checks that fail
 # add check after values loaded that work
 # add check after values loaded that fail

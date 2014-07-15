@@ -39,24 +39,25 @@ class Config
     Config._check[name].push check
     # run the check on the already loaded data
     if Config._data?[name]?
+      debug "Running check on already loaded data."
       check name, Config._data[name], (err) ->
         throw new Error "The configuration for #{name} was checked: #{err}" if err
 
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
   @_load: (name, cb = ->) ->
-    debug "start loading config for '#{name}'", Config.search
+    debug "Start loading config for '#{name}'", Config.search
     async.map Config.search, (dir, cb) ->
       fs.find dir,
         include: name + '?(-?*).{yml,yaml,json,js,coffee}'
       , (err, list) ->
         if err
-          debug "skipped search in '#{dir}' because of access problems"
+          debug "Skipped search in '#{dir}' because of access problems."
           return cb null, {}
         # skip also if no files found
         return cb null, {} unless list
         async.map list, (file, cb) ->
-          debug "reading #{file}..."
+          debug "Reading #{file}..."
           fs.readFile file, 'utf8', (err, data) ->
             return cb err if err
             # convert data to object
@@ -76,7 +77,7 @@ class Config
                 m._compile coffee.compile(data), file
                 cb null, m.exports
               else
-                cb "config type not supported: #{file}"
+                cb "Config type not supported: #{file}"
         , (err, results) ->
           # combine if multiple files found
           values = object.extend.apply @, results
@@ -92,12 +93,13 @@ class Config
         Config._data[name] = values
         return cb()
       # run given checks for validation and optimization of values
-      async.each Config._check, (check, cb) ->
+      debug "Run the checks for #{name} config."
+      async.each Config._check[name], (check, cb) ->
         check name, values, cb
       , (err) ->
-        throw new Error "The configuration for #{name} was checked: #{err}" if err
         # store resulting object
         Config._data[name] = values
+        return cb new Error "Config #{name} was checked: #{err}" if err
         cb()
 
   # ### Remove comments helper
@@ -140,7 +142,7 @@ class Config
       @_init name
       return cb()
     Config._load name, (err) =>
-      throw err if err
+      return cb err if err
       @_init name
       cb()
 

@@ -19,47 +19,42 @@ describe "Configuration", ->
       expect(Config).to.have.property '_data'
       expect(Config._data).to.be.an 'object'
 
-    it "should allow instantiation", ->
-      config = new Config 'test1'
-      expect(config, 'instance').to.exist
-      expect(config, 'instance').to.be.instanceof Config
-
-#    it "has access methods", ->
-#      config = new Config 'test1'
-#      expect(config).to.exist
-#      expect(config.has, 'method has').to.be.a 'function'
-#      expect(config.get, 'method get').to.be.a 'function'
+    it "should allow instantiation", (done) ->
+      config = new Config 'test1', ->
+        expect(config, 'instance').to.exist
+        expect(config, 'instance').to.be.instanceof Config
+        done()
 
   describe "loading", ->
 
-    it "should load files into class", (cb) ->
+    it "should load files into class", (done) ->
       config = new Config 'test1', ->
         expect(Config._data).to.have.keys 'test1'
         expect(Config._data.test1, 'test1').to.contain.keys 'title'
         expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
-        cb()
+        done()
 
-    it "should have the properties in instance", (cb) ->
+    it "should have the properties in instance", (done) ->
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'title'
-        cb()
+        done()
 
-    it "should support overloading", (cb) ->
+    it "should support overloading", (done) ->
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'title'
         expect(config.title).to.equal 'YAML Test 2'
-        cb()
+        done()
 
-    it "should use default values", (cb) ->
+    it "should use default values", (done) ->
       Config.default =
         test1:
           default: "This is the default"
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'default'
         expect(config.default).to.equal 'This is the default'
-        cb()
+        done()
 
-    it "should allow overriding default values", (cb) ->
+    it "should allow overriding default values", (done) ->
       Config.default =
         test1:
           title: "Not supported"
@@ -67,4 +62,4 @@ describe "Configuration", ->
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'default'
         expect(config.title).to.equal 'YAML Test 2'
-        cb()
+        done()
