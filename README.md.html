@@ -32,6 +32,9 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
+        <a href="#overloading">Overloading</a>
+      </div>
+      <div class="heading h2">
         <a href="#configuration%20file%20formats">Configuration File Formats</a>
       </div>
       <div class="heading h3">
@@ -41,10 +44,19 @@
         <a href="#json">JSON</a>
       </div>
       <div class="heading h3">
+        <a href="#xml">XML</a>
+      </div>
+      <div class="heading h3">
         <a href="#javascript">JavaScript</a>
       </div>
       <div class="heading h3">
         <a href="#coffeescript">CoffeeScript</a>
+      </div>
+      <div class="heading h2">
+        <a href="#default%20values">Default values</a>
+      </div>
+      <div class="heading h2">
+        <a href="#validation%20and%20optimization">Validation and Optimization</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -68,10 +80,13 @@
 <p>This package will give you an easy way to load and use configuration settings in 
 your application or module.</p>
 
-<p>It will read named files in different formats (YAML, JSON, JavaScript, CoffeeScript) 
-and supports validation and optimization/completion. Also the configuration will 
-automatically be updated on changes in the file system and may inform it's 
-dependent objects.</p>
+<p>It will read named files in different formats (YAML, JSON, XML, JavaScript, 
+CoffeeScript) and supports validation and optimization/completion. Also the 
+configuration will automatically be updated on changes in the file system 
+and may inform it's dependent objects.</p>
+
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+following the code standards defined there.</p>
 
 
 <div class="pilwrap" id="install">
@@ -135,7 +150,40 @@ properties for easy access:</p>
 
 
 
-<p>The asynchronous creation of an instance will load and import the settings.</p>
+<p>The asynchronous creation of an instance will load and import the settings. It
+will look for files in each directory in the search path, which have the given
+name (in the example above 'server') or start with it and at least a following 
+dash sign:</p>
+
+<ul>
+<li>server.yml</li>
+<li>server.json</li>
+<li>server-part1.yml</li>
+<li>server-part2.yml</li>
+</ul>
+
+
+<div class="pilwrap" id="overloading">
+  <h2>
+    <a href="#overloading" name="overloading" class="pilcrow">&#182;</a>
+    Overloading
+  </h2>
+</div>
+
+
+<p>If multiple directories given and/or multiple files (maybe in different formats)
+were found they will overload each other.</p>
+
+<p>This means if a value is set in two or more files the last will overwrite the
+one before. But it will also combine the contents if different keys in an object
+are used.</p>
+
+<p>The files overload in the following order:</p>
+
+<ol>
+<li>files alphabetically in directory</li>
+<li>directories as specified in search path</li>
+</ol>
 
 
 <div class="pilwrap" id="configuration%20file%20formats">
@@ -183,6 +231,19 @@ interpreting the file contents.</p>
 <p>Use the file extension <code>json</code>.</p>
 
 
+<div class="pilwrap" id="xml">
+  <h3>
+    <a href="#xml" name="xml" class="pilcrow">&#182;</a>
+    XML
+  </h3>
+</div>
+
+
+<p>The XML format should only use Tags and values, but no arguments.</p>
+
+<p>Use the file extension <code>xml</code>.</p>
+
+
 <div class="pilwrap" id="javascript">
   <h3>
     <a href="#javascript" name="javascript" class="pilcrow">&#182;</a>
@@ -208,6 +269,60 @@ export the configuration object. </p>
 <p>Like above you may write the modules in CoffeeScript.</p>
 
 <p>Use the file extension <code>coffee</code>.</p>
+
+
+<div class="pilwrap" id="default%20values">
+  <h2>
+    <a href="#default%20values" name="default%20values" class="pilcrow">&#182;</a>
+    Default values
+  </h2>
+</div>
+
+
+<p>It is possible to set default values for each configuration on the class.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">server</span><span class="o">:</span> <span class="p">{</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span> <span class="p">}</span> <span class="p">};</span>
+</code></pre></div>
+
+
+
+<p>This will be set if not overwritten in any configuration file for the <code>server</code>
+configuration.</p>
+
+
+<div class="pilwrap" id="validation%20and%20optimization">
+  <h2>
+    <a href="#validation%20and%20optimization" name="validation%20and%20optimization" class="pilcrow">&#182;</a>
+    Validation and Optimization
+  </h2>
+</div>
+
+
+<p>If asynchronous check-functions are given it is possible to validate and 
+manipulate the loaded configuration values, before they are used. You may also
+add such check functions after you created the first instances. (But then newly
+added toplevel config entries are not updated.)</p>
+
+
+<div class="highlight"><pre><code><span class="kd">function</span> <span class="nx">myCheck</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// change or check the values</span>
+  <span class="c1">// ...</span>
+  <span class="c1">// on error call cb(&#39;something is not ok&#39;);</span>
+  <span class="nx">cb</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// may get an error if values already loaded</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>If an error is returned it will also be returned while adding the check or within
+the constructor. But it won't stop the processing. You may also throw an error
+to really stop if a check failed.</p>
+
+<p>This checks have to be added to the Config class using <code>Config.addCheck(name, check):</code></p>
 
 
 <div class="pilwrap" id="license">
