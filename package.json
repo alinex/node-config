@@ -39,7 +39,8 @@
     "alinex-error": "0.2.x"
   },
   "optionalDependencies": {
-    "coffee-script": "1.x"
+    "coffee-script": "1.x",
+    "xml2js": "0.4.x"
   },
   "engines": {
     "node": ">=0.10"

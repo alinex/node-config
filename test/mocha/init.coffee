@@ -12,6 +12,7 @@ describe "Configuration", ->
       'test/data/local'
     ]
     Config.default = {}
+    Config._check = {}
 
   describe "structure", ->
 

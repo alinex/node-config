@@ -25,7 +25,7 @@ describe "Checks", ->
       expect(Config._check.test1).to.have.length 1
       config = new Config 'test1', done
 
-    it.only "should fail", (done) ->
+    it "should fail", (done) ->
       Config.addCheck 'test1', (name, values, cb) ->
         unless values.subtitle
           return cb "No subtitle defined!"

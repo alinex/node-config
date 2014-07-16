@@ -49,7 +49,7 @@ class Config
     debug "Start loading config for '#{name}'", Config.search
     async.map Config.search, (dir, cb) ->
       fs.find dir,
-        include: name + '?(-?*).{yml,yaml,json,js,coffee}'
+        include: name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
       , (err, list) ->
         if err
           debug "Skipped search in '#{dir}' because of access problems."
@@ -67,6 +67,9 @@ class Config
                 cb null, yaml.safeLoad data
               when '.json'
                 cb null, JSON.parse Config._stripComments data
+              when '.xml'
+                xml2js = require 'xml2js'
+                xml2js.parseString data, cb
               when '.js'
                 m = new module.constructor
                 m._compile data, file
