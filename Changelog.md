@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.0 (2014-07-16)
+-------------------------------------------------
+- Add tests for optimization checks.
+- Added test for preloading values before check.
+- Added support for xml configuration.
+- Fixed checks to succeed or fail correctly.
+- Fixed syntax errors in code.
+- Added checks for validation and manipulation.
+- Adding support for default values.
+- Document the overloading order.
+- Optimized changelog.
+
 Version 0.1.0 (2014-07-11)
 -------------------------------------------------
 - Added support for JavaScript and CoffeeScript files.
