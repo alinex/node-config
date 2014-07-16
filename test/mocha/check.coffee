@@ -27,11 +27,26 @@ describe "Checks", ->
 
     it "should fail", (done) ->
       Config.addCheck 'test1', (name, values, cb) ->
-        unless values.subtitle
-          return cb "No subtitle defined!"
+        return cb "No subtitle defined!" unless values.subtitle
+        cb()
       config = new Config 'test1', (err) ->
         return done new Error 'Error not thrown' unless err
         done()
 
-# add check after values loaded that work
-# add check after values loaded that fail
+    it "should succeed if added after loading", (done) ->
+      config = new Config 'test1', (err) ->
+        throw err if err
+        Config.addCheck 'test1', (name, values, cb) ->
+          return cb "No title defined!" unless values.title
+          cb()
+        , done
+
+    it "should fail if added after loading", (done) ->
+      config = new Config 'test1', (err) ->
+        throw err if err
+        Config.addCheck 'test1', (name, values, cb) ->
+          return cb "No subtitle defined!" unless values.subtitle
+          cb()
+        , (err) ->
+          return done new Error 'Error not thrown' unless err
+          done()

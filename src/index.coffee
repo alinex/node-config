@@ -34,14 +34,13 @@ class Config
 
   # ### Add function for checks
   @_check: {}
-  @addCheck = (name, check) ->
+  @addCheck = (name, check, cb = ->) ->
     Config._check[name] = [] unless Config._check[name]?
     Config._check[name].push check
+    return cb() unless Config._data?[name]?
     # run the check on the already loaded data
-    if Config._data?[name]?
-      debug "Running check on already loaded data."
-      check name, Config._data[name], (err) ->
-        throw new Error "The configuration for #{name} was checked: #{err}" if err
+    debug "Running check on already loaded data."
+    check name, Config._data[name], cb
 
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
@@ -102,7 +101,7 @@ class Config
       , (err) ->
         # store resulting object
         Config._data[name] = values
-        return cb new Error "Config #{name} was checked: #{err}" if err
+        return cb err if err
         cb()
 
   # ### Remove comments helper

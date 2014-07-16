@@ -104,6 +104,12 @@ interpreting the file contents.
 
 Use the file extension `json`.
 
+### XML
+
+The XML format should only use Tags and values, but no arguments.
+
+Use the file extension `xml`.
+
 ### JavaScript
 
 Also allowed are normal JavaScript modules like done in node.js. The module must
