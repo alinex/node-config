@@ -8,10 +8,10 @@ Package: alinex-config
 This package will give you an easy way to load and use configuration settings in 
 your application or module.
 
-It will read named files in different formats (YAML, JSON, JavaScript, CoffeeScript) 
-and supports validation and optimization/completion. Also the configuration will 
-automatically be updated on changes in the file system and may inform it's 
-dependent objects.
+It will read named files in different formats (YAML, JSON, XML, JavaScript, 
+CoffeeScript) and supports validation and optimization/completion. Also the 
+configuration will automatically be updated on changes in the file system 
+and may inform it's dependent objects.
 
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
@@ -58,7 +58,7 @@ name (in the example above 'server') or start with it and at least a following
 dash sign:
 
 - server.yml
-- server.jason
+- server.json
 - server-part1.yml
 - server-part2.yml
 
@@ -139,17 +139,23 @@ Validation and Optimization
 -------------------------------------------------
 
 If asynchronous check-functions are given it is possible to validate and 
-manipulate the loaded configuration values, before they are used.
+manipulate the loaded configuration values, before they are used. You may also
+add such check functions after you created the first instances. (But then newly
+added toplevel config entries are not updated.)
 
-    function myCheck(name, values, cb) {
+    function myCheck(name, config, cb) {
       // change or check the values
       // ...
       // on error call cb('something is not ok');
       cb();
     }
+    Config.addCheck('server', myCheck, function(err) {
+      // may get an error if values already loaded
+    });
 
-If an errer is return it will result in stopping the config import and throwing 
-the error. But keep in mind that these functions are called in parallel.
+If an error is returned it will also be returned while adding the check or within
+the constructor. But it won't stop the processing. You may also throw an error
+to really stop if a check failed.
 
 This checks have to be added to the Config class using `Config.addCheck(name, check):`
 
