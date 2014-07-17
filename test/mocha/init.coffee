@@ -3,7 +3,7 @@ expect = chai.expect
 
 describe "Configuration", ->
 
-  Config = require '../../lib/index.js'
+  Config = require '../../lib/index'
 
   beforeEach ->
     Config._data = {}
