@@ -16,8 +16,6 @@ async = require 'async'
 object = require('alinex-util').object
 events = require 'events'
 
-require('alinex-error').install()
-
 # Configuration class
 # -------------------------------------------------
 class Config extends events.EventEmitter
@@ -121,8 +119,6 @@ class Config extends events.EventEmitter
       primitives[primIndex] = $2
       $1 + (uid + "") + primIndex++
     )
-    # Remove single-line comments that contain would-be multi-line delimiters
-    # E.g. // Comment /* <--
     # Remove multi-line comments that contain would be single-line delimiters
     # E.g. /* // <--
     .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, "")
