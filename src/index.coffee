@@ -135,10 +135,10 @@ class Config extends events.EventEmitter
   constructor: (name, cb) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
+    # support callback through event wrapper
     if cb?
       @on 'error', (err) ->
         cb err
-        # make cb empty to prevent second call using ready
         cb = ->
       @on 'ready', ->
         cb()
