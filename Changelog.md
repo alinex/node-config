@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.1 (2014-07-18)
+-------------------------------------------------
+- Added support for events.
+- Small typo fixes.
+
 Version 0.2.0 (2014-07-16)
 -------------------------------------------------
 - Add tests for optimization checks.
