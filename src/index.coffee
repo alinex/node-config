@@ -130,20 +130,24 @@ class Config extends events.EventEmitter
     # Bring back strings & regexes
     .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
-  # ### Create instance for access
+  # ### Create instance
   # This will also load the data if not already done.
   constructor: (name, cb) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
     if cb?
-      @on 'ready', cb
-      @on 'error', cb
+      @on 'error', (err) ->
+        cb err
+        # make cb empty to prevent second call using ready
+        cb = ->
+      @on 'ready', ->
+        cb()
     # only initialize instance if data already loaded
     if Config._data[name]?
       @_init name
       return @emmit 'ready'
     Config._load name, (err) =>
-      return @emit 'ready', err if err
+      @emit 'error', err if err
       @_init name
       @emit 'ready'
 
