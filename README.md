@@ -13,6 +13,13 @@ CoffeeScript) and supports validation and optimization/completion. Also the
 configuration will automatically be updated on changes in the file system 
 and may inform it's dependent objects.
 
+The major features are:
+
+- over writable configurations
+- allows different file formats
+- supports value validation
+- supports value modification rules
+
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
 
@@ -43,7 +50,8 @@ specified in the global variabl `ROOT_DIR`. See more about the
 [Alinex File Structure](http://alinex.github.io/node-alinex/src/doc/filestructure.md.html)
 
 Now you have to instantiate a new Config instance and have the settings as
-properties for easy access:
+properties for easy access. This is asynchronous caused by the potential file 
+loading, so you have to use a callback:
 
     config = new Config('server', function() {
       // ...
@@ -52,15 +60,41 @@ properties for easy access:
       }
     });
 
-The asynchronous creation of an instance will load and import the settings. It
-will look for files in each directory in the search path, which have the given
-name (in the example above 'server') or start with it and at least a following 
-dash sign:
+Alternatively you may use events:
+
+    config = new Config('server');
+    config.on('ready', fucntion() {
+      // ...
+      if (config.url) {
+        console.log('Started at '+config.url);
+      }
+    });
+    config.on('error', fucntion(err) {
+      throw err;
+    });
+
+The asynchronous creation of an instance will load and import the settings. 
+
+
+Search and order
+-------------------------------------------------
+
+Configurations are searched in all supported file formats under the given
+directories and below. 
+
+You may also subdivide the configuration in multiple parts like (maybe also with
+mixed formats):
 
 - server.yml
-- server.json
 - server-part1.yml
 - server-part2.yml
+
+The order is essential because the later file will overwrite the same keys of 
+the earlier ones. So the order looks like:
+
+1. Use each directory in given search list order
+2. Use files with only basenames
+3. Use the partial extensions in alphabetical order
 
 
 Overloading

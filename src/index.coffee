@@ -14,12 +14,13 @@ path = require 'path'
 fs = require 'alinex-fs'
 async = require 'async'
 object = require('alinex-util').object
+events = require 'events'
 
 require('alinex-error').install()
 
 # Configuration class
 # -------------------------------------------------
-class Config
+class Config extends events.EventEmitter
   # ### Setup of the configuration loader
   # set the search path for configs
   base = ROOT_DIR ? '.'
@@ -135,18 +136,20 @@ class Config
 
   # ### Create instance for access
   # This will also load the data if not already done.
-  constructor: (name, cb = ->) ->
+  constructor: (name, cb) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
-#    @_name = name
+    if cb?
+      @on 'ready', cb
+      @on 'error', cb
     # only initialize instance if data already loaded
     if Config._data[name]?
       @_init name
-      return cb()
+      return @emmit 'ready'
     Config._load name, (err) =>
-      return cb err if err
+      return @emit 'ready', err if err
       @_init name
-      cb()
+      @emit 'ready'
 
   # ### Initialize or reinitialize the instance data
   _init: (name) ->

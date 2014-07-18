@@ -64,3 +64,11 @@ describe "Configuration", ->
         expect(config).to.contain.keys 'default'
         expect(config.title).to.equal 'YAML Test 2'
         done()
+
+    it "should fire ready event", (done) ->
+      config = new Config 'test1'
+      config.on 'ready', ->
+        expect(Config._data).to.have.keys 'test1'
+        expect(Config._data.test1, 'test1').to.contain.keys 'title'
+        expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
+        done()
