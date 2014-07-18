@@ -14,11 +14,11 @@ path = require 'path'
 fs = require 'alinex-fs'
 async = require 'async'
 object = require('alinex-util').object
-events = require 'events'
+EventEmitter = require('events').EventEmitter
 
 # Configuration class
 # -------------------------------------------------
-class Config extends events.EventEmitter
+class Config extends EventEmitter
   # ### Setup of the configuration loader
   # set the search path for configs
   base = ROOT_DIR ? '.'
