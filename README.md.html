@@ -32,6 +32,9 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
+        <a href="#search%20and%20order">Search and order</a>
+      </div>
+      <div class="heading h2">
         <a href="#overloading">Overloading</a>
       </div>
       <div class="heading h2">
@@ -85,6 +88,15 @@ CoffeeScript) and supports validation and optimization/completion. Also the
 configuration will automatically be updated on changes in the file system 
 and may inform it's dependent objects.</p>
 
+<p>The major features are:</p>
+
+<ul>
+<li>over writable configurations</li>
+<li>allows different file formats</li>
+<li>supports value validation</li>
+<li>supports value modification rules</li>
+</ul>
+
 <p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
 
@@ -137,7 +149,8 @@ specified in the global variabl <code>ROOT_DIR</code>. See more about the
 <a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html">Alinex File Structure</a></p>
 
 <p>Now you have to instantiate a new Config instance and have the settings as
-properties for easy access:</p>
+properties for easy access. This is asynchronous caused by the potential file 
+loading, so you have to use a callback:</p>
 
 
 <div class="highlight"><pre><code><span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -150,17 +163,54 @@ properties for easy access:</p>
 
 
 
-<p>The asynchronous creation of an instance will load and import the settings. It
-will look for files in each directory in the search path, which have the given
-name (in the example above 'server') or start with it and at least a following 
-dash sign:</p>
+<p>Alternatively you may use events:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">);</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">fucntion</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">fucntion</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>The asynchronous creation of an instance will load and import the settings. </p>
+
+
+<div class="pilwrap" id="search%20and%20order">
+  <h2>
+    <a href="#search%20and%20order" name="search%20and%20order" class="pilcrow">&#182;</a>
+    Search and order
+  </h2>
+</div>
+
+
+<p>Configurations are searched in all supported file formats under the given
+directories and below. </p>
+
+<p>You may also subdivide the configuration in multiple parts like (maybe also with
+mixed formats):</p>
 
 <ul>
 <li>server.yml</li>
-<li>server.json</li>
 <li>server-part1.yml</li>
 <li>server-part2.yml</li>
 </ul>
+
+<p>The order is essential because the later file will overwrite the same keys of 
+the earlier ones. So the order looks like:</p>
+
+<ol>
+<li>Use each directory in given search list order</li>
+<li>Use files with only basenames</li>
+<li>Use the partial extensions in alphabetical order</li>
+</ol>
 
 
 <div class="pilwrap" id="overloading">

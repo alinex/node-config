@@ -100,6 +100,7 @@ your application or module.</p>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 <span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
+<span class="nv">events = </span><span class="nx">require</span> <span class="s">&#39;events&#39;</span>
 
 <span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-error&#39;</span><span class="p">).</span><span class="nx">install</span><span class="p">()</span>
 
@@ -118,7 +119,7 @@ your application or module.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Config</span>
+<span class="k">class</span> <span class="nx">Config</span> <span class="k">extends</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span>
 
 </pre></div>
         </td>
@@ -495,9 +496,12 @@ Greedy, so no inner strings/regexes will stop it.</p>
 <p>This will also load the data if not already done.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">constructor: </span><span class="nf">(name, cb = -&gt;) -&gt;</span>
+  <span class="nv">constructor: </span><span class="nf">(name, cb) -&gt;</span>
     <span class="k">unless</span> <span class="nx">name</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize Config class without configuration name.&quot;</span>
+    <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
+      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
 
 </pre></div>
         </td>
@@ -507,17 +511,16 @@ Greedy, so no inner strings/regexes will stop it.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
-<p>@_name = name
-only initialize instance if data already loaded</p>
+<p>only initialize instance if data already loaded</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">if</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_data</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
       <span class="nx">@_init</span> <span class="nx">name</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">return</span> <span class="nx">@emmit</span> <span class="s">&#39;ready&#39;</span>
     <span class="nx">Config</span><span class="p">.</span><span class="nx">_load</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">@_init</span> <span class="nx">name</span>
-      <span class="nx">cb</span><span class="p">()</span>
+      <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span>
 
 
 </pre></div>
