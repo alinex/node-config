@@ -1,8 +1,7 @@
 # Configuration
 # =================================================
-# This package will give you an easy way to load and use configuration settings in
-# your application or module.
-
+# This package will give you an easy way to load and use configuration settings
+# into your application or module.
 
 
 # Node Modules
@@ -11,27 +10,36 @@
 # include base modules
 debug = require('debug')('config')
 path = require 'path'
-fs = require 'alinex-fs'
 async = require 'async'
-object = require('alinex-util').object
 EventEmitter = require('events').EventEmitter
+# include more alinex modules
+fs = require 'alinex-fs'
+object = require('alinex-util').object
 
 # Configuration class
 # -------------------------------------------------
 class Config extends EventEmitter
-  # ### Setup of the configuration loader
-  # set the search path for configs
+  # ### Setup
+  # Set the default search paths for configuration file search. It may be 
+  # overridden from the outside.
   base = ROOT_DIR ? '.'
   @search = [
     path.join base, 'var', 'src', 'config'
     path.join base, 'var', 'local', 'config'
   ]
-  # central storage for all configuration data
+  # Central storage for all configuration data. Each instance will reference the
+  # values there. The first level is the configuration name.
   @_data: {}
-  # storage for default values, which have to be set with config name
+
+  # ### Default values
+  # Storage for default values, which have to be set with config name.
+  # The first level is the configuration name and it have to be set directly
+  # from the outside.
   @default: {}
 
-  # ### Add function for checks
+  # ### Add check function
+  # The first level is again the configuration name. Each check function have
+  # to be asynchronous and have to call the given callback after done.
   @_check: {}
   @addCheck = (name, check, cb = ->) ->
     Config._check[name] = [] unless Config._check[name]?
@@ -103,7 +111,7 @@ class Config extends EventEmitter
         return cb err if err
         cb()
 
-  # ### Remove comments helper
+  # ### Remove comments
   # This is used within th JSON importer because JSON won't allow comments.
   @_stripComments = (code) ->
     uid = "_" + +new Date()
@@ -156,4 +164,8 @@ class Config extends EventEmitter
     delete @key for key of @
     @[key] = value for key, value of Config._data[name]
     
+
+# Exports
+# -------------------------------------------------
+# The configuration class is exported directly.
 module.exports = Config

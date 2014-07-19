@@ -34,7 +34,7 @@ The easiest way is to let npm add the module directly:
 [![NPM](https://nodei.co/npm/alinex-config.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-config/)
 
 
-Usage
+Simple Usage
 -------------------------------------------------
 
 To easily make your module configurable you need to load the class first:
@@ -76,6 +76,30 @@ Alternatively you may use events:
 The asynchronous creation of an instance will load and import the settings. 
 
 
+API
+-------------------------------------------------
+
+### Static calls
+
+- [Config.search](src/index.coffee#search) - to set the search path
+- [Config.default](src/index.coffee#default values) - to set the default values
+- [Config.addCheck](src/index.coffee#add check function) - to validate or
+  optimize the values
+
+### Instances
+
+- [new Config()](src/index.coffee#create instance) - to create a new config
+  instance
+- values are directly accessible
+
+### Events
+
+The following events are supported:
+
+- `error` - then something fails
+- `ready` - then the instance is completely loaded
+
+
 Search and order
 -------------------------------------------------
 
@@ -113,7 +137,7 @@ The files overload in the following order:
 2. directories as specified in search path
 
 
-Configuration File Formats
+File Formats
 -------------------------------------------------
 
 This config class allows multiple formats to be used alternatively or combined.
