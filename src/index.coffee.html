@@ -32,22 +32,28 @@
         <a href="#configuration%20class">Configuration class</a>
       </div>
       <div class="heading h3">
-        <a href="#setup%20of%20the%20configuration%20loader">Setup of the configuration loader</a>
+        <a href="#setup">Setup</a>
       </div>
       <div class="heading h3">
-        <a href="#add%20function%20for%20checks">Add function for checks</a>
+        <a href="#default%20values">Default values</a>
+      </div>
+      <div class="heading h3">
+        <a href="#add%20check%20function">Add check function</a>
       </div>
       <div class="heading h3">
         <a href="#load%20values">Load values</a>
       </div>
       <div class="heading h3">
-        <a href="#remove%20comments%20helper">Remove comments helper</a>
+        <a href="#remove%20comments">Remove comments</a>
       </div>
       <div class="heading h3">
-        <a href="#create%20instance%20for%20access">Create instance for access</a>
+        <a href="#create%20instance">Create instance</a>
       </div>
       <div class="heading h3">
         <a href="#initialize%20or%20reinitialize%20the%20instance%20data">Initialize or reinitialize the instance data</a>
+      </div>
+      <div class="heading h2">
+        <a href="#exports">Exports</a>
       </div>
     </div>
   </div>
@@ -65,8 +71,8 @@
 </div>
 
 
-<p>This package will give you an easy way to load and use configuration settings in
-your application or module.</p>
+<p>This package will give you an easy way to load and use configuration settings
+into your application or module.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
         </td>
@@ -97,12 +103,22 @@ your application or module.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
-<span class="nv">events = </span><span class="nx">require</span> <span class="s">&#39;events&#39;</span>
+<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
-<span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-error&#39;</span><span class="p">).</span><span class="nx">install</span><span class="p">()</span>
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include more alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
 
 
 </pre></div>
@@ -119,22 +135,23 @@ your application or module.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Config</span> <span class="k">extends</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span>
+<span class="k">class</span> <span class="nx">Config</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="setup%20of%20the%20configuration%20loader">
+<div class="pilwrap" id="setup">
   <h3>
-    <a href="#setup%20of%20the%20configuration%20loader" name="setup%20of%20the%20configuration%20loader" class="pilcrow">&#182;</a>
-    Setup of the configuration loader
+    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
+    Setup
   </h3>
 </div>
 
 
-<p>set the search path for configs</p>
+<p>Set the default search paths for configuration file search. It may be 
+overridden from the outside.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">base = </span><span class="nx">ROOT_DIR</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
@@ -149,22 +166,31 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
-<p>central storage for all configuration data</p>
+<p>Central storage for all configuration data. Each instance will reference the
+values there. The first level is the configuration name.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@_data: </span><span class="p">{}</span>
+
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+<div class="pilwrap" id="default%20values">
+  <h3>
+    <a href="#default%20values" name="default%20values" class="pilcrow">&#182;</a>
+    Default values
+  </h3>
 </div>
-<p>storage for default values, which have to be set with config name</p>
+
+
+<p>Storage for default values, which have to be set with config name.
+The first level is the configuration name and it have to be set directly
+from the outside.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@default: </span><span class="p">{}</span>
@@ -175,13 +201,16 @@ your application or module.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="add%20function%20for%20checks">
+<div class="pilwrap" id="add%20check%20function">
   <h3>
-    <a href="#add%20function%20for%20checks" name="add%20function%20for%20checks" class="pilcrow">&#182;</a>
-    Add function for checks
+    <a href="#add%20check%20function" name="add%20check%20function" class="pilcrow">&#182;</a>
+    Add check function
   </h3>
 </div>
 
+
+<p>The first level is again the configuration name. Each check function have
+to be asynchronous and have to call the given callback after done.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@_check: </span><span class="p">{}</span>
@@ -196,7 +225,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>run the check on the already loaded data</p>
         </td>
@@ -237,7 +266,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>skip also if no files found</p>
         </td>
@@ -254,7 +283,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>convert data to object</p>
         </td>
@@ -287,7 +316,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>combine if multiple files found</p>
         </td>
@@ -302,7 +331,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>add default values</p>
         </td>
@@ -316,7 +345,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>combine everything together</p>
         </td>
@@ -329,7 +358,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>use values if no checks defined</p>
         </td>
@@ -344,7 +373,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>run given checks for validation and optimization of values</p>
         </td>
@@ -360,7 +389,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>store resulting object</p>
         </td>
@@ -375,10 +404,10 @@ your application or module.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="remove%20comments%20helper">
+<div class="pilwrap" id="remove%20comments">
   <h3>
-    <a href="#remove%20comments%20helper" name="remove%20comments%20helper" class="pilcrow">&#182;</a>
-    Remove comments helper
+    <a href="#remove%20comments" name="remove%20comments" class="pilcrow">&#182;</a>
+    Remove comments
   </h3>
 </div>
 
@@ -397,7 +426,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>remove the strings</p>
         </td>
@@ -413,7 +442,7 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>remove regular expressions</p>
         </td>
@@ -429,11 +458,9 @@ your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
-<p>Remove single-line comments that contain would-be multi-line delimiters
-E.g. // Comment /* &lt;--
-Remove multi-line comments that contain would be single-line delimiters
+<p>Remove multi-line comments that contain would be single-line delimiters
 E.g. /* // &lt;--</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -445,7 +472,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>Remove single and multi-line comments, no consideration of inner-contents</p>
         </td>
@@ -458,7 +485,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>Remove multi-line comments that have a replaced ending (string/regex)
 Greedy, so no inner strings/regexes will stop it.</p>
@@ -472,7 +499,7 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>Bring back strings &amp; regexes</p>
         </td>
@@ -485,10 +512,10 @@ Greedy, so no inner strings/regexes will stop it.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20instance%20for%20access">
+<div class="pilwrap" id="create%20instance">
   <h3>
-    <a href="#create%20instance%20for%20access" name="create%20instance%20for%20access" class="pilcrow">&#182;</a>
-    Create instance for access
+    <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
+    Create instance
   </h3>
 </div>
 
@@ -499,9 +526,6 @@ Greedy, so no inner strings/regexes will stop it.</p>
   <span class="nv">constructor: </span><span class="nf">(name, cb) -&gt;</span>
     <span class="k">unless</span> <span class="nx">name</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize Config class without configuration name.&quot;</span>
-    <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
 
 </pre></div>
         </td>
@@ -509,7 +533,25 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<p>support callback through event wrapper</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
+      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span>
+        <span class="nv">cb = </span><span class="nf">-&gt;</span>
+      <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+        <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>only initialize instance if data already loaded</p>
         </td>
@@ -518,7 +560,7 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <span class="nx">@_init</span> <span class="nx">name</span>
       <span class="k">return</span> <span class="nx">@emmit</span> <span class="s">&#39;ready&#39;</span>
     <span class="nx">Config</span><span class="p">.</span><span class="nx">_load</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">@emit</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">@_init</span> <span class="nx">name</span>
       <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span>
 
@@ -541,6 +583,24 @@ Greedy, so no inner strings/regexes will stop it.</p>
     <span class="k">delete</span> <span class="nx">@key</span> <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">@</span>
     <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_data</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
     
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="exports">
+  <h2>
+    <a href="#exports" name="exports" class="pilcrow">&#182;</a>
+    Exports
+  </h2>
+</div>
+
+
+<p>The configuration class is exported directly.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports = </span><span class="nx">Config</span>
 </pre></div>
         </td>
