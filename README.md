@@ -90,14 +90,16 @@ API
 
 - [new Config()](src/index.coffee#create instance) - to create a new config
   instance
+- [conf.set()](src/index.coffee#set config) - to change config values
 - values are directly accessible
 
 ### Events
 
 The following events are supported:
 
-- `error` - then something fails
+- `error` - then something fails (with message as data)
 - `ready` - then the instance is completely loaded
+- `change` - the instance data has changed after loading
 
 
 Search and order
@@ -216,6 +218,13 @@ the constructor. But it won't stop the processing. You may also throw an error
 to really stop if a check failed.
 
 This checks have to be added to the Config class using `Config.addCheck(name, check):`
+
+
+Working with events
+-------------------------------------------------
+
+Keep in mind to alway unregister event listeners while no longer used to prevent
+memory leaks.
 
 
 License

@@ -20,7 +20,7 @@ object = require('alinex-util').object
 # -------------------------------------------------
 class Config extends EventEmitter
   # ### Setup
-  # Set the default search paths for configuration file search. It may be 
+  # Set the default search paths for configuration file search. It may be
   # overridden from the outside.
   base = ROOT_DIR ? '.'
   @search = [
@@ -30,6 +30,10 @@ class Config extends EventEmitter
   # Central storage for all configuration data. Each instance will reference the
   # values there. The first level is the configuration name.
   @_data: {}
+
+  # Class based events
+  @events: new EventEmitter
+  @events.setMaxListeners 100
 
   # ### Default values
   # Storage for default values, which have to be set with config name.
@@ -94,22 +98,29 @@ class Config extends EventEmitter
     , (err, results) ->
       # add default values
       if Config.default?[name]?
-        results.unshift {}, Config.default[name]
+        results.unshift Config.default[name]
       # combine everything together
-      values = object.extend.apply @, results
-      # use values if no checks defined
-      unless Config._check?[name]?
-        Config._data[name] = values
-        return cb()
-      # run given checks for validation and optimization of values
-      debug "Run the checks for #{name} config."
-      async.each Config._check[name], (check, cb) ->
-        check name, values, cb
-      , (err) ->
-        # store resulting object
-        Config._data[name] = values
-        return cb err if err
-        cb()
+      Config._set name, {}, object.extend.apply(@, results), cb
+
+  # ### Set config for name
+  # internal method to set given config to object and trigger events
+  @_set = (name, base, values, cb = ->) ->
+    # extend given values with new ones
+    values = object.extend base, values
+    # use values if no checks defined
+    unless Config._check?[name]?
+      Config._data[name] = values
+      return cb()
+    # run given checks for validation and optimization of values
+    debug "Run the checks for #{name} config."
+    async.each Config._check[name], (check, cb) ->
+      check name, values, cb
+    , (err) =>
+      # store resulting object
+      Config._data[name] = values
+      @events.emit 'change', name
+      return cb err if err
+      cb()
 
   # ### Remove comments
   # This is used within th JSON importer because JSON won't allow comments.
@@ -140,8 +151,8 @@ class Config extends EventEmitter
 
   # ### Create instance
   # This will also load the data if not already done.
-  constructor: (name, cb) ->
-    unless name
+  constructor: (@_name, cb) ->
+    unless _name
       throw new Error "Could not initialize Config class without configuration name."
     # support callback through event wrapper
     if cb?
@@ -151,19 +162,30 @@ class Config extends EventEmitter
       @on 'ready', ->
         cb()
     # only initialize instance if data already loaded
-    if Config._data[name]?
-      @_init name
-      return @emmit 'ready'
-    Config._load name, (err) =>
+    if Config._data[_name]?
+      @_init()
+      return @emit 'ready'
+    Config._load _name, (err) =>
       @emit 'error', err if err
-      @_init name
+      @_init()
       @emit 'ready'
 
   # ### Initialize or reinitialize the instance data
-  _init: (name) ->
+  _init: =>
     delete @key for key of @
-    @[key] = value for key, value of Config._data[name]
-    
+    @[key] = value for key, value of Config._data[@_name]
+    Config.events.on 'change', (name) ->
+      if name is @_name
+        @_init()
+        @emit 'change'
+
+  # ### Set config
+  # Set the given configuration values.
+  set: (values, cb = ->) ->
+    Config._set _name, Config._data[_name], values, (err) ->
+      @emit 'change'
+      cb err
+
 
 # Exports
 # -------------------------------------------------
