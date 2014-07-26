@@ -13,7 +13,8 @@ describe "Configuration", ->
     ]
     Config.default = {}
     Config._check = {}
-
+    Config.events.removeAllListeners()
+    
   describe "structure", ->
 
     it "should have static storage in class", ->

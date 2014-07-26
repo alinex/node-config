@@ -13,6 +13,7 @@ describe "Checks", ->
       'test/data/local'
     ]
     Config._check = {}
+    Config.events.removeAllListeners()
 
   describe "for validation", ->
 
