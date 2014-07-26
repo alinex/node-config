@@ -1,16 +1,16 @@
 Package: alinex-config
 =================================================
 
-[![Build Status] (https://travis-ci.org/alinex/node-config.svg?branch=master)](https://travis-ci.org/alinex/node-config) 
+[![Build Status] (https://travis-ci.org/alinex/node-config.svg?branch=master)](https://travis-ci.org/alinex/node-config)
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-config/badge.png?branch=master)](https://coveralls.io/r/alinex/node-config?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-config.png)](https://gemnasium.com/alinex/node-config)
 
-This package will give you an easy way to load and use configuration settings in 
+This package will give you an easy way to load and use configuration settings in
 your application or module.
 
-It will read named files in different formats (YAML, JSON, XML, JavaScript, 
-CoffeeScript) and supports validation and optimization/completion. Also the 
-configuration will automatically be updated on changes in the file system 
+It will read named files in different formats (YAML, JSON, XML, JavaScript,
+CoffeeScript) and supports validation and optimization/completion. Also the
+configuration will automatically be updated on changes in the file system
 and may inform it's dependent objects.
 
 The major features are:
@@ -50,7 +50,7 @@ specified in the global variabl `ROOT_DIR`. See more about the
 [Alinex File Structure](http://alinex.github.io/node-alinex/src/doc/filestructure.md.html)
 
 Now you have to instantiate a new Config instance and have the settings as
-properties for easy access. This is asynchronous caused by the potential file 
+properties for easy access. This is asynchronous caused by the potential file
 loading, so you have to use a callback:
 
     config = new Config('server', function() {
@@ -73,7 +73,7 @@ Alternatively you may use events:
       throw err;
     });
 
-The asynchronous creation of an instance will load and import the settings. 
+The asynchronous creation of an instance will load and import the settings.
 
 
 API
@@ -104,7 +104,7 @@ Search and order
 -------------------------------------------------
 
 Configurations are searched in all supported file formats under the given
-directories and below. 
+directories and below.
 
 You may also subdivide the configuration in multiple parts like (maybe also with
 mixed formats):
@@ -113,7 +113,7 @@ mixed formats):
 - server-part1.yml
 - server-part2.yml
 
-The order is essential because the later file will overwrite the same keys of 
+The order is essential because the later file will overwrite the same keys of
 the earlier ones. So the order looks like:
 
 1. Use each directory in given search list order
@@ -157,7 +157,7 @@ is widely used in different languages not only JavaScript. See description at
 [Wikipedia](http://en.wikipedia.org/wiki/Json).
 
 JSON won't allow comments but you may use JavaScript like comments using
-`//` and `/*...*/` like known in javascript. They will be removed before 
+`//` and `/*...*/` like known in javascript. They will be removed before
 interpreting the file contents.
 
 Use the file extension `json`.
@@ -171,7 +171,7 @@ Use the file extension `xml`.
 ### JavaScript
 
 Also allowed are normal JavaScript modules like done in node.js. The module must
-export the configuration object. 
+export the configuration object.
 
 Use the file extension `js`.
 
@@ -196,12 +196,12 @@ configuration.
 Validation and Optimization
 -------------------------------------------------
 
-If asynchronous check-functions are given it is possible to validate and 
+If asynchronous check-functions are given it is possible to validate and
 manipulate the loaded configuration values, before they are used. You may also
 add such check functions after you created the first instances. (But then newly
 added toplevel config entries are not updated.)
 
-    function myCheck(name, config, cb) {
+    function myCheck(name, values, cb) {
       // change or check the values
       // ...
       // on error call cb('something is not ok');
@@ -211,11 +211,36 @@ added toplevel config entries are not updated.)
       // may get an error if values already loaded
     });
 
+The `name` here is the name of the config which maybe used in reporting. The
+`values` maybe changed.
+
 If an error is returned it will also be returned while adding the check or within
 the constructor. But it won't stop the processing. You may also throw an error
 to really stop if a check failed.
 
 This checks have to be added to the Config class using `Config.addCheck(name, check):`
+
+### Predefined checks
+
+Classes or functions which support this module often has predefined checks
+to be used.
+
+    Config.addCheck('server', AnyClass.configCheck, function(err) {
+      // may get an error if values already loaded
+    });
+
+But if the configuration for anyclass is only a subgroup of a bigger config
+file you have to wrap the call in an additional function:
+
+    // the wrapper function
+    function myCheck(name, values, cb) {
+      // change the name to reflect change in reporting
+      // call it with the subgroup
+      check(name+'.anygroup', config.anygroup, cb);
+    }
+    Config.addCheck('server', myCheck, function(err) {
+      // may get an error if values already loaded
+    });
 
 
 License
