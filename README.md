@@ -214,7 +214,7 @@ manipulate the loaded configuration values, before they are used. You may also
 add such check functions after you created the first instances. (But then newly
 added toplevel config entries are not updated.)
 
-    function myCheck(name, config, cb) {
+    function myCheck(name, values, cb) {
       // change or check the values
       // ...
       // on error call cb('something is not ok');
@@ -224,11 +224,36 @@ added toplevel config entries are not updated.)
       // may get an error if values already loaded
     });
 
+The `name` here is the name of the config which maybe used in reporting. The
+`values` maybe changed.
+
 If an error is returned it will also be returned while adding the check or within
 the constructor. But it won't stop the processing. You may also throw an error
 to really stop if a check failed.
 
 This checks have to be added to the Config class using `Config.addCheck(name, check):`
+
+### Predefined checks
+
+Classes or functions which support this module often has predefined checks
+to be used.
+
+    Config.addCheck('server', AnyClass.configCheck, function(err) {
+      // may get an error if values already loaded
+    });
+
+But if the configuration for anyclass is only a subgroup of a bigger config
+file you have to wrap the call in an additional function:
+
+    // the wrapper function
+    function myCheck(name, values, cb) {
+      // change the name to reflect change in reporting
+      // call it with the subgroup
+      check(name+'.anygroup', config.anygroup, cb);
+    }
+    Config.addCheck('server', myCheck, function(err) {
+      // may get an error if values already loaded
+    });
 
 
 Working with events
