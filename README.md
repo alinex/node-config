@@ -94,6 +94,8 @@ API
 - [Config.default](src/index.coffee#default values) - to set the default values
 - [Config.addCheck](src/index.coffee#add check function) - to validate or
   optimize the values
+- [Config.find()](src/index.coffee#find configuration files) - to search for
+  existing configuration files
 
 ### Instances
 

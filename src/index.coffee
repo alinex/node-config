@@ -53,6 +53,23 @@ class Config extends EventEmitter
     debug "Running check on already loaded data."
     check name, Config._data[name], cb
 
+  # ### Find configuration files
+  # This may be used to search for specific configuration files.
+  @find: (name, cb) ->
+    debug "Search for config files '#{name}'"
+    name = if name then "/#{name}" else ''
+    pattern = new RegExp "#{name}(/[^/]+)*?(-[^/]+)?\.(ya?ml|json|xml|js|coffee)$"
+    async.map Config.search, (dir, cb) ->
+      fs.find dir,
+      include: pattern
+      , cb
+    , (err, results) ->
+      names = {}
+      for list in results
+        for entry in list
+          names[path.basename entry, path.extname entry] = true
+      cb null, Object.keys names
+
   # ### Load values
   # This may be the initial loading or a reload after the files have changed.
   @_load: (name, cb = ->) ->
