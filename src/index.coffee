@@ -59,6 +59,7 @@ class Config extends EventEmitter
     debug "Start loading config for '#{name}'", Config.search
     async.map Config.search, (dir, cb) ->
       fs.find dir,
+        type: 'file'
         include: name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
       , (err, list) ->
         if err
