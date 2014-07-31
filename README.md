@@ -53,7 +53,7 @@ Now you have to instantiate a new Config instance and have the settings as
 properties for easy access. This is asynchronous caused by the potential file
 loading, so you have to use a callback:
 
-    config = new Config('server', function() {
+    var config = new Config('server', function() {
       // ...
       if (config.url) {
         console.log('Started at '+config.url);
@@ -62,7 +62,7 @@ loading, so you have to use a callback:
 
 Alternatively you may use events:
 
-    config = new Config('server');
+    var config = new Config('server');
     config.on('ready', fucntion() {
       // ...
       if (config.url) {
