@@ -14,7 +14,7 @@ describe "Configuration", ->
     Config.default = {}
     Config._check = {}
     Config.events.removeAllListeners()
-    
+
   describe "structure", ->
 
     it "should have static storage in class", ->
@@ -60,7 +60,7 @@ describe "Configuration", ->
       Config.default =
         test1:
           title: "Not supported"
-          default: "This is the default"          
+          default: "This is the default"
       config = new Config 'test1', ->
         expect(config).to.contain.keys 'default'
         expect(config.title).to.equal 'YAML Test 2'
@@ -73,3 +73,11 @@ describe "Configuration", ->
         expect(Config._data.test1, 'test1').to.contain.keys 'title'
         expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
         done()
+
+    it "should get instance in callback", (done) ->
+      new Config 'test1', (err, config) ->
+        expect(Config._data).to.have.keys 'test1'
+        expect(Config._data.test1, 'test1').to.contain.keys 'title'
+        expect(Config._data.test1, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
+        done()
+

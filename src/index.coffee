@@ -161,7 +161,7 @@ class Config extends EventEmitter
         cb err
         cb = ->
       @on 'ready', ->
-        cb()
+        cb null, @
     # only initialize instance if data already loaded
     if Config._data[_name]?
       @_init()
@@ -170,6 +170,7 @@ class Config extends EventEmitter
       @emit 'error', err if err
       @_init()
       @emit 'ready'
+
 
   # ### Initialize or reinitialize the instance data
   _init: =>

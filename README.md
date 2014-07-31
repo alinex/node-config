@@ -60,6 +60,15 @@ loading, so you have to use a callback:
       }
     });
 
+Or retrieve the instance in the callback:
+
+    new Config('server', function(err, config) {
+      // ...
+      if (config.url) {
+        console.log('Started at '+config.url);
+      }
+    });
+
 Alternatively you may use events:
 
     var config = new Config('server');
