@@ -238,7 +238,7 @@ This checks have to be added to the Config class using `Config.addCheck(name, ch
 Classes or functions which support this module often has predefined checks
 to be used.
 
-    Config.addCheck('server', AnyClass.configCheck, function(err) {
+    Config.addCheck('server', AnyClass.check, function(err) {
       // may get an error if values already loaded
     });
 
@@ -249,7 +249,7 @@ file you have to wrap the call in an additional function:
     function myCheck(name, values, cb) {
       // change the name to reflect change in reporting
       // call it with the subgroup
-      check(name+'.anygroup', config.anygroup, cb);
+      AnyClass.check(name+'.anygroup', values.anygroup, cb);
     }
     Config.addCheck('server', myCheck, function(err) {
       // may get an error if values already loaded
