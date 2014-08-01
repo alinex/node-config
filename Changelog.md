@@ -4,6 +4,25 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.2 (2014-08-01)
+-------------------------------------------------
+- Fixed changelog.
+- Made usage of checks for subgroup more clear in documentation.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Added find() to search for config files.
+- Added possibility to retrieve instance in callback of constructor.
+- Added file-type constraint for file search.
+- Fixed typo in documentation example.
+- Fixed spellcheck error in documentation.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Added documentation to run checks on subgroup.
+- Support 'change' event on Class.events and config instance.
+- Updated documentation.
+- Small code restructuring.
+- Changed some inline comments.
+- Let initialization also work if check failed.
+- Removed alinex-error integration in productive code.
+
 Version 0.2.1 (2014-07-18)
 -------------------------------------------------
 - Added support for events.
