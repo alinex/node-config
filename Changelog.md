@@ -6,9 +6,7 @@ individual versions:
 
 Version 0.2.2 (2014-08-01)
 -------------------------------------------------
-- Fixed changelog.
 - Made usage of checks for subgroup more clear in documentation.
-- Merge branch 'master' of https://github.com/alinex/node-config
 - Added find() to search for config files.
 - Added possibility to retrieve instance in callback of constructor.
 - Added file-type constraint for file search.
