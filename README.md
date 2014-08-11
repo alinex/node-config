@@ -255,6 +255,24 @@ file you have to wrap the call in an additional function:
       // may get an error if values already loaded
     });
 
+### Using alinex-validator
+
+A very easy way to do validations is through the
+[https://alinex.github.io/node-validator](alinex-validator) module. It let's
+you define your validation rules as rule structure in an object.
+
+    Config.addCheck(function(name, values, cb) {
+      return validator.check(name, values, {
+        type: 'type.integer',
+        options: {
+          min: 0,
+          max: 100
+        }
+      }, cb);
+    });
+
+That's the way most alinex modules implement their own check methods.
+
 
 Working with events
 -------------------------------------------------

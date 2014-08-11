@@ -15,6 +15,8 @@ EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
 object = require('alinex-util').object
+validator = require 'alinex-validator'
+
 
 # Configuration class
 # -------------------------------------------------
@@ -47,7 +49,11 @@ class Config extends EventEmitter
   @_check: {}
   @addCheck = (name, check, cb = ->) ->
     Config._check[name] = [] unless Config._check[name]?
-    Config._check[name].push check
+    if typeof check is 'object'
+      Config._check[name].push (name, values, cb) ->
+        validator.check name, values, check, cb
+    else
+      Config._check[name].push check
     return cb() unless Config._data?[name]?
     # run the check on the already loaded data
     debug "Running check on already loaded data."

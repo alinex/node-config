@@ -27,9 +27,10 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "debug": "1.x",
-    "async": "0.9.x",
     "alinex-fs": "0.1.x",
+    "alinex-validator": "^0.1.1",
+    "async": "0.9.x",
+    "debug": "1.x",
     "js-yaml": "3.x"
   },
   "devDependencies": {
