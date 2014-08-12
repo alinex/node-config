@@ -209,10 +209,35 @@ configuration.
 Validation and Optimization
 -------------------------------------------------
 
+You may use synchronous functions, but asynchronous will be more widely
+supported.
 If asynchronous check-functions are given it is possible to validate and
 manipulate the loaded configuration values, before they are used. You may also
-add such check functions after you created the first instances. (But then newly
+add such check functions after you created the first instances. (But the newly
 added toplevel config entries are not updated.)
+
+You have two possibilities to declare checks. You may use an
+[alinex-validator](http://alinex.github.io/node-validator) compatible structure
+or use you own function.
+
+### Validator structure
+
+This is best used if now special methods like internal reference checks...
+have to be done.
+
+    Config.addCheck('server', {
+      title: "Testfile"
+      description: 'the structure used to demonstrate here'
+      check: 'type.string'
+      maxLength: 25
+    }, function(err) {
+      // may get an error if values already loaded
+    });
+
+### Check function
+
+With the check function you may define what you want, but you also can combine
+it with the validator.
 
     function myCheck(name, values, cb) {
       // change or check the values
@@ -224,7 +249,7 @@ added toplevel config entries are not updated.)
       // may get an error if values already loaded
     });
 
-The `name` here is the name of the config which maybe used in reporting. The
+The `name` here is the name of the config which may be used in reporting. The
 `values` maybe changed.
 
 If an error is returned it will also be returned while adding the check or within
