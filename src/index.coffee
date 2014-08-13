@@ -3,6 +3,20 @@
 # This package will give you an easy way to load and use configuration settings
 # into your application or module.
 
+# Architecture
+# -------------------------------------------------
+# The configuration handling consists of the class as central information
+# storage like a registry and instances which reflect individual configurations.
+# All values will be loaded and stored in the class  and the instances will
+# get a reference to their data.
+#
+# A special behavior is the reloading of the configuration after the files
+# changed. This is done using a watcher on the file search path which will
+# automatically load all configurations which are changed into the class cache.
+# Through class events the instances will get informed if anything changed, so
+# they can reload their data and emit events for their application listeners
+# to update this data, too.
+
 
 # Node Modules
 # -------------------------------------------------
@@ -11,6 +25,7 @@
 debug = require('debug')('config')
 path = require 'path'
 async = require 'async'
+chokidar = require 'chokidar'
 EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
@@ -35,7 +50,6 @@ class Config extends EventEmitter
 
   # Class based events
   @events: new EventEmitter
-  @events.setMaxListeners 100
 
   # ### Default values
   # Storage for default values, which have to be set with config name.
@@ -126,6 +140,36 @@ class Config extends EventEmitter
       # combine everything together
       Config._set name, {}, object.extend.apply(@, results), cb
 
+  @_watch = =>
+    jsondir = JSON.stringify Config.search
+    if @_watcher?
+      # only skip if watcher initialized and dirs haven't changed
+      return if jsondir is @_watchdir
+      # close old watcher
+      @_watcher.close()
+    # start watching config dirs
+    debug "Start watching for file changes...", Config.search
+    for dir in Config.search
+      unless @_watcher?
+        @_watcher = chokidar.watch dir,
+          ignoreInitial: not @_watchdir?
+      else
+        @_watcher.add dir
+    @_watchdir = jsondir
+    # action for changes
+    @_watcher.on 'all', (event, file) =>
+      return unless event in ['add', 'change', 'unlink']
+      # find config name
+      name = path.basename file, path.extname file
+      name = name.replace /-.*$/, ''
+      # start loading
+      @_load name, (err) =>
+        if err
+          console.log "Failed to reload #{name} configuration because of: #{err}".red
+          return
+        # emit events
+        @events.emit 'change', name
+
   # ### Set config for name
   # internal method to set given config to object and trigger events
   @_set = (name, base, values, cb = ->) ->
@@ -173,6 +217,9 @@ class Config extends EventEmitter
     # Bring back strings & regexes
     .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
+  # instance based events
+  events: new EventEmitter
+
   # ### Create instance
   # This will also load the data if not already done.
   constructor: (@_name, cb) ->
@@ -190,19 +237,21 @@ class Config extends EventEmitter
       @_init()
       return @emit 'ready'
     Config._load _name, (err) =>
+      # initialize instance if everything went ok
       @emit 'error', err if err
       @_init()
       @emit 'ready'
-
+    # start watching files if not already done
+    Config._watch()
+    Config.events.on 'change', (name) =>
+      return unless name is @_name
+      @_init()
+      @emit 'change'
 
   # ### Initialize or reinitialize the instance data
   _init: =>
     delete @key for key of @
     @[key] = value for key, value of Config._data[@_name]
-    Config.events.on 'change', (name) ->
-      if name is @_name
-        @_init()
-        @emit 'change'
 
   # ### Set config
   # Set the given configuration values.

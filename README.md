@@ -19,6 +19,7 @@ The major features are:
 - allows different file formats
 - supports value validation
 - supports value modification rules
+- automatically reloads on file changes
 
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
@@ -104,7 +105,7 @@ API
 - [conf.set()](src/index.coffee#set config) - to change config values
 - values are directly accessible
 
-### Events
+### Instance Events
 
 The following events are supported:
 
@@ -301,6 +302,9 @@ That's the way most alinex modules implement their own check methods.
 
 Working with events
 -------------------------------------------------
+While the configuration may change you should listen to the `change` event which
+will inform for any change in the current configuration. Now you have to reinit
+everything which changed.
 
 Keep in mind to alway unregister event listeners while no longer used to prevent
 memory leaks.
