@@ -139,7 +139,7 @@ class Config extends EventEmitter
     # run given checks for validation and optimization of values
     debug "Run the checks for #{name} config."
     async.each Config._check[name], (check, cb) ->
-      check name, values, cb
+      check "config.#{name}", values, cb
     , (err) =>
       # store resulting object
       Config._data[name] = values
