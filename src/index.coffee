@@ -82,6 +82,7 @@ class Config extends EventEmitter
     async.map Config.search, (dir, cb) ->
       fs.find dir,
       include: pattern
+      type: 'file'
       , cb
     , (err, results) ->
       names = {}
@@ -182,7 +183,7 @@ class Config extends EventEmitter
     # run given checks for validation and optimization of values
     debug "Run the checks for #{name} config."
     async.each Config._check[name], (check, cb) ->
-      check name, values, cb
+      check "config.#{name}", values, cb
     , (err) =>
       # store resulting object
       Config._data[name] = values
