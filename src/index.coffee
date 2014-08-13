@@ -68,6 +68,7 @@ class Config extends EventEmitter
     async.map Config.search, (dir, cb) ->
       fs.find dir,
       include: pattern
+      type: 'file'
       , cb
     , (err, results) ->
       names = {}
