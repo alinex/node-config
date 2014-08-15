@@ -4,7 +4,7 @@
   "description": "Loading configuration files...",
   "copyright": "Alexander Schilling 2014",
   "private": false,
-  "keywords": [],
+  "keywords": ["configuration", "parsing", "loading"],
   "homepage": "http://alinex.github.io/node-config/",
   "repository": {
     "type": "git",
@@ -28,14 +28,14 @@
   },
   "dependencies": {
     "alinex-fs": "0.1.x",
-    "alinex-validator": "^0.1.1",
+    "alinex-validator": "0.1.x",
     "async": "0.9.x",
-    "chokidar": "^0.8.2",
+    "chokidar": "0.8.x",
     "debug": "1.x",
     "js-yaml": "3.x"
   },
   "devDependencies": {
-    "alinex-make": "0.2.x",
+    "alinex-make": "0.3.x",
     "chai": "1.x",
     "alinex-util": "0.1.x",
     "alinex-error": "0.2.x"
