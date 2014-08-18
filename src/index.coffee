@@ -65,7 +65,7 @@ class Config extends EventEmitter
     Config._check[name] = [] unless Config._check[name]?
     if typeof check is 'object'
       Config._check[name].push (name, values, cb) ->
-        validator.check name, values, check, cb
+        validator.check name, check, values, cb
     else
       Config._check[name].push check
     return cb() unless Config._data?[name]?

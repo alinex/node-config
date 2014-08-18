@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "alinex-fs": "0.1.x",
-    "alinex-validator": "0.1.x",
+    "alinex-validator": "0.2.x",
     "async": "0.9.x",
     "chokidar": "0.8.x",
     "debug": "1.x",
