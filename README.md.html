@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-config/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -41,7 +41,7 @@
         <a href="#instances">Instances</a>
       </div>
       <div class="heading h3">
-        <a href="#events">Events</a>
+        <a href="#instance%20events">Instance Events</a>
       </div>
       <div class="heading h2">
         <a href="#search%20and%20order">Search and order</a>
@@ -74,7 +74,16 @@
         <a href="#validation%20and%20optimization">Validation and Optimization</a>
       </div>
       <div class="heading h3">
+        <a href="#validator%20structure">Validator structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#check%20function">Check function</a>
+      </div>
+      <div class="heading h3">
         <a href="#predefined%20checks">Predefined checks</a>
+      </div>
+      <div class="heading h3">
+        <a href="#using%20alinex-validator">Using alinex-validator</a>
       </div>
       <div class="heading h2">
         <a href="#working%20with%20events">Working with events</a>
@@ -113,9 +122,10 @@ and may inform it's dependent objects.</p>
 <li>allows different file formats</li>
 <li>supports value validation</li>
 <li>supports value modification rules</li>
+<li>automatically reloads on file changes</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -164,7 +174,7 @@ following the code standards defined there.</p>
 
 <p>If nothing specified it will search in the above directories under the directory
 specified in the global variable <code>ROOT_DIR</code>. See more about the
-<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html">Alinex File Structure</a></p>
+<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html.html">Alinex File Structure</a></p>
 
 <p>Now you have to instantiate a new Config instance and have the settings as
 properties for easy access. This is asynchronous caused by the potential file
@@ -257,10 +267,10 @@ instance</li>
 </ul>
 
 
-<div class="pilwrap" id="events">
+<div class="pilwrap" id="instance%20events">
   <h3>
-    <a href="#events" name="events" class="pilcrow">&#182;</a>
-    Events
+    <a href="#instance%20events" name="instance%20events" class="pilcrow">&#182;</a>
+    Instance Events
   </h3>
 </div>
 
@@ -440,10 +450,53 @@ configuration.</p>
 </div>
 
 
-<p>If asynchronous check-functions are given it is possible to validate and
+<p>You may use synchronous functions, but asynchronous will be more widely
+supported.
+If asynchronous check-functions are given it is possible to validate and
 manipulate the loaded configuration values, before they are used. You may also
-add such check functions after you created the first instances. (But then newly
+add such check functions after you created the first instances. (But the newly
 added toplevel config entries are not updated.)</p>
+
+<p>You have two possibilities to declare checks. You may use an
+<a href="http://alinex.github.io/node-validator.html">alinex-validator</a> compatible structure
+or use you own function.</p>
+
+
+<div class="pilwrap" id="validator%20structure">
+  <h3>
+    <a href="#validator%20structure" name="validator%20structure" class="pilcrow">&#182;</a>
+    Validator structure
+  </h3>
+</div>
+
+
+<p>This is best used if now special methods like internal reference checks...
+have to be done.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Testfile&quot;</span>
+  <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;the structure used to demonstrate here&#39;</span>
+  <span class="nx">check</span><span class="o">:</span> <span class="s1">&#39;type.string&#39;</span>
+  <span class="nx">maxLength</span><span class="o">:</span> <span class="mi">25</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// may get an error if values already loaded</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="check%20function">
+  <h3>
+    <a href="#check%20function" name="check%20function" class="pilcrow">&#182;</a>
+    Check function
+  </h3>
+</div>
+
+
+<p>With the check function you may define what you want, but you also can combine
+it with the validator.</p>
 
 
 <div class="highlight"><pre><code><span class="kd">function</span> <span class="nx">myCheck</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
@@ -459,7 +512,7 @@ added toplevel config entries are not updated.)</p>
 
 
 
-<p>The <code>name</code> here is the name of the config which maybe used in reporting. The
+<p>The <code>name</code> here is the name of the config which may be used in reporting. The
 <code>values</code> maybe changed.</p>
 
 <p>If an error is returned it will also be returned while adding the check or within
@@ -506,6 +559,35 @@ file you have to wrap the call in an additional function:</p>
 
 
 
+<div class="pilwrap" id="using%20alinex-validator">
+  <h3>
+    <a href="#using%20alinex-validator" name="using%20alinex-validator" class="pilcrow">&#182;</a>
+    Using alinex-validator
+  </h3>
+</div>
+
+
+<p>A very easy way to do validations is through the
+<a href="alinex-validator.html">https://alinex.github.io/node-validator</a> module. It let's
+you define your validation rules as rule structure in an object.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;type.integer&#39;</span><span class="p">,</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">min</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">max</span><span class="o">:</span> <span class="mi">100</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+
+<p>That's the way most alinex modules implement their own check methods.</p>
+
+
 <div class="pilwrap" id="working%20with%20events">
   <h2>
     <a href="#working%20with%20events" name="working%20with%20events" class="pilcrow">&#182;</a>
@@ -513,6 +595,10 @@ file you have to wrap the call in an additional function:</p>
   </h2>
 </div>
 
+
+<p>While the configuration may change you should listen to the <code>change</code> event which
+will inform for any change in the current configuration. Now you have to reinit
+everything which changed.</p>
 
 <p>Keep in mind to alway unregister event listeners while no longer used to prevent
 memory leaks.</p>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -24,6 +24,9 @@
     <div id="headings">
       <div class="heading h1">
         <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#architecture">Architecture</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
@@ -88,6 +91,35 @@ into your application or module.</p>
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="architecture">
+  <h2>
+    <a href="#architecture" name="architecture" class="pilcrow">&#182;</a>
+    Architecture
+  </h2>
+</div>
+
+
+<p>The configuration handling consists of the class as central information
+storage like a registry and instances which reflect individual configurations.
+All values will be loaded and stored in the class  and the instances will
+get a reference to their data.</p>
+
+<p>A special behavior is the reloading of the configuration after the files
+changed. This is done using a watcher on the file search path which will
+automatically load all configurations which are changed into the class cache.
+Through class events the instances will get informed if anything changed, so
+they can reload their data and emit events for their application listeners
+to update this data, too.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="node%20modules">
   <h2>
     <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
@@ -105,7 +137,7 @@ into your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>include base modules</p>
         </td>
@@ -113,6 +145,7 @@ into your application or module.</p>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">chokidar = </span><span class="nx">require</span> <span class="s">&#39;chokidar&#39;</span>
 <span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
 </pre></div>
@@ -121,13 +154,15 @@ into your application or module.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
 <p>include more alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
+<span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
+
 
 
 </pre></div>
@@ -175,7 +210,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>Central storage for all configuration data. Each instance will reference the
 values there. The first level is the configuration name.</p>
@@ -190,13 +225,12 @@ values there. The first level is the configuration name.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>Class based events</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@events: </span><span class="k">new</span> <span class="nx">EventEmitter</span>
-  <span class="nx">@events</span><span class="p">.</span><span class="nx">setMaxListeners</span> <span class="mi">100</span>
 
 
 </pre></div>
@@ -240,7 +274,11 @@ to be asynchronous and have to call the given callback after done.</p>
   <span class="vi">@_check: </span><span class="p">{}</span>
   <span class="vi">@addCheck = </span><span class="nf">(name, check, cb = -&gt;) -&gt;</span>
     <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">unless</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
-    <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">check</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">check</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
+      <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nf">(name, values, cb) -&gt;</span>
+        <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">check</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="k">else</span>
+      <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span> <span class="nx">check</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_data</span><span class="o">?</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
 
 </pre></div>
@@ -249,7 +287,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>run the check on the already loaded data</p>
         </td>
@@ -281,6 +319,7 @@ to be asynchronous and have to call the given callback after done.</p>
     <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">search</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">dir</span><span class="p">,</span>
       <span class="nv">include: </span><span class="nx">pattern</span>
+      <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
       <span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
       <span class="nv">names = </span><span class="p">{}</span>
@@ -323,7 +362,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>skip also if no files found</p>
         </td>
@@ -340,7 +379,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>convert data to object</p>
         </td>
@@ -373,7 +412,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>combine if multiple files found</p>
         </td>
@@ -388,7 +427,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>add default values</p>
         </td>
@@ -402,12 +441,119 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>combine everything together</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">Config</span><span class="p">.</span><span class="nx">_set</span> <span class="nx">name</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">object</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">@</span><span class="p">,</span> <span class="nx">results</span><span class="p">),</span> <span class="nx">cb</span>
+
+  <span class="vi">@_watch = </span><span class="o">=&gt;</span>
+    <span class="nv">jsondir = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">search</span>
+    <span class="k">if</span> <span class="nx">@_watcher</span><span class="o">?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>only skip if watcher initialized and dirs haven't changed</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">jsondir</span> <span class="o">is</span> <span class="nx">@_watchdir</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>close old watcher</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>start watching config dirs</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;Start watching for file changes...&quot;</span><span class="p">,</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">search</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">search</span>
+      <span class="k">unless</span> <span class="nx">@_watcher</span><span class="o">?</span>
+        <span class="vi">@_watcher = </span><span class="nx">chokidar</span><span class="p">.</span><span class="nx">watch</span> <span class="nx">dir</span><span class="p">,</span>
+          <span class="nv">ignoreInitial: </span><span class="o">not</span> <span class="nx">@_watchdir</span><span class="o">?</span>
+      <span class="k">else</span>
+        <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">add</span> <span class="nx">dir</span>
+    <span class="vi">@_watchdir = </span><span class="nx">jsondir</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>action for changes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;all&#39;</span><span class="p">,</span> <span class="nf">(event, file) =&gt;</span>
+      <span class="k">return</span> <span class="k">unless</span> <span class="nx">event</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="s">&#39;unlink&#39;</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>find config name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">name = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span> <span class="nx">file</span>
+      <span class="nv">name = </span><span class="nx">name</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/-.*$/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>start loading</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">@_load</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+        <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Failed to reload </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> configuration because of: </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">red</span>
+          <span class="k">return</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>emit events</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@events</span><span class="p">.</span><span class="nx">emit</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">name</span>
 
 
 </pre></div>
@@ -434,7 +580,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>extend given values with new ones</p>
         </td>
@@ -447,7 +593,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>use values if no checks defined</p>
         </td>
@@ -462,14 +608,14 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>run given checks for validation and optimization of values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">debug</span> <span class="s">&quot;Run the checks for </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> config.&quot;</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_check</span><span class="p">[</span><span class="nx">name</span><span class="p">],</span> <span class="nf">(check, cb) -&gt;</span>
-      <span class="nx">check</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">check</span> <span class="s">&quot;config.</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err) =&gt;</span>
 
 </pre></div>
@@ -478,7 +624,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>store resulting object</p>
         </td>
@@ -516,7 +662,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>remove the strings</p>
         </td>
@@ -532,7 +678,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
 </div>
 <p>remove regular expressions</p>
         </td>
@@ -548,7 +694,7 @@ to be asynchronous and have to call the given callback after done.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
 </div>
 <p>Remove multi-line comments that contain would be single-line delimiters
 E.g. /* // &lt;--</p>
@@ -562,7 +708,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
 </div>
 <p>Remove single and multi-line comments, no consideration of inner-contents</p>
         </td>
@@ -575,7 +721,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
 </div>
 <p>Remove multi-line comments that have a replaced ending (string/regex)
 Greedy, so no inner strings/regexes will stop it.</p>
@@ -589,12 +735,26 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
 </div>
 <p>Bring back strings &amp; regexes</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="p">.</span><span class="nx">replace</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;(\\d+)&quot;</span><span class="p">,</span> <span class="s">&quot;g&quot;</span><span class="p">),</span> <span class="nf">(match, n) -&gt;</span> <span class="nx">primitives</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+</div>
+<p>instance based events</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">events: </span><span class="k">new</span> <span class="nx">EventEmitter</span>
 
 
 </pre></div>
@@ -623,7 +783,7 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
 </div>
 <p>support callback through event wrapper</p>
         </td>
@@ -641,7 +801,7 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
 </div>
 <p>only initialize instance if data already loaded</p>
         </td>
@@ -650,10 +810,38 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <span class="nx">@_init</span><span class="p">()</span>
       <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span>
     <span class="nx">Config</span><span class="p">.</span><span class="nx">_load</span> <span class="nx">_name</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+</div>
+<p>initialize instance if everything went ok</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">@emit</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">@_init</span><span class="p">()</span>
       <span class="nx">@emit</span> <span class="s">&#39;ready&#39;</span>
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<p>start watching files if not already done</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Config</span><span class="p">.</span><span class="nx">_watch</span><span class="p">()</span>
+    <span class="nx">Config</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nf">(name) =&gt;</span>
+      <span class="k">return</span> <span class="k">unless</span> <span class="nx">name</span> <span class="o">is</span> <span class="nx">@_name</span>
+      <span class="nx">@_init</span><span class="p">()</span>
+      <span class="nx">@emit</span> <span class="s">&#39;change&#39;</span>
 
 
 </pre></div>
@@ -673,10 +861,6 @@ Greedy, so no inner strings/regexes will stop it.</p>
   <span class="nv">_init: </span><span class="o">=&gt;</span>
     <span class="k">delete</span> <span class="nx">@key</span> <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">@</span>
     <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_data</span><span class="p">[</span><span class="nx">@_name</span><span class="p">]</span>
-    <span class="nx">Config</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
-      <span class="k">if</span> <span class="nx">name</span> <span class="o">is</span> <span class="nx">@_name</span>
-        <span class="nx">@_init</span><span class="p">()</span>
-        <span class="nx">@emit</span> <span class="s">&#39;change&#39;</span>
 
 
 </pre></div>
