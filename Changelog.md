@@ -4,6 +4,22 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.0 (2014-09-17)
+-------------------------------------------------
+- Updated debug to 2.0.0
+- Changed .gitignore.
+- Upgraded to validator 0.2.
+- Fixed calls to new make tool.
+- Updated to alinex-make 0.3 for development.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Added support for auto reloading of configurations.
+- Prepend 'config' to the source names for checks.
+- Don't include directories in find.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Addded documentation for validator integration.
+- Added alinex-validator support.
+- Updated changelog.
+
 Version 0.2.2 (2014-08-01)
 -------------------------------------------------
 - Made usage of checks for subgroup more clear in documentation.

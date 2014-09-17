@@ -1,10 +1,14 @@
 {
   "name": "alinex-config",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Loading configuration files...",
   "copyright": "Alexander Schilling 2014",
   "private": false,
-  "keywords": ["configuration", "parsing", "loading"],
+  "keywords": [
+    "configuration",
+    "parsing",
+    "loading"
+  ],
   "homepage": "http://alinex.github.io/node-config/",
   "repository": {
     "type": "git",
