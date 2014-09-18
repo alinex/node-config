@@ -64,9 +64,11 @@ class Config extends EventEmitter
   @addCheck = (name, check, cb = ->) ->
     Config._check[name] = [] unless Config._check[name]?
     if typeof check is 'object'
+      debug "Adding validator check rules for #{name}"
       Config._check[name].push (name, values, cb) ->
         validator.check name, check, values, cb
     else
+      debug "Ading check function for #{name}"
       Config._check[name].push check
     return cb() unless Config._data?[name]?
     # run the check on the already loaded data
@@ -243,7 +245,7 @@ class Config extends EventEmitter
       @_init()
       @emit 'ready'
     # start watching files if not already done
-    Config._watch()
+#    Config._watch()
     Config.events.on 'change', (name) =>
       return unless name is @_name
       @_init()
