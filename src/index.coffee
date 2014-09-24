@@ -155,7 +155,7 @@ class Config extends EventEmitter
     for dir in Config.search
       unless @_watcher?
         @_watcher = chokidar.watch dir,
-          ignoreInitial: not @_watchdir?
+          ignoreInitial: not @_watchdir
       else
         @_watcher.add dir
     @_watchdir = jsondir
@@ -245,7 +245,7 @@ class Config extends EventEmitter
       @_init()
       @emit 'ready'
     # start watching files if not already done
-#    Config._watch()
+    Config._watch()
     Config.events.on 'change', (name) =>
       return unless name is @_name
       @_init()
