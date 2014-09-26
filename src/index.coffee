@@ -36,44 +36,16 @@ validator = require 'alinex-validator'
 # Configuration class
 # -------------------------------------------------
 class Config extends EventEmitter
+
   # ### Setup
   # Set the default search paths for configuration file search. It may be
   # overridden from the outside.
   base = ROOT_DIR ? '.'
-  @search = [
+  @search: [
     path.join base, 'var', 'src', 'config'
     path.join base, 'var', 'local', 'config'
   ]
-  # Central storage for all configuration data. Each instance will reference the
-  # values there. The first level is the configuration name.
-  @_data: {}
-
-  # Class based events
-  @events: new EventEmitter
-
-  # ### Default values
-  # Storage for default values, which have to be set with config name.
-  # The first level is the configuration name and it have to be set directly
-  # from the outside.
-  @default: {}
-
-  # ### Add check function
-  # The first level is again the configuration name. Each check function have
-  # to be asynchronous and have to call the given callback after done.
-  @_check: {}
-  @addCheck = (name, check, cb = ->) ->
-    Config._check[name] = [] unless Config._check[name]?
-    if typeof check is 'object'
-      debug "Adding validator check rules for #{name}"
-      Config._check[name].push (name, values, cb) ->
-        validator.check name, check, values, cb
-    else
-      debug "Ading check function for #{name}"
-      Config._check[name].push check
-    return cb() unless Config._data?[name]?
-    # run the check on the already loaded data
-    debug "Running check on already loaded data."
-    check name, Config._data[name], cb
+  @watch: true
 
   # ### Find configuration files
   # This may be used to search for specific configuration files.
@@ -81,7 +53,7 @@ class Config extends EventEmitter
     debug "Search for config files '#{name}'"
     name = if name then "/#{name}" else ''
     pattern = new RegExp "#{name}(/[^/]+)*?(-[^/]+)?\.(ya?ml|json|xml|js|coffee)$"
-    async.map Config.search, (dir, cb) ->
+    async.map @search, (dir, cb) ->
       fs.find dir,
       include: pattern
       type: 'file'
@@ -93,14 +65,84 @@ class Config extends EventEmitter
           names[path.basename entry, path.extname entry] = true
       cb null, Object.keys names
 
-  # ### Load values
-  # This may be the initial loading or a reload after the files have changed.
-  @_load: (name, cb = ->) ->
-    debug "Start loading config for '#{name}'", Config.search
-    async.map Config.search, (dir, cb) ->
+  # ### Get an instance for the name
+  @_instances: {}
+  @instance: (name) ->
+    unless @_instances[name]?
+      @_instances[name] = new Config name
+    @_instances[name]
+
+  # ### Remove comments
+  # This is used within th JSON importer because JSON won't allow comments.
+  @_stripComments = (code) ->
+    uid = "_" + +new Date()
+    primitives = []
+    primIndex = 0
+    # remove the strings
+    code.replace(/(['"])(\\\1|.)+?\1/g, (match) ->
+      primitives[primIndex] = match
+      (uid + "") + primIndex++
+    )
+    # remove regular expressions
+    .replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, (match, $1, $2) ->
+      primitives[primIndex] = $2
+      $1 + (uid + "") + primIndex++
+    )
+    # Remove multi-line comments that contain would be single-line delimiters
+    # E.g. /* // <--
+    .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, "")
+    # Remove single and multi-line comments, no consideration of inner-contents
+    .replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, "")
+    # Remove multi-line comments that have a replaced ending (string/regex)
+    # Greedy, so no inner strings/regexes will stop it.
+    .replace(RegExp("\\/\\*[\\s\\S]+" + uid + "\\d+", "g"), "")
+    # Bring back strings & regexes
+    .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
+
+  # ### Create instance
+  # This will also load the data if not already done.
+  constructor: (@name) ->
+    unless name
+      throw new Error "Could not initialize Config class without configuration name."
+    # Instance specific search path set to class
+    @search = Config.search
+
+  # ### Default values
+  # Storage for default values, which have to be set with config name.
+  # The first level is the configuration name and it have to be set directly
+  # from the outside.
+  default: {}
+
+  # ### Configuration structure
+  data: {}
+
+  # ### Start loading
+  # This will call the function after correctly loaded.
+  loaded: false
+  loading: false
+  load: (cb = ->) ->
+    return cb null, @data if @loaded
+    # listen on finished loading
+    @once 'error', (err) ->
+      cb err
+    @once 'change', ->
+      @loaded = true
+      cb null, @data
+    # start loading if not already done
+    @_load() unless @loading
+  reload: (cb = ->) ->
+    if loading
+      @once 'change', -> @reload cb
+    @loaded = false
+    @load cb
+  _load: ->
+    @loading = true
+    debug "Start loading config for '#{@name}'", @search
+    @_watch()
+    async.map @search, (dir, cb) =>
       fs.find dir,
         type: 'file'
-        include: name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
+        include: @name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
       , (err, list) ->
         if err
           debug "Skipped search in '#{dir}' because of access problems."
@@ -136,133 +178,66 @@ class Config extends EventEmitter
           # combine if multiple files found
           values = object.extend.apply @, results
           cb null, values
-    , (err, results) ->
+    , (err, results) =>
+      return @emit 'error', err if err
       # add default values
-      if Config.default?[name]?
-        results.unshift Config.default[name]
+      if @default?
+        results.unshift @default
       # combine everything together
-      Config._set name, {}, object.extend.apply(@, results), cb
+      @data = object.extend.apply(@, results)
+      unless @check?
+        # done
+        @loaded = true
+        @loading = false
+        @emit 'change'
+        return
+      # run checks
+      @check @name, @data, (err) =>
+        @loaded = true
+        @loading = false
+        return @emit 'error', err if err
+        @emit 'change'
 
-  @_watch = =>
-    jsondir = JSON.stringify Config.search
+  # ### Add Check
+  check: null
+  addCheck: (check, cb = ->) ->
+    if typeof check is 'object'
+      @check = (name, values, cb) ->
+        validator.check name, check, values, cb
+    else
+      @check = check
+    return cb() unless @loaded
+    # run the check on the already loaded data
+    debug "Running check on already loaded data."
+    @check @name, @data, cb
+
+  # ### Watching for file changes
+  _watcher: null
+  _watchdir: null
+  _watch: ->
+    return unless @watch
+    jsondir = JSON.stringify Config._search
     if @_watcher?
       # only skip if watcher initialized and dirs haven't changed
       return if jsondir is @_watchdir
       # close old watcher
       @_watcher.close()
     # start watching config dirs
-    debug "Start watching for file changes...", Config.search
-    for dir in Config.search
+    debug "Start watching for file changes...", @search
+    @_watcher = null
+    for dir in @search
       unless @_watcher?
         @_watcher = chokidar.watch dir,
-          ignoreInitial: not @_watchdir
+          ignoreInitial: not @_watchdir?
       else
-        @_watcher.add dir
+        @_watcher.add dir,
+          ignoreInitial: not @_watchdir?
     @_watchdir = jsondir
     # action for changes
     @_watcher.on 'all', (event, file) =>
       return unless event in ['add', 'change', 'unlink']
-      # find config name
-      name = path.basename file, path.extname file
-      name = name.replace /-.*$/, ''
-      # start loading
-      @_load name, (err) =>
-        if err
-          console.log "Failed to reload #{name} configuration because of: #{err}".red
-          return
-        # emit events
-        @events.emit 'change', name
-
-  # ### Set config for name
-  # internal method to set given config to object and trigger events
-  @_set = (name, base, values, cb = ->) ->
-    # extend given values with new ones
-    values = object.extend base, values
-    # use values if no checks defined
-    unless Config._check?[name]?
-      Config._data[name] = values
-      return cb()
-    # run given checks for validation and optimization of values
-    debug "Run the checks for #{name} config."
-    async.each Config._check[name], (check, cb) ->
-      check "config.#{name}", values, cb
-    , (err) =>
-      # store resulting object
-      Config._data[name] = values
-      @events.emit 'change', name
-      return cb err if err
-      cb()
-
-  # ### Remove comments
-  # This is used within th JSON importer because JSON won't allow comments.
-  @_stripComments = (code) ->
-    uid = "_" + +new Date()
-    primitives = []
-    primIndex = 0
-    # remove the strings
-    code.replace(/(['"])(\\\1|.)+?\1/g, (match) ->
-      primitives[primIndex] = match
-      (uid + "") + primIndex++
-    )
-    # remove regular expressions
-    .replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, (match, $1, $2) ->
-      primitives[primIndex] = $2
-      $1 + (uid + "") + primIndex++
-    )
-    # Remove multi-line comments that contain would be single-line delimiters
-    # E.g. /* // <--
-    .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, "")
-    # Remove single and multi-line comments, no consideration of inner-contents
-    .replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, "")
-    # Remove multi-line comments that have a replaced ending (string/regex)
-    # Greedy, so no inner strings/regexes will stop it.
-    .replace(RegExp("\\/\\*[\\s\\S]+" + uid + "\\d+", "g"), "")
-    # Bring back strings & regexes
-    .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
-
-  # instance based events
-  events: new EventEmitter
-
-  # ### Create instance
-  # This will also load the data if not already done.
-  constructor: (@_name, cb) ->
-    unless _name
-      throw new Error "Could not initialize Config class without configuration name."
-    # support callback through event wrapper
-    if cb?
-      @on 'error', (err) ->
-        cb err
-        cb = ->
-      @on 'ready', ->
-        cb null, @
-    # only initialize instance if data already loaded
-    if Config._data[_name]?
-      @_init()
-      return @emit 'ready'
-    Config._load _name, (err) =>
-      # initialize instance if everything went ok
-      @emit 'error', err if err
-      @_init()
-      @emit 'ready'
-    # start watching files if not already done
-    Config._watch()
-    Config.events.on 'change', (name) =>
-      return unless name is @_name
-      @_init()
-      @emit 'change'
-
-  # ### Initialize or reinitialize the instance data
-  _init: =>
-    delete @key for key of @
-    @[key] = value for key, value of Config._data[@_name]
-
-  # ### Set config
-  # Set the given configuration values.
-  set: (values, cb = ->) ->
-    Config._set _name, Config._data[_name], values, (err) ->
-      @emit 'change'
-      cb err
-
+      debug "Reloading config for #{@name}"
+      @reload()
 
 # Exports
 # -------------------------------------------------

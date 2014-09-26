@@ -50,40 +50,45 @@ If nothing specified it will search in the above directories under the directory
 specified in the global variable `ROOT_DIR`. See more about the
 [Alinex File Structure](http://alinex.github.io/node-alinex/src/doc/filestructure.md.html)
 
-Now you have to instantiate a new Config instance and have the settings as
-properties for easy access. This is asynchronous caused by the potential file
-loading, so you have to use a callback:
+To load a specific configuration you have to instantiate it with it's name. The
+factory method will help to only have one instance per each configuration name.
 
-    var config = new Config('server', function() {
-      // ...
-      if (config.url) {
-        console.log('Started at '+config.url);
-      }
-    });
+    var config = Config.instance('server');
 
-Or retrieve the instance in the callback:
-
-    new Config('server', function(err, config) {
-      // ...
-      if (config.url) {
-        console.log('Started at '+config.url);
-      }
-    });
-
-Alternatively you may use events:
+Alternatively you may create a new isolated instance, which is mostly necessary
+if you have the same name but in another path being used separately.
 
     var config = new Config('server');
-    config.on('ready', fucntion() {
+
+Therefore you may specify a special search path:
+
+    config.search = ['var/src/config', 'var/local/config'];
+
+Before using it you now have to load the configuration. That will be started
+after calling `load`. After that you got the settings as properties for easy
+access.
+
+    config.load(function(err, data) {
+      if (err) {...}
+      // ...
+      if (config.data.url) {
+        console.log('Started at '+config.data.url);
+      }
+    });
+
+To make accessing of the config values shorter you may also use:
+
+    config.load(function(err, data) {
+      if (err) {...}
+      config = data;
       // ...
       if (config.url) {
         console.log('Started at '+config.url);
       }
     });
-    config.on('error', fucntion(err) {
-      throw err;
-    });
 
-The asynchronous creation of an instance will load and import the settings.
+
+
 
 
 API
@@ -110,7 +115,6 @@ API
 The following events are supported:
 
 - `error` - then something fails (with message as data)
-- `ready` - then the instance is completely loaded
 - `change` - the instance data has changed after loading
 
 
