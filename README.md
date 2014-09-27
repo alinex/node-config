@@ -88,26 +88,23 @@ To make accessing of the config values shorter you may also use:
     });
 
 
-
-
-
 API
 -------------------------------------------------
 
 ### Static calls
 
 - [Config.search](src/index.coffee#search) - to set the search path
-- [Config.default](src/index.coffee#default values) - to set the default values
-- [Config.addCheck](src/index.coffee#add check function) - to validate or
-  optimize the values
 - [Config.find()](src/index.coffee#find configuration files) - to search for
   existing configuration files
+- [Config.instance()](src/index.coffee#factory) - to get a config instance
 
 ### Instances
 
 - [new Config()](src/index.coffee#create instance) - to create a new config
   instance
-- [conf.set()](src/index.coffee#set config) - to change config values
+- [config.default](src/index.coffee#default values) - to set the default values
+- [config.addCheck](src/index.coffee#add check function) - to validate or
+  optimize the values
 - values are directly accessible
 
 ### Instance Events
