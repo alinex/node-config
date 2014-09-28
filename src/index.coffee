@@ -65,7 +65,8 @@ class Config extends EventEmitter
           names[path.basename entry, path.extname entry] = true
       cb null, Object.keys names
 
-  # ### Get an instance for the name
+  # ### Factory
+  # Get an instance for the name
   @_instances: {}
   @instance: (name) ->
     unless @_instances[name]?
