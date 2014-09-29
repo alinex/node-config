@@ -108,14 +108,14 @@ class Config extends EventEmitter
     # Instance specific search path set to class
     @search = Config.search
 
-  # ### Default values
-  # Storage for default values, which have to be set with config name.
-  # The first level is the configuration name and it have to be set directly
-  # from the outside.
-  default: {}
+    # ### Default values
+    # Storage for default values, which have to be set with config name.
+    # The first level is the configuration name and it have to be set directly
+    # from the outside.
+    @default = {}
 
-  # ### Configuration structure
-  data: {}
+    # ### Configuration structure
+    data = {}
 
   # ### Start loading
   # This will call the function after correctly loaded.
@@ -125,7 +125,7 @@ class Config extends EventEmitter
     return cb null, @data if @loaded
     # listen on finished loading
     @once 'error', (err) ->
-      cb err
+      cb err, @data
     @once 'change', ->
       @loaded = true
       cb null, @data
@@ -136,7 +136,7 @@ class Config extends EventEmitter
       @once 'change', -> @reload cb
     @loaded = false
     @load cb
-  _load: ->
+  _load: =>
     @loading = true
     debug "Start loading config for '#{@name}'", @search
     @_watch()
@@ -144,13 +144,13 @@ class Config extends EventEmitter
       fs.find dir,
         type: 'file'
         include: @name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
-      , (err, list) ->
+      , (err, list) =>
         if err
           debug "Skipped search in '#{dir}' because of access problems."
           return cb null, {}
         # skip also if no files found
         return cb null, {} unless list
-        async.map list, (file, cb) ->
+        async.map list, (file, cb) =>
           debug "Reading #{file}..."
           fs.readFile file, 'utf8', (err, data) ->
             return cb err if err
@@ -175,9 +175,9 @@ class Config extends EventEmitter
                 cb null, m.exports
               else
                 cb "Config type not supported: #{file}"
-        , (err, results) ->
+        , (err, results) =>
           # combine if multiple files found
-          values = object.extend.apply @, results
+          values = object.extend.apply @data, results
           cb null, values
     , (err, results) =>
       return @emit 'error', err if err
@@ -185,7 +185,7 @@ class Config extends EventEmitter
       if @default?
         results.unshift @default
       # combine everything together
-      @data = object.extend.apply(@, results)
+      @data = object.extend.apply @data, results
       unless @check?
         # done
         @loaded = true
