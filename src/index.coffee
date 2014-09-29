@@ -199,9 +199,9 @@ class Config extends EventEmitter
         return @emit 'error', err if err
         @emit 'change'
 
-  # ### Add Check
+  # ### Set check routine
   check: null
-  addCheck: (check, cb = ->) ->
+  setCheck: (check, cb = ->) ->
     if typeof check is 'object'
       @check = (name, values, cb) ->
         validator.check name, check, values, cb

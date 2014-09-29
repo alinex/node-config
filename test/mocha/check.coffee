@@ -16,7 +16,7 @@ describe "Checks", ->
 
     it "should succeed", (done) ->
       config = new Config 'test1'
-      config.addCheck (name, config, cb) ->
+      config.setCheck (name, config, cb) ->
         return cb "No title defined!" unless config.title
         cb()
       config.load (err, config) ->
@@ -25,7 +25,7 @@ describe "Checks", ->
 
     it "should fail", (done) ->
       config = new Config 'test1'
-      config.addCheck (name, config, cb) ->
+      config.setCheck (name, config, cb) ->
         return cb "No subtitle defined!" unless config.subtitle
         cb()
       config.load (err, config) ->
@@ -35,7 +35,7 @@ describe "Checks", ->
     it "should succeed if added after loading", (done) ->
       config = new Config 'test1'
       config.load (err, data) ->
-        config.addCheck (name, config, cb) ->
+        config.setCheck (name, config, cb) ->
           return cb "No title defined!" unless config.title
           cb()
         , (err) ->
@@ -45,7 +45,7 @@ describe "Checks", ->
     it "should fail if added after loading", (done) ->
       config = new Config 'test1'
       config.load (err, data) ->
-        config.addCheck (name, config, cb) ->
+        config.setCheck (name, config, cb) ->
           return cb "No title defined!" unless config.title2
           cb()
         , (err) ->
@@ -56,7 +56,7 @@ describe "Checks", ->
 
     it "should extend value", (done) ->
       config = new Config 'test1'
-      config.addCheck (name, config, cb) ->
+      config.setCheck (name, config, cb) ->
         config.title += ' (changed)'
         cb()
       config.load (err, config) ->
@@ -66,7 +66,7 @@ describe "Checks", ->
 
     it "should add key+value", (done) ->
       config = new Config 'test1'
-      config.addCheck (name, config, cb) ->
+      config.setCheck (name, config, cb) ->
         config.mytitle = config.title + ' (changed)'
         cb()
       config.load (err, config) ->
