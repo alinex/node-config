@@ -123,14 +123,14 @@ class Config extends EventEmitter
   loading: false
   load: (cb = ->) ->
     return cb null, @data if @loaded
+    # wait for already loading
+    if @loading
+      return @once 'change', -> cb null, @data
     # listen on finished loading
-    @once 'error', (err) ->
-      cb err, @data
-    @once 'change', ->
-      @loaded = true
-      cb null, @data
+    @once 'error', (err) -> cb err, @data
+    @once 'change', -> cb null, @data
     # start loading if not already done
-    @_load() unless @loading
+    @_load()
   reload: (cb = ->) ->
     if loading
       @once 'change', -> @reload cb
