@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.1 (2014-10-08)
+-------------------------------------------------
+- Upgraded chokidar submodule.
+- Small optimization in event callbacks.
+- Fixed default value handling.
+- Rename method addCheck -> setCheck
+- Updated code documentation.
+- Updated validator dependency.
+- Redesign to be more robust for concurrent access.
+- Reenable watch feature.
+- Remove watch option till further tested.
+
 Version 0.3.0 (2014-09-17)
 -------------------------------------------------
 - Updated debug to 2.0.0
