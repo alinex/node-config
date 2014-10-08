@@ -34,12 +34,12 @@
     "alinex-fs": "0.1.x",
     "alinex-validator": "0.x",
     "async": "0.9.x",
-    "chokidar": "0.8.x",
+    "chokidar": "0.8.x - 0.9.x",
     "debug": "0.8.0 - 2.x",
     "js-yaml": "3.x"
   },
   "devDependencies": {
-    "alinex-make": "0.3.x",
+    "alinex-make": "0.4.x",
     "chai": "1.x",
     "alinex-util": "0.1.x",
     "alinex-error": "0.2.x"
