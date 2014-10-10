@@ -1,13 +1,14 @@
 {
   "name": "alinex-config",
   "version": "0.3.1",
-  "description": "Loading configuration files...",
+  "description": "Loading configuration files from different formats asynchrone with possible checks.",
   "copyright": "Alexander Schilling 2014",
   "private": false,
   "keywords": [
     "configuration",
     "parsing",
-    "loading"
+    "loading",
+    "setup"
   ],
   "homepage": "http://alinex.github.io/node-config/",
   "repository": {
@@ -34,8 +35,8 @@
     "alinex-fs": "0.1.x",
     "alinex-validator": "0.x",
     "async": "0.9.x",
-    "chokidar": "0.8.x - 0.9.x",
-    "debug": "0.8.0 - 2.x",
+    "chokidar": ">=0.8.0 <1.0.0",
+    "debug": ">=0.8.0 <3.0.0",
     "js-yaml": "3.x"
   },
   "devDependencies": {
