@@ -185,7 +185,7 @@ class Config extends EventEmitter
       if @default?
         results.unshift @default
       # combine everything together
-      @data = object.extend.apply @data, results
+      @data = object.extend.apply {}, results
       unless @check?
         # done
         @loaded = true
