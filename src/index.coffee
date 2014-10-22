@@ -125,7 +125,9 @@ class Config extends EventEmitter
     return cb null, @data if @loaded
     # wait for already loading
     if @loading
-      return @once 'change', -> cb null, @data
+      @once 'error', (err) -> cb err, @data
+      @once 'change', -> cb null, @data
+      return
     # listen on finished loading
     @once 'error', (err) -> cb err, @data
     @once 'change', -> cb null, @data
