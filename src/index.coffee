@@ -193,12 +193,14 @@ class Config extends EventEmitter
         @loaded = true
         @loading = false
         @emit 'change'
+        debug "Loaded #{@name} configuration successfully", @data
         return
       # run checks
       @check @name, @data, (err) =>
         @loaded = true
         @loading = false
         return @emit 'error', err if err
+        debug "Loaded #{@name} configuration successfully", @data
         @emit 'change'
 
   # ### Set check routine
