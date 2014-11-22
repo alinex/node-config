@@ -115,7 +115,7 @@ class Config extends EventEmitter
     @default = {}
 
     # ### Configuration structure
-    data = {}
+    @data = {}
 
   # ### Start loading
   # This will call the function after correctly loaded.
@@ -152,7 +152,7 @@ class Config extends EventEmitter
           return cb null, {}
         # skip also if no files found
         return cb null, {} unless list
-        async.map list, (file, cb) =>
+        async.map list, (file, cb) ->
           debug "Reading #{file}..."
           fs.readFile file, 'utf8', (err, data) ->
             return cb err if err
@@ -186,8 +186,11 @@ class Config extends EventEmitter
       # add default values
       if @default?
         results.unshift @default
-      # combine everything together
-      @data = object.extend.apply {}, results
+      # combine everything together clean the object and refill to be updated
+      # without resetting thee references
+      delete @data[key] for key in Object.keys @data
+      results.unshift @data
+      object.extend.apply null, results
       unless @check?
         # done
         @loaded = true
