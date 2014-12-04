@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.2 (2014-12-04)
+-------------------------------------------------
+- Adding debug entry to display loaded values.
+- Optimized reloading of values.
+- Don't output config settings on debug.
+- Set debug message if config loaded successfully.
+- Integrated travis and coveralls tracking.
+- Fixed bug in not sending errors back if load called multiple times.
+- Small fix of unneccessary call.
+- Fixed package.json version notation.
+
 Version 0.3.1 (2014-10-08)
 -------------------------------------------------
 - Upgraded chokidar submodule.
