@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.js.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-config/coverage/lcov-report/lib/indexjs.html", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>index.js.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Code coverage report for lib/index.js<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;../prettify.css&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nt">body</span><span class="o">,</span> <span class="nt">html</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">body</span> <span class="p">{</span>
+            <span class="k">font-family</span><span class="o">:</span> <span class="n">Helvetica</span> <span class="n">Neue</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span><span class="n">Arial</span><span class="p">;</span>
+            <span class="k">font-size</span><span class="o">:</span> <span class="m">10pt</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.header</span><span class="o">,</span> <span class="nt">div</span><span class="nc">.footer</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#eee</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.header</span> <span class="p">{</span>
+            <span class="k">z-index</span><span class="o">:</span> <span class="m">100</span><span class="p">;</span>
+            <span class="k">position</span><span class="o">:</span> <span class="k">fixed</span><span class="p">;</span>
+            <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span>
+            <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.footer</span> <span class="p">{</span>
+            <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.body</span> <span class="p">{</span>
+            <span class="k">margin-top</span><span class="o">:</span> <span class="m">10em</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.meta</span> <span class="p">{</span>
+            <span class="k">font-size</span><span class="o">:</span> <span class="m">90</span><span class="o">%</span><span class="p">;</span>
+            <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span> <span class="p">{</span>
+            <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">h1</span> <span class="p">{</span>
+            <span class="k">font-size</span><span class="o">:</span> <span class="m">12pt</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">h2</span> <span class="p">{</span>
+            <span class="k">font-size</span><span class="o">:</span> <span class="m">10pt</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">pre</span> <span class="p">{</span>
+            <span class="k">font-family</span><span class="o">:</span> <span class="n">Consolas</span><span class="o">,</span> <span class="n">Menlo</span><span class="o">,</span> <span class="n">Monaco</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
+            <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">line-height</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+            <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+            <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">tab</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+            <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">tab</span><span class="o">-</span><span class="k">size</span><span class="o">:</span>  <span class="m">2</span><span class="p">;</span>
+            <span class="n">tab</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nt">div</span><span class="nc">.path</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">110</span><span class="o">%</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.path</span> <span class="nt">a</span><span class="nd">:link</span><span class="o">,</span> <span class="nt">div</span><span class="nc">.path</span> <span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="p">{</span> <span class="k">border-collapse</span><span class="o">:</span> <span class="k">collapse</span><span class="p">;</span> <span class="k">margin</span><span class="o">:</span><span class="m">0</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="p">}</span>
+
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span> <span class="p">{</span>
+            <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+            <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span>
+            <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span><span class="nc">.line-count</span> <span class="p">{</span>
+            <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+            <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+            <span class="k">padding-right</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span><span class="nc">.line-coverage</span> <span class="p">{</span>
+            <span class="k">color</span><span class="o">:</span> <span class="m">#777</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+            <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span>
+            <span class="k">border-right</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span><span class="nc">.text</span> <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span> <span class="nt">span</span><span class="nc">.cline-any</span> <span class="p">{</span>
+            <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span>
+            <span class="k">width</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span> <span class="nt">span</span><span class="nc">.cline-neutral</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#eee</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span> <span class="nt">span</span><span class="nc">.cline-yes</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#b5d592</span><span class="p">;</span>
+            <span class="k">color</span><span class="o">:</span> <span class="m">#999</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">table</span><span class="nc">.coverage</span> <span class="nt">td</span> <span class="nt">span</span><span class="nc">.cline-no</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#fc8c84</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nc">.cstat-yes</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.cstat-no</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#fc8c84</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.fstat-no</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#ffc520</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.cbranch-no</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span>  <span class="nb">yellow</span> <span class="cp">!important</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="nc">.cstat-skip</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#ddd</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.fstat-skip</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#ddd</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.cbranch-skip</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#ddd</span> <span class="cp">!important</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="nc">.missing-if-branch</span> <span class="p">{</span>
+            <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+            <span class="k">margin-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+            <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span><span class="p">;</span>
+            <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+            <span class="k">color</span><span class="o">:</span> <span class="nb">yellow</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nc">.skip-if-branch</span> <span class="p">{</span>
+            <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+            <span class="k">margin-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+            <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span><span class="p">;</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">;</span>
+            <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nc">.missing-if-branch</span> <span class="nc">.typ</span><span class="o">,</span> <span class="nc">.skip-if-branch</span> <span class="nc">.typ</span> <span class="p">{</span>
+            <span class="k">color</span><span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nc">.entity</span><span class="o">,</span> <span class="nc">.metric</span> <span class="p">{</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.metric</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#333</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0.3em</span><span class="p">;</span> <span class="k">background</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.metric</span> <span class="nt">small</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">80</span><span class="o">%</span><span class="p">;</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#666</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">table</span> <span class="p">{</span> <span class="k">border-collapse</span><span class="o">:</span> <span class="k">collapse</span><span class="p">;</span> <span class="k">margin</span><span class="o">:</span> <span class="m">3em</span><span class="p">;</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">110</span><span class="o">%</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">td</span><span class="o">,</span> <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">table</span>  <span class="nt">th</span> <span class="p">{</span> <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0.25em</span> <span class="m">1em</span><span class="p">;</span> <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">th</span> <span class="p">{</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="k">background</span><span class="o">:</span> <span class="m">#eee</span><span class="p">;</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">th</span><span class="nc">.file</span> <span class="p">{</span> <span class="k">border-right</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">th</span><span class="nc">.pic</span> <span class="p">{</span> <span class="k">border-left</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">th</span><span class="nc">.pct</span> <span class="p">{</span> <span class="k">border-right</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">th</span><span class="nc">.abs</span> <span class="p">{</span> <span class="k">border-left</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">td</span><span class="nc">.pct</span> <span class="p">{</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span> <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">td</span><span class="nc">.abs</span> <span class="p">{</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">90</span><span class="o">%</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#444</span><span class="p">;</span> <span class="k">border-right</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">td</span><span class="nc">.file</span> <span class="p">{</span> <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span> <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="k">white-space</span><span class="o">:</span> <span class="k">nowrap</span><span class="p">;</span>  <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">td</span><span class="nc">.pic</span> <span class="p">{</span> <span class="k">min-width</span><span class="o">:</span> <span class="m">120px</span> <span class="cp">!important</span><span class="p">;</span>  <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">a</span><span class="nd">:link</span> <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">underline</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nt">tfoot</span> <span class="nt">td</span> <span class="p">{</span> <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.yui3-datatable-sort-indicator</span><span class="o">,</span> <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.dummy-sort-indicator</span> <span class="p">{</span>
+            <span class="k">height</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+            <span class="k">width</span><span class="o">:</span> <span class="m">7px</span><span class="p">;</span>
+            <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+            <span class="k">margin-left</span><span class="o">:</span> <span class="m">0.5em</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.yui3-datatable-sort-indicator</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="sx">url(&quot;https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png&quot;)</span> <span class="k">no-repeat</span> <span class="k">scroll</span> <span class="m">0</span> <span class="m">0</span> <span class="k">transparent</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.yui3-datatable-sorted</span> <span class="nc">.yui3-datatable-sort-indicator</span> <span class="p">{</span>
+            <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-20px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.yui3-datatable-sorted-desc</span> <span class="nc">.yui3-datatable-sort-indicator</span> <span class="p">{</span>
+            <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-10px</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nc">.high</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#b5d592</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.medium</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#ffe87c</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.low</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#fc8c84</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="nt">span</span><span class="nc">.cover-fill</span><span class="o">,</span> <span class="nt">span</span><span class="nc">.cover-empty</span> <span class="p">{</span>
+            <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+            <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#444</span><span class="p">;</span>
+            <span class="k">background</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+            <span class="k">height</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">span</span><span class="nc">.cover-fill</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">;</span>
+            <span class="k">border-right</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#444</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">span</span><span class="nc">.cover-empty</span> <span class="p">{</span>
+            <span class="k">background</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+            <span class="k">border-left</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">span</span><span class="nc">.cover-full</span> <span class="p">{</span>
+            <span class="k">border-right</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">pre</span><span class="nc">.prettyprint</span> <span class="p">{</span>
+            <span class="k">border</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nc">.com</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#999</span> <span class="cp">!important</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nc">.ignore-none</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#999</span><span class="p">;</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;header medium&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Code coverage report for <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;entity&quot;</span><span class="nt">&gt;</span>lib/index.js<span class="nt">&lt;/span&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>
+        
+        Statements: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>76.92% <span class="nt">&lt;small&gt;</span>(140 / 182)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        
+        
+        Branches: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>48.39% <span class="nt">&lt;small&gt;</span>(30 / 62)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        
+        
+        Functions: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>76.92% <span class="nt">&lt;small&gt;</span>(30 / 39)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        
+        
+        Lines: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>75.72% <span class="nt">&lt;small&gt;</span>(131 / 173)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        
+        Ignored: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;ignore-none&quot;</span><span class="nt">&gt;</span>none<span class="nt">&lt;/span&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+    <span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;../index.html&quot;</span><span class="nt">&gt;</span>All files<span class="nt">&lt;/a&gt;</span> <span class="ni">&amp;#187;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;index.html&quot;</span><span class="nt">&gt;</span>lib/<span class="nt">&lt;/a&gt;</span> <span class="ni">&amp;#187;</span> index.js<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;pre&gt;&lt;table</span> <span class="na">class=</span><span class="s">&quot;coverage&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;tr&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;line-count&quot;</span><span class="nt">&gt;</span>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;line-coverage&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>44<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>44<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>44<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>66<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>66<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>66<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>66<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>66<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>22<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>3<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>6<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>4<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-yes&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;&lt;pre</span> <span class="na">class=</span><span class="s">&quot;prettyprint lang-js&quot;</span><span class="nt">&gt;</span>(function() {
+  var Config, EventEmitter, async, chokidar, debug, fs, object, path, validator,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;else path not taken&quot;</span> <span class="nt">&gt;</span>E<span class="nt">&lt;/span&gt;</span>if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+<span class="ni">&amp;nbsp;</span>
+  debug = require(&#39;debug&#39;)(&#39;config&#39;);
+<span class="ni">&amp;nbsp;</span>
+  path = require(&#39;path&#39;);
+<span class="ni">&amp;nbsp;</span>
+  async = require(&#39;async&#39;);
+<span class="ni">&amp;nbsp;</span>
+  chokidar = require(&#39;chokidar&#39;);
+<span class="ni">&amp;nbsp;</span>
+  EventEmitter = require(&#39;events&#39;).EventEmitter;
+<span class="ni">&amp;nbsp;</span>
+  fs = require(&#39;alinex-fs&#39;);
+<span class="ni">&amp;nbsp;</span>
+  object = require(&#39;alinex-util&#39;).object;
+<span class="ni">&amp;nbsp;</span>
+  validator = require(&#39;alinex-validator&#39;);
+<span class="ni">&amp;nbsp;</span>
+  Config = (function(_super) {
+    var base;
+<span class="ni">&amp;nbsp;</span>
+    __extends(Config, _super);
+<span class="ni">&amp;nbsp;</span>
+    base = typeof ROOT_DIR !== &quot;undefined&quot; <span class="ni">&amp;amp;&amp;amp;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;branch-1 cbranch-no&quot;</span> <span class="na">title=</span><span class="s">&quot;branch not covered&quot;</span> <span class="nt">&gt;</span>ROOT_DIR !== null <span class="nt">&lt;/span&gt;</span>? <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;branch-0 cbranch-no&quot;</span> <span class="na">title=</span><span class="s">&quot;branch not covered&quot;</span> <span class="nt">&gt;</span>ROOT_DIR <span class="nt">&lt;/span&gt;</span>: &#39;.&#39;;
+<span class="ni">&amp;nbsp;</span>
+    Config.search = [path.join(base, &#39;var&#39;, &#39;src&#39;, &#39;config&#39;), path.join(base, &#39;var&#39;, &#39;local&#39;, &#39;config&#39;)];
+<span class="ni">&amp;nbsp;</span>
+    Config.watch = true;
+<span class="ni">&amp;nbsp;</span>
+    Config.find = function(name, cb) {
+      var pattern;
+      debug(&quot;Search for config files &#39;&quot; + name + &quot;&#39;&quot;);
+      name = name ? <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;branch-0 cbranch-no&quot;</span> <span class="na">title=</span><span class="s">&quot;branch not covered&quot;</span> <span class="nt">&gt;</span>&quot;/&quot; + name <span class="nt">&lt;/span&gt;</span>: &#39;&#39;;
+      pattern = new RegExp(&quot;&quot; + name + &quot;(/[^/]+)*?(-[^/]+)?\.(ya?ml|json|xml|js|coffee)$&quot;);
+      return async.map(this.search, function(dir, cb) {
+        return fs.find(dir, {
+          include: pattern,
+          type: &#39;file&#39;
+        }, cb);
+      }, function(err, results) {
+        var entry, list, names, _i, _j, _len, _len1;
+        names = {};
+        for (_i = 0, _len = results.length; _i <span class="ni">&amp;lt;</span> _len; _i++) {
+          list = results[_i];
+          for (_j = 0, _len1 = list.length; _j <span class="ni">&amp;lt;</span> _len1; _j++) {
+            entry = list[_j];
+            names[path.basename(entry, path.extname(entry))] = true;
+          }
+        }
+        return cb(null, Object.keys(names));
+      });
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config._instances = {};
+<span class="ni">&amp;nbsp;</span>
+    Config.instance = function(name) {
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;else path not taken&quot;</span> <span class="nt">&gt;</span>E<span class="nt">&lt;/span&gt;</span>if (this._instances[name] == null) {
+        this._instances[name] = new Config(name);
+      }
+      return this._instances[name];
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config._stripComments = function(code) {
+      var primIndex, primitives, uid;
+      uid = &quot;_&quot; + +new Date();
+      primitives = [];
+      primIndex = 0;
+      return code.replace(/([&#39;&quot;])(\\\1|.)+?\1/g, function(match) {
+        primitives[primIndex] = match;
+        return (uid + &quot;&quot;) + primIndex++;
+      }).replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function(match, $1, $2) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        primitives[primIndex] = $2;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return $1 + (uid + &quot;&quot;) + primIndex++;<span class="nt">&lt;/span&gt;</span>
+      }).replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, &quot;&quot;).replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, &quot;&quot;).replace(RegExp(&quot;\\/\\*[\\s\\S]+&quot; + uid + &quot;\\d+&quot;, &quot;g&quot;), &quot;&quot;).replace(RegExp(uid + &quot;(\\d+)&quot;, &quot;g&quot;), function(match, n) {
+        return primitives[n];
+      });
+    };
+<span class="ni">&amp;nbsp;</span>
+    function Config(name) {
+      var data;
+      this.name = name;
+      this._load = __bind(this._load, this);
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (!name) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        throw new Error(&quot;Could not initialize Config class without configuration name.&quot;);<span class="nt">&lt;/span&gt;</span>
+      }
+      this.search = Config.search;
+      this[&quot;default&quot;] = {};
+      data = {};
+    }
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.loaded = false;
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.loading = false;
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.load = function(cb) {
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (cb == null) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        cb = <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function() {<span class="nt">&lt;/span&gt;</span>};<span class="nt">&lt;/span&gt;</span>
+      }
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (this.loaded) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return cb(null, this.data);<span class="nt">&lt;/span&gt;</span>
+      }
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (this.loading) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return this.once(&#39;change&#39;, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function() {<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          return cb(null, this.data);<span class="nt">&lt;/span&gt;</span>
+        });
+      }
+      this.once(&#39;error&#39;, function(err) {
+        return cb(err, this.data);
+      });
+      this.once(&#39;change&#39;, function() {
+        return cb(null, this.data);
+      });
+      return this._load();
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.reload = <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function(cb) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      if (cb == null) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        cb = <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function() {<span class="nt">&lt;/span&gt;</span>};<span class="nt">&lt;/span&gt;</span>
+      }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      if (loading) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        this.once(&#39;change&#39;, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function() {<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          return this.reload(cb);<span class="nt">&lt;/span&gt;</span>
+        });
+      }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      this.loaded = false;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      return this.load(cb);<span class="nt">&lt;/span&gt;</span>
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype._load = function() {
+      this.loading = true;
+      debug(&quot;Start loading config for &#39;&quot; + this.name + &quot;&#39;&quot;, this.search);
+      this._watch();
+      return async.map(this.search, (function(_this) {
+        return function(dir, cb) {
+          return fs.find(dir, {
+            type: &#39;file&#39;,
+            include: _this.name + &#39;?(-?*).{yml,yaml,json,xml,js,coffee}&#39;
+          }, function(err, list) {
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (err) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>              debug(&quot;Skipped search in &#39;&quot; + dir + &quot;&#39; because of access problems.&quot;);<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>              return cb(null, {});<span class="nt">&lt;/span&gt;</span>
+            }
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (!list) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>              return cb(null, {});<span class="nt">&lt;/span&gt;</span>
+            }
+            return async.map(list, function(file, cb) {
+              debug(&quot;Reading &quot; + file + &quot;...&quot;);
+              return fs.readFile(file, &#39;utf8&#39;, function(err, data) {
+                var coffee, m, xml2js, yaml;
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (err) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>                  return cb(err);<span class="nt">&lt;/span&gt;</span>
+                }
+                switch (path.extname(file)) {
+                  case &#39;.yml&#39;:
+                  case &#39;.yaml&#39;:
+                    yaml = require(&#39;js-yaml&#39;);
+                    return cb(null, yaml.safeLoad(data));
+                  case &#39;.json&#39;:
+                    return cb(null, JSON.parse(Config._stripComments(data)));
+                  case &#39;.xml&#39;:
+                    xml2js = require(&#39;xml2js&#39;);
+                    return xml2js.parseString(data, cb);
+                  case &#39;.js&#39;:
+                    m = new module.constructor;
+                    m._compile(data, file);
+                    return cb(null, m.exports);
+                  case &#39;.coffee&#39;:
+                    coffee = require(&#39;coffee-script&#39;);
+                    m = new module.constructor;
+                    m._compile(coffee.compile(data), file);
+                    return cb(null, m.exports);
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;branch-6 cbranch-no&quot;</span> <span class="na">title=</span><span class="s">&quot;branch not covered&quot;</span> <span class="nt">&gt;</span>                  default:<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>                    return cb(&quot;Config type not supported: &quot; + file);<span class="nt">&lt;/span&gt;</span>
+                }
+              });
+            }, function(err, results) {
+              var values;
+              values = object.extend.apply(_this.data, results);
+              return cb(null, values);
+            });
+          });
+        };
+      })(this), (function(_this) {
+        return function(err, results) {
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (err) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>            return _this.emit(&#39;error&#39;, err);<span class="nt">&lt;/span&gt;</span>
+          }
+          <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;else path not taken&quot;</span> <span class="nt">&gt;</span>E<span class="nt">&lt;/span&gt;</span>if (_this[&quot;default&quot;] != null) {
+            results.unshift(_this[&quot;default&quot;]);
+          }
+          _this.data = object.extend.apply(_this.data, results);
+          if (_this.check == null) {
+            _this.loaded = true;
+            _this.loading = false;
+            _this.emit(&#39;change&#39;);
+            return;
+          }
+          return _this.check(_this.name, _this.data, function(err) {
+            _this.loaded = true;
+            _this.loading = false;
+            if (err) {
+              return _this.emit(&#39;error&#39;, err);
+            }
+            return _this.emit(&#39;change&#39;);
+          });
+        };
+      })(this));
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.check = null;
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype.setCheck = function(check, cb) {
+      if (cb == null) {
+        cb = function() {};
+      }
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;if path not taken&quot;</span> <span class="nt">&gt;</span>I<span class="nt">&lt;/span&gt;</span>if (typeof check === &#39;object&#39;) {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        this.check = <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function(name, values, cb) {<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          return validator.check(name, check, values, cb);<span class="nt">&lt;/span&gt;</span>
+        };
+      } else {
+        this.check = check;
+      }
+      if (!this.loaded) {
+        return cb();
+      }
+      debug(&quot;Running check on already loaded data.&quot;);
+      return this.check(this.name, this.data, cb);
+    };
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype._watcher = null;
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype._watchdir = null;
+<span class="ni">&amp;nbsp;</span>
+    Config.prototype._watch = function() {
+      var dir, jsondir, _i, _len, _ref;
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;missing-if-branch&quot;</span> <span class="na">title=</span><span class="s">&quot;else path not taken&quot;</span> <span class="nt">&gt;</span>E<span class="nt">&lt;/span&gt;</span>if (!this.watch) {
+        return;
+      }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      jsondir = JSON.stringify(Config._search);<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      if (this._watcher != null) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        if (jsondir === this._watchdir) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          return;<span class="nt">&lt;/span&gt;</span>
+        }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        this._watcher.close();<span class="nt">&lt;/span&gt;</span>
+      }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      debug(&quot;Start watching for file changes...&quot;, this.search);<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      this._watcher = null;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      _ref = this.search;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      for (_i = 0, _len = _ref.length; _i <span class="ni">&amp;lt;</span> _len; _i++) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        dir = _ref[_i];<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        if (this._watcher == null) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          this._watcher = chokidar.watch(dir, {<span class="nt">&lt;/span&gt;</span>
+            ignoreInitial: this._watchdir == null
+          });
+        } else {
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          this._watcher.add(dir, {<span class="nt">&lt;/span&gt;</span>
+            ignoreInitial: this._watchdir == null
+          });
+        }
+      }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      this._watchdir = jsondir;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      return this._watcher.on(&#39;all&#39;, (<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function(_this) {<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>function(event, file) {<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          if (event !== &#39;add&#39; <span class="ni">&amp;amp;&amp;amp;</span> event !== &#39;change&#39; <span class="ni">&amp;amp;&amp;amp;</span> event !== &#39;unlink&#39;) {<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>            return;<span class="nt">&lt;/span&gt;</span>
+          }
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          debug(&quot;Reloading config for &quot; + _this.name);<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          return _this.reload();<span class="nt">&lt;/span&gt;</span>
+        };
+      })(this));
+    };
+<span class="ni">&amp;nbsp;</span>
+    return Config;
+<span class="ni">&amp;nbsp;</span>
+  })(EventEmitter);
+<span class="ni">&amp;nbsp;</span>
+  module.exports = Config;
+<span class="ni">&amp;nbsp;</span>
+}).call(this);
+<span class="ni">&amp;nbsp;</span>
+//# sourceMappingURL=index.map<span class="nt">&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;&lt;/pre&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;meta&quot;</span><span class="nt">&gt;</span>Generated by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://istanbul-js.org/&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>istanbul<span class="nt">&lt;/a&gt;</span> at Fri Oct 10 2014 22:04:24 GMT+0200 (CEST)<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../prettify.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+
+    <span class="nx">YUI</span><span class="p">().</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;datatable&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">Y</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">formatters</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="nx">pct</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">o</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">record</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">)[</span><span class="nx">o</span><span class="p">.</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
+              <span class="k">try</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">;</span>
+              <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">;</span> <span class="p">}</span>
+          <span class="p">},</span>
+          <span class="nx">html</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">o</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">record</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">)[</span><span class="nx">o</span><span class="p">.</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
+              <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">record</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;_html&#39;</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+          <span class="nx">defaultFormatter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">o</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">record</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;classes&#39;</span><span class="p">)[</span><span class="nx">o</span><span class="p">.</span><span class="nx">column</span><span class="p">.</span><span class="nx">key</span><span class="p">];</span>
+              <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+          <span class="p">};</span>
+
+        <span class="kd">function</span> <span class="nx">getColumns</span><span class="p">(</span><span class="nx">theadNode</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">colNodes</span> <span class="o">=</span> <span class="nx">theadNode</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;tr th&#39;</span><span class="p">),</span>
+                <span class="nx">cols</span> <span class="o">=</span> <span class="p">[],</span>
+                <span class="nx">col</span><span class="p">;</span>
+            <span class="nx">colNodes</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">colNode</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">col</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nx">key</span><span class="o">:</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-col&#39;</span><span class="p">),</span>
+                    <span class="nx">label</span><span class="o">:</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+                    <span class="nx">sortable</span><span class="o">:</span> <span class="o">!</span><span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-nosort&#39;</span><span class="p">),</span>
+                    <span class="nx">className</span><span class="o">:</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">),</span>
+                    <span class="nx">type</span><span class="o">:</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-type&#39;</span><span class="p">),</span>
+                    <span class="nx">allowHTML</span><span class="o">:</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-html&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span> <span class="o">||</span> <span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-fmt&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;html&#39;</span>
+                <span class="p">};</span>
+                <span class="nx">col</span><span class="p">.</span><span class="nx">formatter</span> <span class="o">=</span> <span class="nx">formatters</span><span class="p">[</span><span class="nx">colNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-fmt&#39;</span><span class="p">)]</span> <span class="o">||</span> <span class="nx">defaultFormatter</span><span class="p">;</span>
+                <span class="nx">cols</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">col</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="k">return</span> <span class="nx">cols</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">function</span> <span class="nx">getRowData</span><span class="p">(</span><span class="nx">trNode</span><span class="p">,</span> <span class="nx">cols</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">tdNodes</span> <span class="o">=</span> <span class="nx">trNode</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">),</span>
+                    <span class="nx">i</span><span class="p">,</span>
+                    <span class="nx">row</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">classes</span><span class="o">:</span> <span class="p">{}</span> <span class="p">},</span>
+                    <span class="nx">node</span><span class="p">,</span>
+                    <span class="nx">name</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">cols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">name</span> <span class="o">=</span> <span class="nx">cols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">key</span><span class="p">;</span>
+                <span class="nx">node</span> <span class="o">=</span> <span class="nx">tdNodes</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+                <span class="nx">row</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-value&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">node</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">);</span>
+                <span class="nx">row</span><span class="p">[</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;_html&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">);</span>
+                <span class="nx">row</span><span class="p">.</span><span class="nx">classes</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">);</span>
+                <span class="c1">//Y.log(&#39;Name: &#39; + name + &#39;; Value: &#39; + row[name]);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">cols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="nx">row</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">row</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="c1">//Y.log(row);</span>
+            <span class="k">return</span> <span class="nx">row</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">function</span> <span class="nx">getData</span><span class="p">(</span><span class="nx">tbodyNode</span><span class="p">,</span> <span class="nx">cols</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="nx">tbodyNode</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s1">&#39;tr&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">trNode</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">getRowData</span><span class="p">(</span><span class="nx">trNode</span><span class="p">,</span> <span class="nx">cols</span><span class="p">));</span>
+            <span class="p">});</span>
+            <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">function</span> <span class="nx">replaceTable</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+            <span class="kd">var</span> <span class="nx">cols</span> <span class="o">=</span> <span class="nx">getColumns</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s1">&#39;thead&#39;</span><span class="p">)),</span>
+                <span class="nx">data</span> <span class="o">=</span> <span class="nx">getData</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s1">&#39;tbody&#39;</span><span class="p">),</span> <span class="nx">cols</span><span class="p">),</span>
+                <span class="nx">table</span><span class="p">,</span>
+                <span class="nx">parent</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;parentNode&#39;</span><span class="p">);</span>
+
+            <span class="nx">table</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">DataTable</span><span class="p">({</span>
+                <span class="nx">columns</span><span class="o">:</span> <span class="nx">cols</span><span class="p">,</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+                <span class="nx">sortBy</span><span class="o">:</span> <span class="s1">&#39;file&#39;</span>
+            <span class="p">});</span>
+            <span class="nx">parent</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;innerHTML&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="nx">table</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">parent</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nx">Y</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;domready&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">replaceTable</span><span class="p">(</span><span class="nx">Y</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="s1">&#39;div.coverage-summary table&#39;</span><span class="p">));</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">prettyPrint</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">prettyPrint</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
