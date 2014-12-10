@@ -178,13 +178,19 @@ class Config extends EventEmitter
                 m._compile coffee.compile(data), file
                 cb null, m.exports
               else
-                cb "Config type not supported: #{file}"
+                cb new Error "Config type not supported: #{file}"
         , (err, results) =>
           # combine if multiple files found
           values = object.extend.apply @data, results
           cb null, values
     , (err, results) =>
       return @emit 'error', err if err
+      # check if at least one file loaded
+      loaded = 0
+      for obj in results
+        loaded++ if obj?
+      unless loaded
+        return @emit 'error', new Error "No configuration found for #{@name}!"
       # add default values
       if @default?
         results.unshift @default
