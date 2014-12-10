@@ -58,8 +58,8 @@ class Config extends EventEmitter
     pattern = new RegExp "#{name}(/[^/]+)*?(-[^/]+)?\.(ya?ml|json|xml|js|coffee)$"
     async.map @search, (dir, cb) ->
       fs.find dir,
-      include: pattern
-      type: 'file'
+        include: pattern
+        type: 'file'
       , cb
     , (err, results) ->
       names = {}
@@ -158,7 +158,7 @@ class Config extends EventEmitter
           return cb null, {}
         # skip also if no files found
         return cb null, {} unless list
-        async.map list, (file, cb) ->
+        async.map list.sort().reverse(), (file, cb) ->
           debug "Reading #{file}..."
           fs.readFile file, 'utf8', (err, data) ->
             return cb err if err
