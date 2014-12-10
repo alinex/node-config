@@ -24,6 +24,7 @@
 # include base modules
 debug = require('debug')('config')
 debugValue = require('debug')('config:value')
+chalk = require 'chalk'
 util = require 'util'
 path = require 'path'
 async = require 'async'
@@ -143,9 +144,12 @@ class Config extends EventEmitter
   _load: =>
     @loading = true
     debug "Start loading config for '#{@name}'", @search
+    for dir in  @search
+      debug chalk.grey "search in #{path.resolve dir}"
     @_watch()
     async.map @search, (dir, cb) =>
       fs.find dir,
+        dereference: true
         type: 'file'
         include: @name + '?(-?*).{yml,yaml,json,xml,js,coffee}'
       , (err, list) =>
