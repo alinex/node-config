@@ -24,6 +24,7 @@
 # include base modules
 debug = require('debug')('config')
 debugValue = require('debug')('config:value')
+util = require 'util'
 path = require 'path'
 async = require 'async'
 chokidar = require 'chokidar'
@@ -192,7 +193,7 @@ class Config extends EventEmitter
       delete @data[key] for key in Object.keys @data
       results.unshift @data
       object.extend.apply null, results
-      debugValue "#{@name} => #{@data}"
+      debugValue "#{@name} => #{util.inspect @data}"
       unless @check?
         # done
         @loaded = true
