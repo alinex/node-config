@@ -108,7 +108,10 @@ class Config extends EventEmitter
   constructor: (@name) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
-    @setMaxListeners 10000 # high value because multiple processes may wait
+    # Set high value of listeners because multiple functions may wait but if it
+    # is to less it should be checked before running as much functions against the
+    # configuration.
+    @setMaxListeners 100
     # Instance specific search path set to class
     @search = Config.search
 
