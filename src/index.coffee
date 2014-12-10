@@ -130,21 +130,18 @@ class Config extends EventEmitter
   loading: false
   load: (cb = ->) ->
     return cb null, @data if @loaded
-    # wait for already loading
-    if @loading
-      @once 'error', (err) -> cb err, @data
-      @once 'change', -> cb null, @data
-      return
     # listen on finished loading
     @once 'error', (err) -> cb err, @data
     @once 'change', -> cb null, @data
     # start loading if not already done
-    @_load()
+    @_load() unless @loading
+
   reload: (cb = ->) ->
     if @loading
-      @once 'change', -> @reload cb
+      return @once 'change', -> @reload cb
     @loaded = false
-    @load cb
+    @_load()
+
   _load: =>
     @loading = true
     debug "Start loading config for '#{@name}'", @search
@@ -162,7 +159,11 @@ class Config extends EventEmitter
           return cb null, {}
         # skip also if no files found
         return cb null, {} unless list
-        async.map list.sort().reverse(), (file, cb) ->
+        list.sort (a,b) ->
+          x = path.basename a, path.extname(a)
+          y = path.basename b, path.extname(b)
+          +(x > y) || +(x is y) - 1
+        async.map list, (file, cb) ->
           debug "Reading #{file}..."
           fs.readFile file, 'utf8', (err, data) ->
             return cb err if err
@@ -220,7 +221,6 @@ class Config extends EventEmitter
         @loaded = true
         @loading = false
         return @emit 'error', err if err
-        @removeAllListeners 'error'
         debug "Loaded #{@name} configuration successfully"
         @emit 'change'
 
@@ -260,11 +260,13 @@ class Config extends EventEmitter
           ignoreInitial: not @_watchdir?
     @_watchdir = jsondirs
     # action for changes
-    @_watcher.on 'all', (event, file) =>
-      debug chalk.grey "watcher: #{event} #{file}"
-      return unless event in ['add', 'change', 'unlink']
-      debug "Reloading config for #{@name}"
-      @reload()
+    setTimeout =>
+      @_watcher.on 'all', (event, file) =>
+        debug chalk.grey "watcher: #{event} #{file}"
+        return unless event in ['add', 'change', 'unlink']
+        debug "Reloading config for #{@name}"
+        @reload()
+    , 1000
 
 # Exports
 # -------------------------------------------------
@@ -272,7 +274,7 @@ class Config extends EventEmitter
 module.exports = Config
 
 
-watcher = chokidar.watch '/home/alex/a3/dvb-media/var/src/config',
-  ignoreInitial: true
-watcher.on 'all', (event, file) =>
-  console.log chalk.grey "wwwwwww: #{event} #{file}"
+#watcher = chokidar.watch '/home/alex/a3/dvb-media/var/src/config',
+#  ignoreInitial: true
+#watcher.on 'all', (event, file) =>
+#  console.log chalk.grey "wwwwwww: #{event} #{file}"

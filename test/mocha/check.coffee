@@ -21,7 +21,7 @@ describe "Checks", ->
         cb()
       config.load (err, config) ->
         expect(err).to.not.exist
-        done()
+        setTimeout done, 1000
 
     it "should fail", (done) ->
       config = new Config 'test1'
