@@ -108,6 +108,7 @@ class Config extends EventEmitter
   constructor: (@name) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
+    @setMaxListeners 10000 # high value because multiple processes may wait
     # Instance specific search path set to class
     @search = Config.search
 
@@ -137,7 +138,7 @@ class Config extends EventEmitter
     # start loading if not already done
     @_load()
   reload: (cb = ->) ->
-    if loading
+    if @loading
       @once 'change', -> @reload cb
     @loaded = false
     @load cb
@@ -216,6 +217,7 @@ class Config extends EventEmitter
         @loaded = true
         @loading = false
         return @emit 'error', err if err
+        @removeAllListeners 'error'
         debug "Loaded #{@name} configuration successfully"
         @emit 'change'
 
@@ -236,11 +238,11 @@ class Config extends EventEmitter
   _watcher: null
   _watchdir: null
   _watch: ->
-    return unless @watch
-    jsondir = JSON.stringify Config._search
+    return unless @constructor.watch
+    jsondirs = JSON.stringify Config._search
     if @_watcher?
       # only skip if watcher initialized and dirs haven't changed
-      return if jsondir is @_watchdir
+      return if jsondirs is @_watchdir
       # close old watcher
       @_watcher.close()
     # start watching config dirs
@@ -253,9 +255,10 @@ class Config extends EventEmitter
       else
         @_watcher.add dir,
           ignoreInitial: not @_watchdir?
-    @_watchdir = jsondir
+    @_watchdir = jsondirs
     # action for changes
     @_watcher.on 'all', (event, file) =>
+      debug chalk.grey "watcher: #{event} #{file}"
       return unless event in ['add', 'change', 'unlink']
       debug "Reloading config for #{@name}"
       @reload()
@@ -264,3 +267,9 @@ class Config extends EventEmitter
 # -------------------------------------------------
 # The configuration class is exported directly.
 module.exports = Config
+
+
+watcher = chokidar.watch '/home/alex/a3/dvb-media/var/src/config',
+  ignoreInitial: true
+watcher.on 'all', (event, file) =>
+  console.log chalk.grey "wwwwwww: #{event} #{file}"

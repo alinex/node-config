@@ -311,6 +311,12 @@ Keep in mind to alway unregister event listeners while no longer used to prevent
 memory leaks.
 
 
+Known problems
+-------------------------------------------------
+Then using symlinks to files this will break the reloading possibility. Reloads
+will work only once. Better use symlinks to directories or hardlinks to files.
+
+
 License
 -------------------------------------------------
 
