@@ -29,10 +29,13 @@
         <a href="#install">Install</a>
       </div>
       <div class="heading h2">
-        <a href="#simple%20usage">Simple Usage</a>
+        <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
         <a href="#api">API</a>
+      </div>
+      <div class="heading h3">
+        <a href="#class%20configuration">Class configuration</a>
       </div>
       <div class="heading h3">
         <a href="#static%20calls">Static calls</a>
@@ -67,6 +70,15 @@
       <div class="heading h3">
         <a href="#coffeescript">CoffeeScript</a>
       </div>
+      <div class="heading h3">
+        <a href="#ini%20file">Ini file</a>
+      </div>
+      <div class="heading h3">
+        <a href="#rdbms">RDBMS</a>
+      </div>
+      <div class="heading h3">
+        <a href="#object%20db">Object DB</a>
+      </div>
       <div class="heading h2">
         <a href="#default%20values">Default values</a>
       </div>
@@ -87,6 +99,15 @@
       </div>
       <div class="heading h2">
         <a href="#working%20with%20events">Working with events</a>
+      </div>
+      <div class="heading h2">
+        <a href="#submodule%20pattern">Submodule pattern</a>
+      </div>
+      <div class="heading h3">
+        <a href="#submodule">Submodule</a>
+      </div>
+      <div class="heading h3">
+        <a href="#parent%20module">Parent module</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -148,10 +169,10 @@ following the code standards defined there.</p>
 <p><a href="https://nodei.co/npm/alinex-config/"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
 
-<div class="pilwrap" id="simple%20usage">
+<div class="pilwrap" id="usage">
   <h2>
-    <a href="#simple%20usage" name="simple%20usage" class="pilcrow">&#182;</a>
-    Simple Usage
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
   </h2>
 </div>
 
@@ -243,6 +264,20 @@ access.</p>
 
 
 
+<div class="pilwrap" id="class%20configuration">
+  <h3>
+    <a href="#class%20configuration" name="class%20configuration" class="pilcrow">&#182;</a>
+    Class configuration
+  </h3>
+</div>
+
+
+<ul>
+<li><a href="src/index.coffee.html#search">Config.search</a> - to set the search path</li>
+<li><code>Config.watch</code> (boolean) - set to false to disable reloading</li>
+</ul>
+
+
 <div class="pilwrap" id="static%20calls">
   <h3>
     <a href="#static%20calls" name="static%20calls" class="pilcrow">&#182;</a>
@@ -252,7 +287,6 @@ access.</p>
 
 
 <ul>
-<li><a href="src/index.coffee.html#search">Config.search</a> - to set the search path</li>
 <li><a href="src/index.coffee.html#find configuration files">Config.find()</a> - to search for
 existing configuration files</li>
 <li><a href="src/index.coffee.html#factory">Config.instance()</a> - to get a config instance</li>
@@ -318,7 +352,7 @@ the earlier ones. So the order looks like:</p>
 
 <ol>
 <li>Use each directory in given search list order</li>
-<li>Use files with only basenames</li>
+<li>Use files with only base names</li>
 <li>Use the partial extensions in alphabetical order</li>
 </ol>
 
@@ -354,8 +388,19 @@ are used.</p>
 </div>
 
 
-<p>This config class allows multiple formats to be used alternatively or combined.
-So you may use the format you know best.</p>
+<p>This configuration class allows multiple formats to be used alternatively or combined.
+So you may use the format you know best. The following table will give a short
+comparison.</p>
+
+<p>|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
+|:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
+| Supported   |  yes |  yes | yes | yes |    yes |  no |    no |    no |
+| Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
+| Structure   |  yes |  yes | yes | yes |    yes |  no |   yes |   yes |
+| Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
+| Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
+| Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
+| Common      |    + |   ++ | +++ |  -- |    --- |   + |     - |    -- |</p>
 
 
 <div class="pilwrap" id="yaml">
@@ -370,6 +415,30 @@ So you may use the format you know best.</p>
 information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
 
 <p>Use the file extensions <code>yml</code> or <code>yaml</code>.</p>
+
+<p><strong>Example</strong></p>
+
+<p>title: YAML Test</p>
+
+
+<div class="highlight"><pre><code><span class="err">#</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
+<span class="nx">yaml</span><span class="o">:</span>
+  <span class="err">#</span> <span class="nx">include</span> <span class="nx">text</span> <span class="nx">elements</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">test</span>
+  <span class="nx">name2</span><span class="o">:</span> <span class="s1">&#39;commas has to be in quotes, too&#39;</span>
+  <span class="nx">description</span><span class="o">:</span> <span class="o">&gt;</span>
+    <span class="nx">This</span> <span class="nx">may</span> <span class="nx">be</span> <span class="nx">a</span> <span class="nx">very</span> <span class="kr">long</span>
+    <span class="nx">line</span> <span class="k">in</span> <span class="nx">which</span> <span class="nx">newlines</span>
+    <span class="nx">will</span> <span class="nx">be</span> <span class="nx">removed</span><span class="p">.</span>
+  <span class="err">#</span> <span class="nx">and</span> <span class="nx">some</span> <span class="nx">lists</span>
+  <span class="nx">list</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+  <span class="nx">list2</span><span class="o">:</span>
+    <span class="o">-</span> <span class="nx">red</span>
+    <span class="o">-</span> <span class="nx">green</span>
+    <span class="o">-</span> <span class="nx">blue</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="json">
@@ -391,6 +460,20 @@ interpreting the file contents.</p>
 <p>Use the file extension <code>json</code>.</p>
 
 
+<div class="highlight"><pre><code><span class="p">{</span>
+  <span class="c1">// use an object</span>
+  <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// include text elements</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="c1">// and a list of numbers</span>
+    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
 <div class="pilwrap" id="xml">
   <h3>
     <a href="#xml" name="xml" class="pilcrow">&#182;</a>
@@ -402,6 +485,21 @@ interpreting the file contents.</p>
 <p>The XML format should only use Tags and values, but no arguments.</p>
 
 <p>Use the file extension <code>xml</code>.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&lt;?</span><span class="nx">xml</span> <span class="nx">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nx">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span> <span class="o">?&gt;</span>
+<span class="c">&lt;!--</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="nx">xml</span><span class="o">&gt;</span>
+  <span class="c">&lt;!--</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="nx">name</span><span class="o">&gt;</span><span class="nx">test</span><span class="o">&lt;</span><span class="err">/name&gt;</span>
+  <span class="c">&lt;!--</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
+  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
+  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
+<span class="o">&lt;</span><span class="err">/xml&gt;</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="javascript">
@@ -418,6 +516,20 @@ export the configuration object.</p>
 <p>Use the file extension <code>js</code>.</p>
 
 
+<div class="highlight"><pre><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// use an object</span>
+  <span class="nx">javascript</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// include a string</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="c1">// and a list of numbers</span>
+    <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
 <div class="pilwrap" id="coffeescript">
   <h3>
     <a href="#coffeescript" name="coffeescript" class="pilcrow">&#182;</a>
@@ -429,6 +541,74 @@ export the configuration object.</p>
 <p>Like above you may write the modules in CoffeeScript.</p>
 
 <p>Use the file extension <code>coffee</code>.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span>
+  <span class="err">#</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
+  <span class="nx">coffee</span><span class="o">:</span>
+    <span class="err">#</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span>
+    <span class="err">#</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span>
+    <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="ini%20file">
+  <h3>
+    <a href="#ini%20file" name="ini%20file" class="pilcrow">&#182;</a>
+    Ini file
+  </h3>
+</div>
+
+
+<p>Not supported, yet.</p>
+
+
+<div class="highlight"><pre><code><span class="p">;</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
+<span class="p">;</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span>
+<span class="nx">ini</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">test</span>
+<span class="p">;</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span>
+<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="rdbms">
+  <h3>
+    <a href="#rdbms" name="rdbms" class="pilcrow">&#182;</a>
+    RDBMS
+  </h3>
+</div>
+
+
+<p>Not supported, yet.</p>
+
+<p>| lastchange       | group | key          |  value | comment |
+|------------------|-------|:-------------|:-------|:--------|
+| 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
+| 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
+| 2014-12-11 19:45 | test  | rdbms.list   | null   | and a list of numbers |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 1      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 2      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 3      |  |</p>
+
+
+<div class="pilwrap" id="object%20db">
+  <h3>
+    <a href="#object%20db" name="object%20db" class="pilcrow">&#182;</a>
+    Object DB
+  </h3>
+</div>
+
+
+<p>Not supported, yet.</p>
+
+<p>Here, the JSON will be stored in the database like in the JSON file.</p>
 
 
 <div class="pilwrap" id="default%20values">
@@ -521,8 +701,8 @@ it with the validator.</p>
 
 
 
-<p>The <code>name</code> here is the name of the config which may be used in reporting. The
-<code>values</code> maybe changed.</p>
+<p>The <code>name</code> here is the name of the configuration which may be used in reporting.
+The <code>values</code> maybe changed.</p>
 
 <p>If an error is returned it will also be returned while adding the check or within
 the constructor. But it won't stop the processing. You may also throw an error
@@ -550,7 +730,7 @@ to be used.</p>
 
 
 
-<p>But if the configuration for anyclass is only a subgroup of a bigger config
+<p>But if the configuration for AnyClass is only a subgroup of a bigger configuration
 file you have to wrap the call in an additional function:</p>
 
 
@@ -611,6 +791,133 @@ everything which changed.</p>
 
 <p>Keep in mind to alway unregister event listeners while no longer used to prevent
 memory leaks.</p>
+
+<p>An example might look like:</p>
+
+
+<div class="highlight"><pre><code><span class="c1">// create two listener methods</span>
+<span class="kd">var</span> <span class="nx">sendError</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span><span class="p">);</span>
+  <span class="c1">// do something....</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">sendChange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span><span class="p">);</span>
+  <span class="c1">// do something....</span>
+<span class="p">};</span>
+
+<span class="c1">// start listening</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span><span class="p">);</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span><span class="p">);</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="submodule%20pattern">
+  <h2>
+    <a href="#submodule%20pattern" name="submodule%20pattern" class="pilcrow">&#182;</a>
+    Submodule pattern
+  </h2>
+</div>
+
+
+<p>To make configuration work through a complex system of program, modules and
+submodules the following pattern may help. (For better overview the example is
+written in coffee script)</p>
+
+
+<div class="pilwrap" id="submodule">
+  <h3>
+    <a href="#submodule" name="submodule" class="pilcrow">&#182;</a>
+    Submodule
+  </h3>
+</div>
+
+
+<p>In the module you load the configuration class and make an init method which is used
+to start loading the configuration.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Config</span> <span class="o">=</span> <span class="nx">require</span> <span class="s1">&#39;alinex-config&#39;</span>
+
+<span class="kr">class</span> <span class="nx">Test</span>
+
+  <span class="err">@</span><span class="nx">init</span><span class="o">:</span> <span class="p">(</span><span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="s1">&#39;spawn&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nx">debug</span> <span class="s2">&quot;init or reinit spawn&quot;</span>
+    <span class="err">#</span> <span class="nx">set</span> <span class="nx">config</span> <span class="nx">from</span> <span class="nx">different</span> <span class="nx">values</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="err">@</span><span class="nx">config</span> <span class="nx">is</span> <span class="s1">&#39;string&#39;</span>
+      <span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="err">@</span><span class="nx">config</span>
+      <span class="err">#</span> <span class="nx">add</span> <span class="nx">the</span> <span class="nx">module</span><span class="s1">&#39;s directory the default</span>
+<span class="s1">      @config.search.unshift path.resolve __dirname, &#39;</span><span class="kd">var</span><span class="err">/src/config&#39;</span>
+      <span class="err">#</span> <span class="nx">add</span> <span class="nx">the</span> <span class="nx">check</span> <span class="nx">methods</span>
+      <span class="err">@</span><span class="nx">config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">configcheck</span>
+    <span class="k">if</span> <span class="err">@</span><span class="nx">config</span> <span class="k">instanceof</span> <span class="nx">Config</span>
+      <span class="err">@</span><span class="nx">configClass</span> <span class="o">=</span> <span class="err">@</span><span class="nx">config</span>
+      <span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="err">@</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">data</span>
+    <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">false</span> <span class="err">#</span> <span class="nx">status</span> <span class="nx">set</span> <span class="nx">to</span> <span class="kc">true</span> <span class="nx">after</span> <span class="nx">initializing</span>
+    <span class="err">#</span> <span class="nx">set</span> <span class="nx">init</span> <span class="nx">status</span> <span class="k">if</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
+    <span class="nx">unless</span> <span class="err">@</span><span class="nx">configClass</span><span class="o">?</span>
+      <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
+      <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="k">else</span>
+      <span class="err">#</span> <span class="nx">wait</span> <span class="nx">till</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
+      <span class="err">@</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
+        <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre></div>
+
+
+
+<p>This method can consume different informations:</p>
+
+<ul>
+<li>a string specifying the configuration file</li>
+<li>a already configured <code>Config</code> instance</li>
+<li>an object holding all the configuration values</li>
+</ul>
+
+<p>And when the configuration is needed in example in an run method:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">run</span><span class="o">:</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="err">#</span> <span class="nx">start</span> <span class="nx">initializing</span><span class="p">,</span> <span class="k">if</span> <span class="nx">not</span> <span class="nx">done</span>
+  <span class="nx">unless</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
+  <span class="err">#</span> <span class="nx">wait</span> <span class="nx">till</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
+  <span class="k">if</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="o">?</span> <span class="nx">and</span> <span class="nx">not</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">loaded</span>
+    <span class="k">return</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
+</code></pre></div>
+
+
+
+<p>This will check the configuration and call the load method. If loading is already
+in progress the new call will be attached to the event and get also notified if
+it is loaded.</p>
+
+
+<div class="pilwrap" id="parent%20module">
+  <h3>
+    <a href="#parent%20module" name="parent%20module" class="pilcrow">&#182;</a>
+    Parent module
+  </h3>
+</div>
+
+
+<p>Now you may use this in the parent module or program:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">run</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="err">#</span> <span class="nx">start</span> <span class="nx">initializing</span><span class="p">,</span> <span class="k">if</span> <span class="nx">not</span> <span class="nx">done</span>
+  <span class="nx">unless</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
+  <span class="err">#</span> <span class="nx">code</span> <span class="nx">running</span> <span class="k">if</span> <span class="nx">initialized</span>
+  <span class="p">...</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="license">
