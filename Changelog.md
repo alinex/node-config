@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.3 (2014-12-11)
+-------------------------------------------------
+- Extended documentation and optimized internal listener handling.
+- Fixed double callbacks on reload.
+- Set event listeners high but not too high.
+- Fixed reload problems
+- Changed sort order if using multiple config files.
+- Allow softlinks in configuration paths.
+- Added error message if no config file could be found.
+- Better display of loaded config in debug mode.
+- Changed alinex-util to dependency.
+
 Version 0.3.2 (2014-12-04)
 -------------------------------------------------
 - Adding debug entry to display loaded values.
