@@ -35,7 +35,7 @@ The easiest way is to let npm add the module directly:
 [![NPM](https://nodei.co/npm/alinex-config.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-config/)
 
 
-Simple Usage
+Usage
 -------------------------------------------------
 
 To easily make your module configurable you need to load the class first:
@@ -88,12 +88,17 @@ To make accessing of the config values shorter you may also use:
     });
 
 
+
 API
 -------------------------------------------------
 
-### Static calls
+### Class configuration
 
 - [Config.search](src/index.coffee#search) - to set the search path
+- `Config.watch` (boolean) - set to false to disable reloading
+
+### Static calls
+
 - [Config.find()](src/index.coffee#find configuration files) - to search for
   existing configuration files
 - [Config.instance()](src/index.coffee#factory) - to get a config instance
@@ -132,7 +137,7 @@ The order is essential because the later file will overwrite the same keys of
 the earlier ones. So the order looks like:
 
 1. Use each directory in given search list order
-2. Use files with only basenames
+2. Use files with only base names
 3. Use the partial extensions in alphabetical order
 
 
@@ -155,8 +160,21 @@ The files overload in the following order:
 File Formats
 -------------------------------------------------
 
-This config class allows multiple formats to be used alternatively or combined.
-So you may use the format you know best.
+This configuration class allows multiple formats to be used alternatively or combined.
+So you may use the format you know best. The following table will give a short
+comparison.
+
+|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
+|:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
+| Supported   |  yes |  yes | yes | yes |    yes |  no |    no |    no |
+| Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
+| Structure   |  yes |  yes | yes | yes |    yes |  no |   yes |   yes |
+| Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
+| Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
+| Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
+| Common      |    + |   ++ | +++ |  -- |    --- |   + |     - |    -- |
+
+
 
 ### YAML
 
@@ -164,6 +182,27 @@ This is a simplified and best human readable language to write structured
 information. See some examples at [Wikipedia](http://en.wikipedia.org/wiki/YAML).
 
 Use the file extensions `yml` or `yaml`.
+
+__Example__
+
+title: YAML Test
+
+    # use an object
+    yaml:
+      # include text elements
+      name: test
+      name2: 'commas has to be in quotes, too'
+      description: >
+        This may be a very long
+        line in which newlines
+        will be removed.
+      # and some lists
+      list: 1, 2, 3
+      list2:
+        - red
+        - green
+        - blue
+
 
 ### JSON
 
@@ -177,11 +216,33 @@ interpreting the file contents.
 
 Use the file extension `json`.
 
+    {
+      // use an object
+      "json": {
+        // include text elements
+        "name": "test",
+        // and a list of numbers
+        "list": [1, 2, 3]
+      }
+    }
+
+
 ### XML
 
 The XML format should only use Tags and values, but no arguments.
 
 Use the file extension `xml`.
+
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!-- use an object -->
+    <xml>
+      <!-- include a string -->
+      <name>test</name>
+      <!-- and a list of numbers -->
+      <list>1</list>
+      <list>2</list>
+      <list>3</list>
+    </xml>
 
 ### JavaScript
 
@@ -190,11 +251,60 @@ export the configuration object.
 
 Use the file extension `js`.
 
+    module.exports = {
+      // use an object
+      javascript: {
+        // include a string
+        name: "test",
+        // and a list of numbers
+        list: [1, 2, 3]
+      }
+    }
+
 ### CoffeeScript
 
 Like above you may write the modules in CoffeeScript.
 
 Use the file extension `coffee`.
+
+    module.exports =
+      # use an object
+      coffee:
+        # include a string
+        name: "test"
+        # and a list of numbers
+        list: [1, 2, 3]
+
+### Ini file
+
+Not supported, yet.
+
+    ; use an object
+    ; include a string
+    ini.name = test
+    ; and a list of numbers
+    ini.list[] = 1
+    ini.list[] = 2
+    ini.list[] = 3
+
+### RDBMS
+
+Not supported, yet.
+
+| lastchange       | group | key          |  value | comment |
+|------------------|-------|:-------------|:-------|:--------|
+| 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
+| 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
+| 2014-12-11 19:45 | test  | rdbms.list   | null   | and a list of numbers |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 1      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 2      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 3      |  |
+
+### Object DB
+
+Not supported, yet.
+
+Here, the JSON will be stored in the database like in the JSON file.
 
 
 Default values
@@ -251,8 +361,8 @@ it with the validator.
       // may get an error if values already loaded
     });
 
-The `name` here is the name of the config which may be used in reporting. The
-`values` maybe changed.
+The `name` here is the name of the configuration which may be used in reporting.
+The `values` maybe changed.
 
 If an error is returned it will also be returned while adding the check or within
 the constructor. But it won't stop the processing. You may also throw an error
@@ -269,7 +379,7 @@ to be used.
       // may get an error if values already loaded
     });
 
-But if the configuration for anyclass is only a subgroup of a bigger config
+But if the configuration for AnyClass is only a subgroup of a bigger configuration
 file you have to wrap the call in an additional function:
 
     // the wrapper function
@@ -310,11 +420,95 @@ everything which changed.
 Keep in mind to alway unregister event listeners while no longer used to prevent
 memory leaks.
 
+An example might look like:
 
-Known problems
+    // create two listener methods
+    var sendError = function(err) {
+      config.removeListener('change', sendChange);
+      // do something....
+    };
+    var sendChange = function() {
+      config.removeListener('error', sendError);
+      // do something....
+    };
+
+    // start listening
+    config.once('error', sendError);
+    config.once('change', sendChange);
+
+
+Submodule pattern
 -------------------------------------------------
-Then using symlinks to files this will break the reloading possibility. Reloads
-will work only once. Better use symlinks to directories or hardlinks to files.
+
+To make configuration work through a complex system of program, modules and
+submodules the following pattern may help. (For better overview the example is
+written in coffee script)
+
+### Submodule
+
+In the module you load the configuration class and make an init method which is used
+to start loading the configuration.
+
+    Config = require 'alinex-config'
+
+    class Test
+
+      @init: (@config = 'spawn', cb) ->
+        debug "init or reinit spawn"
+        # set config from different values
+        if typeof @config is 'string'
+          @config = Config.instance @config
+          # add the module's directory the default
+          @config.search.unshift path.resolve __dirname, 'var/src/config'
+          # add the check methods
+          @config.setCheck configcheck
+        if @config instanceof Config
+          @configClass = @config
+          @config = @configClass.data
+        @initDone = false # status set to true after initializing
+        # set init status if configuration is loaded
+        unless @configClass?
+          cb() if cb?
+          @initDone = true
+        else
+          # wait till configuration is loaded
+          @configClass.load (err) =>
+            console.error err if err
+            cb err if cb?
+            @initDone = true
+
+This method can consume different informations:
+
+- a string specifying the configuration file
+- a already configured `Config` instance
+- an object holding all the configuration values
+
+And when the configuration is needed in example in an run method:
+
+    run: (cb) ->
+      # start initializing, if not done
+      unless Spawn.initDone?
+        return Spawn.init null, => @run cb
+      # wait till configuration is loaded
+      if @constructor.configClass? and not @constructor.configClass.loaded
+        return @constructor.configClass.load (err) =>
+          return cb err if err
+          @run cb
+
+This will check the configuration and call the load method. If loading is already
+in progress the new call will be attached to the event and get also notified if
+it is loaded.
+
+### Parent module
+
+Now you may use this in the parent module or program:
+
+    run = (cb) ->
+      # start initializing, if not done
+      unless Test.initDone?
+        return Test.init null, => @run cb
+      # code running if initialized
+      ...
 
 
 License

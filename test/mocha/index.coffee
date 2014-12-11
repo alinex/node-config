@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-require('alinex-error').install()
+#require('alinex-error').install()
 
 describe "Configuration", ->
 

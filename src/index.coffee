@@ -48,6 +48,7 @@ class Config extends EventEmitter
     path.join base, 'var', 'src', 'config'
     path.join base, 'var', 'local', 'config'
   ]
+  # Switch to disable watching for configuration changes.
   @watch: true
 
   # ### Find configuration files
@@ -69,7 +70,8 @@ class Config extends EventEmitter
       cb null, Object.keys names
 
   # ### Factory
-  # Get an instance for the name
+  # Get an instance for the name. This enables the system to use the same
+  # Config instance anywhere.
   @_instances: {}
   @instance: (name) ->
     unless @_instances[name]?
@@ -77,7 +79,9 @@ class Config extends EventEmitter
     @_instances[name]
 
   # ### Remove comments
-  # This is used within th JSON importer because JSON won't allow comments.
+  # This is used within the JSON importer because JSON originally won't allow
+  # comments. But comments are a good as help and for uncommenting something
+  # temporarily.
   @_stripComments = (code) ->
     uid = "_" + +new Date()
     primitives = []
@@ -104,7 +108,8 @@ class Config extends EventEmitter
     .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
   # ### Create instance
-  # This will also load the data if not already done.
+  # This will also load the data if not already done. Don't call this directly
+  # better use the `instance()` method which implements the factory pattern.
   constructor: (@name) ->
     unless name
       throw new Error "Could not initialize Config class without configuration name."
@@ -122,23 +127,43 @@ class Config extends EventEmitter
     @default = {}
 
     # ### Configuration structure
+    # This will hold all the configuration data. You may also reference this from
+    # your code because it is neither removed but truncated and refilled on reload.
     @data = {}
 
   # ### Start loading
-  # This will call the function after correctly loaded.
+  # This will call load the configuration and start watching for reloads (if
+  # enabled).
   loaded: false
   loading: false
   load: (cb = ->) ->
     return cb null, @data if @loaded
-    # listen on finished loading
-    @once 'error', (err) -> cb err, @data
-    @once 'change', -> cb null, @data
+    # Event listener methods which will be set and only one will be called. The
+    # other one will be removed.
+    sendError = (err) ->
+      @removeListener 'change', sendChange
+      cb err, @data
+    sendChange = ->
+      @removeListener 'error', sendError
+      cb null, @data
+    @once 'error', sendError
+    @once 'change', sendChange
     # start loading if not already done
     @_load() unless @loading
 
+  # ### Reloading
+  # This will be called from the file change watcher.
   reload: (cb = ->) ->
     if @loading
-      return @once 'change', -> @reload cb
+      # event listener to wait for reloading
+      sendError: (err) ->
+        @removeListener 'change', sendReload
+      sendReload: ->
+        @removeListener 'error', sendError
+        @reload cb
+      @once 'change', sendReload
+      @once 'error', sendError
+      return
     @loaded = false
     @_load()
 
