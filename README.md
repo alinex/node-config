@@ -95,7 +95,7 @@ API
 ### Class configuration
 
 - [Config.search](src/index.coffee#search) - to set the search path
-- `Config.watch` (boolean) - set to false to disable reloading
+- `Config.watch` (boolean) - set to false to disable reloading globally
 
 ### Static calls
 
@@ -110,7 +110,8 @@ API
 - [config.default](src/index.coffee#default values) - to set the default values
 - [config.addCheck](src/index.coffee#add check function) - to validate or
   optimize the values
-- values are directly accessible
+- config.watching(<bool>) - start or stop the watching of config changes
+- config.data - values are directly accessible
 
 ### Instance Events
 
@@ -435,6 +436,25 @@ An example might look like:
     // start listening
     config.once('error', sendError);
     config.once('change', sendChange);
+
+
+Watching for changes
+-------------------------------------------------
+It is possible to watch for file changes and automatically reload the configuration
+if something changes.
+
+If any file in the configuration directory changes it will reload the data
+and send an `change` event after validating.
+
+This feature is disabled by default but may be enabled globally using
+
+    Config.watch = true;
+
+But do this before using the Config class!
+
+You may also enable and disable this feature on each instance by calling
+
+    config.watching(boolean);
 
 
 Submodule pattern

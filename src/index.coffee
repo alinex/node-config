@@ -48,8 +48,8 @@ class Config extends EventEmitter
     path.join base, 'var', 'src', 'config'
     path.join base, 'var', 'local', 'config'
   ]
-  # Switch to disable watching for configuration changes.
-  @watch: true
+  # Switch to enable watching for configuration changes globally.
+  @watch: false
 
   # ### Find configuration files
   # This may be used to search for specific configuration files.
@@ -273,6 +273,7 @@ class Config extends EventEmitter
       return if jsondirs is @_watchdir
       # close old watcher
       @_watcher.close()
+    return if @watch is false
     # start watching config dirs
     debug "Start watching for file changes...", @search
     @_watcher = null
@@ -292,6 +293,10 @@ class Config extends EventEmitter
         debug "Reloading config for #{@name}"
         @reload()
     , 1000
+  watch: null
+  watching: (enabled) ->
+    @watch = Boolean enabled
+    _watch()
 
 # Exports
 # -------------------------------------------------
