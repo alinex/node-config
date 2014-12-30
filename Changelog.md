@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.4 (2014-12-30)
+-------------------------------------------------
+- Disable watching per default and support enabling it per each instance.
+
 Version 0.3.3 (2014-12-11)
 -------------------------------------------------
 - Extended documentation and optimized internal listener handling.
