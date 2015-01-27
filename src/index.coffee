@@ -233,13 +233,13 @@ class Config extends EventEmitter
       delete @data[key] for key in Object.keys @data
       results.unshift @data
       object.extend.apply null, results
-      debugValue "#{@name} => #{util.inspect @data}"
       unless @check?
         # done
         @loaded = true
         @loading = false
         @emit 'change'
         debug "Loaded #{@name} configuration successfully"
+        debugValue "#{@name} => #{util.inspect @data}"
         return
       # run checks
       @check @name, @data, (err) =>
@@ -247,6 +247,7 @@ class Config extends EventEmitter
         @loading = false
         return @emit 'error', err if err
         debug "Loaded #{@name} configuration successfully"
+        debugValue "#{@name} => #{util.inspect @data}"
         @emit 'change'
 
   # ### Set check routine
