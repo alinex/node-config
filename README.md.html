@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3//README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -101,6 +101,9 @@
         <a href="#working%20with%20events">Working with events</a>
       </div>
       <div class="heading h2">
+        <a href="#watching%20for%20changes">Watching for changes</a>
+      </div>
+      <div class="heading h2">
         <a href="#submodule%20pattern">Submodule pattern</a>
       </div>
       <div class="heading h3">
@@ -125,7 +128,6 @@
 
 
 <p><a href="https://travis-ci.org/alinex/node-config"><img src="https://travis-ci.org/alinex/node-config.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://coveralls.io/repos/alinex/node-config/badge.png?branch=master" alt="Coverage Status" title="" /></a>
 <a href="https://gemnasium.com/alinex/node-config"><img src="https://gemnasium.com/alinex/node-config.png" alt="Dependency Status" title="" /></a></p>
 
 <p>This package will give you an easy way to load and use configuration settings in
@@ -146,7 +148,7 @@ and may inform it's dependent objects.</p>
 <li>automatically reloads on file changes</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -161,7 +163,7 @@ following the code standards defined there.</p>
 <p>The easiest way is to let npm add the module directly:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">config</span> <span class="o">--</span><span class="nx">save</span>
+<div class="highlight"><pre><code>npm install alinex-config --save
 </code></pre></div>
 
 
@@ -180,7 +182,7 @@ following the code standards defined there.</p>
 <p>To easily make your module configurable you need to load the class first:</p>
 
 
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">Config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;alinex-config&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 </code></pre></div>
 
 
@@ -188,20 +190,20 @@ following the code standards defined there.</p>
 <p>To configure where to look for files you may give a list of directories:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s1">&#39;var/local/config&#39;</span><span class="p">];</span>
+<div class="highlight"><pre><code><span class="nv">Config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
 </code></pre></div>
 
 
 
 <p>If nothing specified it will search in the above directories under the directory
 specified in the global variable <code>ROOT_DIR</code>. See more about the
-<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html.html">Alinex File Structure</a></p>
+<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html">Alinex File Structure</a></p>
 
 <p>To load a specific configuration you have to instantiate it with it's name. The
 factory method will help to only have one instance per each configuration name.</p>
 
 
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;server&#39;</span>
 </code></pre></div>
 
 
@@ -210,7 +212,7 @@ factory method will help to only have one instance per each configuration name.<
 if you have the same name but in another path being used separately.</p>
 
 
-<div class="highlight"><pre><code><span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><code><span class="nv">config = </span><span class="k">new</span> <span class="nx">Config</span> <span class="s">&#39;server&#39;</span>
 </code></pre></div>
 
 
@@ -218,7 +220,7 @@ if you have the same name but in another path being used separately.</p>
 <p>Therefore you may specify a special search path:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s1">&#39;var/local/config&#39;</span><span class="p">];</span>
+<div class="highlight"><pre><code><span class="nv">config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
 </code></pre></div>
 
 
@@ -228,13 +230,12 @@ after calling <code>load</code>. After that you got the settings as properties f
 access.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{...}</span>
-  <span class="c1">// ...</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err, data) -&gt;</span>
+  <span class="k">if</span> <span class="nx">err</span>
+    <span class="c1"># report error and stop</span>
+  <span class="c1"># work with configuration values</span>
+  <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span>
 </code></pre></div>
 
 
@@ -242,14 +243,13 @@ access.</p>
 <p>To make accessing of the config values shorter you may also use:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{...}</span>
-  <span class="nx">config</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
-  <span class="c1">// ...</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) -&gt;</span>
+  <span class="k">if</span> <span class="nx">err</span>
+    <span class="c1"># report error and stop</span>
+  <span class="nv">config = </span><span class="nx">data</span>
+  <span class="c1"># work with configuration values</span>
+  <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">url</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span>
 </code></pre></div>
 
 
@@ -274,7 +274,7 @@ access.</p>
 
 <ul>
 <li><a href="src/index.coffee.html#search">Config.search</a> - to set the search path</li>
-<li><code>Config.watch</code> (boolean) - set to false to disable reloading</li>
+<li><code>Config.watch</code> (boolean) - set to false to disable reloading globally</li>
 </ul>
 
 
@@ -307,7 +307,8 @@ instance</li>
 <li><a href="src/index.coffee.html#default values">config.default</a> - to set the default values</li>
 <li><a href="src/index.coffee.html#add check function">config.addCheck</a> - to validate or
 optimize the values</li>
-<li>values are directly accessible</li>
+<li>config.watching(<bool>) - start or stop the watching of config changes</li>
+<li>config.data - values are directly accessible</li>
 </ul>
 
 
@@ -421,21 +422,21 @@ information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wi
 <p>title: YAML Test</p>
 
 
-<div class="highlight"><pre><code><span class="err">#</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
-<span class="nx">yaml</span><span class="o">:</span>
-  <span class="err">#</span> <span class="nx">include</span> <span class="nx">text</span> <span class="nx">elements</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="nx">test</span>
-  <span class="nx">name2</span><span class="o">:</span> <span class="s1">&#39;commas has to be in quotes, too&#39;</span>
-  <span class="nx">description</span><span class="o">:</span> <span class="o">&gt;</span>
-    <span class="nx">This</span> <span class="nx">may</span> <span class="nx">be</span> <span class="nx">a</span> <span class="nx">very</span> <span class="kr">long</span>
-    <span class="nx">line</span> <span class="k">in</span> <span class="nx">which</span> <span class="nx">newlines</span>
-    <span class="nx">will</span> <span class="nx">be</span> <span class="nx">removed</span><span class="p">.</span>
-  <span class="err">#</span> <span class="nx">and</span> <span class="nx">some</span> <span class="nx">lists</span>
-  <span class="nx">list</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
-  <span class="nx">list2</span><span class="o">:</span>
-    <span class="o">-</span> <span class="nx">red</span>
-    <span class="o">-</span> <span class="nx">green</span>
-    <span class="o">-</span> <span class="nx">blue</span>
+<div class="highlight"><pre><code><span class="c1"># use an object</span>
+<span class="l-Scalar-Plain">yaml</span><span class="p-Indicator">:</span>
+  <span class="c1"># include text elements</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+  <span class="l-Scalar-Plain">name2</span><span class="p-Indicator">:</span> <span class="s">&#39;commas</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">quotes,</span><span class="nv"> </span><span class="s">too&#39;</span>
+  <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">This may be a very long</span>
+    <span class="no">line in which newlines</span>
+    <span class="no">will be removed.</span>
+  <span class="c1"># and some lists</span>
+  <span class="l-Scalar-Plain">list</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1, 2, 3</span>
+  <span class="l-Scalar-Plain">list2</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">red</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">green</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">blue</span>
 </code></pre></div>
 
 
@@ -461,12 +462,12 @@ interpreting the file contents.</p>
 
 
 <div class="highlight"><pre><code><span class="p">{</span>
-  <span class="c1">// use an object</span>
-  <span class="s2">&quot;json&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="c1">// include text elements</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="c1">// and a list of numbers</span>
-    <span class="s2">&quot;list&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="err">//</span> <span class="err">use</span> <span class="err">an</span> <span class="err">object</span>
+  <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="err">//</span> <span class="err">include</span> <span class="err">text</span> <span class="err">elements</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="err">//</span> <span class="err">and</span> <span class="err">a</span> <span class="err">list</span> <span class="err">of</span> <span class="err">numbers</span>
+    <span class="nt">&quot;list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -487,16 +488,16 @@ interpreting the file contents.</p>
 <p>Use the file extension <code>xml</code>.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&lt;?</span><span class="nx">xml</span> <span class="nx">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nx">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span> <span class="o">?&gt;</span>
-<span class="c">&lt;!--</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="nx">xml</span><span class="o">&gt;</span>
-  <span class="c">&lt;!--</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span> <span class="o">--&gt;</span>
-  <span class="o">&lt;</span><span class="nx">name</span><span class="o">&gt;</span><span class="nx">test</span><span class="o">&lt;</span><span class="err">/name&gt;</span>
-  <span class="c">&lt;!--</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span> <span class="o">--&gt;</span>
-  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
-  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
-  <span class="o">&lt;</span><span class="nx">list</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;</span><span class="err">/list&gt;</span>
-<span class="o">&lt;</span><span class="err">/xml&gt;</span>
+<div class="highlight"><pre><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="c">&lt;!-- use an object --&gt;</span>
+<span class="nt">&lt;xml&gt;</span>
+  <span class="c">&lt;!-- include a string --&gt;</span>
+  <span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+  <span class="c">&lt;!-- and a list of numbers --&gt;</span>
+  <span class="nt">&lt;list&gt;</span>1<span class="nt">&lt;/list&gt;</span>
+  <span class="nt">&lt;list&gt;</span>2<span class="nt">&lt;/list&gt;</span>
+  <span class="nt">&lt;list&gt;</span>3<span class="nt">&lt;/list&gt;</span>
+<span class="nt">&lt;/xml&gt;</span>
 </code></pre></div>
 
 
@@ -543,13 +544,13 @@ export the configuration object.</p>
 <p>Use the file extension <code>coffee</code>.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span>
-  <span class="err">#</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
-  <span class="nx">coffee</span><span class="o">:</span>
-    <span class="err">#</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span>
-    <span class="err">#</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span>
-    <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<div class="highlight"><pre><code><span class="nv">module.exports =</span>
+  <span class="c1"># use an object</span>
+  <span class="nv">coffee:</span>
+    <span class="c1"># include a string</span>
+    <span class="nv">name: </span><span class="s">&quot;test&quot;</span>
+    <span class="c1"># and a list of numbers</span>
+    <span class="nv">list: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 </code></pre></div>
 
 
@@ -566,13 +567,19 @@ export the configuration object.</p>
 <p>Not supported, yet.</p>
 
 
-<div class="highlight"><pre><code><span class="p">;</span> <span class="nx">use</span> <span class="nx">an</span> <span class="nx">object</span>
-<span class="p">;</span> <span class="nx">include</span> <span class="nx">a</span> <span class="nx">string</span>
-<span class="nx">ini</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">test</span>
-<span class="p">;</span> <span class="nx">and</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">numbers</span>
-<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="nx">ini</span><span class="p">.</span><span class="nx">list</span><span class="p">[]</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="highlight"><pre><code><span class="c1">; use an object</span>
+<span class="c1">; include a string</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">test</span>
+<span class="c1">; and a list of numbers</span>
+<span class="na">list[]</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">list[]</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">list[]</span> <span class="o">=</span> <span class="s">3</span>
+<span class="c1">; and use groups</span>
+<span class="k">[group1]</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">group1</span>
+<span class="c1">; and also subgroups</span>
+<span class="k">[group1.sub]</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">subgroup1</span>
 </code></pre></div>
 
 
@@ -622,7 +629,7 @@ export the configuration object.</p>
 <p>It is possible to set default values for each configuration on the class.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">server</span><span class="o">:</span> <span class="p">{</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://localhost&#39;</span> <span class="p">}</span> <span class="p">};</span>
+<div class="highlight"><pre><code><span class="nv">Config.default = </span><span class="p">{</span> <span class="nv">server: </span><span class="p">{</span> <span class="nv">url: </span><span class="s">&#39;http://localhost&#39;</span> <span class="p">}</span> <span class="p">}</span>
 </code></pre></div>
 
 
@@ -647,7 +654,7 @@ add such check functions after you created the first instances. (But the newly
 added toplevel config entries are not updated.)</p>
 
 <p>You have two possibilities to declare checks. You may use an
-<a href="http://alinex.github.io/node-validator.html">alinex-validator</a> compatible structure
+<a href="http://alinex.github.io/node-validator">alinex-validator</a> compatible structure
 or use you own function.</p>
 
 
@@ -663,14 +670,13 @@ or use you own function.</p>
 have to be done.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Testfile&quot;</span>
-  <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;the structure used to demonstrate here&#39;</span>
-  <span class="nx">check</span><span class="o">:</span> <span class="s1">&#39;type.string&#39;</span>
-  <span class="nx">maxLength</span><span class="o">:</span> <span class="mi">25</span>
-<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// may get an error if values already loaded</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span>
+  <span class="nv">title: </span><span class="s">&quot;Testfile&quot;</span>
+  <span class="nv">description: </span><span class="s">&#39;the structure used to demonstrate here&#39;</span>
+  <span class="nv">check: </span><span class="s">&#39;type.string&#39;</span>
+  <span class="nv">maxLength: </span><span class="mi">25</span>
+<span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># may get an error if values already loaded</span>
 </code></pre></div>
 
 
@@ -688,15 +694,14 @@ have to be done.</p>
 it with the validator.</p>
 
 
-<div class="highlight"><pre><code><span class="kd">function</span> <span class="nx">myCheck</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// change or check the values</span>
-  <span class="c1">// ...</span>
-  <span class="c1">// on error call cb(&#39;something is not ok&#39;);</span>
-  <span class="nx">cb</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// may get an error if values already loaded</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nv">myCheck = </span><span class="nf">(name, values, cb) -&gt;</span>
+  <span class="c1"># change or check the values</span>
+  <span class="c1"># ...</span>
+  <span class="c1"># on error call cb(&#39;something is not ok&#39;);</span>
+  <span class="nx">cb</span><span class="p">()</span>
+
+<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># may get an error if values already loaded</span>
 </code></pre></div>
 
 
@@ -723,9 +728,8 @@ to really stop if a check failed.</p>
 to be used.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// may get an error if values already loaded</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># may get an error if values already loaded</span>
 </code></pre></div>
 
 
@@ -734,15 +738,14 @@ to be used.</p>
 file you have to wrap the call in an additional function:</p>
 
 
-<div class="highlight"><pre><code><span class="c1">// the wrapper function</span>
-<span class="kd">function</span> <span class="nx">myCheck</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// change the name to reflect change in reporting</span>
-  <span class="c1">// call it with the subgroup</span>
-  <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">name</span><span class="o">+</span><span class="s1">&#39;.anygroup&#39;</span><span class="p">,</span> <span class="nx">values</span><span class="p">.</span><span class="nx">anygroup</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// may get an error if values already loaded</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="c1"># the wrapper function</span>
+<span class="nv">myCheck = </span><span class="nf">(name, values, cb) -&gt;</span>
+  <span class="c1"># change the name to reflect change in reporting</span>
+  <span class="c1"># call it with the subgroup</span>
+  <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span> <span class="nx">name</span><span class="o">+</span><span class="s">&#39;.anygroup&#39;</span><span class="p">,</span> <span class="nx">values</span><span class="p">.</span><span class="nx">anygroup</span><span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># may get an error if values already loaded</span>
 </code></pre></div>
 
 
@@ -757,19 +760,17 @@ file you have to wrap the call in an additional function:</p>
 
 
 <p>A very easy way to do validations is through the
-<a href="alinex-validator.html">https://alinex.github.io/node-validator</a> module. It let's
+<a href="alinex-validator">https://alinex.github.io/node-validator</a> module. It let's
 you define your validation rules as rule structure in an object.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;type.integer&#39;</span><span class="p">,</span>
-    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">min</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nx">max</span><span class="o">:</span> <span class="mi">100</span>
-    <span class="p">}</span>
-  <span class="p">},</span> <span class="nx">cb</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="nf">(name, values, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nv">type: </span><span class="s">&#39;type.integer&#39;</span>
+    <span class="nv">options:</span>
+      <span class="nv">min: </span><span class="mi">0</span><span class="p">,</span>
+      <span class="nv">max: </span><span class="mi">100</span>
+  <span class="p">,</span> <span class="nx">cb</span>
 </code></pre></div>
 
 
@@ -795,19 +796,50 @@ memory leaks.</p>
 <p>An example might look like:</p>
 
 
-<div class="highlight"><pre><code><span class="c1">// create two listener methods</span>
-<span class="kd">var</span> <span class="nx">sendError</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span><span class="p">);</span>
-  <span class="c1">// do something....</span>
-<span class="p">};</span>
-<span class="kd">var</span> <span class="nx">sendChange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span><span class="p">);</span>
-  <span class="c1">// do something....</span>
-<span class="p">};</span>
+<div class="highlight"><pre><code><span class="c1"># create two listener methods</span>
+<span class="nv">sendError = </span><span class="nf">(err) -&gt;</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
+  <span class="c1"># do something....</span>
+<span class="nv">sendChange = </span><span class="nf">-&gt;</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+  <span class="c1"># do something....</span>
 
-<span class="c1">// start listening</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span><span class="p">);</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span><span class="p">);</span>
+<span class="c1"># start listening</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">once</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">once</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="watching%20for%20changes">
+  <h2>
+    <a href="#watching%20for%20changes" name="watching%20for%20changes" class="pilcrow">&#182;</a>
+    Watching for changes
+  </h2>
+</div>
+
+
+<p>It is possible to watch for file changes and automatically reload the configuration
+if something changes.</p>
+
+<p>If any file in the configuration directory changes it will reload the data
+and send an <code>change</code> event after validating.</p>
+
+<p>This feature is disabled by default but may be enabled globally using</p>
+
+
+<div class="highlight"><pre><code><span class="nv">Config.watch = </span><span class="kc">true</span>
+</code></pre></div>
+
+
+
+<p>But do this before using the Config class!</p>
+
+<p>You may also enable and disable this feature on each instance by calling</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">watching</span> <span class="nx">boolean</span>
 </code></pre></div>
 
 
@@ -838,33 +870,33 @@ written in coffee script)</p>
 to start loading the configuration.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Config</span> <span class="o">=</span> <span class="nx">require</span> <span class="s1">&#39;alinex-config&#39;</span>
+<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 
-<span class="kr">class</span> <span class="nx">Test</span>
+<span class="k">class</span> <span class="nx">Test</span>
 
-  <span class="err">@</span><span class="nx">init</span><span class="o">:</span> <span class="p">(</span><span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="s1">&#39;spawn&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
-    <span class="nx">debug</span> <span class="s2">&quot;init or reinit spawn&quot;</span>
-    <span class="err">#</span> <span class="nx">set</span> <span class="nx">config</span> <span class="nx">from</span> <span class="nx">different</span> <span class="nx">values</span>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="err">@</span><span class="nx">config</span> <span class="nx">is</span> <span class="s1">&#39;string&#39;</span>
-      <span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="err">@</span><span class="nx">config</span>
-      <span class="err">#</span> <span class="nx">add</span> <span class="nx">the</span> <span class="nx">module</span><span class="s1">&#39;s directory the default</span>
-<span class="s1">      @config.search.unshift path.resolve __dirname, &#39;</span><span class="kd">var</span><span class="err">/src/config&#39;</span>
-      <span class="err">#</span> <span class="nx">add</span> <span class="nx">the</span> <span class="nx">check</span> <span class="nx">methods</span>
-      <span class="err">@</span><span class="nx">config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">configcheck</span>
-    <span class="k">if</span> <span class="err">@</span><span class="nx">config</span> <span class="k">instanceof</span> <span class="nx">Config</span>
-      <span class="err">@</span><span class="nx">configClass</span> <span class="o">=</span> <span class="err">@</span><span class="nx">config</span>
-      <span class="err">@</span><span class="nx">config</span> <span class="o">=</span> <span class="err">@</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">data</span>
-    <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">false</span> <span class="err">#</span> <span class="nx">status</span> <span class="nx">set</span> <span class="nx">to</span> <span class="kc">true</span> <span class="nx">after</span> <span class="nx">initializing</span>
-    <span class="err">#</span> <span class="nx">set</span> <span class="nx">init</span> <span class="nx">status</span> <span class="k">if</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
-    <span class="nx">unless</span> <span class="err">@</span><span class="nx">configClass</span><span class="o">?</span>
+  <span class="vi">@init: </span><span class="nf">(@config = &#39;spawn&#39;, cb) -&gt;</span>
+    <span class="nx">debug</span> <span class="s">&quot;init or reinit spawn&quot;</span>
+    <span class="c1"># set config from different values</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">@config</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="vi">@config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">@config</span>
+      <span class="c1"># add the module&#39;s directory the default</span>
+      <span class="nx">@config</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">__dirname</span><span class="p">,</span> <span class="s">&#39;var/src/config&#39;</span>
+      <span class="c1"># add the check methods</span>
+      <span class="nx">@config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">configcheck</span>
+    <span class="k">if</span> <span class="nx">@config</span> <span class="k">instanceof</span> <span class="nx">Config</span>
+      <span class="vi">@configClass = </span><span class="nx">@config</span>
+      <span class="vi">@config = </span><span class="nx">@configClass</span><span class="p">.</span><span class="nx">data</span>
+    <span class="vi">@initDone = </span><span class="kc">false</span> <span class="c1"># status set to true after initializing</span>
+    <span class="c1"># set init status if configuration is loaded</span>
+    <span class="k">unless</span> <span class="nx">@configClass</span><span class="o">?</span>
       <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-      <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="vi">@initDone = </span><span class="kc">true</span>
     <span class="k">else</span>
-      <span class="err">#</span> <span class="nx">wait</span> <span class="nx">till</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
-      <span class="err">@</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span>
+      <span class="c1"># wait till configuration is loaded</span>
+      <span class="nx">@configClass</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) =&gt;</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-        <span class="err">@</span><span class="nx">initDone</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="vi">@initDone = </span><span class="kc">true</span>
 </code></pre></div>
 
 
@@ -880,15 +912,15 @@ to start loading the configuration.</p>
 <p>And when the configuration is needed in example in an run method:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">run</span><span class="o">:</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
-  <span class="err">#</span> <span class="nx">start</span> <span class="nx">initializing</span><span class="p">,</span> <span class="k">if</span> <span class="nx">not</span> <span class="nx">done</span>
-  <span class="nx">unless</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
-  <span class="err">#</span> <span class="nx">wait</span> <span class="nx">till</span> <span class="nx">configuration</span> <span class="nx">is</span> <span class="nx">loaded</span>
-  <span class="k">if</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="o">?</span> <span class="nx">and</span> <span class="nx">not</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">loaded</span>
-    <span class="k">return</span> <span class="err">@</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span>
+<div class="highlight"><pre><code><span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
+  <span class="c1"># start initializing, if not done</span>
+  <span class="k">unless</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@run</span> <span class="nx">cb</span>
+  <span class="c1"># wait till configuration is loaded</span>
+  <span class="k">if</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">loaded</span>
+    <span class="k">return</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) =&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
+      <span class="nx">@run</span> <span class="nx">cb</span>
 </code></pre></div>
 
 
@@ -909,12 +941,12 @@ it is loaded.</p>
 <p>Now you may use this in the parent module or program:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">run</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">-&gt;</span>
-  <span class="err">#</span> <span class="nx">start</span> <span class="nx">initializing</span><span class="p">,</span> <span class="k">if</span> <span class="nx">not</span> <span class="nx">done</span>
-  <span class="nx">unless</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="err">@</span><span class="nx">run</span> <span class="nx">cb</span>
-  <span class="err">#</span> <span class="nx">code</span> <span class="nx">running</span> <span class="k">if</span> <span class="nx">initialized</span>
-  <span class="p">...</span>
+<div class="highlight"><pre><code><span class="nv">run = </span><span class="nf">(cb) -&gt;</span>
+  <span class="c1"># start initializing, if not done</span>
+  <span class="k">unless</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@run</span> <span class="nx">cb</span>
+  <span class="c1"># code running if initialized</span>
+  <span class="c1"># ...</span>
 </code></pre></div>
 
 
@@ -928,7 +960,7 @@ it is loaded.</p>
 </div>
 
 
-<p>Copyright 2014 Alexander Schilling</p>
+<p>Copyright 2014-2015 Alexander Schilling</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

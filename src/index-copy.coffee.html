@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>index.coffee</title>
+  <title>index-copy.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3//src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3//src/index-copy.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -166,7 +166,7 @@ to update this data, too.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-<span class="nv">object = </span><span class="nx">require</span> <span class="s">&#39;alinex-util/lib/object&#39;</span>
+<span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
 <span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
 
 
@@ -410,7 +410,7 @@ better use the <code>instance()</code> method which implements the factory patte
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">constructor: </span><span class="nf">(@name) -&gt;</span>
-    <span class="k">unless</span> <span class="nx">@name</span>
+    <span class="k">unless</span> <span class="nx">name</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize Config class without configuration name.&quot;</span>
 
 </pre></div>
