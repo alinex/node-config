@@ -2,7 +2,7 @@
   "name": "alinex-config",
   "version": "0.3.4",
   "description": "Loading configuration files from different formats asynchrone with possible checks.",
-  "copyright": "Alexander Schilling 2014",
+  "copyright": "Alexander Schilling 2014-2015",
   "private": false,
   "keywords": [
     "configuration",
