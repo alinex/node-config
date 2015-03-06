@@ -107,7 +107,7 @@ API
 ### Class configuration
 
 - [Config.search](src/index.coffee#search) - to set the search path
-- `Config.watch` (boolean) - set to false to disable reloading globally
+- `Config.watch` - (boolean) set to false to disable reloading globally
 
 ### Static calls
 
@@ -119,8 +119,10 @@ API
 
 - [new Config()](src/index.coffee#create instance) - to create a new config
   instance
+- config.search - to set the search path
 - [config.default](src/index.coffee#default values) - to set the default values
-- [config.addCheck](src/index.coffee#add check function) - to validate or
+  (this can also be done through the check)
+- [config.addCheck()](src/index.coffee#add check) - to validate or
   optimize the values
 - config.watching(<bool>) - start or stop the watching of config changes
 - config.data - values are directly accessible
