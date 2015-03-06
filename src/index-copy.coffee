@@ -32,7 +32,7 @@ chokidar = require 'chokidar'
 EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
-object = require 'alinex-util/lib/object'
+object = require('alinex-util').object
 validator = require 'alinex-validator'
 
 
@@ -111,7 +111,7 @@ class Config extends EventEmitter
   # This will also load the data if not already done. Don't call this directly
   # better use the `instance()` method which implements the factory pattern.
   constructor: (@name) ->
-    unless @name
+    unless name
       throw new Error "Could not initialize Config class without configuration name."
     # Set high value of listeners because multiple functions may wait but if it
     # is to less it should be checked before running as much functions against the

@@ -15,6 +15,7 @@ describe "Checks", ->
   describe "for validation", ->
 
     it "should succeed", (done) ->
+      @timeout 5000
       config = new Config 'test1'
       config.setCheck (name, config, cb) ->
         return cb "No title defined!" unless config.title
