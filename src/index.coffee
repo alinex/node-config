@@ -32,7 +32,7 @@ chokidar = require 'chokidar'
 EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
-object = require 'alinex-util/lib/object'
+object = require('alinex-util').object
 validator = require 'alinex-validator'
 
 

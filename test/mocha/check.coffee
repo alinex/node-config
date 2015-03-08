@@ -3,7 +3,7 @@ expect = chai.expect
 
 describe "Checks", ->
 
-  Config = require '../../lib/index'
+  Config = require '../../src/index'
 
   beforeEach ->
     Config.search = [
