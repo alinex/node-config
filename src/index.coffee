@@ -45,8 +45,10 @@ class Config extends EventEmitter
   # overridden from the outside.
   base = ROOT_DIR ? '.'
   @search: [
-    path.join base, 'var', 'src', 'config'
-    path.join base, 'var', 'local', 'config'
+#    path.join base, 'var', 'src', 'config'
+#    path.join base, 'var', 'local', 'config'
+    path.join '~/', '.' + path.basename process.title
+    path.join '/etc', path.basename process.title
   ]
   # Switch to enable watching for configuration changes globally.
   @watch: false
@@ -68,6 +70,32 @@ class Config extends EventEmitter
         for entry in list
           names[path.basename entry, path.extname entry] = true
       cb null, Object.keys names
+
+  # ### Get the configuration data
+  # This will get it from different sources like:
+  #
+  # - config name
+  # - Config instance
+  # - data object
+  @get: (config, search, check, cb) ->
+    if typeof search is 'function'
+      cb = search
+      search = null
+    else if typeof check is 'function'
+      cb = check
+      check = null
+    # set config from different values
+    if typeof config is 'string'
+      config = Config.instance config
+      # add the module's directory as default
+      config.search = config.search.concat search if search
+      # add the check methods
+      config.setCheck check
+    # load config
+    if config instanceof Config
+      config.load cb
+    else
+      cb null, config
 
   # ### Factory
   # Get an instance for the name. This enables the system to use the same

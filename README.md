@@ -45,34 +45,11 @@ To easily make your module configurable you need to load the class first:
 Config = require 'alinex-config'
 ```
 
-To configure where to look for files you may give a list of directories:
-
-``` coffee
-Config.search = ['var/src/config', 'var/local/config']
-```
-
-If nothing specified it will search in the above directories under the directory
-specified in the global variable `ROOT_DIR`. See more about the
-[Alinex File Structure](http://alinex.github.io/node-alinex/src/doc/filestructure.md.html)
-
 To load a specific configuration you have to instantiate it with it's name. The
 factory method will help to only have one instance per each configuration name.
 
 ``` coffee
 config = Config.instance 'server'
-```
-
-Alternatively you may create a new isolated instance, which is mostly necessary
-if you have the same name but in another path being used separately.
-
-``` coffee
-config = new Config 'server'
-```
-
-Therefore you may specify a special search path:
-
-``` coffee
-config.search = ['var/src/config', 'var/local/config']
 ```
 
 Before using it you now have to load the configuration. That will be started
@@ -91,14 +68,11 @@ config.load (err, data) ->
 To make accessing of the config values shorter you may also use:
 
 ``` coffee
-config.load (err) ->
-  if err
-    # report error and stop
-  config = data
-  # work with configuration values
-  if config.url
-    console.log 'Started at '+config.url
+Config.get 'server', search, check, (err, config) ->
+  # now you may use the values
 ```
+
+This allows you to optionally set search order and validation checks.
 
 
 API
@@ -144,12 +118,19 @@ Search and order
 Configurations are searched in all supported file formats under the given
 directories and below.
 
-You may also subdivide the configuration in multiple parts like (maybe also with
-mixed formats):
+The files are searched in the following order of directories:
 
-- server.yml
-- server-part1.yml
-- server-part2.yml
+- `var/src/config`
+- `var/local/config`
+- `~/.<process>/config`
+- `/etc/<process>/config`
+
+And within these the files are searched with the given name in different formats
+(maybe also with mixed formats):
+
+- `<name>.yml`
+- `<name>-part1.yml`
+- `<name>-part2.yml`
 
 The order is essential because the later file will overwrite the same keys of
 the earlier ones. So the order looks like:
@@ -157,6 +138,15 @@ the earlier ones. So the order looks like:
 1. Use each directory in given search list order
 2. Use files with only base names
 3. Use the partial extensions in alphabetical order
+
+To configure where to look for files you may give a list of directories:
+
+``` coffee
+Config.search = ['var/src/config', 'var/local/config']
+```
+
+This will set the search paths for all new instances but you may also define
+the search paths on a single instance.
 
 
 Overloading
