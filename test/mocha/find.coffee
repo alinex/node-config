@@ -1,7 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 
-Config = require '../../lib/index'
+Config = require '../../src/index'
 Config.search = [
   'test/data/src'
   'test/data/local'
