@@ -4,6 +4,20 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.0 (2015-03-14)
+-------------------------------------------------
+- Add new node versions to travis checks.
+- Upgraded dependend packages.
+- Added test case for new get method.
+- Add the get() method for quick access.
+- Small fixes.
+- Updated documentation.
+- Update API documentation for new version.
+- Fixed code to work with new coffeescript version.
+- Update documentation structure.
+- Update documentation structure.
+- Print debug values not before they are validated.
+
 Version 0.3.4 (2014-12-30)
 -------------------------------------------------
 - Disable watching per default and support enabling it per each instance.
