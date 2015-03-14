@@ -69,5 +69,26 @@ describe "Configuration", ->
         expect(config.title).to.equal 'YAML Test 2'
         done()
 
+  describe "easy get", ->
+
+    it "should return object", (done) ->
+      data =
+        title: 1
+        yaml: 2
+      Config.get data, (err, config) ->
+        expect(config, 'object').to.deep.equal data
+        done()
+    it "should load config by name", (done) ->
+      Config.get 'test1', (err, config) ->
+        expect(config, 'test1').to.contain.keys 'title'
+        expect(config, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
+        done()
+    it "should use given config class", (done) ->
+      config = Config.instance 'test1'
+      Config.get config, (err, config) ->
+        expect(config, 'test1').to.contain.keys 'title'
+        expect(config, 'test1').to.contain.keys 'yaml', 'json', 'javascript', 'coffee'
+        done()
+
   describe "reloading", ->
 
