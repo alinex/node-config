@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3//README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -118,7 +118,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="docs markdown">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="package%3A%20alinex-config">
   <h1>
     <a href="#package%3A%20alinex-config" name="package%3A%20alinex-config" class="pilcrow">&#182;</a>
@@ -187,40 +187,11 @@ following the code standards defined there.</p>
 
 
 
-<p>To configure where to look for files you may give a list of directories:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">Config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
-</code></pre></div>
-
-
-
-<p>If nothing specified it will search in the above directories under the directory
-specified in the global variable <code>ROOT_DIR</code>. See more about the
-<a href="http://alinex.github.io/node-alinex/src/doc/filestructure.md.html">Alinex File Structure</a></p>
-
 <p>To load a specific configuration you have to instantiate it with it's name. The
 factory method will help to only have one instance per each configuration name.</p>
 
 
 <div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;server&#39;</span>
-</code></pre></div>
-
-
-
-<p>Alternatively you may create a new isolated instance, which is mostly necessary
-if you have the same name but in another path being used separately.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">config = </span><span class="k">new</span> <span class="nx">Config</span> <span class="s">&#39;server&#39;</span>
-</code></pre></div>
-
-
-
-<p>Therefore you may specify a special search path:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
 </code></pre></div>
 
 
@@ -243,16 +214,13 @@ access.</p>
 <p>To make accessing of the config values shorter you may also use:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) -&gt;</span>
-  <span class="k">if</span> <span class="nx">err</span>
-    <span class="c1"># report error and stop</span>
-  <span class="nv">config = </span><span class="nx">data</span>
-  <span class="c1"># work with configuration values</span>
-  <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">url</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span>
+<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">search</span><span class="p">,</span> <span class="nx">check</span><span class="p">,</span> <span class="nf">(err, config) -&gt;</span>
+  <span class="c1"># now you may use the values</span>
 </code></pre></div>
 
 
+
+<p>This allows you to optionally set search order and validation checks.</p>
 
 
 <div class="pilwrap" id="api">
@@ -274,7 +242,7 @@ access.</p>
 
 <ul>
 <li><a href="src/index.coffee.html#search">Config.search</a> - to set the search path</li>
-<li><code>Config.watch</code> (boolean) - set to false to disable reloading globally</li>
+<li><code>Config.watch</code> - (boolean) set to true to enable reloading globally</li>
 </ul>
 
 
@@ -304,11 +272,16 @@ existing configuration files</li>
 <ul>
 <li><a href="src/index.coffee.html#create instance">new Config()</a> - to create a new config
 instance</li>
-<li><a href="src/index.coffee.html#default values">config.default</a> - to set the default values</li>
-<li><a href="src/index.coffee.html#add check function">config.addCheck</a> - to validate or
+<li>config.search - to set the search path</li>
+<li><a href="src/index.coffee.html#default values">config.default</a> - to set the default values
+(this can also be done through the check)</li>
+<li><a href="src/index.coffee.html#set check">config.setCheck()</a> - to validate or
 optimize the values</li>
+<li>config.load() - loading the configuration</li>
+<li>config.reload() - loading the configuration</li>
 <li>config.watching(<bool>) - start or stop the watching of config changes</li>
 <li>config.data - values are directly accessible</li>
+<li>config.getData() - get data from config instance, name or config object</li>
 </ul>
 
 
@@ -339,13 +312,22 @@ optimize the values</li>
 <p>Configurations are searched in all supported file formats under the given
 directories and below.</p>
 
-<p>You may also subdivide the configuration in multiple parts like (maybe also with
-mixed formats):</p>
+<p>The files are searched in the following order of directories:</p>
 
 <ul>
-<li>server.yml</li>
-<li>server-part1.yml</li>
-<li>server-part2.yml</li>
+<li><code>var/src/config</code></li>
+<li><code>var/local/config</code></li>
+<li><code>~/.&lt;process&gt;/config</code></li>
+<li><code>/etc/&lt;process&gt;/config</code></li>
+</ul>
+
+<p>And within these the files are searched with the given name in different formats
+(maybe also with mixed formats):</p>
+
+<ul>
+<li><code>&lt;name&gt;.yml</code></li>
+<li><code>&lt;name&gt;-part1.yml</code></li>
+<li><code>&lt;name&gt;-part2.yml</code></li>
 </ul>
 
 <p>The order is essential because the later file will overwrite the same keys of
@@ -356,6 +338,17 @@ the earlier ones. So the order looks like:</p>
 <li>Use files with only base names</li>
 <li>Use the partial extensions in alphabetical order</li>
 </ol>
+
+<p>To configure where to look for files you may give a list of directories:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">Config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+<p>This will set the search paths for all new instances but you may also define
+the search paths on a single instance.</p>
 
 
 <div class="pilwrap" id="overloading">
