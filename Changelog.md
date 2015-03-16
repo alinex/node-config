@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.1 (2015-03-16)
+-------------------------------------------------
+- 
+
 Version 0.4.0 (2015-03-14)
 -------------------------------------------------
 - Add new node versions to travis checks.
