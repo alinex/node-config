@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.2 (2015-03-16)
+-------------------------------------------------
+- Allow also lower versions of chokidar.
+
 Version 0.4.1 (2015-03-16)
 -------------------------------------------------
 - 
