@@ -197,7 +197,8 @@ class Config extends EventEmitter
     @loading = true
     debug "Start loading config for '#{@name}'", @search
     for dir in  @search
-      debug chalk.grey "search in #{path.resolve dir}"
+      dir = path.resolve dir if dir[0] is '~'
+      debug chalk.grey "search in #{dir}"
     @_watch()
     async.map @search, (dir, cb) =>
       fs.find dir,
