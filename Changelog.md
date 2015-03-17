@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.3 (2015-03-17)
+-------------------------------------------------
+- Resolve homedir in platform agnostic way.
+- Fixed chokidar versions.
+
 Version 0.4.2 (2015-03-16)
 -------------------------------------------------
 - Allow also lower versions of chokidar.
