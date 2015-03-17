@@ -43,11 +43,9 @@ class Config extends EventEmitter
   # ### Setup
   # Set the default search paths for configuration file search. It may be
   # overridden from the outside.
-  base = ROOT_DIR ? '.'
+  home = process.env.HOME ? process.env.HOMEPATH ? process.env.USERPROFILE
   @search: [
-#    path.join base, 'var', 'src', 'config'
-#    path.join base, 'var', 'local', 'config'
-    path.join '~/', '.' + path.basename process.title
+    path.join home, '.' + path.basename process.title
     path.join '/etc', path.basename process.title
   ]
   # Switch to enable watching for configuration changes globally.
