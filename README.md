@@ -88,6 +88,7 @@ API
 - [Config.find()](src/index.coffee#find configuration files) - to search for
   existing configuration files
 - [Config.instance()](src/index.coffee#factory) - to get a config instance
+- Config.get() - as easy access method
 
 ### Instances
 
