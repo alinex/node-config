@@ -208,22 +208,9 @@ to update this data, too.</p>
 overridden from the outside.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">base = </span><span class="nx">ROOT_DIR</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
+  <span class="nv">home = </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOMEPATH</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERPROFILE</span>
   <span class="vi">@search: </span><span class="p">[</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
-</div>
-<p>path.join base, 'var', 'src', 'config'
-   path.join base, 'var', 'local', 'config'</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;~/&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">home</span><span class="p">,</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
     <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;/etc&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
   <span class="p">]</span>
 
@@ -233,7 +220,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>Switch to enable watching for configuration changes globally.</p>
         </td>
@@ -310,7 +297,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>set config from different values</p>
         </td>
@@ -324,7 +311,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>add the module's directory as default</p>
         </td>
@@ -337,7 +324,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>add the check methods</p>
         </td>
@@ -350,7 +337,7 @@ overridden from the outside.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>load config</p>
         </td>
@@ -414,7 +401,7 @@ temporarily.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>remove the strings</p>
         </td>
@@ -430,7 +417,7 @@ temporarily.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>remove regular expressions</p>
         </td>
@@ -446,7 +433,7 @@ temporarily.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>Remove multi-line comments that contain would be single-line delimiters
 E.g. /* // &lt;--</p>
@@ -460,7 +447,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>Remove single and multi-line comments, no consideration of inner-contents</p>
         </td>
@@ -473,7 +460,7 @@ E.g. /* // &lt;--</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>Remove multi-line comments that have a replaced ending (string/regex)
 Greedy, so no inner strings/regexes will stop it.</p>
@@ -487,7 +474,7 @@ Greedy, so no inner strings/regexes will stop it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>Bring back strings &amp; regexes</p>
         </td>
@@ -522,7 +509,7 @@ better use the <code>instance()</code> method which implements the factory patte
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>Set high value of listeners because multiple functions may wait but if it
 is to less it should be checked before running as much functions against the
@@ -537,7 +524,7 @@ configuration.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>Instance specific search path set to class</p>
         </td>
@@ -614,7 +601,7 @@ enabled).</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>Event listener methods which will be set and only one will be called. The
 other one will be removed.</p>
@@ -635,7 +622,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>start loading if not already done</p>
         </td>
@@ -668,7 +655,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
 <p>event listener to wait for reloading</p>
         </td>
@@ -706,7 +693,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>skip also if no files found</p>
         </td>
@@ -727,7 +714,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
 </div>
 <p>convert data to object</p>
         </td>
@@ -760,7 +747,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
 </div>
 <p>combine if multiple files found</p>
         </td>
@@ -776,7 +763,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
 </div>
 <p>check if at least one file loaded</p>
         </td>
@@ -793,7 +780,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
 </div>
 <p>add default values</p>
         </td>
@@ -807,7 +794,7 @@ other one will be removed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
 </div>
 <p>combine everything together clean the object and refill to be updated
 without resetting thee references</p>
@@ -824,7 +811,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
 </div>
 <p>done</p>
         </td>
@@ -842,7 +829,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
 </div>
 <p>run checks</p>
         </td>
@@ -885,7 +872,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
 </div>
 <p>run the check on the already loaded data</p>
         </td>
@@ -921,7 +908,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
 </div>
 <p>only skip if watcher initialized and dirs haven't changed</p>
         </td>
@@ -934,7 +921,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
 </div>
 <p>close old watcher</p>
         </td>
@@ -948,7 +935,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
 </div>
 <p>start watching config dirs</p>
         </td>
@@ -970,7 +957,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
 </div>
 <p>action for changes</p>
         </td>
@@ -1014,7 +1001,7 @@ without resetting thee references</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
 </div>
 <p>watcher = chokidar.watch '/home/alex/a3/dvb-media/var/src/config',
  ignoreInitial: true
