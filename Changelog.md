@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.4 (2015-03-20)
+-------------------------------------------------
+- Added real life example to use.
+- Added get() in the API doc.
+- Make debug output correct with ~ path.
+
 Version 0.4.3 (2015-03-17)
 -------------------------------------------------
 - Resolve homedir in platform agnostic way.
