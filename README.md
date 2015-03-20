@@ -489,6 +489,48 @@ You may also enable and disable this feature on each instance by calling
 config.watching boolean
 ```
 
+
+Examples
+-------------------------------------------------
+
+### Use in class for single init
+
+``` coffee
+Config = require 'alinex-config'
+configcheck = require './configcheck'
+
+class Spawn
+  @init: (config = 'spawn', cb) ->
+    return cb() if @config # already loaded
+    @_configSource ?= config # store what to load
+    # start resolving configuration
+    Config.get @_configSource, [
+      path.resolve path.dirname(__dirname), 'var/src/config'
+      path.resolve path.dirname(__dirname), 'var/local/config'
+    ], configcheck, (err, @config) ->
+      # results stored, now check for errors
+      console.error err if err
+      cb err if cb?
+
+  constructor: ->
+    # do something
+
+  run: (cb) ->
+    @constructor.init null, (err) ->
+```
+
+Now you should use this class like:
+
+``` coffee
+Spawn.init 'spawn'
+xxx = new Spawn()
+xxx.run()
+# or use the default config name
+xxx = new Spawn()
+xxx.run()
+```
+
+
 Submodule pattern
 -------------------------------------------------
 

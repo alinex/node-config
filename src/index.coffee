@@ -95,6 +95,7 @@ class Config extends EventEmitter
     else
       cb null, config
 
+
   # ### Factory
   # Get an instance for the name. This enables the system to use the same
   # Config instance anywhere.
