@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.5 (2015-03-20)
+-------------------------------------------------
+- 
+
 Version 0.4.4 (2015-03-20)
 -------------------------------------------------
 - Added real life example to use.
