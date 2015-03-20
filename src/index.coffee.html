@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3//src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -76,7 +76,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -346,6 +346,7 @@ overridden from the outside.</p>
       <span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nx">cb</span>
     <span class="k">else</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">config</span>
+
 
 
 </pre></div>
@@ -675,7 +676,8 @@ other one will be removed.</p>
     <span class="vi">@loading = </span><span class="kc">true</span>
     <span class="nx">debug</span> <span class="s">&quot;Start loading config for &#39;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&#39;&quot;</span><span class="p">,</span> <span class="nx">@search</span>
     <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span>  <span class="nx">@search</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;search in </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">dir</span> <span class="k">if</span> <span class="nx">dir</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;~&#39;</span>
+      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;search in </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">@_watch</span><span class="p">()</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">@search</span><span class="p">,</span> <span class="nf">(dir, cb) =&gt;</span>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">dir</span><span class="p">,</span>

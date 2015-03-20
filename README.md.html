@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3//README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -104,6 +104,12 @@
         <a href="#watching%20for%20changes">Watching for changes</a>
       </div>
       <div class="heading h2">
+        <a href="#examples">Examples</a>
+      </div>
+      <div class="heading h3">
+        <a href="#use%20in%20class%20for%20single%20init">Use in class for single init</a>
+      </div>
+      <div class="heading h2">
         <a href="#submodule%20pattern">Submodule pattern</a>
       </div>
       <div class="heading h3">
@@ -118,7 +124,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="docs markdown">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="package%3A%20alinex-config">
   <h1>
     <a href="#package%3A%20alinex-config" name="package%3A%20alinex-config" class="pilcrow">&#182;</a>
@@ -258,6 +264,7 @@ access.</p>
 <li><a href="src/index.coffee.html#find configuration files">Config.find()</a> - to search for
 existing configuration files</li>
 <li><a href="src/index.coffee.html#factory">Config.instance()</a> - to get a config instance</li>
+<li>Config.get() - as easy access method</li>
 </ul>
 
 
@@ -386,7 +393,7 @@ are used.</p>
 So you may use the format you know best. The following table will give a short
 comparison.</p>
 
-<p>|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
+<p style="font-family:monospace;white-space:pre">|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
 |:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
 | Supported   |  yes |  yes | yes | yes |    yes |  no |    no |    no |
 | Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
@@ -588,7 +595,7 @@ export the configuration object.</p>
 
 <p>Not supported, yet.</p>
 
-<p>| lastchange       | group | key          |  value | comment |
+<p style="font-family:monospace;white-space:pre">| lastchange       | group | key          |  value | comment |
 |------------------|-------|:-------------|:-------|:--------|
 | 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
 | 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
@@ -833,6 +840,63 @@ and send an <code>change</code> event after validating.</p>
 
 
 <div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">watching</span> <span class="nx">boolean</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow">&#182;</a>
+    Examples
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="use%20in%20class%20for%20single%20init">
+  <h3>
+    <a href="#use%20in%20class%20for%20single%20init" name="use%20in%20class%20for%20single%20init" class="pilcrow">&#182;</a>
+    Use in class for single init
+  </h3>
+</div>
+
+
+
+<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="nv">configcheck = </span><span class="nx">require</span> <span class="s">&#39;./configcheck&#39;</span>
+
+<span class="k">class</span> <span class="nx">Spawn</span>
+  <span class="vi">@init: </span><span class="nf">(config = &#39;spawn&#39;, cb) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@config</span> <span class="c1"># already loaded</span>
+    <span class="nx">@_configSource</span> <span class="o">?=</span> <span class="nx">config</span> <span class="c1"># store what to load</span>
+    <span class="c1"># start resolving configuration</span>
+    <span class="nx">Config</span><span class="p">.</span><span class="nx">get</span> <span class="nx">@_configSource</span><span class="p">,</span> <span class="p">[</span>
+      <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/src/config&#39;</span>
+      <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/local/config&#39;</span>
+    <span class="p">],</span> <span class="nx">configcheck</span><span class="p">,</span> <span class="nf">(err, @config) -&gt;</span>
+      <span class="c1"># results stored, now check for errors</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
+
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="c1"># do something</span>
+
+  <span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
+    <span class="nx">@constructor</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+</code></pre></div>
+
+
+
+<p>Now you should use this class like:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="s">&#39;spawn&#39;</span>
+<span class="nv">xxx = </span><span class="k">new</span> <span class="nx">Spawn</span><span class="p">()</span>
+<span class="nx">xxx</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
+<span class="c1"># or use the default config name</span>
+<span class="nv">xxx = </span><span class="k">new</span> <span class="nx">Spawn</span><span class="p">()</span>
+<span class="nx">xxx</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
 </code></pre></div>
 
 
