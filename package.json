@@ -38,8 +38,7 @@
     "async": "0.9.x",
     "chalk": "1.x",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
-    "debug": ">=0.8.0 <3.0.0",
-    "js-yaml": "3.x"
+    "debug": ">=0.8.0 <3.0.0"
   },
   "devDependencies": {
     "alinex-make": "0.4.x",
@@ -48,7 +47,8 @@
   },
   "optionalDependencies": {
     "coffee-script": "1.x",
-    "xml2js": "0.4.x"
+    "xml2js": "0.4.x",
+    "js-yaml": "3.x"
   },
   "engines": {
     "node": ">=0.10"
