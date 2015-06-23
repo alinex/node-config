@@ -5,6 +5,8 @@
   "copyright": "Alexander Schilling 2014-2015",
   "private": false,
   "keywords": [
+    "registry",
+    "config",
     "configuration",
     "parsing",
     "loading",
@@ -25,25 +27,25 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/alinex-make -c compile",
-    "test": "node_modules/.bin/alinex-make -c test"
+    "prepublish": "node_modules/.bin/builder -c compile",
+    "test": "node_modules/.bin/builder -c test"
   },
   "directories": {
     "lib": "./lib"
   },
   "dependencies": {
+    "alinex-async": "0.x",
     "alinex-fs": "0.2.x",
     "alinex-util": "0.2.x",
-    "alinex-validator": "0.x",
-    "async": "0.9.x",
+    "alinex-validator": "1.x",
     "chalk": "1.x",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
     "debug": ">=0.8.0 <3.0.0"
   },
   "devDependencies": {
-    "alinex-make": "0.4.x",
-    "chai": "2.x",
-    "alinex-error": "1.x"
+    "alinex-builder": "1.x",
+    "alinex-error": "1.x",
+    "chai": "3.x"
   },
   "optionalDependencies": {
     "coffee-script": "1.x",
