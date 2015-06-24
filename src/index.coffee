@@ -57,6 +57,7 @@ module.exports =
   setSchema : (path, schema) ->
     console.log 'TO BE DONE'
 
+  # ### Initialize
   init : (cb) ->
     debug "initialize configuration system"
     load.init @, cb

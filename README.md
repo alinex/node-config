@@ -26,6 +26,175 @@ following the code standards defined there.
 Also see the last [changes](Changelog.md).
 
 
+Formats
+-------------------------------------------------
+
+This configuration class allows multiple formats to be used alternatively or combined.
+So you may use the format you know best. The following table will give a short
+comparison.
+
+|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
+|:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
+| Supported   |  yes |  yes | yes | yes |    yes | yes |    no |    no |
+| Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
+| Structure   |  yes |  yes | yes | yes |    yes | yes |   yes |   yes |
+| Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
+| Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
+| Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
+| Common      |   ++ |    + |  ++ |  -- |    --- | +++ |     - |    -- |
+
+### YAML
+
+This is a simplified and best human readable language to write structured
+information. See some examples at [Wikipedia](http://en.wikipedia.org/wiki/YAML).
+
+Common file extensions `yml` or `yaml`.
+
+__Example__
+
+title: YAML Test
+
+``` yaml
+# use an object
+yaml:
+  # include text elements
+  name: test
+  name2: 'commas has to be in quotes, too'
+  description: >
+    This may be a very long
+    line in which newlines
+    will be removed.
+  # and some lists
+  list: 1, 2, 3
+  list2:
+    - red
+    - green
+    - blue
+```
+
+### JSON
+
+This format uses the javascript object notation a human readable structure. It
+is widely used in different languages not only JavaScript. See description at
+[Wikipedia](http://en.wikipedia.org/wiki/Json).
+
+JSON won't allow comments but you may use JavaScript like comments using
+`//` and `/*...*/` like known in javascript. They will be removed before
+interpreting the file contents.
+
+Common file extension `json`.
+
+``` json
+{
+  // use an object
+  "json": {
+    // include text elements
+    "name": "test",
+    // and a list of numbers
+    "list": [1, 2, 3]
+  }
+}
+```
+
+### XML
+
+The XML format should only use Tags and values, but no arguments.
+
+Common file extension `xml`.
+
+``` xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- use an object -->
+<xml>
+  <!-- include a string -->
+  <name>test</name>
+  <!-- and a list of numbers -->
+  <list>1</list>
+  <list>2</list>
+  <list>3</list>
+</xml>
+```
+
+### JavaScript
+
+Also allowed are normal JavaScript files. In comparison to the JSON format it
+is more loosely so you may use single quotes, keys don't need quotes at all and
+at last you may use calculations. But you may only access elements in the same
+file accessing data from outside is prevented by security.
+
+Common file extension `js`.
+
+``` javascript
+{
+  // use an object
+  javascript: {
+    // include a string
+    name: "test",
+    // and a list of numbers
+    list: [1, 2, 3]
+  }
+}
+```
+
+### CSON
+
+Like above you may write the modules in CoffeeScript like in JSON.
+
+Common file extension `cson`.
+
+``` coffee
+module.exports =
+  # use an object
+  coffee:
+    # include a string
+    name: "test"
+    # and a list of numbers
+    list: [1, 2, 3]
+```
+
+### Ini file
+
+This is one of the oldest formats used for configurations. It is very simple but
+allows also complex objects through extended groups.
+
+Common file extension `ini`.
+
+``` ini
+; use an object
+; include a string
+name = test
+; and a list of numbers
+list[] = 1
+list[] = 2
+list[] = 3
+; and use groups
+[group1]
+name = group1
+; and also subgroups
+[group1.sub]
+name = subgroup1
+```
+
+### RDBMS
+
+Not supported, yet.
+
+| lastchange       | group | key          |  value | comment |
+|------------------|-------|:-------------|:-------|:--------|
+| 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
+| 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
+| 2014-12-11 19:45 | test  | rdbms.list   | null   | and a list of numbers |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 1      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 2      |  |
+| 2014-12-11 19:45 | test  | rdbms.list[] | 3      |  |
+
+### Object DB
+
+Not supported, yet.
+
+Here, the JSON will be stored in the database like in the JSON file.
+
+
 Install
 -------------------------------------------------
 
@@ -228,6 +397,7 @@ After everything is done the given callback is called.
 
 Access configuration
 -------------------------------------------------
+
 
 
 License

@@ -1,7 +1,7 @@
 {
   "name": "alinex-config",
   "version": "0.4.5",
-  "description": "Loading configuration files from different formats asynchrone with possible checks.",
+  "description": "Loading configuration files from different formats asynchronous with possible checks.",
   "copyright": "Alexander Schilling 2014-2015",
   "private": false,
   "keywords": [
@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/builder -c compile",
+    "prepublish": "node_modules/.bin/builder -c compile --uglify",
     "test": "node_modules/.bin/builder -c test"
   },
   "directories": {
@@ -41,8 +41,9 @@
     "chalk": "1.x",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
     "debug": ">=0.8.0 <3.0.0",
-    "js-yaml": "^3.3.1",
-    "xml2js": "^0.4.9"
+    "ini": "^.x",
+    "js-yaml": "3.x",
+    "xml2js": "0.4.x"
   },
   "devDependencies": {
     "alinex-builder": "1.x",

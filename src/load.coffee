@@ -33,6 +33,9 @@ object = require('alinex-util').object
 validator = require 'alinex-validator'
 
 
+# Initialize origins
+# -------------------------------------------------
+
 exports.init = (config, cb) ->
   debug "load all unloaded configurations"
   # step through origins
@@ -99,20 +102,19 @@ loadFiles = (origin, path, cb) ->
   , (err, list) ->
     return cb err if err
     # load them
+    date = new Date()
     async.map list, (file, cb) ->
       fs.readFile file,
         encoding: 'UTF-8'
       , (err, text) ->
         return cb err if err
         # parse
-        parse text, "file://#{file}", origin.parser ? file, false, (err, obj) ->
+        uri = "file://#{file}"
+        parse text, uri, origin.parser ? file, false, (err, obj) ->
           return cb err if err
+          console.log obj
           # make meta data
-          meta = {}
-
-
-
-
+          meta = setMeta obj, { _uri: uri, _setup: origin }
           cb null, [obj,meta]
     , (err, objects) ->
       return cb err if err
@@ -127,25 +129,28 @@ loadFiles = (origin, path, cb) ->
       # store in origin
       origin.value = obj
       origin.meta = meta
+      origin.lastload = date
       cb()
 
-
+# ### Parse text into object
 parse = (text, uri, parser, quiet=false, cb) ->
-  unless parser in ['yaml', 'js', 'json', 'xml']
+  unless parser in ['yaml', 'js', 'json', 'xml', 'ini']
     # autodetect parser on content
     parse text, uri, 'xml', true, (err, obj) ->
       return cb null, obj if obj
-      parse text, uri, 'yaml', true, (err, obj) ->
+      parse text, uri, 'ini', true, (err, obj) ->
         return cb null, obj if obj
-        parse text, uri, 'json', true, (err, obj) ->
+        parse text, uri, 'yaml', true, (err, obj) ->
           return cb null, obj if obj
-          parse text, uri, 'js', true, (err, obj) ->
+          parse text, uri, 'json', true, (err, obj) ->
             return cb null, obj if obj
-            debug chalk.red "#{uri} failed in all parsers"
-            cb()
+            parse text, uri, 'js', true, (err, obj) ->
+              return cb null, obj if obj
+              debug chalk.red "#{uri} failed in all parsers"
+              cb()
     return
   color = if quiet then 'grey' else 'red'
-#  debug chalk.grey "try loading #{uri} as #{parser}"
+  debug chalk.grey "try loading #{uri} as #{parser}"
   # parser given
   switch parser
     when 'yaml'
@@ -170,9 +175,21 @@ parse = (text, uri, parser, quiet=false, cb) ->
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
       cb null, result
+    when 'ini'
+      ini = require 'ini'
+      try
+        result = ini.decode text
+        # detect failed parsing
+        return cb() if result['{']
+        for k,v of result
+          return cb() if v is true and k.match /:/
+      catch err
+        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
+        return cb()
+      cb null, result
     when 'xml'
       xml2js = require 'xml2js'
-      xml2js.parseString text, (err, result) ->
+      xml2js.parseString text, { explicitArray: false }, (err, result) ->
         if err
           debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
           return cb()
@@ -208,3 +225,11 @@ stripComments = (code) ->
   .replace(RegExp("\\/\\*[\\s\\S]+" + uid + "\\d+", "g"), "")
   # Bring back strings & regexes
   .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
+
+# ### Set Meta Data to all elements
+setMeta = (obj, data) ->
+  meta = {}
+  for k, v of obj
+    meta[k] = if typeof v is 'object' then setMeta(v, data) else data
+  return meta
+
