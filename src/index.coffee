@@ -23,16 +23,43 @@
 debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 chalk = require 'chalk'
-util = require 'util'
-path = require 'path'
-chokidar = require 'chokidar'
-EventEmitter = require('events').EventEmitter
-# include more alinex modules
-fs = require 'alinex-fs'
-async = require 'alinex-async'
-object = require('alinex-util').object
-validator = require 'alinex-validator'
+# load helper modules
+load = require './load'
 
-
-# Configuration class
+# Define singleton instance
 # -------------------------------------------------
+module.exports =
+
+  # Data container
+  # -------------------------------------------------
+
+  # configuration for loading
+  origin: []
+  # validation schema
+  schema:
+    type: 'object'
+  # contents
+  value: {}
+  # meta data for each data element
+  meta: {}
+  # event listener for onChange event
+  listener: {}
+
+  # Setup methods
+  # -------------------------------------------------
+
+  pushOrigin    : (conf) -> @origin.push conf
+  unshiftOrigin : (conf) -> @origin.unshift conf
+
+  register : (app, conf) ->
+    console.log 'TO BE DONE'
+
+  setSchema : (path, schema) ->
+    console.log 'TO BE DONE'
+
+  init : (cb) ->
+    debug "initialize configuration system"
+    load.init @, cb
+
+  # Access methods
+  # -------------------------------------------------

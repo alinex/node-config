@@ -56,8 +56,8 @@ already done and initialize it:
 config.register
   name: 'myapp'
 # add a special path on the end (highest priority)
-config.search.push
-  uri: 'file:///etc/my-config'
+config.origin.push
+  uri: 'file:///etc/my-config.yml'
 # and add a schema to verify the database settings are correct
 config.setSchema
   path: 'database'
@@ -88,7 +88,146 @@ To don't mess with the names: I always address the instance with `config` and us
 a short name like `conf` for some data out of it.
 
 
+Setup origin
+-------------------------------------------------
 
+The origin is the place the configuration data comes from. For alinex-config you
+have the possibility to specify multiple search paths, you can also overload
+configurations with another file in higher priority and combine values from
+different files together.
+So the specification of the origin is the main part and is the base to build
+the registry data.
+
+### Origin Object
+
+To setup the origin for the configuration module you have to extend the origin
+list by adding a new origin object.
+
+The single origin object describes where to find the configuration, what to use
+and where to put them in the final data structure. It contains the following
+possible elements:
+
+- uri - pointing to the search
+- parser - (optional) type to use for parsing the data
+- filter - (optional) which part to use
+- path - (optional) where to put it in the data structure
+
+The following URI types are possible here:
+
+- No Protocol => using the file protocol
+- `file://` => load from local file
+- `http://` or `https://` => load from web service
+
+### File search
+
+Access files absolute from root or relative from current directory:
+
+``` text
+file:///etc/myapp.yml   # absolute path
+/etc/myapp.yml          # shortcut
+
+file://config/myapp.yml # relative path
+config/myapp.yaml       # shortcut
+```
+
+You can search by using asterisk as placeholder or a double asterisk to
+go multiple level depth:
+
+``` text
+/etc/myapp.*            # search for any extension
+/etc/myapp/*.yml        # find all files with this extension
+/etc/myapp/*            # find all files in the directory
+/etc/myapp/*/*.yml      # fin one level depth
+/etc/myapp/**           # find all files in directory or subdirectories
+/etc/myapp/**/*.yml     # find files in the directory or subdirectories
+```
+
+See more about the possible matchings at
+[FS](http://alinex.github.io/node-fs/README.md.html#file%2Fpath%20matching).
+
+### Parsing data
+
+The data loaded from the given URI will be parsed if it is a string. You may
+set one of the following parsers in `parser` to use:
+
+- yaml
+- json
+- xml
+- ini
+
+But if you don't specify it, it will be auto detected based on the file extension
+and the contents itself.
+
+### Combine contents
+
+Use the `filter` path to only use a subset of the loaded structure and the
+`path` to specify where it belongs to.
+
+    filter: 'test'
+    path: 'database/test'
+
+This will only use the `test` settings from the loaded data and put them into
+`data.database.test`.
+
+If multiple files are found (maybe through multiple origins) their contents
+will be merged together in the order they are specified in the origin tree list.
+This means that the later one will overwrite the earlier one if they have values
+for the same element.
+
+### Origin Structure
+
+The origin structure is a tree list which will be processed top down. This means
+that you can add new origin objects at the top to use them as defaults or at
+the end of the list to make this the highest priority.
+
+In case of registering applications they will make a sublist with their search
+paths (see below).
+
+### Register Application
+
+An application have the possibility to search for their file based configuration
+on multiple locations out of the box:
+
+- var/src/config - defaults in the source code
+- var/local/config - local within the installed program
+- /etc/<app> - global for the application
+- ~/.app/config - user specific settings
+
+As described above the last has the highest priority.
+
+To support this in an easy way you may use the `register` method which if given
+an application name and the app directory will do everything for you.
+
+``` coffee
+config.register myapp, __dirname, { uri: '*.yml' }
+```
+
+
+Setup schema
+-------------------------------------------------
+
+The second path is the schema which is used for validation and to sanitize
+the values. This is done using a schema valid for the
+[Validator](http://alinex.github.io/node-validator).
+
+
+Initialize
+-------------------------------------------------
+
+After everything is setup you have to call the `init()` method to initialize
+it. This will:
+
+- search for the configurations
+- load them
+- parse them
+- combine all together
+- check using schema
+
+After everything is done the given callback is called.
+
+
+Access configuration
+-------------------------------------------------
 
 
 License
