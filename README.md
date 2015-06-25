@@ -20,10 +20,31 @@ The major features are:
 - supports value modification rules
 - automatically reloads on file changes
 
-It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
-following the code standards defined there.
+> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
 
-Also see the last [changes](Changelog.md).
+
+Install
+-------------------------------------------------
+
+[![NPM](https://nodei.co/npm/alinex-config.png?downloads=true&downloadRank=true&stars=true)
+ ![Downloads](https://nodei.co/npm-dl/alinex-config.png?months=9&height=3)
+](https://www.npmjs.com/package/alinex-config)
+
+The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):
+
+``` sh
+npm install alinex-config --save
+```
+
+And update it to the latest version later:
+
+``` sh
+npm update alinex-config --save
+```
+
+Always have a look at the latest [changes](Changelog.md).
 
 
 Formats
@@ -193,18 +214,6 @@ Not supported, yet.
 Not supported, yet.
 
 Here, the JSON will be stored in the database like in the JSON file.
-
-
-Install
--------------------------------------------------
-
-The easiest way is to let npm add the module directly:
-
-``` sh
-npm install alinex-config --save
-```
-
-[![NPM](https://nodei.co/npm/alinex-config.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-config/)
 
 
 Usage

@@ -43,7 +43,7 @@ exports.init = (config, cb) ->
   async.each origins, loadOrigin, (err) ->
     return cb err if err
 
-    console.log config.origin
+    console.log util.inspect config.origin, { depth: null }
     console.log "STOPPED"
 
     # combine all
@@ -110,11 +110,11 @@ loadFiles = (origin, path, cb) ->
         return cb err if err
         # parse
         uri = "file://#{file}"
-        parse text, uri, origin.parser ? file, false, (err, obj) ->
+        parse text, uri, origin.parser, false, (err, obj) ->
           return cb err if err
-          console.log obj
           # make meta data
-          meta = setMeta obj, { _uri: uri, _setup: origin }
+          meta = setMeta obj, uri, origin
+          debug "loaded #{uri}"
           cb null, [obj,meta]
     , (err, objects) ->
       return cb err if err
@@ -125,7 +125,7 @@ loadFiles = (origin, path, cb) ->
         obj.push o
         meta.push m
       obj = object.extend.apply {}, obj
-      meta = object.extend.apply {}, meta
+      meta = object.extendArrayConcat.apply {}, meta
       # store in origin
       origin.value = obj
       origin.meta = meta
@@ -179,13 +179,13 @@ parse = (text, uri, parser, quiet=false, cb) ->
       ini = require 'ini'
       try
         result = ini.decode text
-        # detect failed parsing
-        return cb() if result['{']
-        for k,v of result
-          return cb() if v is true and k.match /:/
       catch err
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
+      # detect failed parsing
+      return cb() if not result? or result['{']
+      for k,v of result
+        return cb() if v is true and k.match /:/
       cb null, result
     when 'xml'
       xml2js = require 'xml2js'
@@ -227,9 +227,17 @@ stripComments = (code) ->
   .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
 # ### Set Meta Data to all elements
-setMeta = (obj, data) ->
+setMeta = (obj, uri, origin, prefix='') ->
   meta = {}
   for k, v of obj
-    meta[k] = if typeof v is 'object' then setMeta(v, data) else data
+    path = "#{prefix}/#{k}"
+    if typeof v is 'object'
+      for key, val of setMeta v, uri, origin, path
+        meta[key] = val
+    else
+      meta[path] = [
+        uri: uri
+        origin: origin
+        value: v
+      ]
   return meta
-
