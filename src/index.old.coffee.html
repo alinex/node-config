@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.old.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/index.old.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#architecture">Architecture</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration%20class">Configuration class</a>
+      </div>
+      <div class="heading h3">
+        <a href="#setup">Setup</a>
+      </div>
+      <div class="heading h3">
+        <a href="#find%20configuration%20files">Find configuration files</a>
+      </div>
+      <div class="heading h3">
+        <a href="#get%20the%20configuration%20data">Get the configuration data</a>
+      </div>
+      <div class="heading h3">
+        <a href="#factory">Factory</a>
+      </div>
+      <div class="heading h3">
+        <a href="#remove%20comments">Remove comments</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20instance">Create instance</a>
+      </div>
+      <div class="heading h3">
+        <a href="#default%20values">Default values</a>
+      </div>
+      <div class="heading h3">
+        <a href="#configuration%20structure">Configuration structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#start%20loading">Start loading</a>
+      </div>
+      <div class="heading h3">
+        <a href="#reloading">Reloading</a>
+      </div>
+      <div class="heading h3">
+        <a href="#set%20check%20routine">Set check routine</a>
+      </div>
+      <div class="heading h3">
+        <a href="#watching%20for%20file%20changes">Watching for file changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#exports">Exports</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration">
+  <h1>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h1>
+</div>
+
+
+<p>This package will give you an easy way to load and use configuration settings
+into your application or module.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="architecture">
+  <h2>
+    <a href="#architecture" name="architecture" class="pilcrow">&#182;</a>
+    Architecture
+  </h2>
+</div>
+
+
+<p>The configuration handling consists of the class as central information
+storage like a registry and instances which reflect individual configurations.
+All values will be loaded and stored in the class  and the instances will
+get a reference to their data.</p>
+
+<p>A special behavior is the reloading of the configuration after the files
+changed. This is done using a watcher on the file search path which will
+automatically load all configurations which are changed into the class cache.
+Through class events the instances will get informed if anything changed, so
+they can reload their data and emit events for their application listeners
+to update this data, too.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
+<span class="nv">debugValue = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;config:value&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">chokidar = </span><span class="nx">require</span> <span class="s">&#39;chokidar&#39;</span>
+<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include more alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
+<span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration%20class">
+  <h2>
+    <a href="#configuration%20class" name="configuration%20class" class="pilcrow">&#182;</a>
+    Configuration class
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="k">class</span> <span class="nx">Config</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="setup">
+  <h3>
+    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
+    Setup
+  </h3>
+</div>
+
+
+<p>Set the default search paths for configuration file search. It may be
+overridden from the outside.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">home = </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOMEPATH</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERPROFILE</span>
+  <span class="vi">@search: </span><span class="p">[</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">home</span><span class="p">,</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;/etc&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">process</span><span class="p">.</span><span class="nx">title</span>
+  <span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Switch to enable watching for configuration changes globally.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@watch: </span><span class="kc">false</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="find%20configuration%20files">
+  <h3>
+    <a href="#find%20configuration%20files" name="find%20configuration%20files" class="pilcrow">&#182;</a>
+    Find configuration files
+  </h3>
+</div>
+
+
+<p>This may be used to search for specific configuration files.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@find: </span><span class="nf">(name, cb) -&gt;</span>
+    <span class="nx">debug</span> <span class="s">&quot;Search for config files &#39;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&#39;&quot;</span>
+    <span class="nv">name = </span><span class="k">if</span> <span class="nx">name</span> <span class="k">then</span> <span class="s">&quot;/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+    <span class="nv">pattern = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">(/[^/]+)*?(-[^/]+)?\.(ya?ml|json|xml|js|coffee)$&quot;</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">@search</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">dir</span><span class="p">,</span>
+        <span class="nv">include: </span><span class="nx">pattern</span>
+        <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+      <span class="p">,</span> <span class="nx">cb</span>
+    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
+      <span class="nv">names = </span><span class="p">{}</span>
+      <span class="k">for</span> <span class="nx">list</span> <span class="k">in</span> <span class="nx">results</span>
+        <span class="k">for</span> <span class="nx">entry</span> <span class="k">in</span> <span class="nx">list</span>
+          <span class="nx">names</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">entry</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span> <span class="nx">entry</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">names</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20the%20configuration%20data">
+  <h3>
+    <a href="#get%20the%20configuration%20data" name="get%20the%20configuration%20data" class="pilcrow">&#182;</a>
+    Get the configuration data
+  </h3>
+</div>
+
+
+<p>This will get it from different sources like:</p>
+
+<ul>
+<li>config name</li>
+<li>Config instance</li>
+<li>data object</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@get: </span><span class="nf">(config, search, check, cb) -&gt;</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">search</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
+      <span class="nv">cb = </span><span class="nx">search</span>
+      <span class="nv">search = </span><span class="kc">null</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">check</span> <span class="o">is</span> <span class="s">&#39;function&#39;</span>
+      <span class="nv">cb = </span><span class="nx">check</span>
+      <span class="nv">check = </span><span class="kc">null</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>set config from different values</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">config</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+      <span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">config</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>add the module's directory as default</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">config.search = </span><span class="nx">config</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">search</span> <span class="k">if</span> <span class="nx">search</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>add the check methods</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">check</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>load config</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">config</span> <span class="k">instanceof</span> <span class="nx">Config</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nx">cb</span>
+    <span class="k">else</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">config</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="factory">
+  <h3>
+    <a href="#factory" name="factory" class="pilcrow">&#182;</a>
+    Factory
+  </h3>
+</div>
+
+
+<p>Get an instance for the name. This enables the system to use the same
+Config instance anywhere.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@_instances: </span><span class="p">{}</span>
+  <span class="vi">@instance: </span><span class="nf">(name) -&gt;</span>
+    <span class="k">unless</span> <span class="nx">@_instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
+      <span class="nx">@_instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span> <span class="nx">name</span>
+    <span class="nx">@_instances</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="remove%20comments">
+  <h3>
+    <a href="#remove%20comments" name="remove%20comments" class="pilcrow">&#182;</a>
+    Remove comments
+  </h3>
+</div>
+
+
+<p>This is used within the JSON importer because JSON originally won't allow
+comments. But comments are a good as help and for uncommenting something
+temporarily.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@_stripComments = </span><span class="nf">(code) -&gt;</span>
+    <span class="nv">uid = </span><span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+    <span class="nv">primitives = </span><span class="p">[]</span>
+    <span class="nv">primIndex = </span><span class="mi">0</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>remove the strings</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">code</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([&#39;&quot;])(\\\1|.)+?\1/g</span><span class="p">,</span> <span class="nf">(match) -&gt;</span>
+      <span class="nx">primitives</span><span class="p">[</span><span class="nx">primIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">match</span>
+      <span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">primIndex</span><span class="o">++</span>
+    <span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>remove regular expressions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g</span><span class="p">,</span> <span class="nf">(match, $1, $2) -&gt;</span>
+      <span class="nx">primitives</span><span class="p">[</span><span class="nx">primIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">$2</span>
+      <span class="nx">$1</span> <span class="o">+</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">primIndex</span><span class="o">++</span>
+    <span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>Remove multi-line comments that contain would be single-line delimiters
+E.g. /* // &lt;--</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>Remove single and multi-line comments, no consideration of inner-contents</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>Remove multi-line comments that have a replaced ending (string/regex)
+Greedy, so no inner strings/regexes will stop it.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nb">RegExp</span><span class="p">(</span><span class="s">&quot;\\/\\*[\\s\\S]+&quot;</span> <span class="o">+</span> <span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;\\d+&quot;</span><span class="p">,</span> <span class="s">&quot;g&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>Bring back strings &amp; regexes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">.</span><span class="nx">replace</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;(\\d+)&quot;</span><span class="p">,</span> <span class="s">&quot;g&quot;</span><span class="p">),</span> <span class="nf">(match, n) -&gt;</span> <span class="nx">primitives</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20instance">
+  <h3>
+    <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
+    Create instance
+  </h3>
+</div>
+
+
+<p>This will also load the data if not already done. Don't call this directly
+better use the <code>instance()</code> method which implements the factory pattern.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">constructor: </span><span class="nf">(@name) -&gt;</span>
+    <span class="k">unless</span> <span class="nx">@name</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not initialize Config class without configuration name.&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>Set high value of listeners because multiple functions may wait but if it
+is to less it should be checked before running as much functions against the
+configuration.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">@setMaxListeners</span> <span class="mi">100</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>Instance specific search path set to class</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@search = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">search</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="default%20values">
+  <h3>
+    <a href="#default%20values" name="default%20values" class="pilcrow">&#182;</a>
+    Default values
+  </h3>
+</div>
+
+
+<p>Storage for default values, which have to be set with config name.
+The first level is the configuration name and it have to be set directly
+from the outside.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@default = </span><span class="p">{}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration%20structure">
+  <h3>
+    <a href="#configuration%20structure" name="configuration%20structure" class="pilcrow">&#182;</a>
+    Configuration structure
+  </h3>
+</div>
+
+
+<p>This will hold all the configuration data. You may also reference this from
+your code because it is neither removed but truncated and refilled on reload.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@data = </span><span class="p">{}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="start%20loading">
+  <h3>
+    <a href="#start%20loading" name="start%20loading" class="pilcrow">&#182;</a>
+    Start loading
+  </h3>
+</div>
+
+
+<p>This will call load the configuration and start watching for reloads (if
+enabled).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">loaded: </span><span class="kc">false</span>
+  <span class="nv">loading: </span><span class="kc">false</span>
+  <span class="nv">load: </span><span class="nf">(cb = -&gt;) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@data</span> <span class="k">if</span> <span class="nx">@loaded</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>Event listener methods which will be set and only one will be called. The
+other one will be removed.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">sendError = </span><span class="nf">(err) -&gt;</span>
+      <span class="nx">@removeListener</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
+      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">@data</span>
+    <span class="nv">sendChange = </span><span class="nf">-&gt;</span>
+      <span class="nx">@removeListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@data</span>
+    <span class="nx">@once</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+    <span class="nx">@once</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>start loading if not already done</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">@_load</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@loading</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="reloading">
+  <h3>
+    <a href="#reloading" name="reloading" class="pilcrow">&#182;</a>
+    Reloading
+  </h3>
+</div>
+
+
+<p>This will be called from the file change watcher.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">reload: </span><span class="nf">(cb = -&gt;) -&gt;</span>
+    <span class="k">if</span> <span class="nx">@loading</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+</div>
+<p>event listener to wait for reloading</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">sendError: </span><span class="nf">(err) -&gt;</span>
+        <span class="nx">@removeListener</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendReload</span>
+      <span class="nv">sendReload: </span><span class="nf">-&gt;</span>
+        <span class="nx">@removeListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+        <span class="nx">@reload</span> <span class="nx">cb</span>
+      <span class="nx">@once</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendReload</span>
+      <span class="nx">@once</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
+      <span class="k">return</span>
+    <span class="vi">@loaded = </span><span class="kc">false</span>
+    <span class="nx">@_load</span><span class="p">()</span>
+
+  <span class="nv">_load: </span><span class="o">=&gt;</span>
+    <span class="vi">@loading = </span><span class="kc">true</span>
+    <span class="nx">debug</span> <span class="s">&quot;Start loading config for &#39;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&#39;&quot;</span><span class="p">,</span> <span class="nx">@search</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span>  <span class="nx">@search</span>
+      <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">dir</span> <span class="k">if</span> <span class="nx">dir</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;~&#39;</span>
+      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;search in </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">@_watch</span><span class="p">()</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">@search</span><span class="p">,</span> <span class="nf">(dir, cb) =&gt;</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">dir</span><span class="p">,</span>
+        <span class="nv">dereference: </span><span class="kc">true</span>
+        <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+        <span class="nv">include: </span><span class="nx">@name</span> <span class="o">+</span> <span class="s">&#39;?(-?*).{yml,yaml,json,xml,js,coffee}&#39;</span>
+      <span class="p">,</span> <span class="nf">(err, list) =&gt;</span>
+        <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">debug</span> <span class="s">&quot;Skipped search in &#39;</span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&#39; because of access problems.&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+</div>
+<p>skip also if no files found</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{}</span> <span class="k">unless</span> <span class="nx">list</span>
+        <span class="nx">list</span><span class="p">.</span><span class="nx">sort</span> <span class="nf">(a,b) -&gt;</span>
+          <span class="nv">x = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+          <span class="nv">y = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+          <span class="o">+</span><span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">y</span><span class="p">)</span> <span class="o">||</span> <span class="o">+</span><span class="p">(</span><span class="nx">x</span> <span class="o">is</span> <span class="nx">y</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+          <span class="nx">debug</span> <span class="s">&quot;Reading </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">...&quot;</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&#39;utf8&#39;</span><span class="p">,</span> <span class="nf">(err, data) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+</div>
+<p>convert data to object</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="k">switch</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span> <span class="nx">file</span>
+              <span class="k">when</span> <span class="s">&#39;.yml&#39;</span><span class="p">,</span> <span class="s">&#39;.yaml&#39;</span>
+                <span class="nv">yaml = </span><span class="nx">require</span> <span class="s">&#39;js-yaml&#39;</span>
+                <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">yaml</span><span class="p">.</span><span class="nx">safeLoad</span> <span class="nx">data</span>
+              <span class="k">when</span> <span class="s">&#39;.json&#39;</span>
+                <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_stripComments</span> <span class="nx">data</span>
+              <span class="k">when</span> <span class="s">&#39;.xml&#39;</span>
+                <span class="nv">xml2js = </span><span class="nx">require</span> <span class="s">&#39;xml2js&#39;</span>
+                <span class="nx">xml2js</span><span class="p">.</span><span class="nx">parseString</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
+              <span class="k">when</span> <span class="s">&#39;.js&#39;</span>
+                <span class="nv">m = </span><span class="k">new</span> <span class="nx">module</span><span class="p">.</span><span class="nx">constructor</span>
+                <span class="nx">m</span><span class="p">.</span><span class="nx">_compile</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">file</span>
+                <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">exports</span>
+              <span class="k">when</span> <span class="s">&#39;.coffee&#39;</span>
+                <span class="nv">coffee = </span><span class="nx">require</span> <span class="s">&#39;coffee-script&#39;</span>
+                <span class="nv">m = </span><span class="k">new</span> <span class="nx">module</span><span class="p">.</span><span class="nx">constructor</span>
+                <span class="nx">m</span><span class="p">.</span><span class="nx">_compile</span> <span class="nx">coffee</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span> <span class="nx">file</span>
+                <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">exports</span>
+              <span class="k">else</span>
+                <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Config type not supported: </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="p">,</span> <span class="nf">(err, results) =&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+</div>
+<p>combine if multiple files found</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">values = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">@data</span><span class="p">,</span> <span class="nx">results</span>
+          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">values</span>
+    <span class="p">,</span> <span class="nf">(err, results) =&gt;</span>
+      <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+</div>
+<p>check if at least one file loaded</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">loaded = </span><span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">obj</span> <span class="k">in</span> <span class="nx">results</span>
+        <span class="nx">loaded</span><span class="o">++</span> <span class="k">if</span> <span class="nx">obj</span><span class="o">?</span>
+      <span class="k">unless</span> <span class="nx">loaded</span>
+        <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;No configuration found for </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">!&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+</div>
+<p>add default values</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">@default</span><span class="o">?</span>
+        <span class="nx">results</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">@default</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+</div>
+<p>combine everything together clean the object and refill to be updated
+without resetting thee references</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">delete</span> <span class="nx">@data</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">@data</span>
+      <span class="nx">results</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">@data</span>
+      <span class="nx">object</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">results</span>
+      <span class="k">unless</span> <span class="nx">@check</span><span class="o">?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+</div>
+<p>done</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="vi">@loaded = </span><span class="kc">true</span>
+        <span class="vi">@loading = </span><span class="kc">false</span>
+        <span class="nx">@emit</span> <span class="s">&#39;change&#39;</span>
+        <span class="nx">debug</span> <span class="s">&quot;Loaded </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> configuration successfully&quot;</span>
+        <span class="nx">debugValue</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@data</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+</div>
+<p>run checks</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">@check</span> <span class="nx">@name</span><span class="p">,</span> <span class="nx">@data</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+        <span class="vi">@loaded = </span><span class="kc">true</span>
+        <span class="vi">@loading = </span><span class="kc">false</span>
+        <span class="k">return</span> <span class="nx">@emit</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">debug</span> <span class="s">&quot;Loaded </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> configuration successfully&quot;</span>
+        <span class="nx">debugValue</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@data</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">@emit</span> <span class="s">&#39;change&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="set%20check%20routine">
+  <h3>
+    <a href="#set%20check%20routine" name="set%20check%20routine" class="pilcrow">&#182;</a>
+    Set check routine
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">check: </span><span class="kc">null</span>
+  <span class="nv">setCheck: </span><span class="nf">(check, cb = -&gt;) -&gt;</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">check</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
+      <span class="vi">@check = </span><span class="nf">(name, values, cb) -&gt;</span>
+        <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">check</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="k">else</span>
+      <span class="vi">@check = </span><span class="nx">check</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@loaded</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+</div>
+<p>run the check on the already loaded data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;Running check on already loaded data.&quot;</span>
+    <span class="nx">@check</span> <span class="nx">@name</span><span class="p">,</span> <span class="nx">@data</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="watching%20for%20file%20changes">
+  <h3>
+    <a href="#watching%20for%20file%20changes" name="watching%20for%20file%20changes" class="pilcrow">&#182;</a>
+    Watching for file changes
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">_watcher: </span><span class="kc">null</span>
+  <span class="nv">_watchdir: </span><span class="kc">null</span>
+  <span class="nv">_watch: </span><span class="nf">-&gt;</span>
+    <span class="k">return</span> <span class="k">unless</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">watch</span>
+    <span class="nv">jsondirs = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">Config</span><span class="p">.</span><span class="nx">_search</span>
+    <span class="k">if</span> <span class="nx">@_watcher</span><span class="o">?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<p>only skip if watcher initialized and dirs haven't changed</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">return</span> <span class="k">if</span> <span class="nx">jsondirs</span> <span class="o">is</span> <span class="nx">@_watchdir</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+</div>
+<p>close old watcher</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="k">if</span> <span class="nx">@watch</span> <span class="o">is</span> <span class="kc">false</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+</div>
+<p>start watching config dirs</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">debug</span> <span class="s">&quot;Start watching for file changes...&quot;</span><span class="p">,</span> <span class="nx">@search</span>
+    <span class="vi">@_watcher = </span><span class="kc">null</span>
+    <span class="k">for</span> <span class="nx">dir</span> <span class="k">in</span> <span class="nx">@search</span>
+      <span class="k">unless</span> <span class="nx">@_watcher</span><span class="o">?</span>
+        <span class="vi">@_watcher = </span><span class="nx">chokidar</span><span class="p">.</span><span class="nx">watch</span> <span class="nx">dir</span><span class="p">,</span>
+          <span class="nv">ignoreInitial: </span><span class="o">not</span> <span class="nx">@_watchdir</span><span class="o">?</span>
+      <span class="k">else</span>
+        <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">add</span> <span class="nx">dir</span><span class="p">,</span>
+          <span class="nv">ignoreInitial: </span><span class="o">not</span> <span class="nx">@_watchdir</span><span class="o">?</span>
+    <span class="vi">@_watchdir = </span><span class="nx">jsondirs</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+</div>
+<p>action for changes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+      <span class="nx">@_watcher</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;all&#39;</span><span class="p">,</span> <span class="nf">(event, file) =&gt;</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;watcher: </span><span class="si">#{</span><span class="nx">event</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="k">unless</span> <span class="nx">event</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="s">&#39;unlink&#39;</span><span class="p">]</span>
+        <span class="nx">debug</span> <span class="s">&quot;Reloading config for </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">@reload</span><span class="p">()</span>
+    <span class="p">,</span> <span class="mi">1000</span>
+  <span class="nv">watch: </span><span class="kc">null</span>
+  <span class="nv">watching: </span><span class="nf">(enabled) -&gt;</span>
+    <span class="vi">@watch = </span><span class="nb">Boolean</span> <span class="nx">enabled</span>
+    <span class="nx">_watch</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="exports">
+  <h2>
+    <a href="#exports" name="exports" class="pilcrow">&#182;</a>
+    Exports
+  </h2>
+</div>
+
+
+<p>The configuration class is exported directly.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports = </span><span class="nx">Config</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
+</div>
+<p>watcher = chokidar.watch '/home/alex/a3/dvb-media/var/src/config',
+ ignoreInitial: true
+watcher.on 'all', (event, file) =>
+ console.log chalk.grey "wwwwwww: #{event} #{file}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

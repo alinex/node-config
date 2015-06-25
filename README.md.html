@@ -16,8 +16,8 @@
 </head>
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
   </a>
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
@@ -39,31 +39,7 @@
         <a href="#install">Install</a>
       </div>
       <div class="heading h2">
-        <a href="#usage">Usage</a>
-      </div>
-      <div class="heading h2">
-        <a href="#api">API</a>
-      </div>
-      <div class="heading h3">
-        <a href="#class%20configuration">Class configuration</a>
-      </div>
-      <div class="heading h3">
-        <a href="#static%20calls">Static calls</a>
-      </div>
-      <div class="heading h3">
-        <a href="#instances">Instances</a>
-      </div>
-      <div class="heading h3">
-        <a href="#instance%20events">Instance Events</a>
-      </div>
-      <div class="heading h2">
-        <a href="#search%20and%20order">Search and order</a>
-      </div>
-      <div class="heading h2">
-        <a href="#overloading">Overloading</a>
-      </div>
-      <div class="heading h2">
-        <a href="#file%20formats">File Formats</a>
+        <a href="#formats">Formats</a>
       </div>
       <div class="heading h3">
         <a href="#yaml">YAML</a>
@@ -78,7 +54,7 @@
         <a href="#javascript">JavaScript</a>
       </div>
       <div class="heading h3">
-        <a href="#coffeescript">CoffeeScript</a>
+        <a href="#cson">CSON</a>
       </div>
       <div class="heading h3">
         <a href="#ini%20file">Ini file</a>
@@ -90,43 +66,37 @@
         <a href="#object%20db">Object DB</a>
       </div>
       <div class="heading h2">
-        <a href="#default%20values">Default values</a>
+        <a href="#usage">Usage</a>
       </div>
       <div class="heading h2">
-        <a href="#validation%20and%20optimization">Validation and Optimization</a>
+        <a href="#setup%20origin">Setup origin</a>
       </div>
       <div class="heading h3">
-        <a href="#validator%20structure">Validator structure</a>
+        <a href="#origin%20object">Origin Object</a>
       </div>
       <div class="heading h3">
-        <a href="#check%20function">Check function</a>
+        <a href="#file%20search">File search</a>
       </div>
       <div class="heading h3">
-        <a href="#predefined%20checks">Predefined checks</a>
+        <a href="#parsing%20data">Parsing data</a>
       </div>
       <div class="heading h3">
-        <a href="#using%20alinex-validator">Using alinex-validator</a>
+        <a href="#combine%20contents">Combine contents</a>
+      </div>
+      <div class="heading h3">
+        <a href="#origin%20structure">Origin Structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#register%20application">Register Application</a>
       </div>
       <div class="heading h2">
-        <a href="#working%20with%20events">Working with events</a>
+        <a href="#setup%20schema">Setup schema</a>
       </div>
       <div class="heading h2">
-        <a href="#watching%20for%20changes">Watching for changes</a>
+        <a href="#initialize">Initialize</a>
       </div>
       <div class="heading h2">
-        <a href="#examples">Examples</a>
-      </div>
-      <div class="heading h3">
-        <a href="#use%20in%20class%20for%20single%20init">Use in class for single init</a>
-      </div>
-      <div class="heading h2">
-        <a href="#submodule%20pattern">Submodule pattern</a>
-      </div>
-      <div class="heading h3">
-        <a href="#submodule">Submodule</a>
-      </div>
-      <div class="heading h3">
-        <a href="#parent%20module">Parent module</a>
+        <a href="#access%20configuration">Access configuration</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -164,8 +134,10 @@ and may inform it's dependent objects.</p>
 <li>automatically reloads on file changes</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
-following the code standards defined there.</p>
+<blockquote>
+  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+</blockquote>
 
 
 <div class="pilwrap" id="install">
@@ -176,7 +148,12 @@ following the code standards defined there.</p>
 </div>
 
 
-<p>The easiest way is to let npm add the module directly:</p>
+<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
+ <img src="https://nodei.co/npm-dl/alinex-config.png?months=9&amp;height=3" alt="Downloads" title="" />
+</a></p>
+
+<p>The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):</p>
 
 
 <div class="highlight"><pre><code>npm install alinex-config --save
@@ -184,217 +161,21 @@ following the code standards defined there.</p>
 
 
 
-<p><a href="https://nodei.co/npm/alinex-config/"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+<p>And update it to the latest version later:</p>
 
 
-<div class="pilwrap" id="usage">
-  <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
-  </h2>
-</div>
-
-
-<p>To easily make your module configurable you need to load the class first:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<div class="highlight"><pre><code>npm update alinex-config --save
 </code></pre></div>
 
 
 
-<p>To load a specific configuration you have to instantiate it with it's name. The
-factory method will help to only have one instance per each configuration name.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 
 
-<div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;server&#39;</span>
-</code></pre></div>
-
-
-
-<p>Before using it you now have to load the configuration. That will be started
-after calling <code>load</code>. After that you got the settings as properties for easy
-access.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err, data) -&gt;</span>
-  <span class="k">if</span> <span class="nx">err</span>
-    <span class="c1"># report error and stop</span>
-  <span class="c1"># work with configuration values</span>
-  <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Started at &#39;</span><span class="o">+</span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span>
-</code></pre></div>
-
-
-
-<p>To make accessing of the config values shorter you may also use:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">search</span><span class="p">,</span> <span class="nx">check</span><span class="p">,</span> <span class="nf">(err, config) -&gt;</span>
-  <span class="c1"># now you may use the values</span>
-</code></pre></div>
-
-
-
-<p>This allows you to optionally set search order and validation checks.</p>
-
-
-<div class="pilwrap" id="api">
+<div class="pilwrap" id="formats">
   <h2>
-    <a href="#api" name="api" class="pilcrow">&#182;</a>
-    API
-  </h2>
-</div>
-
-
-
-<div class="pilwrap" id="class%20configuration">
-  <h3>
-    <a href="#class%20configuration" name="class%20configuration" class="pilcrow">&#182;</a>
-    Class configuration
-  </h3>
-</div>
-
-
-<ul>
-<li><a href="src/index.coffee.html#search">Config.search</a> - to set the search path</li>
-<li><code>Config.watch</code> - (boolean) set to true to enable reloading globally</li>
-</ul>
-
-
-<div class="pilwrap" id="static%20calls">
-  <h3>
-    <a href="#static%20calls" name="static%20calls" class="pilcrow">&#182;</a>
-    Static calls
-  </h3>
-</div>
-
-
-<ul>
-<li><a href="src/index.coffee.html#find configuration files">Config.find()</a> - to search for
-existing configuration files</li>
-<li><a href="src/index.coffee.html#factory">Config.instance()</a> - to get a config instance</li>
-<li>Config.get() - as easy access method</li>
-</ul>
-
-
-<div class="pilwrap" id="instances">
-  <h3>
-    <a href="#instances" name="instances" class="pilcrow">&#182;</a>
-    Instances
-  </h3>
-</div>
-
-
-<ul>
-<li><a href="src/index.coffee.html#create instance">new Config()</a> - to create a new config
-instance</li>
-<li>config.search - to set the search path</li>
-<li><a href="src/index.coffee.html#default values">config.default</a> - to set the default values
-(this can also be done through the check)</li>
-<li><a href="src/index.coffee.html#set check">config.setCheck()</a> - to validate or
-optimize the values</li>
-<li>config.load() - loading the configuration</li>
-<li>config.reload() - loading the configuration</li>
-<li>config.watching(<bool>) - start or stop the watching of config changes</li>
-<li>config.data - values are directly accessible</li>
-<li>config.getData() - get data from config instance, name or config object</li>
-</ul>
-
-
-<div class="pilwrap" id="instance%20events">
-  <h3>
-    <a href="#instance%20events" name="instance%20events" class="pilcrow">&#182;</a>
-    Instance Events
-  </h3>
-</div>
-
-
-<p>The following events are supported:</p>
-
-<ul>
-<li><code>error</code> - then something fails (with message as data)</li>
-<li><code>change</code> - the instance data has changed after loading</li>
-</ul>
-
-
-<div class="pilwrap" id="search%20and%20order">
-  <h2>
-    <a href="#search%20and%20order" name="search%20and%20order" class="pilcrow">&#182;</a>
-    Search and order
-  </h2>
-</div>
-
-
-<p>Configurations are searched in all supported file formats under the given
-directories and below.</p>
-
-<p>The files are searched in the following order of directories:</p>
-
-<ul>
-<li><code>var/src/config</code></li>
-<li><code>var/local/config</code></li>
-<li><code>~/.&lt;process&gt;/config</code></li>
-<li><code>/etc/&lt;process&gt;/config</code></li>
-</ul>
-
-<p>And within these the files are searched with the given name in different formats
-(maybe also with mixed formats):</p>
-
-<ul>
-<li><code>&lt;name&gt;.yml</code></li>
-<li><code>&lt;name&gt;-part1.yml</code></li>
-<li><code>&lt;name&gt;-part2.yml</code></li>
-</ul>
-
-<p>The order is essential because the later file will overwrite the same keys of
-the earlier ones. So the order looks like:</p>
-
-<ol>
-<li>Use each directory in given search list order</li>
-<li>Use files with only base names</li>
-<li>Use the partial extensions in alphabetical order</li>
-</ol>
-
-<p>To configure where to look for files you may give a list of directories:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">Config.search = </span><span class="p">[</span><span class="s">&#39;var/src/config&#39;</span><span class="p">,</span> <span class="s">&#39;var/local/config&#39;</span><span class="p">]</span>
-</code></pre></div>
-
-
-
-<p>This will set the search paths for all new instances but you may also define
-the search paths on a single instance.</p>
-
-
-<div class="pilwrap" id="overloading">
-  <h2>
-    <a href="#overloading" name="overloading" class="pilcrow">&#182;</a>
-    Overloading
-  </h2>
-</div>
-
-
-<p>If multiple directories given and/or multiple files (maybe in different formats)
-were found they will overload each other.</p>
-
-<p>This means if a value is set in two or more files the last will overwrite the
-one before. But it will also combine the contents if different keys in an object
-are used.</p>
-
-<p>The files overload in the following order:</p>
-
-<ol>
-<li>files alphabetically in directory</li>
-<li>directories as specified in search path</li>
-</ol>
-
-
-<div class="pilwrap" id="file%20formats">
-  <h2>
-    <a href="#file%20formats" name="file%20formats" class="pilcrow">&#182;</a>
-    File Formats
+    <a href="#formats" name="formats" class="pilcrow">&#182;</a>
+    Formats
   </h2>
 </div>
 
@@ -405,13 +186,13 @@ comparison.</p>
 
 <p style="font-family:monospace;white-space:pre">|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
 |:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
-| Supported   |  yes |  yes | yes | yes |    yes |  no |    no |    no |
+| Supported   |  yes |  yes | yes | yes |    yes | yes |    no |    no |
 | Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
-| Structure   |  yes |  yes | yes | yes |    yes |  no |   yes |   yes |
+| Structure   |  yes |  yes | yes | yes |    yes | yes |   yes |   yes |
 | Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
 | Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
 | Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
-| Common      |    + |   ++ | +++ |  -- |    --- |   + |     - |    -- |</p>
+| Common      |   ++ |    + |  ++ |  -- |    --- | +++ |     - |    -- |</p>
 
 
 <div class="pilwrap" id="yaml">
@@ -425,7 +206,7 @@ comparison.</p>
 <p>This is a simplified and best human readable language to write structured
 information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
 
-<p>Use the file extensions <code>yml</code> or <code>yaml</code>.</p>
+<p>Common file extensions <code>yml</code> or <code>yaml</code>.</p>
 
 <p><strong>Example</strong></p>
 
@@ -468,7 +249,7 @@ is widely used in different languages not only JavaScript. See description at
 <code>//</code> and <code>/*...*/</code> like known in javascript. They will be removed before
 interpreting the file contents.</p>
 
-<p>Use the file extension <code>json</code>.</p>
+<p>Common file extension <code>json</code>.</p>
 
 
 <div class="highlight"><pre><code><span class="p">{</span>
@@ -495,7 +276,7 @@ interpreting the file contents.</p>
 
 <p>The XML format should only use Tags and values, but no arguments.</p>
 
-<p>Use the file extension <code>xml</code>.</p>
+<p>Common file extension <code>xml</code>.</p>
 
 
 <div class="highlight"><pre><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
@@ -521,13 +302,15 @@ interpreting the file contents.</p>
 </div>
 
 
-<p>Also allowed are normal JavaScript modules like done in node.js. The module must
-export the configuration object.</p>
+<p>Also allowed are normal JavaScript files. In comparison to the JSON format it
+is more loosely so you may use single quotes, keys don't need quotes at all and
+at last you may use calculations. But you may only access elements in the same
+file accessing data from outside is prevented by security.</p>
 
-<p>Use the file extension <code>js</code>.</p>
+<p>Common file extension <code>js</code>.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre><code><span class="p">{</span>
   <span class="c1">// use an object</span>
   <span class="nx">javascript</span><span class="o">:</span> <span class="p">{</span>
     <span class="c1">// include a string</span>
@@ -541,17 +324,17 @@ export the configuration object.</p>
 
 
 
-<div class="pilwrap" id="coffeescript">
+<div class="pilwrap" id="cson">
   <h3>
-    <a href="#coffeescript" name="coffeescript" class="pilcrow">&#182;</a>
-    CoffeeScript
+    <a href="#cson" name="cson" class="pilcrow">&#182;</a>
+    CSON
   </h3>
 </div>
 
 
-<p>Like above you may write the modules in CoffeeScript.</p>
+<p>Like above you may write the modules in CoffeeScript like in JSON.</p>
 
-<p>Use the file extension <code>coffee</code>.</p>
+<p>Common file extension <code>cson</code>.</p>
 
 
 <div class="highlight"><pre><code><span class="nv">module.exports =</span>
@@ -574,7 +357,10 @@ export the configuration object.</p>
 </div>
 
 
-<p>Not supported, yet.</p>
+<p>This is one of the oldest formats used for configurations. It is very simple but
+allows also complex objects through extended groups.</p>
+
+<p>Common file extension <code>ini</code>.</p>
 
 
 <div class="highlight"><pre><code><span class="c1">; use an object</span>
@@ -628,394 +414,288 @@ export the configuration object.</p>
 <p>Here, the JSON will be stored in the database like in the JSON file.</p>
 
 
-<div class="pilwrap" id="default%20values">
+<div class="pilwrap" id="usage">
   <h2>
-    <a href="#default%20values" name="default%20values" class="pilcrow">&#182;</a>
-    Default values
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
   </h2>
 </div>
 
 
-<p>It is possible to set default values for each configuration on the class.</p>
+<p>To use the configuration management you have to load the module first:</p>
 
 
-<div class="highlight"><pre><code><span class="nv">Config.default = </span><span class="p">{</span> <span class="nv">server: </span><span class="p">{</span> <span class="nv">url: </span><span class="s">&#39;http://localhost&#39;</span> <span class="p">}</span> <span class="p">}</span>
+<div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 </code></pre></div>
 
 
 
-<p>This will be set if not overwritten in any configuration file for the <code>server</code>
-configuration.</p>
+<p>This gives you back the main configuration instance.
+But before you can access your configuration you have to setup the system if not
+already done and initialize it:</p>
 
 
-<div class="pilwrap" id="validation%20and%20optimization">
+<div class="highlight"><pre><code><span class="c1"># register common configuration paths for application</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">register</span>
+  <span class="nv">name: </span><span class="s">&#39;myapp&#39;</span>
+<span class="c1"># add a special path on the end (highest priority)</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">origin</span><span class="p">.</span><span class="nx">push</span>
+  <span class="nv">uri: </span><span class="s">&#39;file:///etc/my-config.yml&#39;</span>
+<span class="c1"># and add a schema to verify the database settings are correct</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span>
+  <span class="nv">path: </span><span class="s">&#39;database&#39;</span>
+  <span class="nv">schema: </span><span class="p">...</span>
+
+<span class="c1"># start initializing the configuration and load the data</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+  <span class="c1"># all configurations are loaded successfully</span>
+</code></pre></div>
+
+
+
+<p>Make sure that the initialization is completely done for all configuration data
+before using it. If you change the setup later you have to reinit everything which
+causes an extra afford which you should skip if possible.</p>
+
+<p>After that is done you can easily access the configuration like:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span>
+<span class="c1"># here you have the whole registry data</span>
+<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span>
+<span class="c1"># and now you have only the server structure</span>
+<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;database/master/address&#39;</span>
+<span class="c1"># or only a specific database connection</span>
+</code></pre></div>
+
+
+
+<p>To don't mess with the names: I always address the instance with <code>config</code> and use
+a short name like <code>conf</code> for some data out of it.</p>
+
+
+<div class="pilwrap" id="setup%20origin">
   <h2>
-    <a href="#validation%20and%20optimization" name="validation%20and%20optimization" class="pilcrow">&#182;</a>
-    Validation and Optimization
+    <a href="#setup%20origin" name="setup%20origin" class="pilcrow">&#182;</a>
+    Setup origin
   </h2>
 </div>
 
 
-<p>You may use synchronous functions, but asynchronous will be more widely
-supported.
-If asynchronous check-functions are given it is possible to validate and
-manipulate the loaded configuration values, before they are used. You may also
-add such check functions after you created the first instances. (But the newly
-added toplevel config entries are not updated.)</p>
-
-<p>You have two possibilities to declare checks. You may use an
-<a href="http://alinex.github.io/node-validator">alinex-validator</a> compatible structure
-or use you own function.</p>
+<p>The origin is the place the configuration data comes from. For alinex-config you
+have the possibility to specify multiple search paths, you can also overload
+configurations with another file in higher priority and combine values from
+different files together.
+So the specification of the origin is the main part and is the base to build
+the registry data.</p>
 
 
-<div class="pilwrap" id="validator%20structure">
+<div class="pilwrap" id="origin%20object">
   <h3>
-    <a href="#validator%20structure" name="validator%20structure" class="pilcrow">&#182;</a>
-    Validator structure
+    <a href="#origin%20object" name="origin%20object" class="pilcrow">&#182;</a>
+    Origin Object
   </h3>
 </div>
 
 
-<p>This is best used if now special methods like internal reference checks...
-have to be done.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span>
-  <span class="nv">title: </span><span class="s">&quot;Testfile&quot;</span>
-  <span class="nv">description: </span><span class="s">&#39;the structure used to demonstrate here&#39;</span>
-  <span class="nv">check: </span><span class="s">&#39;type.string&#39;</span>
-  <span class="nv">maxLength: </span><span class="mi">25</span>
-<span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="c1"># may get an error if values already loaded</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="check%20function">
-  <h3>
-    <a href="#check%20function" name="check%20function" class="pilcrow">&#182;</a>
-    Check function
-  </h3>
-</div>
-
-
-<p>With the check function you may define what you want, but you also can combine
-it with the validator.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">myCheck = </span><span class="nf">(name, values, cb) -&gt;</span>
-  <span class="c1"># change or check the values</span>
-  <span class="c1"># ...</span>
-  <span class="c1"># on error call cb(&#39;something is not ok&#39;);</span>
-  <span class="nx">cb</span><span class="p">()</span>
-
-<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="c1"># may get an error if values already loaded</span>
-</code></pre></div>
-
-
-
-<p>The <code>name</code> here is the name of the configuration which may be used in reporting.
-The <code>values</code> maybe changed.</p>
-
-<p>If an error is returned it will also be returned while adding the check or within
-the constructor. But it won't stop the processing. You may also throw an error
-to really stop if a check failed.</p>
-
-<p>This checks have to be added to the Config class using <code>Config.addCheck(name, check):</code></p>
-
-
-<div class="pilwrap" id="predefined%20checks">
-  <h3>
-    <a href="#predefined%20checks" name="predefined%20checks" class="pilcrow">&#182;</a>
-    Predefined checks
-  </h3>
-</div>
-
-
-<p>Classes or functions which support this module often has predefined checks
-to be used.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="c1"># may get an error if values already loaded</span>
-</code></pre></div>
-
-
-
-<p>But if the configuration for AnyClass is only a subgroup of a bigger configuration
-file you have to wrap the call in an additional function:</p>
-
-
-<div class="highlight"><pre><code><span class="c1"># the wrapper function</span>
-<span class="nv">myCheck = </span><span class="nf">(name, values, cb) -&gt;</span>
-  <span class="c1"># change the name to reflect change in reporting</span>
-  <span class="c1"># call it with the subgroup</span>
-  <span class="nx">AnyClass</span><span class="p">.</span><span class="nx">check</span> <span class="nx">name</span><span class="o">+</span><span class="s">&#39;.anygroup&#39;</span><span class="p">,</span> <span class="nx">values</span><span class="p">.</span><span class="nx">anygroup</span><span class="p">,</span> <span class="nx">cb</span>
-
-<span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="s">&#39;server&#39;</span><span class="p">,</span> <span class="nx">myCheck</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="c1"># may get an error if values already loaded</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="using%20alinex-validator">
-  <h3>
-    <a href="#using%20alinex-validator" name="using%20alinex-validator" class="pilcrow">&#182;</a>
-    Using alinex-validator
-  </h3>
-</div>
-
-
-<p>A very easy way to do validations is through the
-<a href="alinex-validator">https://alinex.github.io/node-validator</a> module. It let's
-you define your validation rules as rule structure in an object.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">Config</span><span class="p">.</span><span class="nx">addCheck</span> <span class="nf">(name, values, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nv">type: </span><span class="s">&#39;type.integer&#39;</span>
-    <span class="nv">options:</span>
-      <span class="nv">min: </span><span class="mi">0</span><span class="p">,</span>
-      <span class="nv">max: </span><span class="mi">100</span>
-  <span class="p">,</span> <span class="nx">cb</span>
-</code></pre></div>
-
-
-
-<p>That's the way most alinex modules implement their own check methods.</p>
-
-
-<div class="pilwrap" id="working%20with%20events">
-  <h2>
-    <a href="#working%20with%20events" name="working%20with%20events" class="pilcrow">&#182;</a>
-    Working with events
-  </h2>
-</div>
-
-
-<p>While the configuration may change you should listen to the <code>change</code> event which
-will inform for any change in the current configuration. Now you have to reinit
-everything which changed.</p>
-
-<p>Keep in mind to alway unregister event listeners while no longer used to prevent
-memory leaks.</p>
-
-<p>An example might look like:</p>
-
-
-<div class="highlight"><pre><code><span class="c1"># create two listener methods</span>
-<span class="nv">sendError = </span><span class="nf">(err) -&gt;</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
-  <span class="c1"># do something....</span>
-<span class="nv">sendChange = </span><span class="nf">-&gt;</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">removeListener</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
-  <span class="c1"># do something....</span>
-
-<span class="c1"># start listening</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">once</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">sendError</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">once</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">sendChange</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="watching%20for%20changes">
-  <h2>
-    <a href="#watching%20for%20changes" name="watching%20for%20changes" class="pilcrow">&#182;</a>
-    Watching for changes
-  </h2>
-</div>
-
-
-<p>It is possible to watch for file changes and automatically reload the configuration
-if something changes.</p>
-
-<p>If any file in the configuration directory changes it will reload the data
-and send an <code>change</code> event after validating.</p>
-
-<p>This feature is disabled by default but may be enabled globally using</p>
-
-
-<div class="highlight"><pre><code><span class="nv">Config.watch = </span><span class="kc">true</span>
-</code></pre></div>
-
-
-
-<p>But do this before using the Config class!</p>
-
-<p>You may also enable and disable this feature on each instance by calling</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">watching</span> <span class="nx">boolean</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="examples">
-  <h2>
-    <a href="#examples" name="examples" class="pilcrow">&#182;</a>
-    Examples
-  </h2>
-</div>
-
-
-
-<div class="pilwrap" id="use%20in%20class%20for%20single%20init">
-  <h3>
-    <a href="#use%20in%20class%20for%20single%20init" name="use%20in%20class%20for%20single%20init" class="pilcrow">&#182;</a>
-    Use in class for single init
-  </h3>
-</div>
-
-
-
-<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">configcheck = </span><span class="nx">require</span> <span class="s">&#39;./configcheck&#39;</span>
-
-<span class="k">class</span> <span class="nx">Spawn</span>
-  <span class="vi">@init: </span><span class="nf">(config = &#39;spawn&#39;, cb) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@config</span> <span class="c1"># already loaded</span>
-    <span class="nx">@_configSource</span> <span class="o">?=</span> <span class="nx">config</span> <span class="c1"># store what to load</span>
-    <span class="c1"># start resolving configuration</span>
-    <span class="nx">Config</span><span class="p">.</span><span class="nx">get</span> <span class="nx">@_configSource</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/src/config&#39;</span>
-      <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/local/config&#39;</span>
-    <span class="p">],</span> <span class="nx">configcheck</span><span class="p">,</span> <span class="nf">(err, @config) -&gt;</span>
-      <span class="c1"># results stored, now check for errors</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-
-  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
-    <span class="c1"># do something</span>
-
-  <span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">@constructor</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-</code></pre></div>
-
-
-
-<p>Now you should use this class like:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="s">&#39;spawn&#39;</span>
-<span class="nv">xxx = </span><span class="k">new</span> <span class="nx">Spawn</span><span class="p">()</span>
-<span class="nx">xxx</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
-<span class="c1"># or use the default config name</span>
-<span class="nv">xxx = </span><span class="k">new</span> <span class="nx">Spawn</span><span class="p">()</span>
-<span class="nx">xxx</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="submodule%20pattern">
-  <h2>
-    <a href="#submodule%20pattern" name="submodule%20pattern" class="pilcrow">&#182;</a>
-    Submodule pattern
-  </h2>
-</div>
-
-
-<p>To make configuration work through a complex system of program, modules and
-submodules the following pattern may help. (For better overview the example is
-written in coffee script)</p>
-
-
-<div class="pilwrap" id="submodule">
-  <h3>
-    <a href="#submodule" name="submodule" class="pilcrow">&#182;</a>
-    Submodule
-  </h3>
-</div>
-
-
-<p>In the module you load the configuration class and make an init method which is used
-to start loading the configuration.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-
-<span class="k">class</span> <span class="nx">Test</span>
-
-  <span class="vi">@init: </span><span class="nf">(@config = &#39;spawn&#39;, cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;init or reinit spawn&quot;</span>
-    <span class="c1"># set config from different values</span>
-    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">@config</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-      <span class="vi">@config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">@config</span>
-      <span class="c1"># add the module&#39;s directory the default</span>
-      <span class="nx">@config</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">__dirname</span><span class="p">,</span> <span class="s">&#39;var/src/config&#39;</span>
-      <span class="c1"># add the check methods</span>
-      <span class="nx">@config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">configcheck</span>
-    <span class="k">if</span> <span class="nx">@config</span> <span class="k">instanceof</span> <span class="nx">Config</span>
-      <span class="vi">@configClass = </span><span class="nx">@config</span>
-      <span class="vi">@config = </span><span class="nx">@configClass</span><span class="p">.</span><span class="nx">data</span>
-    <span class="vi">@initDone = </span><span class="kc">false</span> <span class="c1"># status set to true after initializing</span>
-    <span class="c1"># set init status if configuration is loaded</span>
-    <span class="k">unless</span> <span class="nx">@configClass</span><span class="o">?</span>
-      <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-      <span class="vi">@initDone = </span><span class="kc">true</span>
-    <span class="k">else</span>
-      <span class="c1"># wait till configuration is loaded</span>
-      <span class="nx">@configClass</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) =&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">cb</span><span class="o">?</span>
-        <span class="vi">@initDone = </span><span class="kc">true</span>
-</code></pre></div>
-
-
-
-<p>This method can consume different informations:</p>
+<p>To setup the origin for the configuration module you have to extend the origin
+list by adding a new origin object.</p>
+
+<p>The single origin object describes where to find the configuration, what to use
+and where to put them in the final data structure. It contains the following
+possible elements:</p>
 
 <ul>
-<li>a string specifying the configuration file</li>
-<li>a already configured <code>Config</code> instance</li>
-<li>an object holding all the configuration values</li>
+<li>uri - pointing to the search</li>
+<li>parser - (optional) type to use for parsing the data</li>
+<li>filter - (optional) which part to use</li>
+<li>path - (optional) where to put it in the data structure</li>
 </ul>
 
-<p>And when the configuration is needed in example in an run method:</p>
+<p>The following URI types are possible here:</p>
+
+<ul>
+<li>No Protocol => using the file protocol</li>
+<li><code>file://</code> => load from local file</li>
+<li><code>http://</code> or <code>https://</code> => load from web service</li>
+</ul>
 
 
-<div class="highlight"><pre><code><span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
-  <span class="c1"># start initializing, if not done</span>
-  <span class="k">unless</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">Spawn</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@run</span> <span class="nx">cb</span>
-  <span class="c1"># wait till configuration is loaded</span>
-  <span class="k">if</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">loaded</span>
-    <span class="k">return</span> <span class="nx">@constructor</span><span class="p">.</span><span class="nx">configClass</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">@run</span> <span class="nx">cb</span>
-</code></pre></div>
-
-
-
-<p>This will check the configuration and call the load method. If loading is already
-in progress the new call will be attached to the event and get also notified if
-it is loaded.</p>
-
-
-<div class="pilwrap" id="parent%20module">
+<div class="pilwrap" id="file%20search">
   <h3>
-    <a href="#parent%20module" name="parent%20module" class="pilcrow">&#182;</a>
-    Parent module
+    <a href="#file%20search" name="file%20search" class="pilcrow">&#182;</a>
+    File search
   </h3>
 </div>
 
 
-<p>Now you may use this in the parent module or program:</p>
+<p>Access files absolute from root or relative from current directory:</p>
 
 
-<div class="highlight"><pre><code><span class="nv">run = </span><span class="nf">(cb) -&gt;</span>
-  <span class="c1"># start initializing, if not done</span>
-  <span class="k">unless</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">initDone</span><span class="o">?</span>
-    <span class="k">return</span> <span class="nx">Test</span><span class="p">.</span><span class="nx">init</span> <span class="kc">null</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@run</span> <span class="nx">cb</span>
-  <span class="c1"># code running if initialized</span>
-  <span class="c1"># ...</span>
+<div class="highlight"><pre><code>file:///etc/myapp.yml   # absolute path
+/etc/myapp.yml          # shortcut
+
+file://config/myapp.yml # relative path
+config/myapp.yaml       # shortcut
 </code></pre></div>
 
+
+
+<p>You can search by using asterisk as placeholder or a double asterisk to
+go multiple level depth:</p>
+
+
+<div class="highlight"><pre><code>/etc/myapp.*            # search for any extension
+/etc/myapp/*.yml        # find all files with this extension
+/etc/myapp/*            # find all files in the directory
+/etc/myapp/*/*.yml      # fin one level depth
+/etc/myapp/**           # find all files in directory or subdirectories
+/etc/myapp/**/*.yml     # find files in the directory or subdirectories
+</code></pre></div>
+
+
+
+<p>See more about the possible matchings at
+<a href="http://alinex.github.io/node-fs/README.md.html#file%2Fpath%20matching">FS</a>.</p>
+
+
+<div class="pilwrap" id="parsing%20data">
+  <h3>
+    <a href="#parsing%20data" name="parsing%20data" class="pilcrow">&#182;</a>
+    Parsing data
+  </h3>
+</div>
+
+
+<p>The data loaded from the given URI will be parsed if it is a string. You may
+set one of the following parsers in <code>parser</code> to use:</p>
+
+<ul>
+<li>yaml</li>
+<li>json</li>
+<li>xml</li>
+<li>ini</li>
+</ul>
+
+<p>But if you don't specify it, it will be auto detected based on the file extension
+and the contents itself.</p>
+
+
+<div class="pilwrap" id="combine%20contents">
+  <h3>
+    <a href="#combine%20contents" name="combine%20contents" class="pilcrow">&#182;</a>
+    Combine contents
+  </h3>
+</div>
+
+
+<p>Use the <code>filter</code> path to only use a subset of the loaded structure and the
+<code>path</code> to specify where it belongs to.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">filter</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span>
+<span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;database/test&#39;</span>
+</code></pre></div>
+
+
+
+<p>This will only use the <code>test</code> settings from the loaded data and put them into
+<code>data.database.test</code>.</p>
+
+<p>If multiple files are found (maybe through multiple origins) their contents
+will be merged together in the order they are specified in the origin tree list.
+This means that the later one will overwrite the earlier one if they have values
+for the same element.</p>
+
+
+<div class="pilwrap" id="origin%20structure">
+  <h3>
+    <a href="#origin%20structure" name="origin%20structure" class="pilcrow">&#182;</a>
+    Origin Structure
+  </h3>
+</div>
+
+
+<p>The origin structure is a tree list which will be processed top down. This means
+that you can add new origin objects at the top to use them as defaults or at
+the end of the list to make this the highest priority.</p>
+
+<p>In case of registering applications they will make a sublist with their search
+paths (see below).</p>
+
+
+<div class="pilwrap" id="register%20application">
+  <h3>
+    <a href="#register%20application" name="register%20application" class="pilcrow">&#182;</a>
+    Register Application
+  </h3>
+</div>
+
+
+<p>An application have the possibility to search for their file based configuration
+on multiple locations out of the box:</p>
+
+<ul>
+<li>var/src/config - defaults in the source code</li>
+<li>var/local/config - local within the installed program</li>
+<li>/etc/<app> - global for the application</li>
+<li>~/.app/config - user specific settings</li>
+</ul>
+
+<p>As described above the last has the highest priority.</p>
+
+<p>To support this in an easy way you may use the <code>register</code> method which if given
+an application name and the app directory will do everything for you.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="nx">myapp</span><span class="p">,</span> <span class="nx">__dirname</span><span class="p">,</span> <span class="p">{</span> <span class="nv">uri: </span><span class="s">&#39;*.yml&#39;</span> <span class="p">}</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="setup%20schema">
+  <h2>
+    <a href="#setup%20schema" name="setup%20schema" class="pilcrow">&#182;</a>
+    Setup schema
+  </h2>
+</div>
+
+
+<p>The second path is the schema which is used for validation and to sanitize
+the values. This is done using a schema valid for the
+<a href="http://alinex.github.io/node-validator">Validator</a>.</p>
+
+
+<div class="pilwrap" id="initialize">
+  <h2>
+    <a href="#initialize" name="initialize" class="pilcrow">&#182;</a>
+    Initialize
+  </h2>
+</div>
+
+
+<p>After everything is setup you have to call the <code>init()</code> method to initialize
+it. This will:</p>
+
+<ul>
+<li>search for the configurations</li>
+<li>load them</li>
+<li>parse them</li>
+<li>combine all together</li>
+<li>check using schema</li>
+</ul>
+
+<p>After everything is done the given callback is called.</p>
+
+
+<div class="pilwrap" id="access%20configuration">
+  <h2>
+    <a href="#access%20configuration" name="access%20configuration" class="pilcrow">&#182;</a>
+    Access configuration
+  </h2>
+</div>
 
 
 

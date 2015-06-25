@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>load.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/load.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#architecture">Architecture</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initialize%20origins">Initialize origins</a>
+      </div>
+      <div class="heading h2">
+        <a href="#loading">Loading</a>
+      </div>
+      <div class="heading h3">
+        <a href="#get%20a%20flat%20list%20of%20origins">Get a flat list of origins</a>
+      </div>
+      <div class="heading h3">
+        <a href="#load%20origin%20if%20necessary">Load origin if necessary</a>
+      </div>
+      <div class="heading h3">
+        <a href="#load%20file%20origin">Load file origin</a>
+      </div>
+      <div class="heading h3">
+        <a href="#parse%20text%20into%20object">Parse text into object</a>
+      </div>
+      <div class="heading h3">
+        <a href="#remove%20comments">Remove comments</a>
+      </div>
+      <div class="heading h3">
+        <a href="#set%20meta%20data%20to%20all%20elements">Set Meta Data to all elements</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration">
+  <h1>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h1>
+</div>
+
+
+<p>This package will give you an easy way to load and use configuration settings
+into your application or module.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="architecture">
+  <h2>
+    <a href="#architecture" name="architecture" class="pilcrow">&#182;</a>
+    Architecture
+  </h2>
+</div>
+
+
+<p>The configuration handling consists of a singleton class as central information
+storage like a registry. On access you will get references to the data.</p>
+
+<p>A special behavior is the reloading of the configuration after the files
+changed. This is done using a watcher on the file search path which will
+automatically load all configurations which are changed into the class cache.
+Through class events the instances will get informed if anything changed, so
+they can reload their data and emit events for their application listeners
+to update this data, too.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;config:load&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chokidar = </span><span class="nx">require</span> <span class="s">&#39;chokidar&#39;</span>
+<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include more alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">object = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;alinex-util&#39;</span><span class="p">).</span><span class="nx">object</span>
+<span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialize%20origins">
+  <h2>
+    <a href="#initialize%20origins" name="initialize%20origins" class="pilcrow">&#182;</a>
+    Initialize origins
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">exports.init = </span><span class="nf">(config, cb) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;load all unloaded configurations&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>step through origins</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">origins = </span><span class="nx">listOrigins</span> <span class="nx">config</span><span class="p">.</span><span class="nx">origin</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">origins</span><span class="p">,</span> <span class="nx">loadOrigin</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">config</span><span class="p">.</span><span class="nx">origin</span><span class="p">,</span> <span class="p">{</span> <span class="nv">depth: </span><span class="kc">null</span> <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;STOPPED&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>combine all
+validate
+set</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="nx">cb</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="loading">
+  <h2>
+    <a href="#loading" name="loading" class="pilcrow">&#182;</a>
+    Loading
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20a%20flat%20list%20of%20origins">
+  <h3>
+    <a href="#get%20a%20flat%20list%20of%20origins" name="get%20a%20flat%20list%20of%20origins" class="pilcrow">&#182;</a>
+    Get a flat list of origins
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">listOrigins = </span><span class="nf">(obj) -&gt;</span>
+  <span class="nv">list = </span><span class="p">[]</span>
+  <span class="k">for</span> <span class="nx">el</span> <span class="k">in</span> <span class="nx">obj</span>
+    <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">el</span>
+      <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">listOrigins</span> <span class="nx">el</span>
+    <span class="k">else</span>
+      <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">el</span>
+  <span class="nx">list</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="load%20origin%20if%20necessary">
+  <h3>
+    <a href="#load%20origin%20if%20necessary" name="load%20origin%20if%20necessary" class="pilcrow">&#182;</a>
+    Load origin if necessary
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">loadOrigin = </span><span class="nf">(origin, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">loaded</span>
+  <span class="nv">uri = </span><span class="k">if</span> <span class="o">~</span><span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;://&#39;</span> <span class="k">then</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span> <span class="k">else</span> <span class="s">&#39;file://&#39;</span> <span class="o">+</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span>
+  <span class="p">[</span><span class="nx">proto</span><span class="p">,</span> <span class="nx">path</span><span class="p">]</span> <span class="o">=</span> <span class="nx">uri</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39;://&#39;</span>
+  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="k">switch</span> <span class="nx">proto</span>
+    <span class="k">when</span> <span class="s">&#39;file&#39;</span>
+      <span class="k">return</span> <span class="nx">loadFiles</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="k">when</span> <span class="s">&#39;http&#39;</span><span class="p">,</span> <span class="s">&#39;https&#39;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;NOT IMPLEMENTED WEB REQUEST&quot;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Unknown protocol </span><span class="si">#{</span><span class="nx">proto</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>find files</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>load data
+  parse
+  combine
+  store in origin</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+  <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="load%20file%20origin">
+  <h3>
+    <a href="#load%20file%20origin" name="load%20file%20origin" class="pilcrow">&#182;</a>
+    Load file origin
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">loadFiles = </span><span class="nf">(origin, path, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>find files</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">[</span><span class="nx">all</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^([^?*[{@]*\/)?(.*)$/</span>
+  <span class="nx">path</span> <span class="o">?=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="c1"># make relative links absolute</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">path</span><span class="p">,</span>
+    <span class="nv">type: </span><span class="s">&#39;f&#39;</span>
+    <span class="nv">include: </span><span class="nx">pattern</span>
+    <span class="nv">dereference: </span><span class="kc">true</span>
+    <span class="nv">mindepth: </span><span class="nx">path</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\//</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">unless</span> <span class="nx">pattern</span>
+    <span class="nv">maxdepth: </span><span class="nx">path</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\//</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">unless</span> <span class="nx">pattern</span>
+  <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>load them</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="nx">file</span><span class="p">,</span>
+        <span class="nv">encoding: </span><span class="s">&#39;UTF-8&#39;</span>
+      <span class="p">,</span> <span class="nf">(err, text) -&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>parse</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">uri = </span><span class="s">&quot;file://</span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">parser</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>make meta data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">meta = </span><span class="nx">setMeta</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span>
+          <span class="nx">debug</span> <span class="s">&quot;loaded </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">obj</span><span class="p">,</span><span class="nx">meta</span><span class="p">]</span>
+    <span class="p">,</span> <span class="nf">(err, objects) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>combine</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">obj = </span><span class="p">[]</span>
+      <span class="nv">meta = </span><span class="p">[]</span>
+      <span class="k">for</span> <span class="p">[</span><span class="nx">o</span><span class="p">,</span><span class="nx">m</span><span class="p">]</span> <span class="k">in</span> <span class="nx">objects</span>
+        <span class="nx">obj</span><span class="p">.</span><span class="nx">push</span> <span class="nx">o</span>
+        <span class="nx">meta</span><span class="p">.</span><span class="nx">push</span> <span class="nx">m</span>
+      <span class="nv">obj = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span> <span class="p">{},</span> <span class="nx">obj</span>
+      <span class="nv">meta = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extendArrayConcat</span><span class="p">.</span><span class="nx">apply</span> <span class="p">{},</span> <span class="nx">meta</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>store in origin</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">origin.value = </span><span class="nx">obj</span>
+      <span class="nv">origin.meta = </span><span class="nx">meta</span>
+      <span class="nv">origin.lastload = </span><span class="nx">date</span>
+      <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="parse%20text%20into%20object">
+  <h3>
+    <a href="#parse%20text%20into%20object" name="parse%20text%20into%20object" class="pilcrow">&#182;</a>
+    Parse text into object
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">parse = </span><span class="nf">(text, uri, parser, quiet=false, cb) -&gt;</span>
+  <span class="k">unless</span> <span class="nx">parser</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;yaml&#39;</span><span class="p">,</span> <span class="s">&#39;js&#39;</span><span class="p">,</span> <span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="s">&#39;xml&#39;</span><span class="p">,</span> <span class="s">&#39;ini&#39;</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>autodetect parser on content</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="s">&#39;xml&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">obj</span> <span class="k">if</span> <span class="nx">obj</span>
+      <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="s">&#39;ini&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">obj</span> <span class="k">if</span> <span class="nx">obj</span>
+        <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="s">&#39;yaml&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">obj</span> <span class="k">if</span> <span class="nx">obj</span>
+          <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">obj</span> <span class="k">if</span> <span class="nx">obj</span>
+            <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="s">&#39;js&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+              <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">obj</span> <span class="k">if</span> <span class="nx">obj</span>
+              <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in all parsers&quot;</span>
+              <span class="nx">cb</span><span class="p">()</span>
+    <span class="k">return</span>
+  <span class="nv">color = </span><span class="k">if</span> <span class="nx">quiet</span> <span class="k">then</span> <span class="s">&#39;grey&#39;</span> <span class="k">else</span> <span class="s">&#39;red&#39;</span>
+  <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;try loading </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> as </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>parser given</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">switch</span> <span class="nx">parser</span>
+    <span class="k">when</span> <span class="s">&#39;yaml&#39;</span>
+      <span class="nv">yaml = </span><span class="nx">require</span> <span class="s">&#39;js-yaml&#39;</span>
+      <span class="k">try</span>
+        <span class="nv">result = </span><span class="nx">yaml</span><span class="p">.</span><span class="nx">safeLoad</span> <span class="nx">text</span>
+      <span class="k">catch</span> <span class="nx">err</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+    <span class="k">when</span> <span class="s">&#39;js&#39;</span>
+      <span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
+      <span class="k">try</span>
+        <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;x=</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">err</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="k">when</span> <span class="s">&#39;json&#39;</span>
+      <span class="k">try</span>
+        <span class="nv">result = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">stripComments</span> <span class="nx">text</span>
+      <span class="k">catch</span> <span class="nx">err</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+    <span class="k">when</span> <span class="s">&#39;ini&#39;</span>
+      <span class="nv">ini = </span><span class="nx">require</span> <span class="s">&#39;ini&#39;</span>
+      <span class="k">try</span>
+        <span class="nv">result = </span><span class="nx">ini</span><span class="p">.</span><span class="nx">decode</span> <span class="nx">text</span>
+      <span class="k">catch</span> <span class="nx">err</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>detect failed parsing</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">result</span><span class="o">?</span> <span class="o">or</span> <span class="nx">result</span><span class="p">[</span><span class="s">&#39;{&#39;</span><span class="p">]</span>
+      <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="k">of</span> <span class="nx">result</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">v</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">and</span> <span class="nx">k</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/:/</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+    <span class="k">when</span> <span class="s">&#39;xml&#39;</span>
+      <span class="nv">xml2js = </span><span class="nx">require</span> <span class="s">&#39;xml2js&#39;</span>
+      <span class="nx">xml2js</span><span class="p">.</span><span class="nx">parseString</span> <span class="nx">text</span><span class="p">,</span> <span class="p">{</span> <span class="nv">explicitArray: </span><span class="kc">false</span> <span class="p">},</span> <span class="nf">(err, result) -&gt;</span>
+        <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+    <span class="k">else</span>
+      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Parser for </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> not found&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="remove%20comments">
+  <h3>
+    <a href="#remove%20comments" name="remove%20comments" class="pilcrow">&#182;</a>
+    Remove comments
+  </h3>
+</div>
+
+
+<p>This is used within the JSON importer because JSON originally won't allow
+comments. But comments are a good as help and for uncommenting something
+temporarily.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">stripComments = </span><span class="nf">(code) -&gt;</span>
+  <span class="nv">uid = </span><span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+  <span class="nv">primitives = </span><span class="p">[]</span>
+  <span class="nv">primIndex = </span><span class="mi">0</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>remove the strings</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">code</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([&#39;&quot;])(\\\1|.)+?\1/g</span><span class="p">,</span> <span class="nf">(match) -&gt;</span>
+    <span class="nx">primitives</span><span class="p">[</span><span class="nx">primIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">match</span>
+    <span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">primIndex</span><span class="o">++</span>
+  <span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<p>remove regular expressions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g</span><span class="p">,</span> <span class="nf">(match, $1, $2) -&gt;</span>
+    <span class="nx">primitives</span><span class="p">[</span><span class="nx">primIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">$2</span>
+    <span class="nx">$1</span> <span class="o">+</span> <span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">primIndex</span><span class="o">++</span>
+  <span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<p>Remove multi-line comments that contain would be single-line delimiters
+E.g. /* // &lt;--</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>Remove single and multi-line comments, no consideration of inner-contents</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>Remove multi-line comments that have a replaced ending (string/regex)
+Greedy, so no inner strings/regexes will stop it.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nb">RegExp</span><span class="p">(</span><span class="s">&quot;\\/\\*[\\s\\S]+&quot;</span> <span class="o">+</span> <span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;\\d+&quot;</span><span class="p">,</span> <span class="s">&quot;g&quot;</span><span class="p">),</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>Bring back strings &amp; regexes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p">.</span><span class="nx">replace</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s">&quot;(\\d+)&quot;</span><span class="p">,</span> <span class="s">&quot;g&quot;</span><span class="p">),</span> <span class="nf">(match, n) -&gt;</span> <span class="nx">primitives</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="set%20meta%20data%20to%20all%20elements">
+  <h3>
+    <a href="#set%20meta%20data%20to%20all%20elements" name="set%20meta%20data%20to%20all%20elements" class="pilcrow">&#182;</a>
+    Set Meta Data to all elements
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">setMeta = </span><span class="nf">(obj, uri, origin, prefix=&#39;&#39;) -&gt;</span>
+  <span class="nv">meta = </span><span class="p">{}</span>
+  <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">obj</span>
+    <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">v</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
+      <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">setMeta</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">path</span>
+        <span class="nx">meta</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span>
+    <span class="k">else</span>
+      <span class="nx">meta</span><span class="p">[</span><span class="nx">path</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nv">uri: </span><span class="nx">uri</span>
+        <span class="nv">origin: </span><span class="nx">origin</span>
+        <span class="nv">value: </span><span class="nx">v</span>
+      <span class="p">]</span>
+  <span class="k">return</span> <span class="nx">meta</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
