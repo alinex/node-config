@@ -42,7 +42,6 @@ exports.init = (config, cb) ->
   origins = listOrigins config.origin
   async.each origins, loadOrigin, (err) ->
     return cb err if err
-
     console.log util.inspect config.origin, { depth: null }
     console.log "STOPPED"
 
@@ -79,13 +78,6 @@ loadOrigin = (origin, cb) ->
       return cb new Error "NOT IMPLEMENTED WEB REQUEST"
     else
       return cb new Error "Unknown protocol #{proto}"
-  # find files
-
-  #   load data
-  #   parse
-  #   combine
-  #   store in origin
-
   cb()
 
 # ### Load file origin
@@ -126,6 +118,20 @@ loadFiles = (origin, path, cb) ->
         meta.push m
       obj = object.extend.apply {}, obj
       meta = object.extendArrayConcat.apply {}, meta
+      # set filter
+      if origin.filter
+        debug "set filter to #{origin.filter} in #{origin.uri}"
+        # step into data
+        res = object.path obj, origin.filter
+        if res?
+          obj = res
+          # filter meta
+
+          # replace /filter/ with / in all paths
+          # remove entries not starting with /filter/
+
+        else
+          debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
       # store in origin
       origin.value = obj
       origin.meta = meta
