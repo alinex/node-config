@@ -36,7 +36,7 @@
   "dependencies": {
     "alinex-async": "0.x",
     "alinex-fs": "0.2.x",
-    "alinex-util": "0.2.x",
+    "alinex-util": "0.x",
     "alinex-validator": "1.x",
     "chalk": "1.x",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
