@@ -29,7 +29,7 @@ EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
 async = require 'alinex-async'
-object = require('alinex-util').object
+{string, object} = require 'alinex-util'
 validator = require 'alinex-validator'
 
 
@@ -75,7 +75,7 @@ loadOrigin = (origin, cb) ->
     when 'file'
       return loadFiles origin, path, cb
     when 'http', 'https'
-      return cb new Error "NOT IMPLEMENTED WEB REQUEST"
+      return loadRequest origin, uri, cb
     else
       return cb new Error "Unknown protocol #{proto}"
   cb()
@@ -118,25 +118,53 @@ loadFiles = (origin, path, cb) ->
         meta.push m
       obj = object.extend.apply {}, obj
       meta = object.extendArrayConcat.apply {}, meta
-      # set filter
-      if origin.filter
-        debug "set filter to #{origin.filter} in #{origin.uri}"
-        # step into data
-        res = object.path obj, origin.filter
-        if res?
-          obj = res
-          # filter meta
+      setOrigin origin, obj, meta, date, cb
 
-          # replace /filter/ with / in all paths
-          # remove entries not starting with /filter/
+# ### Load file origin
+loadRequest = (origin, uri, cb) ->
+  debug "load   #{uri}"
+  date = new Date()
+  # make request
+  request = require 'request'
+  request uri, (err, response, body) ->
+    # error checking
+    return cb err if err
+    if response.statusCode isnt 200
+      return cb new Error "Server send wrong return code: #{response.statusCode}"
+    return cb() unless body?
+    # parse content
+    parse body, uri, origin.parser, false, (err, obj) ->
+      return cb err if err
+      meta = setMeta obj, uri, origin
+      debug "loaded #{uri}"
+      setOrigin origin, obj, meta, date, cb
 
-        else
-          debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
-      # store in origin
-      origin.value = obj
-      origin.meta = meta
-      origin.lastload = date
-      cb()
+# ### Set the extracted information to the origin element
+setOrigin = (origin, obj, meta, date, cb) ->
+  # set filter
+  if origin.filter and not object.isEmpty obj
+    debug "set filter to #{origin.filter} in #{origin.uri}"
+    # step into data
+    res = object.path obj, origin.filter
+    if res?
+      obj = res
+      # optimize the meta list
+      filter = "#{origin.filter}/"
+      filter = "/#{filter}" unless filter[0] is '/'
+      res = {}
+      for k, v of meta
+        # remove entries not starting with /filter/
+        continue unless string.starts k, filter
+        # replace /filter/ with / in all meta paths
+        res[k.substring filter.length-1] = v
+      meta = res
+    else
+      debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
+  # store in origin
+  origin.value = obj
+  origin.meta = meta
+  origin.lastload = date
+  cb()
 
 # ### Parse text into object
 parse = (text, uri, parser, quiet=false, cb) ->
