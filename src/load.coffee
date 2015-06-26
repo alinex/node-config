@@ -42,15 +42,29 @@ exports.init = (config, cb) ->
   origins = listOrigins config.origin
   async.each origins, loadOrigin, (err) ->
     return cb err if err
-    console.log util.inspect config.origin, {depth: null}
-    console.log "STOPPED"
-
     # combine all
+    value = {}
+    meta = {}
+    for origin in origins
+      # put together
+      object.extend value, origin.value
+      object.extendArrayConcat meta, origin.meta
     # validate
-    # set
+    debug "validate results"
+    validator.check
+      name: 'config'
+      value: value
+      schema: config.schema
+    , (err, value) ->
+      return cb err if err
+      # set
+      config.value = value
+      config.meta = meta
+      cb()
 
-    cb()
-
+validate = (origin, cb) ->
+  return unless origin.schema
+  validator
 
 # Loading
 # -------------------------------------------------
@@ -104,6 +118,8 @@ loadFiles = (origin, path, cb) ->
         uri = "file://#{file}"
         parse text, uri, origin.parser, false, (err, obj) ->
           return cb err if err
+          # add path for directory and basename in uri
+          #######################################################################################################
           # make meta data
           meta = setMeta obj, uri, origin
           debug "loaded #{uri}"
@@ -140,14 +156,14 @@ loadRequest = (origin, uri, cb) ->
       setOrigin origin, obj, meta, date, cb
 
 # ### Set the extracted information to the origin element
-setOrigin = (origin, obj, meta, date, cb) ->
+setOrigin = (origin, value, meta, date, cb) ->
   # set filter
-  if origin.filter and not object.isEmpty obj
+  if origin.filter and not object.isEmpty value
     debug "set filter to #{origin.filter} in #{origin.uri}"
     # step into data
-    res = object.path obj, origin.filter
+    res = object.path value, origin.filter
     if res?
-      obj = res
+      value = res
       # optimize the meta list
       filter = "#{origin.filter}/"
       filter = "/#{filter}" unless filter[0] is '/'
@@ -160,8 +176,25 @@ setOrigin = (origin, obj, meta, date, cb) ->
       meta = res
     else
       debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
+  # set specific path
+  if origin.path
+    debug "set under path #{path} for #{origin.uri}"
+    # remove starting / if present
+    path = if origin.path[0] is '/' then origin.path[1..] else origin.path
+    # add path to value
+    ref = res = {}
+    lastkey = null
+    for p in origin.path.split '/'
+      ref = ref[lastkey] if lastkey
+      ref[p] = {}
+      lastkey = p
+    ref[lastkey] = value
+    value = res
+    # add path to meta
+    ref = {}
+    ref["/#{path}#{k}"] = v for k, v of meta
   # store in origin
-  origin.value = obj
+  origin.value = value
   origin.meta = meta
   origin.lastload = date
   cb()
