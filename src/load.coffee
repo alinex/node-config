@@ -42,7 +42,7 @@ exports.init = (config, cb) ->
   origins = listOrigins config.origin
   async.each origins, loadOrigin, (err) ->
     return cb err if err
-    console.log util.inspect config.origin, { depth: null }
+    console.log util.inspect config.origin, {depth: null}
     console.log "STOPPED"
 
     # combine all
@@ -107,13 +107,13 @@ loadFiles = (origin, path, cb) ->
           # make meta data
           meta = setMeta obj, uri, origin
           debug "loaded #{uri}"
-          cb null, [obj,meta]
+          cb null, [obj, meta]
     , (err, objects) ->
       return cb err if err
       # combine
       obj = []
       meta = []
-      for [o,m] in objects
+      for [o, m] in objects
         obj.push o
         meta.push m
       obj = object.extend.apply {}, obj
@@ -190,12 +190,12 @@ parse = (text, uri, parser, quiet=false, cb) ->
         return cb()
       # detect failed parsing
       return cb() if not result? or result['{']
-      for k,v of result
+      for k, v of result
         return cb() if v is true and k.match /:/
       cb null, result
     when 'xml'
       xml2js = require 'xml2js'
-      xml2js.parseString text, { explicitArray: false }, (err, result) ->
+      xml2js.parseString text, {explicitArray: false}, (err, result) ->
         if err
           debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
           return cb()

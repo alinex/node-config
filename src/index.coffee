@@ -48,19 +48,19 @@ module.exports =
   # Setup methods
   # -------------------------------------------------
 
-  pushOrigin    : (conf) -> @origin.push conf
-  unshiftOrigin : (conf) -> @origin.unshift conf
+  pushOrigin: (conf) -> @origin.push conf
+  unshiftOrigin: (conf) -> @origin.unshift conf
 
-  register : (app, conf) ->
+  register: (app, conf) ->
     console.log 'TO BE DONE'
 
-  setSchema : (path, schema) ->
+  setSchema: (path, schema) ->
     console.log 'TO BE DONE'
 
   # ### Initialize
-  init : (cb) ->
+  init: (cb) ->
     debug "initialize configuration system"
-    load.init @, cb
+    load.init this, cb
 
   # Access methods
   # -------------------------------------------------
