@@ -21,6 +21,7 @@
 
 # include base modules
 debug = require('debug')('config:load')
+debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
 fspath = require 'path'
@@ -42,13 +43,13 @@ exports.init = (config, cb) ->
   origins = listOrigins config.origin
   async.each origins, loadOrigin, (err) ->
     return cb err if err
-    console.log util.inspect config.origin, {depth: null}
-    console.log "STOPPED"
-
+#    console.log util.inspect config.origin, {depth: null}
+#    console.log "STOPPED"
     # combine all
     # validate
     # set
 
+    debugValue chalk.grey util.inspect config.value, {depth: null}
     cb()
 
 
@@ -95,19 +96,32 @@ loadFiles = (origin, path, cb) ->
     return cb err if err
     # load them
     date = new Date()
+    path = "file:///#{string.trim (fspath.resolve path), '/'}"
     async.map list, (file, cb) ->
       fs.readFile file,
         encoding: 'UTF-8'
       , (err, text) ->
         return cb err if err
         # parse
-        uri = "file://#{file}"
+        uri = "file:///#{string.trim (fspath.resolve file), '/'}"
         parse text, uri, origin.parser, false, (err, obj) ->
           return cb err if err
+          # get additional path
+          add = uri.substring path.length+1
+          if add
+            list = if ~add.indexOf '/' then add.split('/')[0..-2] else []
+            list.push fspath.basename add, fspath.extname add
+            add = '/' + list.join '/'
+          # put object deeper
+          value = ref = {}
+          for k in list
+            ref[k] = {}
+            ref = ref[k]
+          object.extend ref, obj
           # make meta data
-          meta = setMeta obj, uri, origin
+          meta = setMeta value, uri, origin, add
           debug "loaded #{uri}"
-          cb null, [obj, meta]
+          cb null, [value, meta]
     , (err, objects) ->
       return cb err if err
       # combine
@@ -164,6 +178,8 @@ setOrigin = (origin, obj, meta, date, cb) ->
   origin.value = obj
   origin.meta = meta
   origin.lastload = date
+  debug "loaded #{origin.path ? 'ROOT'} with: \n
+  #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
 
 # ### Parse text into object
@@ -204,7 +220,8 @@ parse = (text, uri, parser, quiet=false, cb) ->
         return cb()
     when 'json'
       try
-        result = JSON.parse stripComments text
+#        result = JSON.parse stripComments text
+        result = JSON.parse text
       catch err
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
@@ -230,6 +247,22 @@ parse = (text, uri, parser, quiet=false, cb) ->
         cb null, result
     else
       cb new Error "Parser for #{parser} not found"
+
+# ### Set Meta Data to all elements
+setMeta = (obj, uri, origin, prefix='') ->
+  meta = {}
+  for k, v of obj
+    path = "#{prefix}/#{k}"
+    if typeof v is 'object'
+      for key, val of setMeta v, uri, origin, path
+        meta[key] = val
+    else
+      meta[path] = [
+        uri: uri
+        origin: origin
+        value: v
+      ]
+  return meta
 
 # ### Remove comments
 # This is used within the JSON importer because JSON originally won't allow
@@ -260,18 +293,3 @@ stripComments = (code) ->
   # Bring back strings & regexes
   .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
 
-# ### Set Meta Data to all elements
-setMeta = (obj, uri, origin, prefix='') ->
-  meta = {}
-  for k, v of obj
-    path = "#{prefix}/#{k}"
-    if typeof v is 'object'
-      for key, val of setMeta v, uri, origin, path
-        meta[key] = val
-    else
-      meta[path] = [
-        uri: uri
-        origin: origin
-        value: v
-      ]
-  return meta

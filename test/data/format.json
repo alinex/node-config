@@ -1,0 +1,10 @@
+{
+  "json": {
+    "string": "test",
+    "list": [1, 2, 3],
+    "person": {
+      "name": "Alexander Schilling",
+      "job": "Developer"
+    }
+  }
+}

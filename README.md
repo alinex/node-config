@@ -76,21 +76,35 @@ __Example__
 title: YAML Test
 
 ``` yaml
-# use an object
-yaml:
-  # include text elements
-  name: test
-  name2: 'commas has to be in quotes, too'
-  description: >
-    This may be a very long
-    line in which newlines
-    will be removed.
-  # and some lists
-  list: 1, 2, 3
-  list2:
-    - red
-    - green
-    - blue
+# include text elements
+text: test
+
+# commas, colons and brackets has to be in quotes
+longtext: "And a long text with ' and "" is possible, too"
+
+# multiline text with newlines removed
+multiline: >
+  This may be a very long
+  line in which newlines
+  will be removed.
+
+# and now the newlines are kept
+keepnewlines: |
+  Line 1
+  Line 2
+  Line 3
+
+# and some lists
+simplelist: 1, 2, 3
+list:
+  - red
+  - green
+  - blue
+
+# an sub object
+person:
+  name: Alexander Schilling
+  job: Developer
 ```
 
 ### JSON
@@ -99,22 +113,76 @@ This format uses the javascript object notation a human readable structure. It
 is widely used in different languages not only JavaScript. See description at
 [Wikipedia](http://en.wikipedia.org/wiki/Json).
 
-JSON won't allow comments but you may use JavaScript like comments using
-`//` and `/*...*/` like known in javascript. They will be removed before
-interpreting the file contents.
-
 Common file extension `json`.
 
 ``` json
 {
-  // use an object
-  "json": {
-    // include text elements
-    "name": "test",
-    // and a list of numbers
-    "list": [1, 2, 3]
+  "string": "test",
+  "list": [1, 2, 3],
+  "person": {
+    "name": "Alexander Schilling",
+    "job": "Developer"
   }
 }
+```
+
+JSON won't allow comments but you may use JavaScript like comments using
+`//` and `/*...*/` like known in javascript. Therefore use the javascript
+parsing.
+
+### JavaScript
+
+Also allowed are normal JavaScript files. In comparison to the JSON format it
+is more loosely so you may use single quotes, keys don't need quotes at all and
+at last you may use calculations. But you may only access elements in the same
+file accessing data from outside is prevented by security.
+
+Common file extension `js`.
+
+``` javascript
+{
+  // include a string
+  string: "test",
+
+  // and a list of numbers
+  list: [1, 2, 3]
+
+  // add a sub object
+  person: {
+    name: "Alexander Schilling",
+    job: "Developer"
+  }
+
+  // calculate session timeout in milliseconds
+  session: 15*60*1000
+  calc: Math.sqrt(16)
+}
+```
+
+### CSON
+
+Like above you may write the modules in CoffeeScript like in JSON.
+
+Common file extension `cson`.
+
+``` coffee
+# include a string
+string: "test"
+
+# and a list of numbers
+list:
+  1
+  2
+  3
+
+# add a sub object
+person:
+  name: "Alexander Schilling"
+  job: "Developer"
+
+# calculate session timeout in milliseconds
+session: 15*60*1000
+calc: Math.sqrt 16
 ```
 
 ### XML
@@ -136,43 +204,6 @@ Common file extension `xml`.
 </xml>
 ```
 
-### JavaScript
-
-Also allowed are normal JavaScript files. In comparison to the JSON format it
-is more loosely so you may use single quotes, keys don't need quotes at all and
-at last you may use calculations. But you may only access elements in the same
-file accessing data from outside is prevented by security.
-
-Common file extension `js`.
-
-``` javascript
-{
-  // use an object
-  javascript: {
-    // include a string
-    name: "test",
-    // and a list of numbers
-    list: [1, 2, 3]
-  }
-}
-```
-
-### CSON
-
-Like above you may write the modules in CoffeeScript like in JSON.
-
-Common file extension `cson`.
-
-``` coffee
-module.exports =
-  # use an object
-  coffee:
-    # include a string
-    name: "test"
-    # and a list of numbers
-    list: [1, 2, 3]
-```
-
 ### Ini file
 
 This is one of the oldest formats used for configurations. It is very simple but
@@ -181,19 +212,19 @@ allows also complex objects through extended groups.
 Common file extension `ini`.
 
 ``` ini
-; use an object
-; include a string
-name = test
-; and a list of numbers
+; put everything in a main group
+[ini]
+string = test
+
+; add a simple list
 list[] = 1
 list[] = 2
 list[] = 3
-; and use groups
-[group1]
-name = group1
-; and also subgroups
-[group1.sub]
-name = subgroup1
+
+; add a sub object
+[ini.person]
+name = Alexander Schilling
+job = Developer
 ```
 
 ### RDBMS

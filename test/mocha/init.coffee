@@ -2,14 +2,14 @@ chai = require 'chai'
 expect = chai.expect
 #require('alinex-error').install()
 
-describe "Load", ->
+describe "Init", ->
 
   config = require '../../src/index'
 
   beforeEach ->
     # reset
     #config.origin = []
-    shift config.origin while config.origin.length
+    config.origin.shift() while config.origin.length
     config.schema =
       type: 'object'
     config.value = {}
