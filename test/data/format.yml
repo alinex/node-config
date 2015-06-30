@@ -1,10 +1,10 @@
 yaml:
 
   # include text elements
-  text: test
+  string: test
 
   # commas, colons and brackets has to be in quotes
-  longtext: "And a long text with ' and "" is possible, too"
+  longtext: "And a long text with ' and \" is possible, too"
 
   # multiline text with newlines removed
   multiline: >

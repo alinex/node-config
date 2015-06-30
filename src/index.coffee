@@ -21,6 +21,7 @@
 
 # include base modules
 debug = require('debug')('config')
+debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
 # load helper modules
@@ -62,7 +63,7 @@ module.exports =
     debug "initialize configuration system"
     load.init this, (err) =>
       return cb err if err
-      debug "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
       cb()
 
 

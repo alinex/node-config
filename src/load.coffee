@@ -21,7 +21,6 @@
 
 # include base modules
 debug = require('debug')('config:load')
-debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
 fspath = require 'path'
@@ -217,20 +216,22 @@ setOrigin = (origin, value, meta, date, cb) ->
 
 # ### Parse text into object
 parse = (text, uri, parser, quiet=false, cb) ->
-  unless parser in ['yaml', 'js', 'json', 'xml', 'ini']
+  unless parser in ['yaml', 'js', 'json', 'coffee', 'xml', 'ini']
     # autodetect parser on content
     parse text, uri, 'xml', true, (err, obj) ->
       return cb null, obj if obj
       parse text, uri, 'ini', true, (err, obj) ->
         return cb null, obj if obj
-        parse text, uri, 'yaml', true, (err, obj) ->
+        parse text, uri, 'coffee', true, (err, obj) ->
           return cb null, obj if obj
-          parse text, uri, 'json', true, (err, obj) ->
+          parse text, uri, 'yaml', true, (err, obj) ->
             return cb null, obj if obj
-            parse text, uri, 'js', true, (err, obj) ->
+            parse text, uri, 'json', true, (err, obj) ->
               return cb null, obj if obj
-              debug chalk.red "#{uri} failed in all parsers"
-              cb()
+              parse text, uri, 'js', true, (err, obj) ->
+                return cb null, obj if obj
+                debug chalk.red "#{uri} failed in all parsers"
+                cb()
     return
   color = if quiet then 'grey' else 'red'
   debug chalk.grey "try loading #{uri} as #{parser}"
@@ -247,18 +248,28 @@ parse = (text, uri, parser, quiet=false, cb) ->
     when 'js'
       vm = require 'vm'
       try
-        cb null, vm.runInNewContext "x=#{text}"
+        result = vm.runInNewContext "x=#{text}"
       catch err
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
+      cb null, result
     when 'json'
       try
-#        result = JSON.parse stripComments text
         result = JSON.parse text
       catch err
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
       cb null, result
+    when 'coffee'
+      coffee = require 'coffee-script'
+      try
+        text = "module.exports =\n  " + text.replace /\n/g, '\n  '
+        m = new module.constructor
+        m._compile coffee.compile(text), uri
+      catch err
+        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
+        return cb()
+      cb null, m.exports
     when 'ini'
       ini = require 'ini'
       try

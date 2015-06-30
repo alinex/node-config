@@ -5,10 +5,11 @@ coffee:
   string: "test"
 
   # and a list of numbers
-  list:
+  list: [
     1
     2
     3
+  ]
 
   # add a sub object
   person:
