@@ -21,7 +21,6 @@
 
 # include base modules
 debug = require('debug')('config')
-debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
 # load helper modules
