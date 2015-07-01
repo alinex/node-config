@@ -122,7 +122,6 @@ loadFiles = (origin, path, cb) ->
           # get additional path
           add = uri.substring path.length+1
           list = []
-          list = string.trim(origin.path, '/').split '/' if origin.path
           if add
             list = list.concat add.split '/' if ~add.indexOf '/'
             list.push fspath.basename(add).replace /\..*/, ''
@@ -134,7 +133,7 @@ loadFiles = (origin, path, cb) ->
             ref = ref[k]
           ref[k] = v for k, v of obj
           # make meta data
-          meta = setMeta value, uri, origin, add
+          meta = setMeta value, uri, origin
           debug "loaded #{uri}"
           cb null, [value, meta]
     , (err, objects) ->
@@ -191,21 +190,19 @@ setOrigin = (origin, value, meta, date, cb) ->
       debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
   # set specific path
   if origin.path
-    debug "set under path #{path} for #{origin.uri}"
-    # remove starting / if present
-    path = if origin.path[0] is '/' then origin.path[1..] else origin.path
+    debug "set under path #{origin.path} for #{origin.uri}"
     # add path to value
-    ref = res = {}
-    lastkey = null
-    for p in origin.path.split '/'
-      ref = ref[lastkey] if lastkey
-      ref[p] = {}
-      lastkey = p
-    ref[lastkey] = value
-    value = res
+    path = string.trim origin.path, '/'
+    obj = ref = {}
+    for k in path.split '/'
+      ref[k] = {}
+      ref = ref[k]
+    ref[k] = v for k, v of value
+    value = obj
     # add path to meta
     ref = {}
-    ref["/#{path}#{k}"] = v for k, v of meta
+    ref["/#{path}/#{k}"] = v for k, v of meta
+    meta = ref
   # store in origin
   origin.value = value
   origin.meta = meta

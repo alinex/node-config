@@ -9,14 +9,11 @@ init = (file, parser, cb) ->
     uri: "test/data/#{file}"
     parser: parser
   config.init cb
-  (err) -> cb
-
 
 describe "Format", ->
 
   beforeEach ->
     # reset
-    #config.origin = []
     config.origin.shift() while config.origin.length
     config.schema =
       type: 'object'

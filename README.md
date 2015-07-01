@@ -198,12 +198,28 @@ Common file extension `xml`.
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- use an object -->
 <xml>
+
   <!-- include a string -->
   <name>test</name>
+
   <!-- and a list of numbers -->
   <list>1</list>
   <list>2</list>
   <list>3</list>
+
+  <!-- sub object -->
+  <person>
+    <name>Alexander Schilling</name><job>Developer</job>
+  </person>
+
+  <!-- cdata section -->
+  <cdata><![CDATA[i\'m not escaped: <xml>!]]></cdata>
+
+  <!-- using attributes -->
+  <attributes type="detail">
+    Hello all together
+  </attributes>
+
 </xml>
 ```
 
@@ -232,10 +248,22 @@ job = Developer
 
 ### PROPERTIES
 
+Mainly in the Java world properties are used to setup configuration values.
+But it won't have support for arrays, you only may use objects with numbered keys.
 
+``` properties
+# put everything in a main group
+prop.string = test
 
+! add a simple list
+prop.list.1 = 1
+prop.list.2 = 2
+prop.list.3 = 3
 
-
+! add a sub object
+prop.person.name : Alexander Schilling
+prop.person.job: Developer
+```
 
 ### RDBMS
 
