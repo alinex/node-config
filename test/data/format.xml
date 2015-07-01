@@ -1,13 +1,26 @@
-; this comment is being ignored
-scope = global
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- use an object -->
+<xml>
 
-[database]
-user = dbuser
-password = dbpassword
-database = use_this_database
+  <!-- include a string -->
+  <name>test</name>
 
-[paths.default]
-datadir = /var/lib/data
-array[] = first value
-array[] = second value
-array[] = third value
+  <!-- and a list of numbers -->
+  <list>1</list>
+  <list>2</list>
+  <list>3</list>
+
+  <!-- sub object -->
+  <person>
+    <name>Alexander Schilling</name><job>Developer</job>
+  </person>
+
+  <!-- cdata section -->
+  <cdata><![CDATA[i\'m not escaped: <xml>!]]></cdata>
+
+  <!-- using attributes -->
+  <attributes type="detail">
+    Hello all together
+  </attributes>
+
+</xml>

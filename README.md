@@ -145,16 +145,16 @@ Common file extension `js`.
   string: "test",
 
   // and a list of numbers
-  list: [1, 2, 3]
+  list: [1, 2, 3],
 
   // add a sub object
   person: {
     name: "Alexander Schilling",
     job: "Developer"
-  }
+  },
 
   // calculate session timeout in milliseconds
-  session: 15*60*1000
+  session: 15*60*1000,
   calc: Math.sqrt(16)
 }
 ```
@@ -170,10 +170,11 @@ Common file extension `cson`.
 string: "test"
 
 # and a list of numbers
-list:
+list: [
   1
   2
   3
+]
 
 # add a sub object
 person:

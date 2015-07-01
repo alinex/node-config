@@ -125,7 +125,7 @@ loadFiles = (origin, path, cb) ->
           list = string.trim(origin.path, '/').split '/' if origin.path
           if add
             list = list.concat add.split '/' if ~add.indexOf '/'
-            list.push fspath.basename add, fspath.extname add
+            list.push fspath.basename(add).replace /\..*/, ''
           add = '/' + list.join '/' if list.length
           # put object deeper
           value = ref = {}
@@ -275,7 +275,7 @@ parse = (text, uri, parser, quiet=false, cb) ->
       coffee = require 'coffee-script'
       try
         text = "module.exports =\n  " + text.replace /\n/g, '\n  '
-        m = new module.constructor
+        m = new module.constructor()
         m._compile coffee.compile(text), uri
       catch err
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
@@ -299,9 +299,33 @@ parse = (text, uri, parser, quiet=false, cb) ->
         if err
           debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
           return cb()
-        cb null, result
+        # optimize result of attributes
+        cb null, xmlOptimize result
     else
       cb new Error "Parser for #{parser} not found"
+
+# ### Optimize parsed cml
+xmlOptimize = (data) ->
+  return data unless typeof data is 'object'
+  if Array.isArray data
+    # seep analyze array
+    result = []
+    for v in data
+      result.push xmlOptimize v
+    return result
+  result = {}
+  for k, v of data
+    # set value
+    if k is '_'
+      result.value = v
+    # set attributes
+    else if k is '$'
+      for s, w of xmlOptimize v
+        result[s] = w
+    # keep other but check contents
+    else
+      result[k] = xmlOptimize v
+  return result
 
 # ### Set Meta Data to all elements
 setMeta = (obj, uri, origin, prefix='') ->
