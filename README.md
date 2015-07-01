@@ -54,15 +54,17 @@ This configuration class allows multiple formats to be used alternatively or com
 So you may use the format you know best. The following table will give a short
 comparison.
 
-|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
-|:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
-| Supported   |  yes |  yes | yes | yes |    yes | yes |    no |    no |
-| Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
-| Structure   |  yes |  yes | yes | yes |    yes | yes |   yes |   yes |
-| Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
-| Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
-| Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
-| Common      |   ++ |    + |  ++ |  -- |    --- | +++ |     - |    -- |
+|   Format    | YAML | JSON | XML |  JS | CSON | INI | PROP | RDBMS | ObjDB |
+|:------------|-----:|-----:|----:|----:|-----:|----:|-----:|------:|------:|
+| Supported   |  yes |  yes | yes | yes |  yes | yes |  yes |    no |    no |
+| Comments    |  yes | (yes)| yes | yes |  yes | yes |  yes |   yes | (yes) |
+| Structure   |  yes |  yes | yes | yes |  yes | yes |  yes |   yes |   yes |
+| Arrays      |  yes |  yes | yes | yes |  yes | yes |   no |   yes |   yes |
+| Reloadable  |  yes |  yes | yes | yes |  yes | yes |  yes | (yes) | (yes) |
+| Readiness   |  +++ |   ++ |   - |  ++ |  +++ |   + |    + |     + |    ++ |
+| Calculations|   no |   no |  no | yes |  yes |  no |   no |    no |    no |
+| Performance |   ++ |  +++ |   + | +++ |   ++ |  ++ |    + |     - |     + |
+| Common      |   ++ |    + |  ++ |  -- |  --- | +++ |  +++ |     - |    -- |
 
 ### YAML
 
@@ -205,7 +207,7 @@ Common file extension `xml`.
 </xml>
 ```
 
-### Ini file
+### INI
 
 This is one of the oldest formats used for configurations. It is very simple but
 allows also complex objects through extended groups.
@@ -227,6 +229,13 @@ list[] = 3
 name = Alexander Schilling
 job = Developer
 ```
+
+### PROPERTIES
+
+
+
+
+
 
 ### RDBMS
 

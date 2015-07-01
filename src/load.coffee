@@ -224,12 +224,14 @@ ext2parser =
   coffee: 'coffee'
   xml: 'xml'
   ini: 'ini'
+  properties: 'properties'
 
 # ### Parse text into object
 parse = (text, uri, parser, quiet=false, cb) ->
   # auto detection
-  unless parser in ['yaml', 'js', 'json', 'coffee', 'xml', 'ini']
-    detect = ['xml', 'ini', 'coffee', 'yaml', 'json', 'js']
+  list = ['xml', 'ini', 'properties', 'coffee', 'yaml', 'json', 'js']
+  unless parser in list
+    detect = list[0..]
     ext = fspath.extname(uri).substring 1
     if type = ext2parser[ext]
       i = detect.indexOf type
@@ -281,6 +283,17 @@ parse = (text, uri, parser, quiet=false, cb) ->
         debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
         return cb()
       cb null, m.exports
+    when 'properties'
+      properties = require 'properties'
+      properties.parse text,
+        sections: true
+        namespaces: true
+      , (err, result) ->
+        if err
+          debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
+          return cb()
+        return cb() unless propertiesCheck result
+        cb null, result
     when 'ini'
       ini = require 'ini'
       try
@@ -326,6 +339,15 @@ xmlOptimize = (data) ->
     else
       result[k] = xmlOptimize v
   return result
+
+# ### Check that the properties parser for correct result
+propertiesCheck = (data) ->
+  return true unless typeof data is 'object'
+  for k, v of data
+    if v is null or ~'[]{}/'.indexOf k.charAt 0
+      return false
+    return false unless propertiesCheck v
+  return true
 
 # ### Set Meta Data to all elements
 setMeta = (obj, uri, origin, prefix='') ->

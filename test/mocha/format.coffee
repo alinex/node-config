@@ -176,7 +176,7 @@ describe "Format", ->
           calc: Math.sqrt(16)
         cb()
 
-  describe.only "xml", ->
+  describe "xml", ->
 
     it "should parse", (cb) ->
       init 'format.xml', 'xml', (err) ->
@@ -221,10 +221,60 @@ describe "Format", ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.ini, 'ini root').to.deep.equal
-          string: 'test'
-          list: [ 1, 2, 3 ]
+          string: 'test',
+          list: [ '1', '2', '3' ]
           person: { name: 'Alexander Schilling', job: 'Developer' }
-          session: 15*60*1000
-          calc: Math.sqrt(16)
+        cb()
+
+    it "should parse (auto)", (cb) ->
+      init 'format.ini', null, (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value.format
+        expect(d.ini, 'ini root').to.deep.equal
+          string: 'test',
+          list: [ '1', '2', '3' ]
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+    it "should parse (auto by content)", (cb) ->
+      init 'format.ini.link', null, (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value.format
+        expect(d.ini, 'ini root').to.deep.equal
+          string: 'test',
+          list: [ '1', '2', '3' ]
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+describe "properties", ->
+
+    it "should parse", (cb) ->
+      init 'format.properties', 'properties', (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value.format
+        expect(d.prop, 'properties root').to.deep.equal
+          string: 'test',
+          list: { 1: 1, 2: 2, 3: 3 }
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+    it "should parse (auto)", (cb) ->
+      init 'format.properties', null, (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value.format
+        expect(d.prop, 'properties root').to.deep.equal
+          string: 'test',
+          list: { 1: 1, 2: 2, 3: 3 }
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+    it "should parse (auto by content)", (cb) ->
+      init 'format.properties.link', null, (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value.format
+        expect(d.prop, 'properties root').to.deep.equal
+          string: 'test',
+          list: { 1: 1, 2: 2, 3: 3 }
+          person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 
