@@ -214,25 +214,36 @@ setOrigin = (origin, value, meta, date, cb) ->
   #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
 
+ext2parser =
+  yml: 'yaml'
+  yaml: 'yaml'
+  js: 'js'
+  javascript: 'javascript'
+  json: 'json'
+  cson: 'coffee'
+  coffee: 'coffee'
+  xml: 'xml'
+  ini: 'ini'
+
 # ### Parse text into object
 parse = (text, uri, parser, quiet=false, cb) ->
+  # auto detection
   unless parser in ['yaml', 'js', 'json', 'coffee', 'xml', 'ini']
-    # autodetect parser on content
-    parse text, uri, 'xml', true, (err, obj) ->
-      return cb null, obj if obj
-      parse text, uri, 'ini', true, (err, obj) ->
-        return cb null, obj if obj
-        parse text, uri, 'coffee', true, (err, obj) ->
-          return cb null, obj if obj
-          parse text, uri, 'yaml', true, (err, obj) ->
-            return cb null, obj if obj
-            parse text, uri, 'json', true, (err, obj) ->
-              return cb null, obj if obj
-              parse text, uri, 'js', true, (err, obj) ->
-                return cb null, obj if obj
-                debug chalk.red "#{uri} failed in all parsers"
-                cb()
+    detect = ['xml', 'ini', 'coffee', 'yaml', 'json', 'js']
+    ext = fspath.extname(uri).substring 1
+    if type = ext2parser[ext]
+      i = detect.indexOf type
+      detect.splice i, 1 if i > -1
+      detect.unshift type
+    debug "autodetect format as: #{detect}"
+    result = null
+    async.detectSeries detect, (type, cb) ->
+      parse text, uri, type, true, (err, obj) ->
+        result = obj
+        cb not err? and obj?
+    , -> cb null, result
     return
+  # parse specified format
   color = if quiet then 'grey' else 'red'
   debug chalk.grey "try loading #{uri} as #{parser}"
   # parser given
@@ -307,33 +318,3 @@ setMeta = (obj, uri, origin, prefix='') ->
         value: v
       ]
   return meta
-
-# ### Remove comments
-# This is used within the JSON importer because JSON originally won't allow
-# comments. But comments are a good as help and for uncommenting something
-# temporarily.
-stripComments = (code) ->
-  uid = "_" + +new Date()
-  primitives = []
-  primIndex = 0
-  # remove the strings
-  code.replace(/(['"])(\\\1|.)+?\1/g, (match) ->
-    primitives[primIndex] = match
-    (uid + "") + primIndex++
-  )
-  # remove regular expressions
-  .replace(/([^\/])(\/(?!\*|\/)(\\\/|.)+?\/[gim]{0,3})/g, (match, $1, $2) ->
-    primitives[primIndex] = $2
-    $1 + (uid + "") + primIndex++
-  )
-  # Remove multi-line comments that contain would be single-line delimiters
-  # E.g. /* // <--
-  .replace(/\/\/.*?\/?\*.+?(?=\n|\r|$)|\/\*[\s\S]*?\/\/[\s\S]*?\*\//g, "")
-  # Remove single and multi-line comments, no consideration of inner-contents
-  .replace(/\/\/.+?(?=\n|\r|$)|\/\*[\s\S]+?\*\//g, "")
-  # Remove multi-line comments that have a replaced ending (string/regex)
-  # Greedy, so no inner strings/regexes will stop it.
-  .replace(RegExp("\\/\\*[\\s\\S]+" + uid + "\\d+", "g"), "")
-  # Bring back strings & regexes
-  .replace RegExp(uid + "(\\d+)", "g"), (match, n) -> primitives[n]
-
