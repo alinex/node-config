@@ -19,7 +19,7 @@ yaml:
     Line 3
 
   # and some lists
-  simplelist: 1, 2, 3
+  simplelist: [1, 2, 3]
   list:
     - red
     - green

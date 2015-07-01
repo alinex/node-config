@@ -32,7 +32,7 @@ describe "Format", ->
           longtext: 'And a long text with \' and " is possible, too'
           multiline: 'This may be a very long line in which newlines will be removed.\n'
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-          simplelist: '1, 2, 3'
+          simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
           person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -46,7 +46,7 @@ describe "Format", ->
           longtext: 'And a long text with \' and " is possible, too'
           multiline: 'This may be a very long line in which newlines will be removed.\n'
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-          simplelist: '1, 2, 3'
+          simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
           person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -60,7 +60,7 @@ describe "Format", ->
           longtext: 'And a long text with \' and " is possible, too'
           multiline: 'This may be a very long line in which newlines will be removed.\n'
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-          simplelist: '1, 2, 3'
+          simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
           person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()

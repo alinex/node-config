@@ -36,7 +36,7 @@ describe "Load", ->
               longtext: 'And a long text with \' and " is possible, too'
               multiline: 'This may be a very long line in which newlines will be removed.\n'
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-              simplelist: '1, 2, 3'
+              simplelist: [1, 2, 3]
               list: [ 'red', 'green', 'blue' ]
               person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -54,7 +54,7 @@ describe "Load", ->
             longtext: 'And a long text with \' and " is possible, too'
             multiline: 'This may be a very long line in which newlines will be removed.\n'
             keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-            simplelist: '1, 2, 3'
+            simplelist: [1, 2, 3]
             list: [ 'red', 'green', 'blue' ]
             person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -71,7 +71,7 @@ describe "Load", ->
           longtext: 'And a long text with \' and " is possible, too'
           multiline: 'This may be a very long line in which newlines will be removed.\n'
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-          simplelist: '1, 2, 3'
+          simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
           person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -91,7 +91,7 @@ describe "Load", ->
                 longtext: 'And a long text with \' and " is possible, too'
                 multiline: 'This may be a very long line in which newlines will be removed.\n'
                 keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-                simplelist: '1, 2, 3'
+                simplelist: [1, 2, 3]
                 list: [ 'red', 'green', 'blue' ]
                 person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
@@ -112,12 +112,12 @@ describe "Load", ->
                   longtext: 'And a long text with \' and " is possible, too'
                   multiline: 'This may be a very long line in which newlines will be removed.\n'
                   keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-                  simplelist: '1, 2, 3'
+                  simplelist: [1, 2, 3]
                   list: [ 'red', 'green', 'blue' ]
                   person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 
-    it.only "should use filter and path", (cb) ->
+    it "should use filter and path", (cb) ->
       config.pushOrigin
         uri: "test/data/format.yml"
         filter: 'format'
@@ -132,11 +132,100 @@ describe "Load", ->
               longtext: 'And a long text with \' and " is possible, too'
               multiline: 'This may be a very long line in which newlines will be removed.\n'
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
-              simplelist: '1, 2, 3'
+              simplelist: [1, 2, 3]
               list: [ 'red', 'green', 'blue' ]
               person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 
-#  describe.only "combine", ->
-#  describe.only "validate", ->
+  describe "combine", ->
+
+    it "should merge different data", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format'
+      config.pushOrigin
+        uri: "test/data/format.xml"
+        filter: 'format'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml+xml root').to.deep.equal
+          yaml:
+            string: 'test'
+            longtext: 'And a long text with \' and " is possible, too'
+            multiline: 'This may be a very long line in which newlines will be removed.\n'
+            keepnewlines: 'Line 1\nLine 2\nLine 3\n'
+            simplelist: [1, 2, 3]
+            list: [ 'red', 'green', 'blue' ]
+            person: { name: 'Alexander Schilling', job: 'Developer' }
+          xml:
+            name: 'test',
+            list: [ '1', '2', '3' ]
+            person: { name: 'Alexander Schilling', job: 'Developer' }
+            cdata: 'i\\\'m not escaped: <xml>!'
+            attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+        cb()
+
+    it "should merge together data", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format/yaml'
+      config.pushOrigin
+        uri: "test/data/format.xml"
+        filter: 'format/xml'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml+xml root').to.deep.equal
+          string: 'test'
+          name: 'test',
+          longtext: 'And a long text with \' and " is possible, too'
+          multiline: 'This may be a very long line in which newlines will be removed.\n'
+          keepnewlines: 'Line 1\nLine 2\nLine 3\n'
+          simplelist: [1, 2, 3]
+          list: [ 'red', 'green', 'blue', '1', '2', '3' ]
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+          cdata: 'i\\\'m not escaped: <xml>!'
+          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+        cb()
+
+    it "should merge (overwrite) data", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.xml"
+        filter: 'format/xml'
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format/yaml/person'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml+xml root').to.deep.equal
+          name: 'Alexander Schilling'
+          job: 'Developer'
+          list: [ '1', '2', '3' ]
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+          cdata: 'i\\\'m not escaped: <xml>!'
+          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+        cb()
+
+  describe "validate", ->
+
+    it "should pass schema", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format/yaml/person'
+      config.schema =
+          type: 'object'
+          keys:
+            name:
+              type: 'string'
+            job:
+              type: 'string'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml part root').to.deep.equal
+          name: 'Alexander Schilling'
+          job: 'Developer'
+        cb()
 
