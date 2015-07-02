@@ -54,7 +54,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.yml', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.yaml, 'yaml root').to.deep.equal
           string: 'test'
           longtext: 'And a long text with \' and " is possible, too'
@@ -90,7 +90,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.json', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.json, 'json root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
@@ -126,7 +126,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.js', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.javascript, 'js root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
@@ -164,7 +164,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.cson', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.coffee, 'cson root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
@@ -202,7 +202,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.xml', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.xml, 'xml root').to.deep.equal
           name: 'test',
           list: [ '1', '2', '3' ]
@@ -236,7 +236,7 @@ describe "Format", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.ini', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.ini, 'ini root').to.deep.equal
           string: 'test',
           list: [ '1', '2', '3' ]
@@ -268,7 +268,7 @@ describe "properties", ->
     it "should parse (auto by content)", (cb) ->
       init 'link.properties', null, (err) ->
         expect(err, 'error').to.not.exist
-        d = config.value.format
+        d = config.value.link
         expect(d.prop, 'properties root').to.deep.equal
           string: 'test',
           list: { 1: 1, 2: 2, 3: 3 }

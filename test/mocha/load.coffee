@@ -21,7 +21,7 @@ describe "Load", ->
     config.meta = {}
     config.listener = {}
 
-  describe.only "file", ->
+  describe "file", ->
 
     it "should work", (cb) ->
       config.pushOrigin
