@@ -267,7 +267,7 @@ prop.person.job: Developer
 
 ### RDBMS
 
-Not supported, yet.
+> Not supported, yet.
 
 | lastchange       | group | key          |  value | comment |
 |------------------|-------|:-------------|:-------|:--------|
@@ -280,7 +280,7 @@ Not supported, yet.
 
 ### Object DB
 
-Not supported, yet.
+> Not supported, yet.
 
 Here, the JSON will be stored in the database like in the JSON file.
 
@@ -302,13 +302,13 @@ already done and initialize it:
 # register common configuration paths for application
 config.register
   name: 'myapp'
+  basedir: __dirname
 # add a special path on the end (highest priority)
-config.origin.push
+config.pushOrigin
   uri: 'file:///etc/my-config.yml'
 # and add a schema to verify the database settings are correct
-config.setSchema
-  path: 'database'
-  schema: ...
+config.setSchema 'database',
+  type: ....  # schema
 
 # start initializing the configuration and load the data
 config.init (err) ->
@@ -401,9 +401,12 @@ set one of the following parsers in `parser` to use:
 - json
 - xml
 - ini
+- properties
+- coffee
+- javascript
 
 But if you don't specify it, it will be auto detected based on the file extension
-and the contents itself.
+or the contents itself.
 
 ### Combine contents
 
@@ -446,16 +449,45 @@ To support this in an easy way you may use the `register` method which if given
 an application name and the app directory will do everything for you.
 
 ``` coffee
-config.register myapp, __dirname, { uri: '*.yml' }
+config.register
+  name: myapp
+  basedir: __dirname
+  uri: '*.yml'
 ```
+
+Like you see, you may use the keys:
+
+- name - short name of the application
+- basedir - base directory of the application
+
+In addition all attributes from the normal configuration like `uri` and so on
+are also possible.
 
 
 Setup schema
 -------------------------------------------------
 
-The second path is the schema which is used for validation and to sanitize
-the values. This is done using a schema valid for the
-[Validator](http://alinex.github.io/node-validator).
+The schema defines some validation and optimization rules which has to be
+processed before using the values. If the validation fails it will return a
+descriptive Error and don't use the values.
+
+``` coffee
+config.setSchema '/',
+  type: 'object'
+  allowedKeys: true
+  keys:
+    name:
+      type: 'string'
+    job:
+      type: 'string'
+, (err) ->
+  # go on and load the data
+```
+
+To set a schema, give the root path for the schema and it's values which describe
+the concrete data format. The real validation is done using the
+[Validator](http://alinex.github.io/node-validator). Therefore look at the
+description there for all the possibilities you have.
 
 
 Initialize
@@ -476,6 +508,30 @@ After everything is done the given callback is called.
 Access configuration
 -------------------------------------------------
 
+After everything is setup and loaded you may access the values or part of the
+value tree. You always get a reference for performance reasons. So don't change
+it's content.
+
+``` coffee
+conf = config.get()
+```
+
+Thats a simple call to get the complete data structure.
+
+
+``` coffee
+conf = config.get 'server'
+conf = config.get 'database/master/address'
+```
+
+Or give an path to get only a subpart of the configuration.
+
+``` coffee
+if config.get('server')?
+  # value found
+```
+
+And at last you may check that a specific part is set.
 
 
 License

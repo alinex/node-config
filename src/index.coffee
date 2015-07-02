@@ -24,6 +24,7 @@ debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
+fspath = require 'path'
 # load other alinex modules
 {string, object} = require 'alinex-util'
 # load helper modules
@@ -54,8 +55,37 @@ module.exports =
   pushOrigin: (conf) -> @origin.push conf
   unshiftOrigin: (conf) -> @origin.unshift conf
 
-  register: (app, conf) ->
-    console.log 'TO BE DONE'
+  # name - application name
+  # basedir - path
+  register: (setup) ->
+    uri = string.trim(setup.uri, '/') ? '*'
+    if setup.basedir
+      dir = fspath.resolve setup.basedir
+      # add src
+      @origin.push
+        uri: "#{dir}/var/src/config/#{uri}"
+        parser: setup.parser
+        path: setup.path
+        filter: setup.filter
+      # add local
+      @origin.push
+        uri: "#{dir}/var/local/config/#{uri}"
+        parser: setup.parser
+        path: setup.path
+        filter: setup.filter
+    # add global
+    @origin.push
+      uri: "/etc/#{setup.name}/#{uri}"
+      parser: setup.parser
+      path: setup.path
+      filter: setup.filter
+    # add user
+    dir = process.env.HOME ? process.env.USERPROFILE
+    @origin.push
+      uri: "#{dir}/.#{setup.name}/config/#{uri}"
+      parser: setup.parser
+      path: setup.path
+      filter: setup.filter
 
   setSchema: (path, schema, cb = -> ) ->
     path = string.trim(path, '/').split '/'
@@ -90,3 +120,14 @@ module.exports =
 
   # Access methods
   # -------------------------------------------------
+
+  get: (path) ->
+    if typeof path is 'string'
+      path = string.trim(path, '/').split '/'
+    return @value unless path.length and path[0]
+    # get sub path
+    ref = @value
+    return null unless ref[p]?
+    ref = ref[p] for p in path
+    return ref
+
