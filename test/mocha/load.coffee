@@ -208,24 +208,77 @@ describe "Load", ->
           attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
         cb()
 
-  describe "validate", ->
+  describe.only "validate", ->
 
     it "should pass schema", (cb) ->
       config.pushOrigin
         uri: "test/data/format.yml"
         filter: 'format/yaml/person'
-      config.schema =
-          type: 'object'
-          keys:
-            name:
-              type: 'string'
-            job:
-              type: 'string'
+      config.setSchema '/',
+        type: 'object'
+        allowedKeys: true
+        keys:
+          name:
+            type: 'string'
+          job:
+            type: 'string'
       config.init (err) ->
         expect(err, 'error').to.not.exist
         d = config.value
         expect(d, 'yaml part root').to.deep.equal
           name: 'Alexander Schilling'
           job: 'Developer'
+        cb()
+
+    it "should pass schema for subpath", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format/yaml'
+      config.setSchema '/person',
+        type: 'object'
+        allowedKeys: true
+        keys:
+          name:
+            type: 'string'
+          job:
+            type: 'string'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml part root').to.deep.equal
+          string: 'test',
+          longtext: 'And a long text with \' and " is possible, too',
+          multiline: 'This may be a very long line in which newlines will be removed.\n',
+          keepnewlines: 'Line 1\nLine 2\nLine 3\n',
+          simplelist: [ 1, 2, 3 ],
+          list: [ 'red', 'green', 'blue' ],
+          person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+    it "should add multiple schemas", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+        filter: 'format/yaml'
+      config.setSchema '/person',
+        type: 'object'
+        allowedKeys: true
+        keys:
+          name:
+            type: 'string'
+          job:
+            type: 'string'
+      config.setSchema '/simplelist',
+        type: 'array'
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml part root').to.deep.equal
+          string: 'test',
+          longtext: 'And a long text with \' and " is possible, too',
+          multiline: 'This may be a very long line in which newlines will be removed.\n',
+          keepnewlines: 'Line 1\nLine 2\nLine 3\n',
+          simplelist: [ 1, 2, 3 ],
+          list: [ 'red', 'green', 'blue' ],
+          person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 

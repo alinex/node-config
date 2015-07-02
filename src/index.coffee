@@ -24,6 +24,8 @@ debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 chalk = require 'chalk'
 util = require 'util'
+# load other alinex modules
+{string, object} = require 'alinex-util'
 # load helper modules
 load = require './load'
 
@@ -56,7 +58,22 @@ module.exports =
     console.log 'TO BE DONE'
 
   setSchema: (path, schema) ->
-    console.log 'TO BE DONE'
+    path = string.trim(path, '/').split '/'
+    ref = @schema
+    # go into path
+    for p in path
+      # create structure if missing
+      ref.type ?= 'object'
+      ref.keys ?= {}
+      ref.keys[p] ?= {}
+      ref = ref.keys[p]
+    # remove previous settings
+    delete ref[k] for k of ref
+    # set new schema
+    object.extend ref, schema
+    # revalidate if already loaded
+    ###############################################################
+    console.log @schema
 
   # ### Initialize
   init: (cb) ->
