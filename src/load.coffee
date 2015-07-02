@@ -50,21 +50,21 @@ exports.init = (config, cb) ->
       object.extend value, origin.value
       object.extendArrayConcat meta, origin.meta
     # validate
-    debug "validate results"
-    validator.check
-      name: 'config'
-      value: value
-      schema: config.schema
-    , (err, value) ->
+    validate config, value, (err, value) ->
       return cb err if err
       # set
       config.value = value
       config.meta = meta
       cb()
 
-validate = (origin, cb) ->
-  return unless origin.schema
-  validator
+# ### Validate new value before store
+validate = exports.validate = (config, value, cb) ->
+  debug "validate results"
+  validator.check
+    name: 'config'
+    value: value
+    schema: config.schema
+  , cb
 
 # Loading
 # -------------------------------------------------

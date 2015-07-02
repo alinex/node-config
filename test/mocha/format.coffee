@@ -52,7 +52,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.yml.link', null, (err) ->
+      init 'link.yml', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.yaml, 'yaml root').to.deep.equal
@@ -88,7 +88,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.json.link', null, (err) ->
+      init 'link.json', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.json, 'json root').to.deep.equal
@@ -124,7 +124,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.js.link', null, (err) ->
+      init 'link.js', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.javascript, 'js root').to.deep.equal
@@ -162,7 +162,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.cson.link', null, (err) ->
+      init 'link.cson', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.coffee, 'cson root').to.deep.equal
@@ -200,7 +200,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.xml.link', null, (err) ->
+      init 'link.xml', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.xml, 'xml root').to.deep.equal
@@ -234,7 +234,7 @@ describe "Format", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.ini.link', null, (err) ->
+      init 'link.ini', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.ini, 'ini root').to.deep.equal
@@ -266,7 +266,7 @@ describe "properties", ->
         cb()
 
     it "should parse (auto by content)", (cb) ->
-      init 'format.properties.link', null, (err) ->
+      init 'link.properties', null, (err) ->
         expect(err, 'error').to.not.exist
         d = config.value.format
         expect(d.prop, 'properties root').to.deep.equal

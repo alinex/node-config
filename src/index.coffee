@@ -57,23 +57,27 @@ module.exports =
   register: (app, conf) ->
     console.log 'TO BE DONE'
 
-  setSchema: (path, schema) ->
+  setSchema: (path, schema, cb = -> ) ->
     path = string.trim(path, '/').split '/'
     ref = @schema
     # go into path
-    for p in path
-      # create structure if missing
-      ref.type ?= 'object'
-      ref.keys ?= {}
-      ref.keys[p] ?= {}
-      ref = ref.keys[p]
+    if path.length and path[0]
+      for p in path
+        # create structure if missing
+        ref.type ?= 'object'
+        ref.keys ?= {}
+        ref.keys[p] ?= {}
+        ref = ref.keys[p]
     # remove previous settings
     delete ref[k] for k of ref
     # set new schema
     object.extend ref, schema
     # revalidate if already loaded
-    ###############################################################
-    console.log @schema
+    return cb() if object.isEmpty @value
+    debug "revalidate against schema because #{path ? '/'} changed"
+    load.validate this, @value, (err, value) ->
+      return cb err if err
+      @value = value
 
   # ### Initialize
   init: (cb) ->

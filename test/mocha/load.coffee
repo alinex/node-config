@@ -21,9 +21,9 @@ describe "Load", ->
     config.meta = {}
     config.listener = {}
 
-  describe "path", ->
+  describe.only "file", ->
 
-    it "should get all", (cb) ->
+    it "should work", (cb) ->
       config.pushOrigin
         uri: "test/data/format.yml"
       config.init (err) ->
@@ -40,6 +40,64 @@ describe "Load", ->
               list: [ 'red', 'green', 'blue' ]
               person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
+
+    it "should fail if nothing found", (cb) ->
+      config.init (err) ->
+        expect(err, 'error').to.exist
+        cb()
+
+    it "should work if one origin missing", (cb) ->
+      config.pushOrigin
+        uri: "test/data/not-here.yml"
+      config.pushOrigin
+        uri: "test/data/format.yml"
+      config.pushOrigin
+        uri: "test/data/not-here.xml"
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml root').to.deep.equal
+          format:
+            yaml:
+              string: 'test'
+              longtext: 'And a long text with \' and " is possible, too'
+              multiline: 'This may be a very long line in which newlines will be removed.\n'
+              keepnewlines: 'Line 1\nLine 2\nLine 3\n'
+              simplelist: [1, 2, 3]
+              list: [ 'red', 'green', 'blue' ]
+              person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
+    it "should load directory", (cb) ->
+      config.pushOrigin
+        uri: "test/data/*"
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(Object.keys d.format, 'main keys').to.deep.equal [
+          'coffee'
+          "ini"
+          "javascript"
+          "json"
+          "prop"
+          "xml"
+          'yaml'
+        ]
+        cb()
+
+    it "should load multiple files", (cb) ->
+      config.pushOrigin
+        uri: "test/data/*.xml"
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(Object.keys d, 'main keys').to.deep.equal [
+          'format'
+          'link'
+        ]
+        cb()
+
+  describe "path", ->
 
     it "should filter sublevel", (cb) ->
       config.pushOrigin
@@ -208,7 +266,7 @@ describe "Load", ->
           attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
         cb()
 
-  describe.only "validate", ->
+  describe "validate", ->
 
     it "should pass schema", (cb) ->
       config.pushOrigin
@@ -281,4 +339,38 @@ describe "Load", ->
           list: [ 'red', 'green', 'blue' ],
           person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
+
+    it "should fail schema", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+      config.setSchema '/',
+        type: 'object'
+        allowedKeys: true
+        keys:
+          name:
+            type: 'string'
+          job:
+            type: 'string'
+      config.init (err) ->
+        expect(err, 'error').to.exist
+        cb()
+
+    it "should fail on revalidate", (cb) ->
+      config.pushOrigin
+        uri: "test/data/format.yml"
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        config.setSchema '/',
+          type: 'object'
+          allowedKeys: true
+          keys:
+            name:
+              type: 'string'
+            job:
+              type: 'string'
+        , (err) ->
+          expect(err, 'error').to.exist
+          cb()
+
+
 
