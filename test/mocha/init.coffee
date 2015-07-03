@@ -26,4 +26,4 @@ describe "Init", ->
         expect(err, 'error').to.not.exist
         cb()
 
-  describe "schema", ->
+

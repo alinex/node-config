@@ -22,6 +22,7 @@
 # include base modules
 debug = require('debug')('config')
 debugValue = require('debug')('config:value')
+debugAccess = require('debug')('config:access')
 chalk = require 'chalk'
 util = require 'util'
 fspath = require 'path'
@@ -139,10 +140,13 @@ module.exports =
   get: (path) ->
     if typeof path is 'string'
       path = string.trim(path, '/').split '/'
+      debugAccess "returning #{path.join '/'}"
     return @value unless path.length and path[0]
     # get sub path
     ref = @value
-    return null unless ref[p]?
-    ref = ref[p] for p in path
+    for p in path
+      return null unless ref[p]?
+      ref = ref[p]
+    debugAccess "not found #{path.join '/'}" unless ref?
     return ref
 
