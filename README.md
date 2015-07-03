@@ -54,17 +54,17 @@ This configuration class allows multiple formats to be used alternatively or com
 So you may use the format you know best. The following table will give a short
 comparison.
 
-|   Format    | YAML | JSON | XML |  JS | CSON | INI | PROP | RDBMS | ObjDB |
-|:------------|-----:|-----:|----:|----:|-----:|----:|-----:|------:|------:|
-| Supported   |  yes |  yes | yes | yes |  yes | yes |  yes |    no |    no |
-| Comments    |  yes | (yes)| yes | yes |  yes | yes |  yes |   yes | (yes) |
-| Structure   |  yes |  yes | yes | yes |  yes | yes |  yes |   yes |   yes |
-| Arrays      |  yes |  yes | yes | yes |  yes | yes |   no |   yes |   yes |
-| Reloadable  |  yes |  yes | yes | yes |  yes | yes |  yes | (yes) | (yes) |
-| Readiness   |  +++ |   ++ |   - |  ++ |  +++ |   + |    + |     + |    ++ |
-| Calculations|   no |   no |  no | yes |  yes |  no |   no |    no |    no |
-| Performance |   ++ |  +++ |   + | +++ |   ++ |  ++ |    + |     - |     + |
-| Common      |   ++ |    + |  ++ |  -- |  --- | +++ |  +++ |     - |    -- |
+|   Format    | YAML | XML | JSON |  JS | CSON | INI | PROP | RDBMS | ObjDB |
+|:------------|-----:|----:|-----:|----:|-----:|----:|-----:|------:|------:|
+| Supported   |  yes | yes |  yes | yes |  yes | yes |  yes |    no |    no |
+| Comments    |  yes | yes | (yes)| yes |  yes | yes |  yes |   yes | (yes) |
+| Structure   |  yes | yes |  yes | yes |  yes | yes |  yes |   yes |   yes |
+| Arrays      |  yes | yes |  yes | yes |  yes | yes |   no |   yes |   yes |
+| Reloadable  |  yes | yes |  yes | yes |  yes | yes |  yes | (yes) | (yes) |
+| Readiness   |  +++ |   - |   ++ |  ++ |  +++ |   + |    + |     + |    ++ |
+| Calculations|   no |  no |   no | yes |  yes |  no |   no |    no |    no |
+| Performance |   ++ |   + |  +++ | +++ |   ++ |  ++ |    + |     - |     + |
+| Common      |   ++ |   + |   ++ |  -- |  --- | +++ |  +++ |     - |    -- |
 
 ### YAML
 
@@ -74,8 +74,6 @@ information. See some examples at [Wikipedia](http://en.wikipedia.org/wiki/YAML)
 Common file extensions `yml` or `yaml`.
 
 __Example__
-
-title: YAML Test
 
 ``` yaml
 # include text elements
@@ -523,6 +521,33 @@ if config.get('server')?
 ```
 
 And at last you may check that a specific part is set.
+
+
+Web Services
+-------------------------------------------------
+
+Like using files you may also always use a web service to get the configuration.
+But keep in mind that your system may not start if the web service is down.
+
+It is as easy as using files:
+
+``` coffee
+config.pushOrigin
+  uri: "http://echo.jsontest.com/key/value/one/two"
+  path: 'echo'
+```
+
+This will result in the following configuration (after loaded via `init()`).
+
+``` coffee
+echo:
+  one: 'two'
+  key: 'value'
+```
+
+> Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
+> later. Also the support of possibilities to specify the concrete request may be
+> extended on demand.
 
 
 License
