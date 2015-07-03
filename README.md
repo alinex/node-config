@@ -327,8 +327,8 @@ conf = config.get 'database/master/address'
 # or only a specific database connection
 ```
 
-To don't mess with the names: I always address the instance with `config` and use
-a short name like `conf` for some data out of it.
+> To don't mess with the names: I always address the instance with `config` and use
+> a short name like `conf` for some data out of it.
 
 
 Setup origin
