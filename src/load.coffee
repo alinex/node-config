@@ -106,9 +106,13 @@ loadFiles = (origin, path, cb) ->
     mindepth: path.split(/\//).length - 1 unless pattern
     maxdepth: path.split(/\//).length - 1 unless pattern
   , (err, list) ->
-    return cb err if err
-    # load them
     date = new Date()
+    if err
+      return cb err unless err.code is 'ENOENT'
+      origin.loaded = true
+      origin.lastload = date
+      return cb()
+    # load them
     path = "file:///#{string.trim (fspath.resolve path), '/'}"
     async.map list, (file, cb) ->
       fs.readFile file,

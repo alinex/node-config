@@ -69,6 +69,28 @@ describe "Load", ->
               person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 
+    it "should work if one directory is missing", (cb) ->
+      config.pushOrigin
+        uri: "test/not-here/*"
+      config.pushOrigin
+        uri: "test/data/format.yml"
+      config.pushOrigin
+        uri: "not-here/test/format.xml"
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml root').to.deep.equal
+          format:
+            yaml:
+              string: 'test'
+              longtext: 'And a long text with \' and " is possible, too'
+              multiline: 'This may be a very long line in which newlines will be removed.\n'
+              keepnewlines: 'Line 1\nLine 2\nLine 3\n'
+              simplelist: [1, 2, 3]
+              list: [ 'red', 'green', 'blue' ]
+              person: { name: 'Alexander Schilling', job: 'Developer' }
+        cb()
+
     it "should load directory", (cb) ->
       config.pushOrigin
         uri: "test/data/*"
