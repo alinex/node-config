@@ -70,7 +70,7 @@ validate = exports.validate = (config, value, cb) ->
 # -------------------------------------------------
 
 # ### Get a flat list of origins
-listOrigins = (obj) ->
+listOrigins = exports.listOrigins = (obj) ->
   list = []
   for el in obj
     if Array.isArray el

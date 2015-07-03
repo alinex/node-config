@@ -300,9 +300,7 @@ already done and initialize it:
 
 ``` coffee
 # register common configuration paths for application
-config.register
-  name: 'myapp'
-  basedir: __dirname
+config.register 'myapp', __dirname
 # add a special path on the end (highest priority)
 config.pushOrigin
   uri: 'file:///etc/my-config.yml'
@@ -449,19 +447,12 @@ To support this in an easy way you may use the `register` method which if given
 an application name and the app directory will do everything for you.
 
 ``` coffee
-config.register
-  name: myapp
-  basedir: __dirname
+config.register myapp, __dirname,
   uri: '*.yml'
 ```
 
-Like you see, you may use the keys:
-
-- name - short name of the application
-- basedir - base directory of the application
-
-In addition all attributes from the normal configuration like `uri` and so on
-are also possible.
+Like you see, you may also add the  attributes from the normal configuration
+like `uri` and so on.
 
 
 Setup schema

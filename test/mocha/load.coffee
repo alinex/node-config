@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+fspath = require 'path'
 #require('alinex-error').install()
 
 config = require '../../src/index'
@@ -264,6 +265,29 @@ describe "Load", ->
           person: { name: 'Alexander Schilling', job: 'Developer' }
           cdata: 'i\\\'m not escaped: <xml>!'
           attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+        cb()
+
+  describe "register", ->
+
+    it "should combine all data", (cb) ->
+      config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
+      # fix user and global settings
+      config.origin[0][2].uri = config.origin[0][2].uri.replace '/etc/XXXXX', fspath.resolve __dirname, '../data/app/global'
+      config.origin[0][3].uri = config.origin[0][3].uri.replace /.*?\.XXXXX/, fspath.resolve __dirname, '../data/app/user'
+      # test
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        d = config.value
+        expect(d, 'yaml+xml root').to.deep.equal
+          register:
+            data1: "user"
+            data2: "global"
+            data3: "local"
+            data4: "src"
+            global: "global position"
+            local: "local position"
+            src: "source position"
+            user: "user position"
         cb()
 
   describe "validate", ->

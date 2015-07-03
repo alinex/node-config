@@ -57,35 +57,37 @@ module.exports =
 
   # name - application name
   # basedir - path
-  register: (setup) ->
+  register: (app, basedir, setup = {} ) ->
     uri = string.trim(setup.uri, '/') ? '*'
-    if setup.basedir
-      dir = fspath.resolve setup.basedir
+    if basedir
+      list = []
+      dir = fspath.resolve basedir
       # add src
-      @origin.push
+      list.push
         uri: "#{dir}/var/src/config/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
       # add local
-      @origin.push
+      list.push
         uri: "#{dir}/var/local/config/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
     # add global
-    @origin.push
-      uri: "/etc/#{setup.name}/#{uri}"
+    list.push
+      uri: "/etc/#{app}/#{uri}"
       parser: setup.parser
       path: setup.path
       filter: setup.filter
     # add user
     dir = process.env.HOME ? process.env.USERPROFILE
-    @origin.push
-      uri: "#{dir}/.#{setup.name}/config/#{uri}"
+    list.push
+      uri: "#{dir}/.#{app}/config/#{uri}"
       parser: setup.parser
       path: setup.path
       filter: setup.filter
+    @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
     path = string.trim(path, '/').split '/'
@@ -112,6 +114,19 @@ module.exports =
   # ### Initialize
   init: (cb) ->
     debug "initialize configuration system"
+    load.init this, (err) =>
+      return cb err if err
+      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+      cb()
+
+  # ### Reload
+  # This will re-import everything from scratch and if successful overwrite the
+  # previous values.
+  reload: (cb) ->
+    debug "reload configuration system"
+    # step through origins and set as unloaded
+    origin.loaded = false for origin in load.listOrigins @origin
+    # run init again
     load.init this, (err) =>
       return cb err if err
       debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"

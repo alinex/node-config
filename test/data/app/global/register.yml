@@ -1,0 +1,6 @@
+# specific element
+global: "global position"
+
+# elements which will be overwritten partly
+data1: 'global'
+data2: 'global'
