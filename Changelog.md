@@ -4,6 +4,46 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2015-07-04)
+-------------------------------------------------
+- Added paging for blog posts.
+- Added test for web load.
+- Remove old code.
+- Fixed access of subpath.
+- Fixed non-existent directory to not throw error.
+- Testet register method.
+- Added get() for accessing and rehister().
+- Fixed tests because of test file renames.
+- Fixed validation and test file search and loading.
+- Added setSchema() method with validation.
+- Tested validation.
+- Finished filter and path settings.
+- Add properties file support.
+- Finished parsing of xml with cdata and attributes.
+- Added lookup table by extensions to speed up config format detection.
+- Fixed and tested formats yaml, ja, javascript, json, coffee.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Add path from file directory and name.
+- Combine all configuration origins together with filter and path.
+- Added possibility to load config over web service.
+- Optimized code style.
+- Added stub for filtering.
+- Added travis-ci.
+- Updated insstall documentation.
+- Added ini support and meta collections.
+- Update planning document.
+- Enabled search in filesystem, load and parse files.
+- Updated planing structure.
+- Updated planing mindmap.
+- Describe setup procedure.
+- Restart code for new major version.
+- Made badge links npm compatible in documentation.
+- Added planing mindmap.
+- Remove io.js from travis tests.
+- Add coveralls.
+- Structure change of package.json.
+- Updated some minor issues.
+
 Version 0.4.5 (2015-03-20)
 -------------------------------------------------
 - 
