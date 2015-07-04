@@ -48,16 +48,19 @@
         <a href="#json">JSON</a>
       </div>
       <div class="heading h3">
-        <a href="#xml">XML</a>
-      </div>
-      <div class="heading h3">
         <a href="#javascript">JavaScript</a>
       </div>
       <div class="heading h3">
         <a href="#cson">CSON</a>
       </div>
       <div class="heading h3">
-        <a href="#ini%20file">Ini file</a>
+        <a href="#xml">XML</a>
+      </div>
+      <div class="heading h3">
+        <a href="#ini">INI</a>
+      </div>
+      <div class="heading h3">
+        <a href="#properties">PROPERTIES</a>
       </div>
       <div class="heading h3">
         <a href="#rdbms">RDBMS</a>
@@ -97,6 +100,9 @@
       </div>
       <div class="heading h2">
         <a href="#access%20configuration">Access configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#web%20services">Web Services</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -184,15 +190,17 @@ and may inform it's dependent objects.</p>
 So you may use the format you know best. The following table will give a short
 comparison.</p>
 
-<p style="font-family:monospace;white-space:pre">|   Format    | YAML | JSON | XML |  JS | Coffee | INI | RDBMS | ObjDB |
-|:------------|-----:|-----:|----:|----:|-------:|----:|------:|------:|
-| Supported   |  yes |  yes | yes | yes |    yes | yes |    no |    no |
-| Comments    |  yes | (yes)| yes | yes |    yes | yes |   yes | (yes) |
-| Structure   |  yes |  yes | yes | yes |    yes | yes |   yes |   yes |
-| Reloadable  |  yes |  yes | yes | yes |    yes | yes | (yes) | (yes) |
-| Readiness   |  +++ |   ++ |   - |  ++ |    +++ |   + |     + |    ++ |
-| Performance |   ++ |  +++ |   + | +++ |     ++ |  ++ |     - |     + |
-| Common      |   ++ |    + |  ++ |  -- |    --- | +++ |     - |    -- |</p>
+<p style="font-family:monospace;white-space:pre">|   Format    | YAML | XML | JSON |  JS | CSON | INI | PROP | RDBMS | ObjDB |
+|:------------|-----:|----:|-----:|----:|-----:|----:|-----:|------:|------:|
+| Supported   |  yes | yes |  yes | yes |  yes | yes |  yes |    no |    no |
+| Comments    |  yes | yes | (yes)| yes |  yes | yes |  yes |   yes | (yes) |
+| Structure   |  yes | yes |  yes | yes |  yes | yes |  yes |   yes |   yes |
+| Arrays      |  yes | yes |  yes | yes |  yes | yes |   no |   yes |   yes |
+| Reloadable  |  yes | yes |  yes | yes |  yes | yes |  yes | (yes) | (yes) |
+| Readiness   |  +++ |   - |   ++ |  ++ |  +++ |   + |    + |     + |    ++ |
+| Calculations|   no |  no |   no | yes |  yes |  no |   no |    no |    no |
+| Performance |   ++ |   + |  +++ | +++ |   ++ |  ++ |    + |     - |     + |
+| Common      |   ++ |   + |   ++ |  -- |  --- | +++ |  +++ |     - |    -- |</p>
 
 
 <div class="pilwrap" id="yaml">
@@ -210,24 +218,36 @@ information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wi
 
 <p><strong>Example</strong></p>
 
-<p>title: YAML Test</p>
 
+<div class="highlight"><pre><code><span class="c1"># include text elements</span>
+<span class="l-Scalar-Plain">text</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
 
-<div class="highlight"><pre><code><span class="c1"># use an object</span>
-<span class="l-Scalar-Plain">yaml</span><span class="p-Indicator">:</span>
-  <span class="c1"># include text elements</span>
-  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
-  <span class="l-Scalar-Plain">name2</span><span class="p-Indicator">:</span> <span class="s">&#39;commas</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">quotes,</span><span class="nv"> </span><span class="s">too&#39;</span>
-  <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">This may be a very long</span>
-    <span class="no">line in which newlines</span>
-    <span class="no">will be removed.</span>
-  <span class="c1"># and some lists</span>
-  <span class="l-Scalar-Plain">list</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1, 2, 3</span>
-  <span class="l-Scalar-Plain">list2</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">red</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">green</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">blue</span>
+<span class="c1"># commas, colons and brackets has to be in quotes</span>
+<span class="l-Scalar-Plain">longtext</span><span class="p-Indicator">:</span> <span class="s">&quot;And</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">long</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">&quot;&quot;</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">possible,</span><span class="nv"> </span><span class="s">too&quot;</span>
+
+<span class="c1"># multiline text with newlines removed</span>
+<span class="l-Scalar-Plain">multiline</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+  <span class="no">This may be a very long</span>
+  <span class="no">line in which newlines</span>
+  <span class="no">will be removed.</span>
+
+<span class="c1"># and now the newlines are kept</span>
+<span class="l-Scalar-Plain">keepnewlines</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+  <span class="no">Line 1</span>
+  <span class="no">Line 2</span>
+  <span class="no">Line 3</span>
+
+<span class="c1"># and some lists</span>
+<span class="l-Scalar-Plain">simplelist</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1, 2, 3</span>
+<span class="l-Scalar-Plain">list</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">red</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">green</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">blue</span>
+
+<span class="c1"># an sub object</span>
+<span class="l-Scalar-Plain">person</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Alexander Schilling</span>
+  <span class="l-Scalar-Plain">job</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Developer</span>
 </code></pre></div>
 
 
@@ -245,22 +265,95 @@ information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wi
 is widely used in different languages not only JavaScript. See description at
 <a href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>.</p>
 
-<p>JSON won't allow comments but you may use JavaScript like comments using
-<code>//</code> and <code>/*...*/</code> like known in javascript. They will be removed before
-interpreting the file contents.</p>
-
 <p>Common file extension <code>json</code>.</p>
 
 
 <div class="highlight"><pre><code><span class="p">{</span>
-  <span class="err">//</span> <span class="err">use</span> <span class="err">an</span> <span class="err">object</span>
-  <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">//</span> <span class="err">include</span> <span class="err">text</span> <span class="err">elements</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="err">//</span> <span class="err">and</span> <span class="err">a</span> <span class="err">list</span> <span class="err">of</span> <span class="err">numbers</span>
-    <span class="nt">&quot;list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+  <span class="nt">&quot;string&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+  <span class="nt">&quot;person&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alexander Schilling&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;job&quot;</span><span class="p">:</span> <span class="s2">&quot;Developer&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div>
+
+
+
+<p>JSON won't allow comments but you may use JavaScript like comments using
+<code>//</code> and <code>/*...*/</code> like known in javascript. Therefore use the javascript
+parsing.</p>
+
+
+<div class="pilwrap" id="javascript">
+  <h3>
+    <a href="#javascript" name="javascript" class="pilcrow">&#182;</a>
+    JavaScript
+  </h3>
+</div>
+
+
+<p>Also allowed are normal JavaScript files. In comparison to the JSON format it
+is more loosely so you may use single quotes, keys don't need quotes at all and
+at last you may use calculations. But you may only access elements in the same
+file accessing data from outside is prevented by security.</p>
+
+<p>Common file extension <code>js</code>.</p>
+
+
+<div class="highlight"><pre><code><span class="p">{</span>
+  <span class="c1">// include a string</span>
+  <span class="nx">string</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+
+  <span class="c1">// and a list of numbers</span>
+  <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+
+  <span class="c1">// add a sub object</span>
+  <span class="nx">person</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Alexander Schilling&quot;</span><span class="p">,</span>
+    <span class="nx">job</span><span class="o">:</span> <span class="s2">&quot;Developer&quot;</span>
+  <span class="p">},</span>
+
+  <span class="c1">// calculate session timeout in milliseconds</span>
+  <span class="nx">session</span><span class="o">:</span> <span class="mi">15</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span>
+  <span class="nx">calc</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="cson">
+  <h3>
+    <a href="#cson" name="cson" class="pilcrow">&#182;</a>
+    CSON
+  </h3>
+</div>
+
+
+<p>Like above you may write the modules in CoffeeScript like in JSON.</p>
+
+<p>Common file extension <code>cson</code>.</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># include a string</span>
+<span class="nv">string: </span><span class="s">&quot;test&quot;</span>
+
+<span class="c1"># and a list of numbers</span>
+<span class="nv">list: </span><span class="p">[</span>
+  <span class="mi">1</span>
+  <span class="mi">2</span>
+  <span class="mi">3</span>
+<span class="p">]</span>
+
+<span class="c1"># add a sub object</span>
+<span class="nv">person:</span>
+  <span class="nv">name: </span><span class="s">&quot;Alexander Schilling&quot;</span>
+  <span class="nv">job: </span><span class="s">&quot;Developer&quot;</span>
+
+<span class="c1"># calculate session timeout in milliseconds</span>
+<span class="nv">session: </span><span class="mi">15</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">1000</span>
+<span class="nv">calc: </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span> <span class="mi">16</span>
 </code></pre></div>
 
 
@@ -282,77 +375,38 @@ interpreting the file contents.</p>
 <div class="highlight"><pre><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
 <span class="c">&lt;!-- use an object --&gt;</span>
 <span class="nt">&lt;xml&gt;</span>
+
   <span class="c">&lt;!-- include a string --&gt;</span>
   <span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+
   <span class="c">&lt;!-- and a list of numbers --&gt;</span>
   <span class="nt">&lt;list&gt;</span>1<span class="nt">&lt;/list&gt;</span>
   <span class="nt">&lt;list&gt;</span>2<span class="nt">&lt;/list&gt;</span>
   <span class="nt">&lt;list&gt;</span>3<span class="nt">&lt;/list&gt;</span>
+
+  <span class="c">&lt;!-- sub object --&gt;</span>
+  <span class="nt">&lt;person&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Alexander Schilling<span class="nt">&lt;/name&gt;&lt;job&gt;</span>Developer<span class="nt">&lt;/job&gt;</span>
+  <span class="nt">&lt;/person&gt;</span>
+
+  <span class="c">&lt;!-- cdata section --&gt;</span>
+  <span class="nt">&lt;cdata&gt;</span><span class="cp">&lt;![CDATA[i\&#39;m not escaped: &lt;xml&gt;!]]&gt;</span><span class="nt">&lt;/cdata&gt;</span>
+
+  <span class="c">&lt;!-- using attributes --&gt;</span>
+  <span class="nt">&lt;attributes</span> <span class="na">type=</span><span class="s">&quot;detail&quot;</span><span class="nt">&gt;</span>
+    Hello all together
+  <span class="nt">&lt;/attributes&gt;</span>
+
 <span class="nt">&lt;/xml&gt;</span>
 </code></pre></div>
 
 
 
 
-<div class="pilwrap" id="javascript">
+<div class="pilwrap" id="ini">
   <h3>
-    <a href="#javascript" name="javascript" class="pilcrow">&#182;</a>
-    JavaScript
-  </h3>
-</div>
-
-
-<p>Also allowed are normal JavaScript files. In comparison to the JSON format it
-is more loosely so you may use single quotes, keys don't need quotes at all and
-at last you may use calculations. But you may only access elements in the same
-file accessing data from outside is prevented by security.</p>
-
-<p>Common file extension <code>js</code>.</p>
-
-
-<div class="highlight"><pre><code><span class="p">{</span>
-  <span class="c1">// use an object</span>
-  <span class="nx">javascript</span><span class="o">:</span> <span class="p">{</span>
-    <span class="c1">// include a string</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="c1">// and a list of numbers</span>
-    <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="cson">
-  <h3>
-    <a href="#cson" name="cson" class="pilcrow">&#182;</a>
-    CSON
-  </h3>
-</div>
-
-
-<p>Like above you may write the modules in CoffeeScript like in JSON.</p>
-
-<p>Common file extension <code>cson</code>.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">module.exports =</span>
-  <span class="c1"># use an object</span>
-  <span class="nv">coffee:</span>
-    <span class="c1"># include a string</span>
-    <span class="nv">name: </span><span class="s">&quot;test&quot;</span>
-    <span class="c1"># and a list of numbers</span>
-    <span class="nv">list: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="ini%20file">
-  <h3>
-    <a href="#ini%20file" name="ini%20file" class="pilcrow">&#182;</a>
-    Ini file
+    <a href="#ini" name="ini" class="pilcrow">&#182;</a>
+    INI
   </h3>
 </div>
 
@@ -363,19 +417,47 @@ allows also complex objects through extended groups.</p>
 <p>Common file extension <code>ini</code>.</p>
 
 
-<div class="highlight"><pre><code><span class="c1">; use an object</span>
-<span class="c1">; include a string</span>
-<span class="na">name</span> <span class="o">=</span> <span class="s">test</span>
-<span class="c1">; and a list of numbers</span>
+<div class="highlight"><pre><code><span class="c1">; put everything in a main group</span>
+<span class="k">[ini]</span>
+<span class="na">string</span> <span class="o">=</span> <span class="s">test</span>
+
+<span class="c1">; add a simple list</span>
 <span class="na">list[]</span> <span class="o">=</span> <span class="s">1</span>
 <span class="na">list[]</span> <span class="o">=</span> <span class="s">2</span>
 <span class="na">list[]</span> <span class="o">=</span> <span class="s">3</span>
-<span class="c1">; and use groups</span>
-<span class="k">[group1]</span>
-<span class="na">name</span> <span class="o">=</span> <span class="s">group1</span>
-<span class="c1">; and also subgroups</span>
-<span class="k">[group1.sub]</span>
-<span class="na">name</span> <span class="o">=</span> <span class="s">subgroup1</span>
+
+<span class="c1">; add a sub object</span>
+<span class="k">[ini.person]</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">Alexander Schilling</span>
+<span class="na">job</span> <span class="o">=</span> <span class="s">Developer</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="properties">
+  <h3>
+    <a href="#properties" name="properties" class="pilcrow">&#182;</a>
+    PROPERTIES
+  </h3>
+</div>
+
+
+<p>Mainly in the Java world properties are used to setup configuration values.
+But it won't have support for arrays, you only may use objects with numbered keys.</p>
+
+
+<div class="highlight"><pre><code><span class="c"># put everything in a main group</span>
+<span class="na">prop.string</span> <span class="o">=</span> <span class="s">test</span>
+
+<span class="err">!</span> <span class="err">add</span> <span class="err">a</span> <span class="err">simple</span> <span class="err">list</span>
+<span class="na">prop.list.1</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">prop.list.2</span> <span class="o">=</span> <span class="s">2</span>
+<span class="na">prop.list.3</span> <span class="o">=</span> <span class="s">3</span>
+
+<span class="err">!</span> <span class="err">add</span> <span class="err">a</span> <span class="err">sub</span> <span class="err">object</span>
+<span class="na">prop.person.name</span> <span class="o">:</span> <span class="s">Alexander Schilling</span>
+<span class="na">prop.person.job</span><span class="o">:</span> <span class="s">Developer</span>
 </code></pre></div>
 
 
@@ -389,7 +471,9 @@ allows also complex objects through extended groups.</p>
 </div>
 
 
-<p>Not supported, yet.</p>
+<blockquote>
+  <p>Not supported, yet.</p>
+</blockquote>
 
 <p style="font-family:monospace;white-space:pre">| lastchange       | group | key          |  value | comment |
 |------------------|-------|:-------------|:-------|:--------|
@@ -409,7 +493,9 @@ allows also complex objects through extended groups.</p>
 </div>
 
 
-<p>Not supported, yet.</p>
+<blockquote>
+  <p>Not supported, yet.</p>
+</blockquote>
 
 <p>Here, the JSON will be stored in the database like in the JSON file.</p>
 
@@ -436,15 +522,13 @@ already done and initialize it:</p>
 
 
 <div class="highlight"><pre><code><span class="c1"># register common configuration paths for application</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">register</span>
-  <span class="nv">name: </span><span class="s">&#39;myapp&#39;</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;myapp&#39;</span><span class="p">,</span> <span class="nx">__dirname</span>
 <span class="c1"># add a special path on the end (highest priority)</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">origin</span><span class="p">.</span><span class="nx">push</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">pushOrigin</span>
   <span class="nv">uri: </span><span class="s">&#39;file:///etc/my-config.yml&#39;</span>
 <span class="c1"># and add a schema to verify the database settings are correct</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span>
-  <span class="nv">path: </span><span class="s">&#39;database&#39;</span>
-  <span class="nv">schema: </span><span class="p">...</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;database&#39;</span><span class="p">,</span>
+  <span class="nv">type: </span><span class="p">....</span>  <span class="c1"># schema</span>
 
 <span class="c1"># start initializing the configuration and load the data</span>
 <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
@@ -471,8 +555,10 @@ causes an extra afford which you should skip if possible.</p>
 
 
 
-<p>To don't mess with the names: I always address the instance with <code>config</code> and use
-a short name like <code>conf</code> for some data out of it.</p>
+<blockquote>
+  <p>To don't mess with the names: I always address the instance with <code>config</code> and use
+  a short name like <code>conf</code> for some data out of it.</p>
+</blockquote>
 
 
 <div class="pilwrap" id="setup%20origin">
@@ -576,10 +662,13 @@ set one of the following parsers in <code>parser</code> to use:</p>
 <li>json</li>
 <li>xml</li>
 <li>ini</li>
+<li>properties</li>
+<li>coffee</li>
+<li>javascript</li>
 </ul>
 
 <p>But if you don't specify it, it will be auto detected based on the file extension
-and the contents itself.</p>
+or the contents itself.</p>
 
 
 <div class="pilwrap" id="combine%20contents">
@@ -649,10 +738,14 @@ on multiple locations out of the box:</p>
 an application name and the app directory will do everything for you.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="nx">myapp</span><span class="p">,</span> <span class="nx">__dirname</span><span class="p">,</span> <span class="p">{</span> <span class="nv">uri: </span><span class="s">&#39;*.yml&#39;</span> <span class="p">}</span>
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="nx">myapp</span><span class="p">,</span> <span class="nx">__dirname</span><span class="p">,</span>
+  <span class="nv">uri: </span><span class="s">&#39;*.yml&#39;</span>
 </code></pre></div>
 
 
+
+<p>Like you see, you may also add the  attributes from the normal configuration
+like <code>uri</code> and so on.</p>
 
 
 <div class="pilwrap" id="setup%20schema">
@@ -663,9 +756,29 @@ an application name and the app directory will do everything for you.</p>
 </div>
 
 
-<p>The second path is the schema which is used for validation and to sanitize
-the values. This is done using a schema valid for the
-<a href="http://alinex.github.io/node-validator">Validator</a>.</p>
+<p>The schema defines some validation and optimization rules which has to be
+processed before using the values. If the validation fails it will return a
+descriptive Error and don't use the values.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/&#39;</span><span class="p">,</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">name:</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">job:</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+<span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># go on and load the data</span>
+</code></pre></div>
+
+
+
+<p>To set a schema, give the root path for the schema and it's values which describe
+the concrete data format. The real validation is done using the
+<a href="http://alinex.github.io/node-validator">Validator</a>. Therefore look at the
+description there for all the possibilities you have.</p>
 
 
 <div class="pilwrap" id="initialize">
@@ -697,6 +810,74 @@ it. This will:</p>
   </h2>
 </div>
 
+
+<p>After everything is setup and loaded you may access the values or part of the
+value tree. You always get a reference for performance reasons. So don't change
+it's content.</p>
+
+
+<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+<p>Thats a simple call to get the complete data structure.</p>
+
+
+<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span>
+<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;database/master/address&#39;</span>
+</code></pre></div>
+
+
+
+<p>Or give an path to get only a subpart of the configuration.</p>
+
+
+<div class="highlight"><pre><code><span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">)</span><span class="o">?</span>
+  <span class="c1"># value found</span>
+</code></pre></div>
+
+
+
+<p>And at last you may check that a specific part is set.</p>
+
+
+<div class="pilwrap" id="web%20services">
+  <h2>
+    <a href="#web%20services" name="web%20services" class="pilcrow">&#182;</a>
+    Web Services
+  </h2>
+</div>
+
+
+<p>Like using files you may also always use a web service to get the configuration.
+But keep in mind that your system may not start if the web service is down.</p>
+
+<p>It is as easy as using files:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">pushOrigin</span>
+  <span class="nv">uri: </span><span class="s">&quot;http://echo.jsontest.com/key/value/one/two&quot;</span>
+  <span class="nv">path: </span><span class="s">&#39;echo&#39;</span>
+</code></pre></div>
+
+
+
+<p>This will result in the following configuration (after loaded via <code>init()</code>).</p>
+
+
+<div class="highlight"><pre><code><span class="nv">echo:</span>
+  <span class="nv">one: </span><span class="s">&#39;two&#39;</span>
+  <span class="nv">key: </span><span class="s">&#39;value&#39;</span>
+</code></pre></div>
+
+
+
+<blockquote>
+  <p>Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
+  later. Also the support of possibilities to specify the concrete request may be
+  extended on demand.</p>
+</blockquote>
 
 
 <div class="pilwrap" id="license">
