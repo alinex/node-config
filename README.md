@@ -2,6 +2,7 @@ Package: alinex-config
 =================================================
 
 [![Build Status](https://travis-ci.org/alinex/node-config.svg?branch=master)](https://travis-ci.org/alinex/node-config)
+[![Coverage Status](https://coveralls.io/repos/alinex/node-config/badge.svg?branch=master)](https://coveralls.io/r/alinex/node-config?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-config.png)](https://gemnasium.com/alinex/node-config)
 
 This package will give you an easy way to load and use configuration settings in
