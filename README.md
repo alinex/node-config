@@ -453,6 +453,9 @@ config.register myapp, __dirname,
 Like you see, you may also add the  attributes from the normal configuration
 like `uri` and so on.
 
+You may also register a module. Therefore give `null` as application name and
+it will only add the first two paths based on the given directory.
+
 
 Setup schema
 -------------------------------------------------

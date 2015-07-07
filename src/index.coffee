@@ -75,20 +75,21 @@ module.exports =
         parser: setup.parser
         path: setup.path
         filter: setup.filter
-    # add global
-    list.push
-      uri: "/etc/#{app}/#{uri}"
-      parser: setup.parser
-      path: setup.path
-      filter: setup.filter
-    # add user
-    dir = process.env.HOME ? process.env.USERPROFILE
-    list.push
-      uri: "#{dir}/.#{app}/config/#{uri}"
-      parser: setup.parser
-      path: setup.path
-      filter: setup.filter
-    @origin.push list
+    if app
+      # add global
+      list.push
+        uri: "/etc/#{app}/#{uri}"
+        parser: setup.parser
+        path: setup.path
+        filter: setup.filter
+      # add user
+      dir = process.env.HOME ? process.env.USERPROFILE
+      list.push
+        uri: "#{dir}/.#{app}/config/#{uri}"
+        parser: setup.parser
+        path: setup.path
+        filter: setup.filter
+      @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
     path = string.trim(path, '/').split '/'

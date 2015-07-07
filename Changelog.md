@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2015-07-07)
+-------------------------------------------------
+- Allow register() to be used for modules, too.
+
 Version 1.0.0 (2015-07-04)
 -------------------------------------------------
 - Added paging for blog posts.
