@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -336,6 +336,7 @@ basedir - path</p>
         <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
         <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
         <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
+    <span class="k">if</span> <span class="nx">app</span>
 
 </pre></div>
         </td>
@@ -348,11 +349,11 @@ basedir - path</p>
 <p>add global</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">list</span><span class="p">.</span><span class="nx">push</span>
-      <span class="nv">uri: </span><span class="s">&quot;/etc/</span><span class="si">#{</span><span class="nx">app</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
-      <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
-      <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
+      <span class="nx">list</span><span class="p">.</span><span class="nx">push</span>
+        <span class="nv">uri: </span><span class="s">&quot;/etc/</span><span class="si">#{</span><span class="nx">app</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
+        <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
+        <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
 
 </pre></div>
         </td>
@@ -365,13 +366,13 @@ basedir - path</p>
 <p>add user</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">dir = </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERPROFILE</span>
-    <span class="nx">list</span><span class="p">.</span><span class="nx">push</span>
-      <span class="nv">uri: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">/.</span><span class="si">#{</span><span class="nx">app</span><span class="si">}</span><span class="s">/config/</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
-      <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
-      <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
-    <span class="nx">@origin</span><span class="p">.</span><span class="nx">push</span> <span class="nx">list</span>
+      <span class="nv">dir = </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERPROFILE</span>
+      <span class="nx">list</span><span class="p">.</span><span class="nx">push</span>
+        <span class="nv">uri: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">/.</span><span class="si">#{</span><span class="nx">app</span><span class="si">}</span><span class="s">/config/</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
+        <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
+        <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
+      <span class="nx">@origin</span><span class="p">.</span><span class="nx">push</span> <span class="nx">list</span>
 
   <span class="nv">setSchema: </span><span class="nf">(path, schema, cb = -&gt; ) -&gt;</span>
     <span class="nv">path = </span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">).</span><span class="nx">split</span> <span class="s">&#39;/&#39;</span>
