@@ -28,6 +28,7 @@ util = require 'util'
 fspath = require 'path'
 # load other alinex modules
 {string, object} = require 'alinex-util'
+async = require 'alinex-async'
 # load helper modules
 load = require './load'
 
@@ -114,6 +115,7 @@ module.exports =
       @value = value
 
   # ### Initialize
+#  init: async.onceTime (cb) =>
   init: (cb) ->
     # check if initialization is required
     needLoad = false
@@ -127,6 +129,7 @@ module.exports =
       return cb err if err
       debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
       cb()
+#  , this
 
   # ### Reload
   # This will re-import everything from scratch and if successful overwrite the

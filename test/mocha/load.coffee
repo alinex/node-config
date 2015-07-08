@@ -42,11 +42,6 @@ describe "Load", ->
               person: { name: 'Alexander Schilling', job: 'Developer' }
         cb()
 
-    it "should fail if nothing found", (cb) ->
-      config.init (err) ->
-        expect(err, 'error').to.exist
-        cb()
-
     it "should work if one origin missing", (cb) ->
       config.pushOrigin
         uri: "test/data/not-here.yml"
