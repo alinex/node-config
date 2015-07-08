@@ -115,6 +115,13 @@ module.exports =
 
   # ### Initialize
   init: (cb) ->
+    # check if initialization is required
+    needLoad = false
+    for origin in load.listOrigins @origin
+      continue if origin.loaded
+      needLoad = true
+      break
+    return cb() unless needLoad
     debug "initialize configuration system"
     load.init this, (err) =>
       return cb err if err

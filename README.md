@@ -497,6 +497,9 @@ it. This will:
 
 After everything is done the given callback is called.
 
+You may also call this method if you didn't know if everything is initialized.
+It will check and return immediately if nothing to do.
+
 
 Access configuration
 -------------------------------------------------
