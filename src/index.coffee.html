@@ -51,13 +51,13 @@
         <a href="#setup%20methods">Setup methods</a>
       </div>
       <div class="heading h3">
-        <a href="#initialize">Initialize</a>
-      </div>
-      <div class="heading h3">
         <a href="#reload">Reload</a>
       </div>
       <div class="heading h2">
         <a href="#access%20methods">Access methods</a>
+      </div>
+      <div class="heading h3">
+        <a href="#initialize">Initialize</a>
       </div>
     </div>
   </div>
@@ -151,6 +151,7 @@ to update this data, too.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">{</span><span class="nx">string</span><span class="p">,</span> <span class="nx">object</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 
 </pre></div>
         </td>
@@ -457,28 +458,6 @@ basedir - path</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize">
-  <h3>
-    <a href="#initialize" name="initialize" class="pilcrow">&#182;</a>
-    Initialize
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">init: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;initialize configuration system&quot;</span>
-    <span class="nx">load</span><span class="p">.</span><span class="nx">init</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debugValue</span> <span class="s">&quot;new configuration \n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@value</span><span class="p">,</span> <span class="p">{</span><span class="nv">depth: </span><span class="kc">null</span><span class="si">}</span><span class="s">}&quot;</span>
-      <span class="nx">cb</span><span class="p">()</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
 <div class="pilwrap" id="reload">
   <h3>
     <a href="#reload" name="reload" class="pilcrow">&#182;</a>
@@ -500,7 +479,7 @@ previous values.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>step through origins and set as unloaded</p>
         </td>
@@ -513,7 +492,7 @@ previous values.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 <p>run init again</p>
         </td>
@@ -552,7 +531,7 @@ previous values.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>get sub path</p>
         </td>
@@ -563,6 +542,46 @@ previous values.</p>
       <span class="nv">ref = </span><span class="nx">ref</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span>
     <span class="nx">debugAccess</span> <span class="s">&quot;not found </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">ref</span><span class="o">?</span>
     <span class="k">return</span> <span class="nx">ref</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialize">
+  <h3>
+    <a href="#initialize" name="initialize" class="pilcrow">&#182;</a>
+    Initialize
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.init = </span><span class="nx">async</span><span class="p">.</span><span class="nx">onceTime</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+  <span class="nv">needLoad = </span><span class="kc">false</span>
+  <span class="k">for</span> <span class="nx">origin</span> <span class="k">in</span> <span class="nx">load</span><span class="p">.</span><span class="nx">listOrigins</span> <span class="nx">@origin</span>
+    <span class="k">continue</span> <span class="k">if</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">loaded</span>
+    <span class="nv">needLoad = </span><span class="kc">true</span>
+    <span class="k">break</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">needLoad</span>
+  <span class="nx">debug</span> <span class="s">&quot;initialize configuration system&quot;</span>
+  <span class="nx">load</span><span class="p">.</span><span class="nx">init</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">debugValue</span> <span class="s">&quot;new configuration \n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@value</span><span class="p">,</span> <span class="p">{</span><span class="nv">depth: </span><span class="kc">null</span><span class="si">}</span><span class="s">}&quot;</span>
+    <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>, this</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>
