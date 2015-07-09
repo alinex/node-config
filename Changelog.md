@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2015-07-09)
+-------------------------------------------------
+- Use onceTime() to run the init method not simultaneously.
+- Remove check for if nothing found because it is allowed.
+- Allow init() to be called anytime also if not sure if it is already done.
+- Merge branch 'master' of https://github.com/alinex/node-config
+- Add coverage badge.
+
 Version 1.0.1 (2015-07-07)
 -------------------------------------------------
 - Allow register() to be used for modules, too.
