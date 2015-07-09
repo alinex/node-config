@@ -114,23 +114,6 @@ module.exports =
       return cb err if err
       @value = value
 
-  # ### Initialize
-#  init: async.onceTime (cb) =>
-  init: (cb) ->
-    # check if initialization is required
-    needLoad = false
-    for origin in load.listOrigins @origin
-      continue if origin.loaded
-      needLoad = true
-      break
-    return cb() unless needLoad
-    debug "initialize configuration system"
-    load.init this, (err) =>
-      return cb err if err
-      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
-      cb()
-#  , this
-
   # ### Reload
   # This will re-import everything from scratch and if successful overwrite the
   # previous values.
@@ -160,4 +143,19 @@ module.exports =
       ref = ref[p]
     debugAccess "not found #{path.join '/'}" unless ref?
     return ref
+
+# ### Initialize
+module.exports.init = async.onceTime module.exports, (cb) ->
+  needLoad = false
+  for origin in load.listOrigins @origin
+    continue if origin.loaded
+    needLoad = true
+    break
+  return cb() unless needLoad
+  debug "initialize configuration system"
+  load.init this, (err) =>
+    return cb err if err
+    debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+    cb()
+#  , this
 
