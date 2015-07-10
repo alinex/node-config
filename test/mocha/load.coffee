@@ -286,7 +286,24 @@ describe "Load", ->
 
   describe "register", ->
 
-    it "should combine all data", (cb) ->
+    it "should combine all data for module", (cb) ->
+      config.register null, fspath.resolve __dirname, '../data/app'
+      # test
+      config.init (err) ->
+        expect(err, 'error').to.not.exist
+        expect(config.origin[0].length, 'first origin entry length').to.be.equal 2
+        d = config.value
+        expect(d, 'yaml+xml root').to.deep.equal
+          register:
+            data1: "local"
+            data2: "local"
+            data3: "local"
+            data4: "src"
+            local: "local position"
+            src: "source position"
+        cb()
+
+    it "should combine all data for apps", (cb) ->
       config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
       # fix user and global settings
       config.origin[0][2].uri = config.origin[0][2].uri.replace '/etc/XXXXX', fspath.resolve __dirname, '../data/app/global'
@@ -294,6 +311,7 @@ describe "Load", ->
       # test
       config.init (err) ->
         expect(err, 'error').to.not.exist
+        expect(config.origin[0].length, 'first origin entry length').to.be.equal 4
         d = config.value
         expect(d, 'yaml+xml root').to.deep.equal
           register:

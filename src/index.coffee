@@ -61,8 +61,8 @@ module.exports =
   # basedir - path
   register: (app, basedir, setup = {} ) ->
     uri = string.trim(setup.uri, '/') ? '*'
+    list = []
     if basedir
-      list = []
       dir = fspath.resolve basedir
       # add src
       list.push
@@ -90,7 +90,7 @@ module.exports =
         parser: setup.parser
         path: setup.path
         filter: setup.filter
-      @origin.push list
+    @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
     path = string.trim(path, '/').split '/'
