@@ -240,12 +240,26 @@ parse = (text, uri, parser, quiet=false, cb) ->
       detect.unshift type
     debug "autodetect format as: #{detect}"
     result = null
+    errors = []
     async.detectSeries detect, (type, cb) ->
-      parse text, uri, type, true, (err, obj) ->
+      parseFormat text, uri, type, true, (err, obj) ->
+        if err
+          errors.push err.message
+          debug chalk.grey "#{uri} failed in #{err.message}"
         result = obj
         cb not err? and obj?
-    , -> cb null, result
+    , (ok) ->
+      unless ok
+        return cb new Error "Could not find any valid format for #{uri}:\n#{errors.join '\n'}"
+      cb null, result
     return
+  # parse direct given format only
+  parseFormat text, uri, parser, quiet, (err, result) ->
+    err = new Error "#{uri} failed in #{err.message}" if err
+    cb err, result
+
+# ### Parse given Format
+parseFormat =  (text, uri, parser, quiet=false, cb) ->
   # parse specified format
   color = if quiet then 'grey' else 'red'
   debug chalk.grey "try loading #{uri} as #{parser}"
@@ -256,23 +270,21 @@ parse = (text, uri, parser, quiet=false, cb) ->
       try
         result = yaml.safeLoad text
       catch err
-        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-        return cb()
+        err.message = err.message.replace 'JS-YAML: ', ''
+        return cb new Error "#{parser} parser: #{err.message.replace /[\s^]+/g, ' '}"
       cb null, result
     when 'js'
       vm = require 'vm'
       try
         result = vm.runInNewContext "x=#{text}"
       catch err
-        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-        return cb()
+        return cb new Error "#{parser} parser: #{err.message}"
       cb null, result
     when 'json'
       try
         result = JSON.parse text
       catch err
-        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-        return cb()
+        return cb new Error "#{parser} parser: #{err.message}"
       cb null, result
     when 'coffee'
       coffee = require 'coffee-script'
@@ -281,8 +293,7 @@ parse = (text, uri, parser, quiet=false, cb) ->
         m = new module.constructor()
         m._compile coffee.compile(text), uri
       catch err
-        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-        return cb()
+        return cb new Error "#{parser} parser: #{err.message}"
       cb null, m.exports
     when 'properties'
       properties = require 'properties'
@@ -291,28 +302,30 @@ parse = (text, uri, parser, quiet=false, cb) ->
         namespaces: true
       , (err, result) ->
         if err
-          debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-          return cb()
-        return cb() unless propertiesCheck result
+          return cb new Error "#{parser} parser: #{err.message}"
+        unless propertiesCheck result
+          return cb new Error "#{parser} parser: Unexpected characters []{}/ in key name found"
         cb null, result
     when 'ini'
       ini = require 'ini'
       try
         result = ini.decode text
       catch err
-        debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-        return cb()
+        return cb new Error "#{parser} parser: #{err.message}"
       # detect failed parsing
-      return cb() if not result? or result['{']
+      if not result?
+        return cb new Error "#{parser} parser: could not parse any result"
+      if result['{']
+        return cb new Error "#{parser} parser: Unexpected token { at start"
       for k, v of result
-        return cb() if v is true and k.match /:/
+        if v is true and k.match /:/
+          return cb new Error "#{parser} parser: Unexpected key name containing ':' with value true"
       cb null, result
     when 'xml'
       xml2js = require 'xml2js'
       xml2js.parseString text, {explicitArray: false}, (err, result) ->
         if err
-          debug chalk[color] "#{uri} failed in #{parser} parser: #{err.message}"
-          return cb()
+          return cb new Error "#{parser} parser: #{err.message.replace /\n/g, ' '}"
         # optimize result of attributes
         cb null, xmlOptimize result
     else
