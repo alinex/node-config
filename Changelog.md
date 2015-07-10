@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.3 (2015-07-10)
+-------------------------------------------------
+- Fixed register() to work for modules - was doing nothing.
+
 Version 1.0.2 (2015-07-09)
 -------------------------------------------------
 - Use onceTime() to run the init method not simultaneously.
