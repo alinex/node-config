@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -103,6 +103,9 @@
       </div>
       <div class="heading h2">
         <a href="#web%20services">Web Services</a>
+      </div>
+      <div class="heading h2">
+        <a href="#examples">Examples</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -885,6 +888,51 @@ But keep in mind that your system may not start if the web service is down.</p>
   later. Also the support of possibilities to specify the concrete request may be
   extended on demand.</p>
 </blockquote>
+
+
+<div class="pilwrap" id="examples">
+  <h2>
+    <a href="#examples" name="examples" class="pilcrow">&#182;</a>
+    Examples
+  </h2>
+</div>
+
+
+<p>I often use the pattern of giving my modules two functions called setup() and init().
+The setup() is first called to set up the basics like configuring the configuration
+system.</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># set the modules config paths and validation schema</span>
+<span class="nv">setup = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+  <span class="c1"># set module search path</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
+  <span class="c1"># add schema for module&#39;s configuration</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/exec&#39;</span><span class="p">,</span> <span class="nx">schema</span><span class="p">,</span> <span class="nx">cb</span>
+</code></pre></div>
+
+
+
+<p>The call of <code>async.once</code> will look that this method is only run one time (see
+<a href="http://alinex.github.io/node-async">Async</a>.</p>
+
+<p>Now you may add additional configuration paths...</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># set the modules config paths, validation schema and initialize the configuration</span>
+<span class="nv">init = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;initialize&quot;</span>
+  <span class="c1"># set module search path</span>
+  <span class="nx">@setup</span> <span class="nf">-&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
+</code></pre></div>
+
+
+
+<p>The init() method now makes the system ready to use and if not up to date or
+initialized will initialize the config system. The setup() is also called to make
+it possible to call in one step if no special configuration is needed.</p>
 
 
 <div class="pilwrap" id="license">

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/loadcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/load.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -67,6 +67,9 @@
       </div>
       <div class="heading h3">
         <a href="#parse%20text%20into%20object">Parse text into object</a>
+      </div>
+      <div class="heading h3">
+        <a href="#parse%20given%20format">Parse given Format</a>
       </div>
       <div class="heading h3">
         <a href="#optimize%20parsed%20cml">Optimize parsed cml</a>
@@ -791,11 +794,18 @@ to update this data, too.</p>
 <span class="s">      detect.unshift type</span>
 <span class="s">    debug &quot;</span><span class="nx">autodetect</span> <span class="nx">format</span> <span class="nv">as: </span><span class="c1">#{detect}&quot;</span>
     <span class="nv">result = </span><span class="kc">null</span>
+    <span class="nv">errors = </span><span class="p">[]</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">detectSeries</span> <span class="nx">detect</span><span class="p">,</span> <span class="nf">(type, cb) -&gt;</span>
-      <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+      <span class="nx">parseFormat</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+        <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
+          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nv">result = </span><span class="nx">obj</span>
         <span class="nx">cb</span> <span class="o">not</span> <span class="nx">err</span><span class="o">?</span> <span class="o">and</span> <span class="nx">obj</span><span class="o">?</span>
-    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+    <span class="p">,</span> <span class="nf">(ok) -&gt;</span>
+      <span class="k">unless</span> <span class="nx">ok</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find any valid format for </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">:\n</span><span class="si">#{</span><span class="nx">errors</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">return</span>
 
 </pre></div>
@@ -805,6 +815,38 @@ to update this data, too.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+</div>
+<p>parse direct given format only</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">parseFormat</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">parser</span><span class="p">,</span> <span class="nx">quiet</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+    <span class="nv">err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="parse%20given%20format">
+  <h3>
+    <a href="#parse%20given%20format" name="parse%20given%20format" class="pilcrow">&#182;</a>
+    Parse given Format
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">parseFormat = </span> <span class="nf">(text, uri, parser, quiet=false, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
 </div>
 <p>parse specified format</p>
         </td>
@@ -818,7 +860,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
 </div>
 <p>parser given</p>
         </td>
@@ -829,23 +871,21 @@ to update this data, too.</p>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">yaml</span><span class="p">.</span><span class="nx">safeLoad</span> <span class="nx">text</span>
       <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="nv">err.message = </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="s">&#39;JS-YAML: &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/[\s^]+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;js&#39;</span>
       <span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;x=</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;json&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">text</span>
       <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;coffee&#39;</span>
       <span class="nv">coffee = </span><span class="nx">require</span> <span class="s">&#39;coffee-script&#39;</span>
@@ -854,8 +894,7 @@ to update this data, too.</p>
         <span class="nv">m = </span><span class="k">new</span> <span class="nx">module</span><span class="p">.</span><span class="nx">constructor</span><span class="p">()</span>
         <span class="nx">m</span><span class="p">.</span><span class="nx">_compile</span> <span class="nx">coffee</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">text</span><span class="p">),</span> <span class="nx">uri</span>
       <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">exports</span>
     <span class="k">when</span> <span class="s">&#39;properties&#39;</span>
       <span class="nv">properties = </span><span class="nx">require</span> <span class="s">&#39;properties&#39;</span>
@@ -864,17 +903,16 @@ to update this data, too.</p>
         <span class="nv">namespaces: </span><span class="kc">true</span>
       <span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
         <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">propertiesCheck</span> <span class="nx">result</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">unless</span> <span class="nx">propertiesCheck</span> <span class="nx">result</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected characters []{}/ in key name found&quot;</span>
         <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;ini&#39;</span>
       <span class="nv">ini = </span><span class="nx">require</span> <span class="s">&#39;ini&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">ini</span><span class="p">.</span><span class="nx">decode</span> <span class="nx">text</span>
       <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -882,21 +920,24 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
 </div>
 <p>detect failed parsing</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">result</span><span class="o">?</span> <span class="o">or</span> <span class="nx">result</span><span class="p">[</span><span class="s">&#39;{&#39;</span><span class="p">]</span>
+      <span class="k">if</span> <span class="o">not</span> <span class="nx">result</span><span class="o">?</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: could not parse any result&quot;</span>
+      <span class="k">if</span> <span class="nx">result</span><span class="p">[</span><span class="s">&#39;{&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected token { at start&quot;</span>
       <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">result</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">v</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">and</span> <span class="nx">k</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/:/</span>
+        <span class="k">if</span> <span class="nx">v</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">and</span> <span class="nx">k</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/:/</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected key name containing &#39;:&#39; with value true&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;xml&#39;</span>
       <span class="nv">xml2js = </span><span class="nx">require</span> <span class="s">&#39;xml2js&#39;</span>
       <span class="nx">xml2js</span><span class="p">.</span><span class="nx">parseString</span> <span class="nx">text</span><span class="p">,</span> <span class="p">{</span><span class="nv">explicitArray: </span><span class="kc">false</span><span class="p">},</span> <span class="nf">(err, result) -&gt;</span>
         <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -904,7 +945,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
 </div>
 <p>optimize result of attributes</p>
         </td>
@@ -938,7 +979,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
 </div>
 <p>seep analyze array</p>
         </td>
@@ -956,7 +997,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
 </div>
 <p>set value</p>
         </td>
@@ -970,7 +1011,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
 </div>
 <p>set attributes</p>
         </td>
@@ -985,7 +1026,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
+  <a class="pilcrow" href="#section-51" id="section-51">&#182;</a>
 </div>
 <p>keep other but check contents</p>
         </td>
