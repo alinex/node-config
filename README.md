@@ -557,6 +557,42 @@ echo:
 > extended on demand.
 
 
+Examples
+-------------------------------------------------
+
+I often use the pattern of giving my modules two functions called setup() and init().
+The setup() is first called to set up the basics like configuring the configuration
+system.
+
+``` coffee
+# set the modules config paths and validation schema
+setup = async.once this, (cb) ->
+  # set module search path
+  config.register false, fspath.dirname __dirname
+  # add schema for module's configuration
+  config.setSchema '/exec', schema, cb
+```
+
+The call of `async.once` will look that this method is only run one time (see
+[Async](http://alinex.github.io/node-async).
+
+Now you may add additional configuration paths...
+
+``` coffee
+# set the modules config paths, validation schema and initialize the configuration
+init = async.once this, (cb) ->
+  debug "initialize"
+  # set module search path
+  @setup ->
+    return cb err if err
+    config.init cb
+```
+
+The init() method now makes the system ready to use and if not up to date or
+initialized will initialize the config system. The setup() is also called to make
+it possible to call in one step if no special configuration is needed.
+
+
 License
 -------------------------------------------------
 
