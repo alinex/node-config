@@ -127,7 +127,7 @@ loadFiles = (origin, path, cb) ->
           add = uri.substring path.length+1
           list = []
           if add
-            list = list.concat add.split '/' if ~add.indexOf '/'
+            list = list.concat add.split('/')[0..-2] if ~add.indexOf '/'
             list.push fspath.basename(add).replace /\..*/, ''
           add = '/' + list.join '/' if list.length
           # put object deeper
