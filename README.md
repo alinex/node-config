@@ -284,6 +284,60 @@ prop.person.job: Developer
 Here, the JSON will be stored in the database like in the JSON file.
 
 
+File Structure
+-------------------------------------------------
+As seen above you can use different formats but you can also mix it or split your
+configuration into multiple files.
+
+So as an first example if you have a very large configuration of three major
+parts you may split it up into 3 different files.
+
+``` yaml
+# config/server/http.yml
+listen:
+  ip: 192.168.0.1
+  port: 80
+```
+
+``` yaml
+# config/server/ftp.yml
+listen:
+  ip: 192.168.0.1
+  port: 21
+```
+
+``` yaml
+# config/server/mail.yml
+pop:
+  port: 110
+imap:
+  port: 143
+```
+
+And if the program now reads `config/**` you will get the combined structure:
+
+``` yaml
+server:
+  http:
+    listen:
+      ip: 192.168.0.1
+      port: 80
+  ftp:
+    listen:
+      ip: 192.168.0.1
+      port: 21
+  mail:
+    pop:
+      port: 110
+    imap:
+      port: 143
+```
+
+This is because the config system will use the names behind the asterisk as
+structure levels automatically but you may control the combination rules using
+filter and path in the origin setup (see below).
+
+
 Usage
 -------------------------------------------------
 
