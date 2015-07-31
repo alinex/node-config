@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-config/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -67,6 +67,9 @@
       </div>
       <div class="heading h3">
         <a href="#object%20db">Object DB</a>
+      </div>
+      <div class="heading h2">
+        <a href="#file%20structure">File Structure</a>
       </div>
       <div class="heading h2">
         <a href="#usage">Usage</a>
@@ -502,6 +505,74 @@ But it won't have support for arrays, you only may use objects with numbered key
 </blockquote>
 
 <p>Here, the JSON will be stored in the database like in the JSON file.</p>
+
+
+<div class="pilwrap" id="file%20structure">
+  <h2>
+    <a href="#file%20structure" name="file%20structure" class="pilcrow">&#182;</a>
+    File Structure
+  </h2>
+</div>
+
+
+<p>As seen above you can use different formats but you can also mix it or split your
+configuration into multiple files.</p>
+
+<p>So as an first example if you have a very large configuration of three major
+parts you may split it up into 3 different files.</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># config/server/http.yml</span>
+<span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+</code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code><span class="c1"># config/server/ftp.yml</span>
+<span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">21</span>
+</code></pre></div>
+
+
+
+
+<div class="highlight"><pre><code><span class="c1"># config/server/mail.yml</span>
+<span class="l-Scalar-Plain">pop</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">110</span>
+<span class="l-Scalar-Plain">imap</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">143</span>
+</code></pre></div>
+
+
+
+<p>And if the program now reads <code>config/**</code> you will get the combined structure:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">http</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+  <span class="l-Scalar-Plain">ftp</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">21</span>
+  <span class="l-Scalar-Plain">mail</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pop</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">110</span>
+    <span class="l-Scalar-Plain">imap</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">143</span>
+</code></pre></div>
+
+
+
+<p>This is because the config system will use the names behind the asterisk as
+structure levels automatically but you may control the combination rules using
+filter and path in the origin setup (see below).</p>
 
 
 <div class="pilwrap" id="usage">
