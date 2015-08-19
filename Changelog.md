@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.4 (2015-08-19)
+-------------------------------------------------
+- Add example for splitted configuration.
+- Fix automatic path addition to structure which had the filename two times.
+- Add example for using config in modules.
+- Start adding ssh support.
+- Added error messages if file parsing failed completely.
+
 Version 1.0.3 (2015-07-10)
 -------------------------------------------------
 - Fixed register() to work for modules - was doing nothing.
