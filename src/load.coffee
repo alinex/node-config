@@ -97,7 +97,7 @@ loadOrigin = (origin, cb) ->
 # ### Load file origin
 loadFiles = (origin, path, cb) ->
   # find files
-  [all, path, pattern] = path.match /^([^?*[{@]*\/)?(.*)$/
+  [all, path, pattern] = path.match /^([^?*[{@]*$|[^?*[{@]*\/)?(.*)$/
   path ?= process.cwd() # make relative links absolute
   fs.find path,
     type: 'f'
@@ -125,10 +125,12 @@ loadFiles = (origin, path, cb) ->
           return cb err if err
           # get additional path
           add = uri.substring path.length+1
+          add = add[0..-fspath.extname(add).length-1]
+          add = add[0..-7] if string.ends add, '/index'
           list = []
           if add
             list = list.concat add.split('/')[0..-2] if ~add.indexOf '/'
-            list.push fspath.basename(add).replace /\..*/, ''
+            list.push fspath.basename add
           add = '/' + list.join '/' if list.length
           # put object deeper
           value = ref = {}
