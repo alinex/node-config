@@ -157,5 +157,3 @@ module.exports.init = async.onceTime module.exports, (cb) ->
     return cb err if err
     debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
-#  , this
-

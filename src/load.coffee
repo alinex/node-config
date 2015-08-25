@@ -99,6 +99,18 @@ loadFiles = (origin, path, cb) ->
   # find files
   [all, path, pattern] = path.match /^([^?*[{@]*$|[^?*[{@]*\/)?(.*)$/
   path ?= process.cwd() # make relative links absolute
+  path = "#{process.cwd()}/#{path}" unless path[0] is '/'
+  unless pattern
+    date = new Date()
+    return loadFile origin, path, path, (err, result) ->
+      if err
+        return cb err unless err.code is 'ENOENT'
+        debug chalk.magenta "Failure #{err.message}!"
+        origin.loaded = true
+        origin.lastload = date
+        return cb()
+      [value, meta] = result
+      setOrigin origin, value, meta, date, cb
   fs.find path,
     type: 'f'
     include: pattern
@@ -109,39 +121,14 @@ loadFiles = (origin, path, cb) ->
     date = new Date()
     if err
       return cb err unless err.code is 'ENOENT'
+      debug chalk.magenta "Failure #{err.message}!"
       origin.loaded = true
       origin.lastload = date
       return cb()
     # load them
     path = "file:///#{string.trim (fspath.resolve path), '/'}"
     async.map list, (file, cb) ->
-      fs.readFile file,
-        encoding: 'UTF-8'
-      , (err, text) ->
-        return cb err if err
-        # parse
-        uri = "file:///#{string.trim (fspath.resolve file), '/'}"
-        parse text, uri, origin.parser, false, (err, obj) ->
-          return cb err if err
-          # get additional path
-          add = uri.substring path.length+1
-          add = add[0..-fspath.extname(add).length-1]
-          add = add[0..-7] if string.ends add, '/index'
-          list = []
-          if add
-            list = list.concat add.split('/')[0..-2] if ~add.indexOf '/'
-            list.push fspath.basename add
-          add = '/' + list.join '/' if list.length
-          # put object deeper
-          value = ref = {}
-          for k in list
-            ref[k] = {}
-            ref = ref[k]
-          ref[k] = v for k, v of obj
-          # make meta data
-          meta = setMeta value, uri, origin
-          debug "loaded #{uri}"
-          cb null, [value, meta]
+      loadFile origin, path, file, cb
     , (err, objects) ->
       return cb err if err
       # combine
@@ -153,6 +140,35 @@ loadFiles = (origin, path, cb) ->
       obj = object.extend.apply {}, obj
       meta = object.extendArrayConcat.apply {}, meta
       setOrigin origin, obj, meta, date, cb
+
+loadFile = (origin, path, file, cb) ->
+  fs.readFile file,
+    encoding: 'UTF-8'
+  , (err, text) ->
+    return cb err if err
+    # parse
+    uri = "file:///#{string.trim (fspath.resolve file), '/'}"
+    parse text, uri, origin.parser, false, (err, obj) ->
+      return cb err if err
+      # get additional path
+      add = uri.substring path.length+1
+      add = add[0..-fspath.extname(add).length-1]
+      add = add[0..-7] if string.ends add, '/index'
+      list = []
+      if add
+        list = list.concat add.split('/')[0..-2] if ~add.indexOf '/'
+        list.push fspath.basename add
+      add = '/' + list.join '/' if list.length
+      # put object deeper
+      value = ref = {}
+      for k in list
+        ref[k] = {}
+        ref = ref[k]
+      ref[k] = v for k, v of obj
+      # make meta data
+      meta = setMeta value, uri, origin
+      debug "loaded #{uri}"
+      cb null, [value, meta]
 
 # ### Load file origin
 loadRequest = (origin, uri, cb) ->
