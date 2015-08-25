@@ -102,7 +102,7 @@ loadFiles = (origin, path, cb) ->
   path = "#{process.cwd()}/#{path}" unless path[0] is '/'
   unless pattern
     date = new Date()
-    return loadFile origin, path, path, (err, result) ->
+    return loadFile origin, "file://#{path}", path, (err, result) ->
       if err
         return cb err unless err.code is 'ENOENT'
         debug chalk.magenta "Failure #{err.message}!"
@@ -148,6 +148,7 @@ loadFile = (origin, path, file, cb) ->
     return cb err if err
     # parse
     uri = "file:///#{string.trim (fspath.resolve file), '/'}"
+    console.log file, path, uri
     parse text, uri, origin.parser, false, (err, obj) ->
       return cb err if err
       # get additional path
