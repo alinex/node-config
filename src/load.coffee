@@ -148,7 +148,6 @@ loadFile = (origin, path, file, cb) ->
     return cb err if err
     # parse
     uri = "file:///#{string.trim (fspath.resolve file), '/'}"
-    console.log file, path, uri
     parse text, uri, origin.parser, false, (err, obj) ->
       return cb err if err
       # get additional path
