@@ -97,12 +97,23 @@ loadOrigin = (origin, cb) ->
 # ### Load file origin
 loadFiles = (origin, path, cb) ->
   # find files
-  [all, path, pattern] = path.match /^([^?*[{@]*$|[^?*[{@]*\/)?(.*)$/
+  [all, path, pattern] = path.match ///
+    ^
+    (
+      [^?*[{@]*$    # everything till end without pattern
+    |
+      [^?*[{@]*\/   # everything without pattern (dirs)
+    )?
+    (.*)            # part containing pattern to end
+    $
+  ///
   path ?= process.cwd() # make relative links absolute
   path = "#{process.cwd()}/#{path}" unless path[0] is '/'
   unless pattern
+    file = path
+    path = fspath.dirname path if path? and not pattern
     date = new Date()
-    return loadFile origin, "file://#{path}", path, (err, result) ->
+    return loadFile origin, "file://#{path}", file, (err, result) ->
       if err
         return cb err unless err.code is 'ENOENT'
         debug chalk.magenta "Failure #{err.message}!"

@@ -17,10 +17,11 @@ describe "Init", ->
     config.listener = {}
 
   describe "origin", ->
+    @timeout 5000
 
     it "should add origin", (cb) ->
       config.pushOrigin
-        uri: 'test/data/'
+        uri: 'test/data/*'
         path: 'test'
       config.init (err) ->
         expect(err, 'error').to.not.exist
