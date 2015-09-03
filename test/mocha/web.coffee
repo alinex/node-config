@@ -16,7 +16,7 @@ describe "Web", ->
     config.meta = {}
     config.listener = {}
 
-  describe.only "http", ->
+  describe "http", ->
     @timeout 5000
 
     it "should get json service back", (cb) ->
