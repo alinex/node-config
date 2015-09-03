@@ -389,8 +389,31 @@ to update this data, too.</p>
 <p>find files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="p">[</span><span class="nx">all</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^([^?*[{@]*\/)?(.*)$/</span>
+  <span class="p">[</span><span class="nx">all</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
+<span class="sr">    ^</span>
+<span class="sr">    (</span>
+<span class="sr">      [^?*[{@]*$    # everything till end without pattern</span>
+<span class="sr">    |</span>
+<span class="sr">      [^?*[{@]*\/   # everything without pattern (dirs)</span>
+<span class="sr">    )?</span>
+<span class="sr">    (.*)            # part containing pattern to end</span>
+<span class="sr">    $</span>
+<span class="sr">  ///</span>
   <span class="nx">path</span> <span class="o">?=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="c1"># make relative links absolute</span>
+  <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;/&#39;</span>
+  <span class="k">unless</span> <span class="nx">pattern</span>
+    <span class="nv">file = </span><span class="nx">path</span>
+    <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">path</span> <span class="k">if</span> <span class="nx">path</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">pattern</span>
+    <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">loadFile</span> <span class="nx">origin</span><span class="p">,</span> <span class="s">&quot;file://</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+      <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Failure </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">!&quot;</span>
+        <span class="nv">origin.loaded = </span><span class="kc">true</span>
+        <span class="nv">origin.lastload = </span><span class="nx">date</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">meta</span><span class="p">]</span> <span class="o">=</span> <span class="nx">result</span>
+      <span class="nx">setOrigin</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">meta</span><span class="p">,</span> <span class="nx">date</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">path</span><span class="p">,</span>
     <span class="nv">type: </span><span class="s">&#39;f&#39;</span>
     <span class="nv">include: </span><span class="nx">pattern</span>
@@ -401,6 +424,7 @@ to update this data, too.</p>
     <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
     <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">unless</span> <span class="nx">err</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="s">&#39;ENOENT&#39;</span>
+      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Failure </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">!&quot;</span>
       <span class="nv">origin.loaded = </span><span class="kc">true</span>
       <span class="nv">origin.lastload = </span><span class="nx">date</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
@@ -418,75 +442,7 @@ to update this data, too.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">path = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="p">(</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="nx">file</span><span class="p">,</span>
-        <span class="nv">encoding: </span><span class="s">&#39;UTF-8&#39;</span>
-      <span class="p">,</span> <span class="nf">(err, text) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
-</div>
-<p>parse</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nv">uri = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="p">(</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">file</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">parser</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
-</div>
-<p>get additional path</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">add = </span><span class="nx">uri</span><span class="p">.</span><span class="nx">substring</span> <span class="nx">path</span><span class="p">.</span><span class="nx">length</span><span class="o">+</span><span class="mi">1</span>
-          <span class="nv">list = </span><span class="p">[]</span>
-          <span class="k">if</span> <span class="nx">add</span>
-            <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">add</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="o">~</span><span class="nx">add</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;/&#39;</span>
-            <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">add</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\..*/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
-          <span class="nv">add = </span><span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
-</div>
-<p>put object deeper</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">value = ref = </span><span class="p">{}</span>
-          <span class="k">for</span> <span class="nx">k</span> <span class="k">in</span> <span class="nx">list</span>
-            <span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="nv">ref = </span><span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
-          <span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">v</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">obj</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>make meta data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">meta = </span><span class="nx">setMeta</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span>
-          <span class="nx">debug</span> <span class="s">&quot;loaded </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">meta</span><span class="p">]</span>
+      <span class="nx">loadFile</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err, objects) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
@@ -496,7 +452,7 @@ to update this data, too.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>combine</p>
         </td>
@@ -509,6 +465,79 @@ to update this data, too.</p>
       <span class="nv">obj = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span><span class="p">.</span><span class="nx">apply</span> <span class="p">{},</span> <span class="nx">obj</span>
       <span class="nv">meta = </span><span class="nx">object</span><span class="p">.</span><span class="nx">extendArrayConcat</span><span class="p">.</span><span class="nx">apply</span> <span class="p">{},</span> <span class="nx">meta</span>
       <span class="nx">setOrigin</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">meta</span><span class="p">,</span> <span class="nx">date</span><span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nv">loadFile = </span><span class="nf">(origin, path, file, cb) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="nx">file</span><span class="p">,</span>
+    <span class="nv">encoding: </span><span class="s">&#39;UTF-8&#39;</span>
+  <span class="p">,</span> <span class="nf">(err, text) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>parse</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">uri = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="p">(</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">file</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">parser</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>get additional path</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">add = </span><span class="nx">uri</span><span class="p">.</span><span class="nx">substring</span> <span class="nx">path</span><span class="p">.</span><span class="nx">length</span><span class="o">+</span><span class="mi">1</span>
+      <span class="nv">add = </span><span class="nx">add</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">add</span><span class="p">).</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nv">add = </span><span class="nx">add</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">ends</span> <span class="nx">add</span><span class="p">,</span> <span class="s">&#39;/index&#39;</span>
+      <span class="nv">list = </span><span class="p">[]</span>
+      <span class="k">if</span> <span class="nx">add</span>
+        <span class="nv">list = </span><span class="nx">list</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">add</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">..</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="o">~</span><span class="nx">add</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;/&#39;</span>
+        <span class="nx">list</span><span class="p">.</span><span class="nx">push</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">add</span>
+      <span class="nv">add = </span><span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;/&#39;</span> <span class="k">if</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>put object deeper</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">value = ref = </span><span class="p">{}</span>
+      <span class="k">for</span> <span class="nx">k</span> <span class="k">in</span> <span class="nx">list</span>
+        <span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nv">ref = </span><span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
+      <span class="nx">ref</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">v</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">obj</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>make meta data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">meta = </span><span class="nx">setMeta</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span>
+      <span class="nx">debug</span> <span class="s">&quot;loaded </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">meta</span><span class="p">]</span>
 
 
 </pre></div>
