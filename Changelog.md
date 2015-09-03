@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.5 (2015-09-03)
+-------------------------------------------------
+- Use other url for web tests.
+- Use other url for web tests.
+- Fixed test timeouts.
+- Fixed use of config filename in config.
+- Remove debug output through console.log.
+- Fix auto path generation for direct file load.
+- Optimize direct file load and fix error output in debug mode.
+- Don't use index as path.
+
 Version 1.0.4 (2015-08-19)
 -------------------------------------------------
 - Add example for splitted configuration.
