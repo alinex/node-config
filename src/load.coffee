@@ -109,9 +109,10 @@ loadFiles = (origin, path, cb) ->
   ///
   path ?= process.cwd() # make relative links absolute
   path = "#{process.cwd()}/#{path}" unless path[0] is '/'
+  path = fspath.resolve path
   unless pattern
     file = path
-    path = fspath.dirname path if path? and not pattern
+    path = fspath.dirname path if path?
     date = new Date()
     return loadFile origin, "file://#{path}", file, (err, result) ->
       if err
@@ -137,7 +138,7 @@ loadFiles = (origin, path, cb) ->
       origin.lastload = date
       return cb()
     # load them
-    path = "file:///#{string.trim (fspath.resolve path), '/'}"
+    path = "file:///#{string.trim path, '/'}"
     async.map list, (file, cb) ->
       loadFile origin, path, file, cb
     , (err, objects) ->
@@ -158,7 +159,7 @@ loadFile = (origin, path, file, cb) ->
   , (err, text) ->
     return cb err if err
     # parse
-    uri = "file:///#{string.trim (fspath.resolve file), '/'}"
+    uri = "file:///#{string.trim file, '/'}"
     parse text, uri, origin.parser, false, (err, obj) ->
       return cb err if err
       # get additional path
