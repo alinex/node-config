@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/load.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/loadcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -401,9 +401,10 @@ to update this data, too.</p>
 <span class="sr">  ///</span>
   <span class="nx">path</span> <span class="o">?=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="c1"># make relative links absolute</span>
   <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;/&#39;</span>
+  <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span>
   <span class="k">unless</span> <span class="nx">pattern</span>
     <span class="nv">file = </span><span class="nx">path</span>
-    <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">path</span> <span class="k">if</span> <span class="nx">path</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">pattern</span>
+    <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">path</span> <span class="k">if</span> <span class="nx">path</span><span class="o">?</span>
     <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
     <span class="k">return</span> <span class="nx">loadFile</span> <span class="nx">origin</span><span class="p">,</span> <span class="s">&quot;file://</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
       <span class="k">if</span> <span class="nx">err</span>
@@ -440,7 +441,7 @@ to update this data, too.</p>
 <p>load them</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">path = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="p">(</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">path = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="nx">path</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
       <span class="nx">loadFile</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err, objects) -&gt;</span>
@@ -483,7 +484,7 @@ to update this data, too.</p>
 <p>parse</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">uri = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="p">(</span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">file</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">uri = </span><span class="s">&quot;file:///</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">trim</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">parse</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">parser</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
