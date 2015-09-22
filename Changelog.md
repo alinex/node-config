@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.6 (2015-09-22)
+-------------------------------------------------
+- Fix path resolve, which leads to wrong main name.
+
 Version 1.0.5 (2015-09-03)
 -------------------------------------------------
 - Use other url for web tests.
