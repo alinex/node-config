@@ -61,32 +61,33 @@ module.exports =
   # basedir - path
   register: (app, basedir, setup = {} ) ->
     uri = string.trim(setup.uri, '/') ? '*'
+    folder = setup.folder ? 'setup'
     list = []
     if basedir
       dir = fspath.resolve basedir
       # add src
       list.push
-        uri: "#{dir}/var/src/config/#{uri}"
+        uri: "#{dir}/var/src/#{folder}/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
       # add local
       list.push
-        uri: "#{dir}/var/local/config/#{uri}"
+        uri: "#{dir}/var/local/#{folder}/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
     if app
       # add global
       list.push
-        uri: "/etc/#{app}/#{uri}"
+        uri: "/etc/#{app}/#{folder}/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
       # add user
       dir = process.env.HOME ? process.env.USERPROFILE
       list.push
-        uri: "#{dir}/.#{app}/config/#{uri}"
+        uri: "#{dir}/.#{app}/#{folder}/#{uri}"
         parser: setup.parser
         path: setup.path
         filter: setup.filter
