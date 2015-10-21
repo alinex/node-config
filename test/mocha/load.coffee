@@ -284,7 +284,7 @@ describe "Load", ->
           attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
         cb()
 
-  describe "register", ->
+  describe.only "register", ->
 
     it "should combine all data for module", (cb) ->
       config.register null, fspath.resolve __dirname, '../data/app'

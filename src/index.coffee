@@ -61,7 +61,7 @@ module.exports =
   # basedir - path
   register: (app, basedir, setup = {} ) ->
     uri = string.trim(setup.uri, '/') ? '*'
-    folder = setup.folder ? 'setup'
+    folder = setup.folder ? 'config'
     list = []
     if basedir
       dir = fspath.resolve basedir
