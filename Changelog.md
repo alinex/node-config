@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.7 (2015-10-21)
+-------------------------------------------------
+- Remove only keys.
+- Fixed bug in default folder name.
+- Add the ability to change config folder.
+
 Version 1.0.6 (2015-09-22)
 -------------------------------------------------
 - Fix path resolve, which leads to wrong main name.
