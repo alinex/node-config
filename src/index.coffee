@@ -91,6 +91,7 @@ module.exports =
         parser: setup.parser
         path: setup.path
         filter: setup.filter
+    debug "register urls: #{list.map (e) -> e.uri}"
     @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
