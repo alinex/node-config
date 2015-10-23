@@ -367,6 +367,16 @@ config.init (err) ->
   # all configurations are loaded successfully
 ```
 
+Alternatively you may skip your program with a detailed error message:
+
+``` coffee
+config.init (err) ->
+  if err
+    console.error "FAILED: #{err.message}"
+    console.error err.description
+    process.exit 1
+```
+
 Make sure that the initialization is completely done for all configuration data
 before using it. If you change the setup later you have to reinit everything which
 causes an extra afford which you should skip if possible.
