@@ -70,6 +70,7 @@ module.exports =
         uri: "#{dir}/var/src/#{folder}/#{uri}"
         parser: setup.parser
         path: setup.path
+
         filter: setup.filter
       # add local
       list.push
@@ -91,7 +92,7 @@ module.exports =
         parser: setup.parser
         path: setup.path
         filter: setup.filter
-    debug "register urls: #{list.map (e) -> e.uri}"
+    debug chalk.grey "register urls: #{list.map (e) -> e.uri}"
     @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
@@ -148,13 +149,15 @@ module.exports =
 
 # ### Initialize
 module.exports.init = async.onceTime module.exports, (cb) ->
+  debug "initialize configuration system"
   needLoad = false
   for origin in load.listOrigins @origin
-    continue if origin.loaded
+    if origin.loaded
+      debug chalk.grey "origin url: #{origin.uri} (already loaded)"
+      continue
+    debug chalk.grey "origin url: #{origin.uri}"
     needLoad = true
-    break
   return cb() unless needLoad
-  debug "initialize configuration system"
   load.init this, (err) =>
     return cb err if err
     debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"

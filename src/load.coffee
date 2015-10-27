@@ -84,7 +84,6 @@ loadOrigin = (origin, cb) ->
   return cb() if origin.loaded
   uri = if ~origin.uri.indexOf '://' then origin.uri else 'file://' + origin.uri
   [proto, path] = uri.split '://'
-  debug "check #{uri}"
   switch proto
     when 'file'
       return loadFiles origin, path, cb
@@ -268,7 +267,6 @@ parse = (text, uri, parser, quiet=false, cb) ->
       i = detect.indexOf type
       detect.splice i, 1 if i > -1
       detect.unshift type
-    debug "autodetect format as: #{detect}"
     result = null
     errors = []
     async.detectSeries detect, (type, cb) ->
