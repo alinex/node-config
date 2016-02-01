@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-config/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/github/node-config/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -609,6 +609,18 @@ already done and initialize it:</p>
 <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
   <span class="c1"># all configurations are loaded successfully</span>
+</code></pre></div>
+
+
+
+<p>Alternatively you may skip your program with a detailed error message:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
+  <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;FAILED: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
 </code></pre></div>
 
 

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/loadcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-config/src/loadcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -351,7 +351,6 @@ to update this data, too.</p>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">loaded</span>
   <span class="nv">uri = </span><span class="k">if</span> <span class="o">~</span><span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;://&#39;</span> <span class="k">then</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span> <span class="k">else</span> <span class="s">&#39;file://&#39;</span> <span class="o">+</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span>
   <span class="p">[</span><span class="nx">proto</span><span class="p">,</span> <span class="nx">path</span><span class="p">]</span> <span class="o">=</span> <span class="nx">uri</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39;://&#39;</span>
-  <span class="nx">debug</span> <span class="s">&quot;check </span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="k">switch</span> <span class="nx">proto</span>
     <span class="k">when</span> <span class="s">&#39;file&#39;</span>
       <span class="k">return</span> <span class="nx">loadFiles</span> <span class="nx">origin</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">cb</span>
@@ -822,14 +821,13 @@ to update this data, too.</p>
 <span class="s">      i = detect.indexOf type</span>
 <span class="s">      detect.splice i, 1 if i &gt; -1</span>
 <span class="s">      detect.unshift type</span>
-<span class="s">    debug &quot;</span><span class="nx">autodetect</span> <span class="nx">format</span> <span class="nv">as: </span><span class="c1">#{detect}&quot;</span>
-    <span class="nv">result = </span><span class="kc">null</span>
-    <span class="nv">errors = </span><span class="p">[]</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">detectSeries</span> <span class="nx">detect</span><span class="p">,</span> <span class="nf">(type, cb) -&gt;</span>
-      <span class="nx">parseFormat</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">uri</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="nf">(err, obj) -&gt;</span>
-        <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s"> failed in </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="s">    result = null</span>
+<span class="s">    errors = []</span>
+<span class="s">    async.detectSeries detect, (type, cb) -&gt;</span>
+<span class="s">      parseFormat text, uri, type, true, (err, obj) -&gt;</span>
+<span class="s">        if err</span>
+<span class="s">          errors.push err.message</span>
+<span class="s">          debug chalk.grey &quot;</span><span class="c1">#{uri} failed in #{err.message}&quot;</span>
         <span class="nv">result = </span><span class="nx">obj</span>
         <span class="nx">cb</span> <span class="o">not</span> <span class="nx">err</span><span class="o">?</span> <span class="o">and</span> <span class="nx">obj</span><span class="o">?</span>
     <span class="p">,</span> <span class="nf">(ok) -&gt;</span>

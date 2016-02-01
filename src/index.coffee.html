@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-config/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-config/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -320,6 +320,7 @@ basedir - path</p>
         <span class="nv">uri: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">/var/src/</span><span class="si">#{</span><span class="nx">folder</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
         <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
+
         <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
 
 </pre></div>
@@ -374,6 +375,7 @@ basedir - path</p>
         <span class="nv">parser: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">parser</span>
         <span class="nv">path: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">path</span>
         <span class="nv">filter: </span><span class="nx">setup</span><span class="p">.</span><span class="nx">filter</span>
+    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;register urls: </span><span class="si">#{</span><span class="nx">list</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">@origin</span><span class="p">.</span><span class="nx">push</span> <span class="nx">list</span>
 
   <span class="nv">setSchema: </span><span class="nf">(path, schema, cb = -&gt; ) -&gt;</span>
@@ -560,13 +562,15 @@ previous values.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.init = </span><span class="nx">async</span><span class="p">.</span><span class="nx">onceTime</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
+  <span class="nx">debug</span> <span class="s">&quot;initialize configuration system&quot;</span>
   <span class="nv">needLoad = </span><span class="kc">false</span>
   <span class="k">for</span> <span class="nx">origin</span> <span class="k">in</span> <span class="nx">load</span><span class="p">.</span><span class="nx">listOrigins</span> <span class="nx">@origin</span>
-    <span class="k">continue</span> <span class="k">if</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">loaded</span>
+    <span class="k">if</span> <span class="nx">origin</span><span class="p">.</span><span class="nx">loaded</span>
+      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;origin url: </span><span class="si">#{</span><span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="s"> (already loaded)&quot;</span>
+      <span class="k">continue</span>
+    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;origin url: </span><span class="si">#{</span><span class="nx">origin</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">needLoad = </span><span class="kc">true</span>
-    <span class="k">break</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">needLoad</span>
-  <span class="nx">debug</span> <span class="s">&quot;initialize configuration system&quot;</span>
   <span class="nx">load</span><span class="p">.</span><span class="nx">init</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">debugValue</span> <span class="s">&quot;new configuration \n</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@value</span><span class="p">,</span> <span class="p">{</span><span class="nv">depth: </span><span class="kc">null</span><span class="si">}</span><span class="s">}&quot;</span>
