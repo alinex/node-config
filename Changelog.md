@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.9 (2016-02-01)
+-------------------------------------------------
+- Now reallow newest validator version.
+
 Version 1.0.8 (2016-02-01)
 -------------------------------------------------
 - Prevent newest validator version (buggy build).
