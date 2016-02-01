@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.8 (2016-02-01)
+-------------------------------------------------
+- Prevent newest validator version (buggy build).
+- Optimized debug output.
+- Example for error output.
+- Add debug entry for registering urls.
+
 Version 1.0.7 (2015-10-21)
 -------------------------------------------------
 - Remove only keys.
