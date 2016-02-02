@@ -34,23 +34,23 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "0.x",
+    "alinex-async": "^0.2.5",
     "alinex-fs": "0.2.x",
-    "alinex-util": "0.x",
-    "chalk": "1.x",
+    "alinex-util": "^0.3.14",
+    "chalk": "^1.1.1",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
     "coffee-script": "^1.9.3",
-    "debug": ">=0.8.0 <3.0.0",
+    "debug": "^2.2.0",
     "ini": "1.x",
-    "js-yaml": "3.x",
+    "js-yaml": "^3.5.2",
     "properties": "^1.2.1",
-    "request": "^2.58.0",
-    "xml2js": "0.4.x"
+    "request": "^2.69.0",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
-    "alinex-builder": "1.x",
+    "alinex-builder": "^1.1.13",
     "alinex-error": "1.x",
-    "chai": "3.x"
+    "chai": "^3.5.0"
   },
   "optionalDependencies": {
     "coffee-script": "1.x",
