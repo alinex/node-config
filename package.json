@@ -37,6 +37,7 @@
     "alinex-async": "^0.2.5",
     "alinex-fs": "0.2.x",
     "alinex-util": "^0.3.14",
+    "alinex-validator": "^1.2.3",
     "chalk": "^1.1.1",
     "chokidar": ">=0.10.0 <1.0.0 || 1.x",
     "coffee-script": "^1.9.3",
