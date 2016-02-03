@@ -24,8 +24,6 @@ debug = require('debug')('config:load')
 chalk = require 'chalk'
 util = require 'util'
 fspath = require 'path'
-chokidar = require 'chokidar'
-EventEmitter = require('events').EventEmitter
 # include more alinex modules
 fs = require 'alinex-fs'
 async = require 'alinex-async'
@@ -96,7 +94,7 @@ loadOrigin = (origin, cb) ->
 # ### Load file origin
 loadFiles = (origin, path, cb) ->
   # find files
-  [all, path, pattern] = path.match ///
+  [path, pattern] = path.match ///
     ^
     (
       [^?*[{@]*$    # everything till end without pattern
@@ -105,7 +103,7 @@ loadFiles = (origin, path, cb) ->
     )?
     (.*)            # part containing pattern to end
     $
-  ///
+  ///[1..] # prevent the complete match
   path ?= process.cwd() # make relative links absolute
   path = "#{process.cwd()}/#{path}" unless path[0] is '/'
   path = fspath.resolve path
@@ -297,22 +295,22 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
       yaml = require 'js-yaml'
       try
         result = yaml.safeLoad text
-      catch err
-        err.message = err.message.replace 'JS-YAML: ', ''
-        return cb new Error "#{parser} parser: #{err.message.replace /[\s^]+/g, ' '}"
+      catch error
+        error.message = error.message.replace 'JS-YAML: ', ''
+        return cb new Error chalk[color] "#{parser} parser: #{error.message.replace /[\s^]+/g, ' '}"
       cb null, result
     when 'js'
       vm = require 'vm'
       try
         result = vm.runInNewContext "x=#{text}"
-      catch err
-        return cb new Error "#{parser} parser: #{err.message}"
+      catch error
+        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       cb null, result
     when 'json'
       try
         result = JSON.parse text
-      catch err
-        return cb new Error "#{parser} parser: #{err.message}"
+      catch error
+        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       cb null, result
     when 'coffee'
       coffee = require 'coffee-script'
@@ -320,8 +318,8 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
         text = "module.exports =\n  " + text.replace /\n/g, '\n  '
         m = new module.constructor()
         m._compile coffee.compile(text), uri
-      catch err
-        return cb new Error "#{parser} parser: #{err.message}"
+      catch error
+        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       cb null, m.exports
     when 'properties'
       properties = require 'properties'
@@ -330,34 +328,36 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
         namespaces: true
       , (err, result) ->
         if err
-          return cb new Error "#{parser} parser: #{err.message}"
+          return cb new Error chalk[color] "#{parser} parser: #{err.message}"
         unless propertiesCheck result
-          return cb new Error "#{parser} parser: Unexpected characters []{}/ in key name found"
+          return cb new Error chalk[color] "#{parser} parser: Unexpected characters []{}/
+          in key name found"
         cb null, result
     when 'ini'
       ini = require 'ini'
       try
         result = ini.decode text
-      catch err
-        return cb new Error "#{parser} parser: #{err.message}"
+      catch error
+        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       # detect failed parsing
       if not result?
-        return cb new Error "#{parser} parser: could not parse any result"
+        return cb new Error chalk[color] "#{parser} parser: could not parse any result"
       if result['{']
-        return cb new Error "#{parser} parser: Unexpected token { at start"
+        return cb new Error chalk[color] "#{parser} parser: Unexpected token { at start"
       for k, v of result
         if v is true and k.match /:/
-          return cb new Error "#{parser} parser: Unexpected key name containing ':' with value true"
+          return cb new Error chalk[color] "#{parser} parser: Unexpected key name containing
+          ':' with value true"
       cb null, result
     when 'xml'
       xml2js = require 'xml2js'
       xml2js.parseString text, {explicitArray: false}, (err, result) ->
         if err
-          return cb new Error "#{parser} parser: #{err.message.replace /\n/g, ' '}"
+          return cb new Error chalk[color] "#{parser} parser: #{err.message.replace /\n/g, ' '}"
         # optimize result of attributes
         cb null, xmlOptimize result
     else
-      cb new Error "Parser for #{parser} not found"
+      cb new Error chalk[color] "Parser for #{parser} not found"
 
 # ### Optimize parsed cml
 xmlOptimize = (data) ->
