@@ -94,7 +94,7 @@ loadOrigin = (origin, cb) ->
 # ### Load file origin
 loadFiles = (origin, path, cb) ->
   # find files
-  [path, pattern] = path.match ///
+  parts = path.match ///
     ^
     (
       [^?*[{@]*$    # everything till end without pattern
@@ -103,7 +103,8 @@ loadFiles = (origin, path, cb) ->
     )?
     (.*)            # part containing pattern to end
     $
-  ///[1..] # prevent the complete match
+  ///
+  [path, pattern] = parts[1..] if parts.length > 1
   path ?= process.cwd() # make relative links absolute
   path = "#{process.cwd()}/#{path}" unless path[0] is '/'
   path = fspath.resolve path
