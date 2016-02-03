@@ -1,15 +1,9 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 fspath = require 'path'
-#require('alinex-error').install()
 
 config = require '../../src/index'
-
-init = (file, parser, cb) ->
-  config.pushOrigin
-    uri: "test/data/#{file}"
-    parser: parser
-  config.init cb
 
 describe "Load", ->
 
@@ -38,8 +32,8 @@ describe "Load", ->
               multiline: 'This may be a very long line in which newlines will be removed.\n'
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
               simplelist: [1, 2, 3]
-              list: [ 'red', 'green', 'blue' ]
-              person: { name: 'Alexander Schilling', job: 'Developer' }
+              list: ['red', 'green', 'blue']
+              person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should work if one origin missing", (cb) ->
@@ -60,8 +54,8 @@ describe "Load", ->
               multiline: 'This may be a very long line in which newlines will be removed.\n'
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
               simplelist: [1, 2, 3]
-              list: [ 'red', 'green', 'blue' ]
-              person: { name: 'Alexander Schilling', job: 'Developer' }
+              list: ['red', 'green', 'blue']
+              person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should work if one directory is missing", (cb) ->
@@ -83,7 +77,7 @@ describe "Load", ->
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
               simplelist: [1, 2, 3]
               list: [ 'red', 'green', 'blue' ]
-              person: { name: 'Alexander Schilling', job: 'Developer' }
+              person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should load directory", (cb) ->
@@ -132,7 +126,7 @@ describe "Load", ->
             keepnewlines: 'Line 1\nLine 2\nLine 3\n'
             simplelist: [1, 2, 3]
             list: [ 'red', 'green', 'blue' ]
-            person: { name: 'Alexander Schilling', job: 'Developer' }
+            person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should filter multiple level depth", (cb) ->
@@ -149,7 +143,7 @@ describe "Load", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
           simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should add path", (cb) ->
@@ -169,7 +163,7 @@ describe "Load", ->
                 keepnewlines: 'Line 1\nLine 2\nLine 3\n'
                 simplelist: [1, 2, 3]
                 list: [ 'red', 'green', 'blue' ]
-                person: { name: 'Alexander Schilling', job: 'Developer' }
+                person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should add multiple paths", (cb) ->
@@ -190,7 +184,7 @@ describe "Load", ->
                   keepnewlines: 'Line 1\nLine 2\nLine 3\n'
                   simplelist: [1, 2, 3]
                   list: [ 'red', 'green', 'blue' ]
-                  person: { name: 'Alexander Schilling', job: 'Developer' }
+                  person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should use filter and path", (cb) ->
@@ -210,7 +204,7 @@ describe "Load", ->
               keepnewlines: 'Line 1\nLine 2\nLine 3\n'
               simplelist: [1, 2, 3]
               list: [ 'red', 'green', 'blue' ]
-              person: { name: 'Alexander Schilling', job: 'Developer' }
+              person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
   describe "combine", ->
@@ -233,13 +227,13 @@ describe "Load", ->
             keepnewlines: 'Line 1\nLine 2\nLine 3\n'
             simplelist: [1, 2, 3]
             list: [ 'red', 'green', 'blue' ]
-            person: { name: 'Alexander Schilling', job: 'Developer' }
+            person: {name: 'Alexander Schilling', job: 'Developer'}
           xml:
             name: 'test',
             list: [ '1', '2', '3' ]
-            person: { name: 'Alexander Schilling', job: 'Developer' }
+            person: {name: 'Alexander Schilling', job: 'Developer'}
             cdata: 'i\\\'m not escaped: <xml>!'
-            attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+            attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
     it "should merge together data", (cb) ->
@@ -260,9 +254,9 @@ describe "Load", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
           simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue', '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
     it "should merge (overwrite) data", (cb) ->
@@ -279,9 +273,9 @@ describe "Load", ->
           name: 'Alexander Schilling'
           job: 'Developer'
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
   describe "register", ->
@@ -306,8 +300,10 @@ describe "Load", ->
     it "should combine all data for apps", (cb) ->
       config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
       # fix user and global settings
-      config.origin[0][2].uri = config.origin[0][2].uri.replace '/etc/XXXXX', fspath.resolve __dirname, '../data/app/global'
-      config.origin[0][3].uri = config.origin[0][3].uri.replace /.*?\.XXXXX/, fspath.resolve __dirname, '../data/app/user'
+      config.origin[0][2].uri = config.origin[0][2].uri.replace '/etc/XXXXX',
+        fspath.resolve __dirname, '../data/app/global'
+      config.origin[0][3].uri = config.origin[0][3].uri.replace /.*?\.XXXXX/,
+        fspath.resolve __dirname, '../data/app/user'
       # test
       config.init (err) ->
         expect(err, 'error').to.not.exist
@@ -369,7 +365,7 @@ describe "Load", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n',
           simplelist: [ 1, 2, 3 ],
           list: [ 'red', 'green', 'blue' ],
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should add multiple schemas", (cb) ->
@@ -396,7 +392,7 @@ describe "Load", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n',
           simplelist: [ 1, 2, 3 ],
           list: [ 'red', 'green', 'blue' ],
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should fail schema", (cb) ->
@@ -430,6 +426,3 @@ describe "Load", ->
         , (err) ->
           expect(err, 'error').to.exist
           cb()
-
-
-

@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-#require('alinex-error').install()
+### eslint-env node, mocha ###
 
 describe "Init", ->
 
@@ -26,5 +26,3 @@ describe "Init", ->
       config.init (err) ->
         expect(err, 'error').to.not.exist
         cb()
-
-

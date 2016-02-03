@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-#require('alinex-error').install()
+### eslint-env node, mocha ###
 
 config = require '../../src/index'
 
@@ -34,7 +34,7 @@ describe "Format", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
           simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -48,7 +48,7 @@ describe "Format", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
           simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -62,7 +62,7 @@ describe "Format", ->
           keepnewlines: 'Line 1\nLine 2\nLine 3\n'
           simplelist: [1, 2, 3]
           list: [ 'red', 'green', 'blue' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
   describe "json", ->
@@ -74,7 +74,7 @@ describe "Format", ->
         expect(d.json, 'json root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -84,7 +84,7 @@ describe "Format", ->
         expect(d.json, 'json root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -94,7 +94,7 @@ describe "Format", ->
         expect(d.json, 'json root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
   describe "js", ->
@@ -106,7 +106,7 @@ describe "Format", ->
         expect(d.javascript, 'js root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -118,7 +118,7 @@ describe "Format", ->
         expect(d.javascript, 'js root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -130,7 +130,7 @@ describe "Format", ->
         expect(d.javascript, 'js root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -144,7 +144,7 @@ describe "Format", ->
         expect(d.coffee, 'cson root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -156,7 +156,7 @@ describe "Format", ->
         expect(d.coffee, 'cson root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -168,7 +168,7 @@ describe "Format", ->
         expect(d.coffee, 'cson root').to.deep.equal
           string: 'test'
           list: [ 1, 2, 3 ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           session: 15*60*1000
           calc: Math.sqrt(16)
         cb()
@@ -182,9 +182,9 @@ describe "Format", ->
         expect(d.xml, 'xml root').to.deep.equal
           name: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -194,9 +194,9 @@ describe "Format", ->
         expect(d.xml, 'xml root').to.deep.equal
           name: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -206,9 +206,9 @@ describe "Format", ->
         expect(d.xml, 'xml root').to.deep.equal
           name: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: { value: '\n    Hello all together\n  ', type: 'detail' }
+          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
         cb()
 
   describe "ini", ->
@@ -220,7 +220,7 @@ describe "Format", ->
         expect(d.ini, 'ini root').to.deep.equal
           string: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -230,7 +230,7 @@ describe "Format", ->
         expect(d.ini, 'ini root').to.deep.equal
           string: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -240,10 +240,10 @@ describe "Format", ->
         expect(d.ini, 'ini root').to.deep.equal
           string: 'test',
           list: [ '1', '2', '3' ]
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
-describe "properties", ->
+  describe "properties", ->
 
     it "should parse", (cb) ->
       init 'format.properties', 'properties', (err) ->
@@ -251,8 +251,8 @@ describe "properties", ->
         d = config.value.format
         expect(d.prop, 'properties root').to.deep.equal
           string: 'test',
-          list: { 1: 1, 2: 2, 3: 3 }
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          list: {1: 1, 2: 2, 3: 3}
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -261,8 +261,8 @@ describe "properties", ->
         d = config.value.format
         expect(d.prop, 'properties root').to.deep.equal
           string: 'test',
-          list: { 1: 1, 2: 2, 3: 3 }
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          list: {1: 1, 2: 2, 3: 3}
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -271,7 +271,6 @@ describe "properties", ->
         d = config.value.link
         expect(d.prop, 'properties root').to.deep.equal
           string: 'test',
-          list: { 1: 1, 2: 2, 3: 3 }
-          person: { name: 'Alexander Schilling', job: 'Developer' }
+          list: {1: 1, 2: 2, 3: 3}
+          person: {name: 'Alexander Schilling', job: 'Developer'}
         cb()
-

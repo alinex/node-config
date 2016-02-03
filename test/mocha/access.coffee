@@ -1,6 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
-#require('alinex-error').install()
+### eslint-env node, mocha ###
 
 describe "Access", ->
 
@@ -56,7 +56,7 @@ describe "Access", ->
               job: 'Developer'
           prop:
             string: 'test'
-            list: { '1': 1, '2': 2, '3': 3 }
+            list: {'1': 1, '2': 2, '3': 3}
             person:
               name: 'Alexander Schilling'
               job: 'Developer'
@@ -120,7 +120,7 @@ describe "Access", ->
               job: 'Developer'
           prop:
             string: 'test'
-            list: { '1': 1, '2': 2, '3': 3 }
+            list: {'1': 1, '2': 2, '3': 3}
             person:
               name: 'Alexander Schilling'
               job: 'Developer'
