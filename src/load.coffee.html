@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-config/src/loadcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-config/src/load.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -157,8 +153,6 @@ to update this data, too.</p>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 <span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">chokidar = </span><span class="nx">require</span> <span class="s">&#39;chokidar&#39;</span>
-<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
 </pre></div>
         </td>
@@ -388,7 +382,7 @@ to update this data, too.</p>
 <p>find files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="p">[</span><span class="nx">all</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
+  <span class="p">[</span><span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
 <span class="sr">    ^</span>
 <span class="sr">    (</span>
 <span class="sr">      [^?*[{@]*$    # everything till end without pattern</span>
@@ -397,7 +391,7 @@ to update this data, too.</p>
 <span class="sr">    )?</span>
 <span class="sr">    (.*)            # part containing pattern to end</span>
 <span class="sr">    $</span>
-<span class="sr">  ///</span>
+<span class="sr">  ///</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span> <span class="c1"># prevent the complete match</span>
   <span class="nx">path</span> <span class="o">?=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="c1"># make relative links absolute</span>
   <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;/&#39;</span>
   <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span>
@@ -898,22 +892,22 @@ to update this data, too.</p>
       <span class="nv">yaml = </span><span class="nx">require</span> <span class="s">&#39;js-yaml&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">yaml</span><span class="p">.</span><span class="nx">safeLoad</span> <span class="nx">text</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nv">err.message = </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="s">&#39;JS-YAML: &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/[\s^]+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="nv">error.message = </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="s">&#39;JS-YAML: &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/[\s^]+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;js&#39;</span>
       <span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;x=</span><span class="si">#{</span><span class="nx">text</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;json&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">text</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;coffee&#39;</span>
       <span class="nv">coffee = </span><span class="nx">require</span> <span class="s">&#39;coffee-script&#39;</span>
@@ -921,8 +915,8 @@ to update this data, too.</p>
         <span class="nv">text = </span><span class="s">&quot;module.exports =\n  &quot;</span> <span class="o">+</span> <span class="nx">text</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39;\n  &#39;</span>
         <span class="nv">m = </span><span class="k">new</span> <span class="nx">module</span><span class="p">.</span><span class="nx">constructor</span><span class="p">()</span>
         <span class="nx">m</span><span class="p">.</span><span class="nx">_compile</span> <span class="nx">coffee</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">text</span><span class="p">),</span> <span class="nx">uri</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">exports</span>
     <span class="k">when</span> <span class="s">&#39;properties&#39;</span>
       <span class="nv">properties = </span><span class="nx">require</span> <span class="s">&#39;properties&#39;</span>
@@ -931,16 +925,17 @@ to update this data, too.</p>
         <span class="nv">namespaces: </span><span class="kc">true</span>
       <span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
         <span class="k">if</span> <span class="nx">err</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="k">unless</span> <span class="nx">propertiesCheck</span> <span class="nx">result</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected characters []{}/ in key name found&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected characters []{}/</span>
+<span class="s">          in key name found&quot;</span>
         <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;ini&#39;</span>
       <span class="nv">ini = </span><span class="nx">require</span> <span class="s">&#39;ini&#39;</span>
       <span class="k">try</span>
         <span class="nv">result = </span><span class="nx">ini</span><span class="p">.</span><span class="nx">decode</span> <span class="nx">text</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -954,18 +949,19 @@ to update this data, too.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="k">if</span> <span class="o">not</span> <span class="nx">result</span><span class="o">?</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: could not parse any result&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: could not parse any result&quot;</span>
       <span class="k">if</span> <span class="nx">result</span><span class="p">[</span><span class="s">&#39;{&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected token { at start&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected token { at start&quot;</span>
       <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">result</span>
         <span class="k">if</span> <span class="nx">v</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">and</span> <span class="nx">k</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/:/</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected key name containing &#39;:&#39; with value true&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: Unexpected key name containing</span>
+<span class="s">          &#39;:&#39; with value true&quot;</span>
       <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
     <span class="k">when</span> <span class="s">&#39;xml&#39;</span>
       <span class="nv">xml2js = </span><span class="nx">require</span> <span class="s">&#39;xml2js&#39;</span>
       <span class="nx">xml2js</span><span class="p">.</span><span class="nx">parseString</span> <span class="nx">text</span><span class="p">,</span> <span class="p">{</span><span class="nv">explicitArray: </span><span class="kc">false</span><span class="p">},</span> <span class="nf">(err, result) -&gt;</span>
         <span class="k">if</span> <span class="nx">err</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> parser: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -980,7 +976,7 @@ to update this data, too.</p>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">xmlOptimize</span> <span class="nx">result</span>
     <span class="k">else</span>
-      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Parser for </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> not found&quot;</span>
+      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="nx">chalk</span><span class="p">[</span><span class="nx">color</span><span class="p">]</span> <span class="s">&quot;Parser for </span><span class="si">#{</span><span class="nx">parser</span><span class="si">}</span><span class="s"> not found&quot;</span>
 
 
 </pre></div>
