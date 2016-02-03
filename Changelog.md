@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.10 (2016-02-03)
+-------------------------------------------------
+- Added missing validator.
+- Fixed style of test cases.
+- Fixed lint warnings in code.
+- Updated meta data of package and travis build versions.
+- Upgraded some subpackages.
+
 Version 1.0.9 (2016-02-01)
 -------------------------------------------------
 - Now allow newest validator version again.
