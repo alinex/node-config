@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.11 (2016-02-04)
+-------------------------------------------------
+- Updated subpackages to newest versions.
+- updated ignore files.
+- Move optional dependencies to normal.
+- Added missing packages for ini and properties format.
+
 Version 1.0.10 (2016-02-03)
 -------------------------------------------------
 - Added missing validator.
