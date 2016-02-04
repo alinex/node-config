@@ -382,7 +382,7 @@ to update this data, too.</p>
 <p>find files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="p">[</span><span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
+  <span class="nv">parts = </span><span class="nx">path</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
 <span class="sr">    ^</span>
 <span class="sr">    (</span>
 <span class="sr">      [^?*[{@]*$    # everything till end without pattern</span>
@@ -391,7 +391,8 @@ to update this data, too.</p>
 <span class="sr">    )?</span>
 <span class="sr">    (.*)            # part containing pattern to end</span>
 <span class="sr">    $</span>
-<span class="sr">  ///</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span> <span class="c1"># prevent the complete match</span>
+<span class="sr">  ///</span>
+  <span class="p">[</span><span class="nx">path</span><span class="p">,</span> <span class="nx">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">..]</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
   <span class="nx">path</span> <span class="o">?=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span> <span class="c1"># make relative links absolute</span>
   <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;/&#39;</span>
   <span class="nv">path = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span>
