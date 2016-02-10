@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.12 (2016-02-10)
+-------------------------------------------------
+- Updated validator to support handlebars with international dates.
+
 Version 1.0.11 (2016-02-04)
 -------------------------------------------------
 - Updated subpackages to newest versions.
