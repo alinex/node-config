@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/github/node-config/READMEmd", defaultSidebar = true;
+    var relativeDir = "";
+    var thisFile = "home/alex/github/node-config/README.md";
+    var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,113 +39,135 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#package%3A%20alinex-config">Package: alinex-config</a>
+        <a href="#package-alinex-config">Package: alinex-config</a>
       </div>
+
       <div class="heading h2">
         <a href="#install">Install</a>
       </div>
+
       <div class="heading h2">
         <a href="#formats">Formats</a>
       </div>
+
       <div class="heading h3">
         <a href="#yaml">YAML</a>
       </div>
+
       <div class="heading h3">
         <a href="#json">JSON</a>
       </div>
+
       <div class="heading h3">
         <a href="#javascript">JavaScript</a>
       </div>
+
       <div class="heading h3">
         <a href="#cson">CSON</a>
       </div>
+
       <div class="heading h3">
         <a href="#xml">XML</a>
       </div>
+
       <div class="heading h3">
         <a href="#ini">INI</a>
       </div>
+
       <div class="heading h3">
         <a href="#properties">PROPERTIES</a>
       </div>
+
       <div class="heading h3">
         <a href="#rdbms">RDBMS</a>
       </div>
+
       <div class="heading h3">
-        <a href="#object%20db">Object DB</a>
+        <a href="#object-db">Object DB</a>
       </div>
+
       <div class="heading h2">
-        <a href="#file%20structure">File Structure</a>
+        <a href="#file-structure">File Structure</a>
       </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+
       <div class="heading h2">
-        <a href="#setup%20origin">Setup origin</a>
+        <a href="#setup-origin">Setup origin</a>
       </div>
+
       <div class="heading h3">
-        <a href="#origin%20object">Origin Object</a>
+        <a href="#origin-object">Origin Object</a>
       </div>
+
       <div class="heading h3">
-        <a href="#file%20search">File search</a>
+        <a href="#file-search">File search</a>
       </div>
+
       <div class="heading h3">
-        <a href="#parsing%20data">Parsing data</a>
+        <a href="#parsing-data">Parsing data</a>
       </div>
+
       <div class="heading h3">
-        <a href="#combine%20contents">Combine contents</a>
+        <a href="#combine-contents">Combine contents</a>
       </div>
+
       <div class="heading h3">
-        <a href="#origin%20structure">Origin Structure</a>
+        <a href="#origin-structure">Origin Structure</a>
       </div>
+
       <div class="heading h3">
-        <a href="#register%20application">Register Application</a>
+        <a href="#register-application">Register Application</a>
       </div>
+
       <div class="heading h2">
-        <a href="#setup%20schema">Setup schema</a>
+        <a href="#setup-schema">Setup schema</a>
       </div>
+
       <div class="heading h2">
         <a href="#initialize">Initialize</a>
       </div>
+
       <div class="heading h2">
-        <a href="#access%20configuration">Access configuration</a>
+        <a href="#access-configuration">Access configuration</a>
       </div>
+
       <div class="heading h2">
-        <a href="#web%20services">Web Services</a>
+        <a href="#web-services">Web Services</a>
       </div>
+
       <div class="heading h2">
         <a href="#examples">Examples</a>
       </div>
+
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="package%3A%20alinex-config">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="package-alinex-config">
   <h1>
-    <a href="#package%3A%20alinex-config" name="package%3A%20alinex-config" class="pilcrow">&#182;</a>
-    Package: alinex-config
+    <a href="#package-alinex-config" name="package-alinex-config" class="pilcrow"></a>
+Package: alinex-config
   </h1>
 </div>
-
-
-<p><a href="https://travis-ci.org/alinex/node-config"><img src="https://travis-ci.org/alinex/node-config.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://coveralls.io/repos/alinex/node-config/badge.svg?branch=master" alt="Coverage Status" title="" /></a>
-<a href="https://gemnasium.com/alinex/node-config"><img src="https://gemnasium.com/alinex/node-config.png" alt="Dependency Status" title="" /></a></p>
-
+<p><a href="https://travis-ci.org/alinex/node-config"><img src="https://travis-ci.org/alinex/node-config.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://coveralls.io/repos/alinex/node-config/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-config"><img src="https://gemnasium.com/alinex/node-config.png" alt="Dependency Status"></a></p>
 <p>This package will give you an easy way to load and use configuration settings in
 your application or module.</p>
-
 <p>It will read named files in different formats (YAML, JSON, XML, JavaScript,
 CoffeeScript) and supports validation and optimization/completion. Also the
 configuration will automatically be updated on changes in the file system
 and may inform it's dependent objects.</p>
-
 <p>The major features are:</p>
-
 <ul>
 <li>over writable configurations</li>
 <li>allows different file formats</li>
@@ -142,604 +175,592 @@ and may inform it's dependent objects.</p>
 <li>supports value modification rules</li>
 <li>automatically reloads on file changes</li>
 </ul>
-
 <blockquote>
-  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
 </blockquote>
-
-
 <div class="pilwrap" id="install">
   <h2>
-    <a href="#install" name="install" class="pilcrow">&#182;</a>
-    Install
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
   </h2>
 </div>
-
-
-<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
- <img src="https://nodei.co/npm-dl/alinex-config.png?months=9&amp;height=3" alt="Downloads" title="" />
+<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-config.png?months=9&amp;height=3" alt="Downloads">
 </a></p>
-
 <p>The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):</p>
-
-
-<div class="highlight"><pre><code>npm install alinex-config --save
-</code></pre></div>
-
-
-
+<pre><code class="sh">npm install alinex-config --save
+</code></pre>
 <p>And update it to the latest version later:</p>
-
-
-<div class="highlight"><pre><code>npm update alinex-config --save
-</code></pre></div>
-
-
-
-<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-
-
+<pre><code class="sh">npm update alinex-config --save
+</code></pre>
+<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
 <div class="pilwrap" id="formats">
   <h2>
-    <a href="#formats" name="formats" class="pilcrow">&#182;</a>
-    Formats
+    <a href="#formats" name="formats" class="pilcrow"></a>
+Formats
   </h2>
 </div>
-
-
 <p>This configuration class allows multiple formats to be used alternatively or combined.
 So you may use the format you know best. The following table will give a short
 comparison.</p>
-
-<p style="font-family:monospace;white-space:pre">|   Format    | YAML | XML | JSON |  JS | CSON | INI | PROP | RDBMS | ObjDB |
-|:------------|-----:|----:|-----:|----:|-----:|----:|-----:|------:|------:|
-| Supported   |  yes | yes |  yes | yes |  yes | yes |  yes |    no |    no |
-| Comments    |  yes | yes | (yes)| yes |  yes | yes |  yes |   yes | (yes) |
-| Structure   |  yes | yes |  yes | yes |  yes | yes |  yes |   yes |   yes |
-| Arrays      |  yes | yes |  yes | yes |  yes | yes |   no |   yes |   yes |
-| Reloadable  |  yes | yes |  yes | yes |  yes | yes |  yes | (yes) | (yes) |
-| Readiness   |  +++ |   - |   ++ |  ++ |  +++ |   + |    + |     + |    ++ |
-| Calculations|   no |  no |   no | yes |  yes |  no |   no |    no |    no |
-| Performance |   ++ |   + |  +++ | +++ |   ++ |  ++ |    + |     - |     + |
-| Common      |   ++ |   + |   ++ |  -- |  --- | +++ |  +++ |     - |    -- |</p>
-
-
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Format</th>
+<th style="text-align:right">YAML</th>
+<th style="text-align:right">XML</th>
+<th style="text-align:right">JSON</th>
+<th style="text-align:right">JS</th>
+<th style="text-align:right">CSON</th>
+<th style="text-align:right">INI</th>
+<th style="text-align:right">PROP</th>
+<th style="text-align:right">RDBMS</th>
+<th style="text-align:right">ObjDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Supported</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+</tr>
+<tr>
+<td style="text-align:left">Comments</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">(yes)</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">(yes)</td>
+</tr>
+<tr>
+<td style="text-align:left">Structure</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Arrays</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Reloadable</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">(yes)</td>
+<td style="text-align:right">(yes)</td>
+</tr>
+<tr>
+<td style="text-align:left">Readiness</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">++</td>
+</tr>
+<tr>
+<td style="text-align:left">Calculations</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">yes</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+<td style="text-align:right">no</td>
+</tr>
+<tr>
+<td style="text-align:left">Performance</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">+</td>
+</tr>
+<tr>
+<td style="text-align:left">Common</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">+</td>
+<td style="text-align:right">++</td>
+<td style="text-align:right">--</td>
+<td style="text-align:right">---</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">+++</td>
+<td style="text-align:right">-</td>
+<td style="text-align:right">--</td>
+</tr>
+</tbody>
+</table>
 <div class="pilwrap" id="yaml">
   <h3>
-    <a href="#yaml" name="yaml" class="pilcrow">&#182;</a>
-    YAML
+    <a href="#yaml" name="yaml" class="pilcrow"></a>
+YAML
   </h3>
 </div>
-
-
 <p>This is a simplified and best human readable language to write structured
 information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
-
 <p>Common file extensions <code>yml</code> or <code>yaml</code>.</p>
-
 <p><strong>Example</strong></p>
+<pre><code class="yaml"># include text elements
+text: test
 
+# commas, colons and brackets has to be in quotes
+longtext: &quot;And a long text with ' and &quot;&quot; is possible, too&quot;
 
-<div class="highlight"><pre><code><span class="c1"># include text elements</span>
-<span class="l-Scalar-Plain">text</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+# multiline text with newlines removed
+multiline: &gt;
+  This may be a very long
+  line in which newlines
+  will be removed.
 
-<span class="c1"># commas, colons and brackets has to be in quotes</span>
-<span class="l-Scalar-Plain">longtext</span><span class="p-Indicator">:</span> <span class="s">&quot;And</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">long</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">&quot;&quot;</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">possible,</span><span class="nv"> </span><span class="s">too&quot;</span>
+# and now the newlines are kept
+keepnewlines: |
+  Line 1
+  Line 2
+  Line 3
 
-<span class="c1"># multiline text with newlines removed</span>
-<span class="l-Scalar-Plain">multiline</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-  <span class="no">This may be a very long</span>
-  <span class="no">line in which newlines</span>
-  <span class="no">will be removed.</span>
+# and some lists
+simplelist: 1, 2, 3
+list:
+  - red
+  - green
+  - blue
 
-<span class="c1"># and now the newlines are kept</span>
-<span class="l-Scalar-Plain">keepnewlines</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
-  <span class="no">Line 1</span>
-  <span class="no">Line 2</span>
-  <span class="no">Line 3</span>
-
-<span class="c1"># and some lists</span>
-<span class="l-Scalar-Plain">simplelist</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1, 2, 3</span>
-<span class="l-Scalar-Plain">list</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">red</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">green</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">blue</span>
-
-<span class="c1"># an sub object</span>
-<span class="l-Scalar-Plain">person</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Alexander Schilling</span>
-  <span class="l-Scalar-Plain">job</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Developer</span>
-</code></pre></div>
-
-
-
-
+# an sub object
+person:
+  name: Alexander Schilling
+  job: Developer
+</code></pre>
 <div class="pilwrap" id="json">
   <h3>
-    <a href="#json" name="json" class="pilcrow">&#182;</a>
-    JSON
+    <a href="#json" name="json" class="pilcrow"></a>
+JSON
   </h3>
 </div>
-
-
 <p>This format uses the javascript object notation a human readable structure. It
 is widely used in different languages not only JavaScript. See description at
 <a href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>.</p>
-
 <p>Common file extension <code>json</code>.</p>
-
-
-<div class="highlight"><pre><code><span class="p">{</span>
-  <span class="nt">&quot;string&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-  <span class="nt">&quot;person&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alexander Schilling&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;job&quot;</span><span class="p">:</span> <span class="s2">&quot;Developer&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
+<pre><code class="json">{
+  "<span class="hljs-attribute">string</span>": <span class="hljs-value"><span class="hljs-string">"test"</span></span>,
+  "<span class="hljs-attribute">list</span>": <span class="hljs-value">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]</span>,
+  "<span class="hljs-attribute">person</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling"</span></span>,
+    "<span class="hljs-attribute">job</span>": <span class="hljs-value"><span class="hljs-string">"Developer"</span>
+  </span>}
+</span>}
+</code></pre>
 <p>JSON won't allow comments but you may use JavaScript like comments using
 <code>//</code> and <code>/*...*/</code> like known in javascript. Therefore use the javascript
 parsing.</p>
-
-
 <div class="pilwrap" id="javascript">
   <h3>
-    <a href="#javascript" name="javascript" class="pilcrow">&#182;</a>
-    JavaScript
+    <a href="#javascript" name="javascript" class="pilcrow"></a>
+JavaScript
   </h3>
 </div>
-
-
 <p>Also allowed are normal JavaScript files. In comparison to the JSON format it
 is more loosely so you may use single quotes, keys don't need quotes at all and
 at last you may use calculations. But you may only access elements in the same
 file accessing data from outside is prevented by security.</p>
-
 <p>Common file extension <code>js</code>.</p>
+<pre><code class="javascript">{
+  <span class="hljs-comment">// include a string</span>
+  string: <span class="hljs-string">"test"</span>,
 
+  <span class="hljs-comment">// and a list of numbers</span>
+  list: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
 
-<div class="highlight"><pre><code><span class="p">{</span>
-  <span class="c1">// include a string</span>
-  <span class="nx">string</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+  <span class="hljs-comment">// add a sub object</span>
+  person: {
+    name: <span class="hljs-string">"Alexander Schilling"</span>,
+    job: <span class="hljs-string">"Developer"</span>
+  },
 
-  <span class="c1">// and a list of numbers</span>
-  <span class="nx">list</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-
-  <span class="c1">// add a sub object</span>
-  <span class="nx">person</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Alexander Schilling&quot;</span><span class="p">,</span>
-    <span class="nx">job</span><span class="o">:</span> <span class="s2">&quot;Developer&quot;</span>
-  <span class="p">},</span>
-
-  <span class="c1">// calculate session timeout in milliseconds</span>
-  <span class="nx">session</span><span class="o">:</span> <span class="mi">15</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span>
-  <span class="nx">calc</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-
-
+  <span class="hljs-comment">// calculate session timeout in milliseconds</span>
+  session: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>,
+  calc: <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">16</span>)
+}
+</code></pre>
 <div class="pilwrap" id="cson">
   <h3>
-    <a href="#cson" name="cson" class="pilcrow">&#182;</a>
-    CSON
+    <a href="#cson" name="cson" class="pilcrow"></a>
+CSON
   </h3>
 </div>
-
-
 <p>Like above you may write the modules in CoffeeScript like in JSON.</p>
-
 <p>Common file extension <code>cson</code>.</p>
+<pre><code class="coffee"><span class="hljs-comment"># include a string</span>
+<span class="hljs-attribute">string</span>: <span class="hljs-string">"test"</span>
 
+<span class="hljs-comment"># and a list of numbers</span>
+<span class="hljs-attribute">list</span>: [
+  <span class="hljs-number">1</span>
+  <span class="hljs-number">2</span>
+  <span class="hljs-number">3</span>
+]
 
-<div class="highlight"><pre><code><span class="c1"># include a string</span>
-<span class="nv">string: </span><span class="s">&quot;test&quot;</span>
+<span class="hljs-comment"># add a sub object</span>
+<span class="hljs-attribute">person</span>:
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">"Alexander Schilling"</span>
+  <span class="hljs-attribute">job</span>: <span class="hljs-string">"Developer"</span>
 
-<span class="c1"># and a list of numbers</span>
-<span class="nv">list: </span><span class="p">[</span>
-  <span class="mi">1</span>
-  <span class="mi">2</span>
-  <span class="mi">3</span>
-<span class="p">]</span>
-
-<span class="c1"># add a sub object</span>
-<span class="nv">person:</span>
-  <span class="nv">name: </span><span class="s">&quot;Alexander Schilling&quot;</span>
-  <span class="nv">job: </span><span class="s">&quot;Developer&quot;</span>
-
-<span class="c1"># calculate session timeout in milliseconds</span>
-<span class="nv">session: </span><span class="mi">15</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">1000</span>
-<span class="nv">calc: </span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span> <span class="mi">16</span>
-</code></pre></div>
-
-
-
-
+<span class="hljs-comment"># calculate session timeout in milliseconds</span>
+<span class="hljs-attribute">session</span>: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>
+<span class="hljs-attribute">calc</span>: Math.sqrt <span class="hljs-number">16</span>
+</code></pre>
 <div class="pilwrap" id="xml">
   <h3>
-    <a href="#xml" name="xml" class="pilcrow">&#182;</a>
-    XML
+    <a href="#xml" name="xml" class="pilcrow"></a>
+XML
   </h3>
 </div>
-
-
 <p>The XML format should only use Tags and values, but no arguments.</p>
-
 <p>Common file extension <code>xml</code>.</p>
+<pre><code class="xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="hljs-comment">&lt;!-- use an object --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">xml</span>&gt;</span>
 
+  <span class="hljs-comment">&lt;!-- include a string --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
 
-<div class="highlight"><pre><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
-<span class="c">&lt;!-- use an object --&gt;</span>
-<span class="nt">&lt;xml&gt;</span>
+  <span class="hljs-comment">&lt;!-- and a list of numbers --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
 
-  <span class="c">&lt;!-- include a string --&gt;</span>
-  <span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+  <span class="hljs-comment">&lt;!-- sub object --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">person</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>Alexander Schilling<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">job</span>&gt;</span>Developer<span class="hljs-tag">&lt;/<span class="hljs-title">job</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">person</span>&gt;</span>
 
-  <span class="c">&lt;!-- and a list of numbers --&gt;</span>
-  <span class="nt">&lt;list&gt;</span>1<span class="nt">&lt;/list&gt;</span>
-  <span class="nt">&lt;list&gt;</span>2<span class="nt">&lt;/list&gt;</span>
-  <span class="nt">&lt;list&gt;</span>3<span class="nt">&lt;/list&gt;</span>
+  <span class="hljs-comment">&lt;!-- cdata section --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">cdata</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[i\'m not escaped: &lt;xml&gt;!]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">cdata</span>&gt;</span>
 
-  <span class="c">&lt;!-- sub object --&gt;</span>
-  <span class="nt">&lt;person&gt;</span>
-    <span class="nt">&lt;name&gt;</span>Alexander Schilling<span class="nt">&lt;/name&gt;&lt;job&gt;</span>Developer<span class="nt">&lt;/job&gt;</span>
-  <span class="nt">&lt;/person&gt;</span>
-
-  <span class="c">&lt;!-- cdata section --&gt;</span>
-  <span class="nt">&lt;cdata&gt;</span><span class="cp">&lt;![CDATA[i\&#39;m not escaped: &lt;xml&gt;!]]&gt;</span><span class="nt">&lt;/cdata&gt;</span>
-
-  <span class="c">&lt;!-- using attributes --&gt;</span>
-  <span class="nt">&lt;attributes</span> <span class="na">type=</span><span class="s">&quot;detail&quot;</span><span class="nt">&gt;</span>
+  <span class="hljs-comment">&lt;!-- using attributes --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">attributes</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"detail"</span>&gt;</span>
     Hello all together
-  <span class="nt">&lt;/attributes&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">attributes</span>&gt;</span>
 
-<span class="nt">&lt;/xml&gt;</span>
-</code></pre></div>
-
-
-
-
+<span class="hljs-tag">&lt;/<span class="hljs-title">xml</span>&gt;</span>
+</code></pre>
 <div class="pilwrap" id="ini">
   <h3>
-    <a href="#ini" name="ini" class="pilcrow">&#182;</a>
-    INI
+    <a href="#ini" name="ini" class="pilcrow"></a>
+INI
   </h3>
 </div>
-
-
 <p>This is one of the oldest formats used for configurations. It is very simple but
 allows also complex objects through extended groups.</p>
-
 <p>Common file extension <code>ini</code>.</p>
+<pre><code class="ini"><span class="hljs-comment">; put everything in a main group</span>
+<span class="hljs-title">[ini]</span>
+<span class="hljs-setting">string = <span class="hljs-value">test</span></span>
 
+<span class="hljs-comment">; add a simple list</span>
+<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">1</span></span></span>
+<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">2</span></span></span>
+<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">3</span></span></span>
 
-<div class="highlight"><pre><code><span class="c1">; put everything in a main group</span>
-<span class="k">[ini]</span>
-<span class="na">string</span> <span class="o">=</span> <span class="s">test</span>
-
-<span class="c1">; add a simple list</span>
-<span class="na">list[]</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">list[]</span> <span class="o">=</span> <span class="s">2</span>
-<span class="na">list[]</span> <span class="o">=</span> <span class="s">3</span>
-
-<span class="c1">; add a sub object</span>
-<span class="k">[ini.person]</span>
-<span class="na">name</span> <span class="o">=</span> <span class="s">Alexander Schilling</span>
-<span class="na">job</span> <span class="o">=</span> <span class="s">Developer</span>
-</code></pre></div>
-
-
-
-
+<span class="hljs-comment">; add a sub object</span>
+<span class="hljs-title">[ini.person]</span>
+<span class="hljs-setting">name = <span class="hljs-value">Alexander Schilling</span></span>
+<span class="hljs-setting">job = <span class="hljs-value">Developer</span></span>
+</code></pre>
 <div class="pilwrap" id="properties">
   <h3>
-    <a href="#properties" name="properties" class="pilcrow">&#182;</a>
-    PROPERTIES
+    <a href="#properties" name="properties" class="pilcrow"></a>
+PROPERTIES
   </h3>
 </div>
-
-
 <p>Mainly in the Java world properties are used to setup configuration values.
 But it won't have support for arrays, you only may use objects with numbered keys.</p>
+<pre><code class="properties"># put everything in a main group
+prop.string = test
 
+! add a simple list
+prop.list.1 = 1
+prop.list.2 = 2
+prop.list.3 = 3
 
-<div class="highlight"><pre><code><span class="c"># put everything in a main group</span>
-<span class="na">prop.string</span> <span class="o">=</span> <span class="s">test</span>
-
-<span class="err">!</span> <span class="err">add</span> <span class="err">a</span> <span class="err">simple</span> <span class="err">list</span>
-<span class="na">prop.list.1</span> <span class="o">=</span> <span class="s">1</span>
-<span class="na">prop.list.2</span> <span class="o">=</span> <span class="s">2</span>
-<span class="na">prop.list.3</span> <span class="o">=</span> <span class="s">3</span>
-
-<span class="err">!</span> <span class="err">add</span> <span class="err">a</span> <span class="err">sub</span> <span class="err">object</span>
-<span class="na">prop.person.name</span> <span class="o">:</span> <span class="s">Alexander Schilling</span>
-<span class="na">prop.person.job</span><span class="o">:</span> <span class="s">Developer</span>
-</code></pre></div>
-
-
-
-
+! add a sub object
+prop.person.name : Alexander Schilling
+prop.person.job: Developer
+</code></pre>
 <div class="pilwrap" id="rdbms">
   <h3>
-    <a href="#rdbms" name="rdbms" class="pilcrow">&#182;</a>
-    RDBMS
+    <a href="#rdbms" name="rdbms" class="pilcrow"></a>
+RDBMS
   </h3>
 </div>
-
-
 <blockquote>
-  <p>Not supported, yet.</p>
+<p>Not supported, yet.</p>
 </blockquote>
-
-<p style="font-family:monospace;white-space:pre">| lastchange       | group | key          |  value | comment |
-|------------------|-------|:-------------|:-------|:--------|
-| 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
-| 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
-| 2014-12-11 19:45 | test  | rdbms.list   | null   | and a list of numbers |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 1      |  |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 2      |  |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 3      |  |</p>
-
-
-<div class="pilwrap" id="object%20db">
+<table>
+<thead>
+<tr>
+<th>lastchange</th>
+<th>group</th>
+<th style="text-align:left">key</th>
+<th style="text-align:left">value</th>
+<th style="text-align:left">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms</td>
+<td style="text-align:left">null</td>
+<td style="text-align:left">use an object</td>
+</tr>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms.name</td>
+<td style="text-align:left">&quot;name&quot;</td>
+<td style="text-align:left">include a string</td>
+</tr>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms.list</td>
+<td style="text-align:left">null</td>
+<td style="text-align:left">and a list of numbers</td>
+</tr>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms.list[]</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms.list[]</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td>2014-12-11 19:45</td>
+<td>test</td>
+<td style="text-align:left">rdbms.list[]</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="object-db">
   <h3>
-    <a href="#object%20db" name="object%20db" class="pilcrow">&#182;</a>
-    Object DB
+    <a href="#object-db" name="object-db" class="pilcrow"></a>
+Object DB
   </h3>
 </div>
-
-
 <blockquote>
-  <p>Not supported, yet.</p>
+<p>Not supported, yet.</p>
 </blockquote>
-
 <p>Here, the JSON will be stored in the database like in the JSON file.</p>
-
-
-<div class="pilwrap" id="file%20structure">
+<div class="pilwrap" id="file-structure">
   <h2>
-    <a href="#file%20structure" name="file%20structure" class="pilcrow">&#182;</a>
-    File Structure
+    <a href="#file-structure" name="file-structure" class="pilcrow"></a>
+File Structure
   </h2>
 </div>
-
-
 <p>As seen above you can use different formats but you can also mix it or split your
 configuration into multiple files.</p>
-
 <p>So as an first example if you have a very large configuration of three major
 parts you may split it up into 3 different files.</p>
-
-
-<div class="highlight"><pre><code><span class="c1"># config/server/http.yml</span>
-<span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
-  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
-</code></pre></div>
-
-
-
-
-<div class="highlight"><pre><code><span class="c1"># config/server/ftp.yml</span>
-<span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
-  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">21</span>
-</code></pre></div>
-
-
-
-
-<div class="highlight"><pre><code><span class="c1"># config/server/mail.yml</span>
-<span class="l-Scalar-Plain">pop</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">110</span>
-<span class="l-Scalar-Plain">imap</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">143</span>
-</code></pre></div>
-
-
-
+<pre><code class="yaml"># config/server/http.yml
+listen:
+  ip: 192.168.0.1
+  port: 80
+</code></pre>
+<pre><code class="yaml"># config/server/ftp.yml
+listen:
+  ip: 192.168.0.1
+  port: 21
+</code></pre>
+<pre><code class="yaml"># config/server/mail.yml
+pop:
+  port: 110
+imap:
+  port: 143
+</code></pre>
 <p>And if the program now reads <code>config/**</code> you will get the combined structure:</p>
-
-
-<div class="highlight"><pre><code><span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">http</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
-  <span class="l-Scalar-Plain">ftp</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">listen</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">ip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.0.1</span>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">21</span>
-  <span class="l-Scalar-Plain">mail</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">pop</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">110</span>
-    <span class="l-Scalar-Plain">imap</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">143</span>
-</code></pre></div>
-
-
-
+<pre><code class="yaml">server:
+  http:
+    listen:
+      ip: 192.168.0.1
+      port: 80
+  ftp:
+    listen:
+      ip: 192.168.0.1
+      port: 21
+  mail:
+    pop:
+      port: 110
+    imap:
+      port: 143
+</code></pre>
 <p>This is because the config system will use the names behind the asterisk as
 structure levels automatically but you may control the combination rules using
 filter and path in the origin setup (see below).</p>
-
-
 <div class="pilwrap" id="usage">
   <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
   </h2>
 </div>
-
-
 <p>To use the configuration management you have to load the module first:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+</code></pre>
 <p>This gives you back the main configuration instance.
 But before you can access your configuration you have to setup the system if not
 already done and initialize it:</p>
+<pre><code class="coffee"><span class="hljs-comment"># register common configuration paths for application</span>
+config.register <span class="hljs-string">'myapp'</span>, __dirname
+<span class="hljs-comment"># add a special path on the end (highest priority)</span>
+config.pushOrigin
+  <span class="hljs-attribute">uri</span>: <span class="hljs-string">'file:///etc/my-config.yml'</span>
+<span class="hljs-comment"># and add a schema to verify the database settings are correct</span>
+config.setSchema <span class="hljs-string">'database'</span>,
+  <span class="hljs-attribute">type</span>: ....  <span class="hljs-comment"># schema</span>
 
-
-<div class="highlight"><pre><code><span class="c1"># register common configuration paths for application</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;myapp&#39;</span><span class="p">,</span> <span class="nx">__dirname</span>
-<span class="c1"># add a special path on the end (highest priority)</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">pushOrigin</span>
-  <span class="nv">uri: </span><span class="s">&#39;file:///etc/my-config.yml&#39;</span>
-<span class="c1"># and add a schema to verify the database settings are correct</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;database&#39;</span><span class="p">,</span>
-  <span class="nv">type: </span><span class="p">....</span>  <span class="c1"># schema</span>
-
-<span class="c1"># start initializing the configuration and load the data</span>
-<span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-  <span class="c1"># all configurations are loaded successfully</span>
-</code></pre></div>
-
-
-
+<span class="hljs-comment"># start initializing the configuration and load the data</span>
+config.init (err) -&gt;
+  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+  <span class="hljs-comment"># all configurations are loaded successfully</span>
+</code></pre>
 <p>Alternatively you may skip your program with a detailed error message:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-  <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;FAILED: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">config.init (err) -&gt;
+  <span class="hljs-keyword">if</span> err
+    <span class="hljs-built_in">console</span>.error <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span>
+    <span class="hljs-built_in">console</span>.error err.description
+    process.exit <span class="hljs-number">1</span>
+</code></pre>
 <p>Make sure that the initialization is completely done for all configuration data
 before using it. If you change the setup later you have to reinit everything which
 causes an extra afford which you should skip if possible.</p>
-
 <p>After that is done you can easily access the configuration like:</p>
-
-
-<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">data</span>
-<span class="c1"># here you have the whole registry data</span>
-<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span>
-<span class="c1"># and now you have only the server structure</span>
-<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;database/master/address&#39;</span>
-<span class="c1"># or only a specific database connection</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">conf = config.data
+<span class="hljs-comment"># here you have the whole registry data</span>
+conf = config.get <span class="hljs-string">'server'</span>
+<span class="hljs-comment"># and now you have only the server structure</span>
+conf = config.get <span class="hljs-string">'database/master/address'</span>
+<span class="hljs-comment"># or only a specific database connection</span>
+</code></pre>
 <blockquote>
-  <p>To don't mess with the names: I always address the instance with <code>config</code> and use
-  a short name like <code>conf</code> for some data out of it.</p>
+<p>To don't mess with the names: I always address the instance with <code>config</code> and use
+a short name like <code>conf</code> for some data out of it.</p>
 </blockquote>
-
-
-<div class="pilwrap" id="setup%20origin">
+<div class="pilwrap" id="setup-origin">
   <h2>
-    <a href="#setup%20origin" name="setup%20origin" class="pilcrow">&#182;</a>
-    Setup origin
+    <a href="#setup-origin" name="setup-origin" class="pilcrow"></a>
+Setup origin
   </h2>
 </div>
-
-
 <p>The origin is the place the configuration data comes from. For alinex-config you
 have the possibility to specify multiple search paths, you can also overload
 configurations with another file in higher priority and combine values from
 different files together.
 So the specification of the origin is the main part and is the base to build
 the registry data.</p>
-
-
-<div class="pilwrap" id="origin%20object">
+<div class="pilwrap" id="origin-object">
   <h3>
-    <a href="#origin%20object" name="origin%20object" class="pilcrow">&#182;</a>
-    Origin Object
+    <a href="#origin-object" name="origin-object" class="pilcrow"></a>
+Origin Object
   </h3>
 </div>
-
-
 <p>To setup the origin for the configuration module you have to extend the origin
 list by adding a new origin object.</p>
-
 <p>The single origin object describes where to find the configuration, what to use
 and where to put them in the final data structure. It contains the following
 possible elements:</p>
-
 <ul>
 <li>uri - pointing to the search</li>
 <li>parser - (optional) type to use for parsing the data</li>
 <li>filter - (optional) which part to use</li>
 <li>path - (optional) where to put it in the data structure</li>
 </ul>
-
 <p>The following URI types are possible here:</p>
-
 <ul>
-<li>No Protocol => using the file protocol</li>
-<li><code>file://</code> => load from local file</li>
-<li><code>http://</code> or <code>https://</code> => load from web service</li>
+<li>No Protocol =&gt; using the file protocol</li>
+<li><code>file://</code> =&gt; load from local file</li>
+<li><code>http://</code> or <code>https://</code> =&gt; load from web service</li>
 </ul>
-
-
-<div class="pilwrap" id="file%20search">
+<div class="pilwrap" id="file-search">
   <h3>
-    <a href="#file%20search" name="file%20search" class="pilcrow">&#182;</a>
-    File search
+    <a href="#file-search" name="file-search" class="pilcrow"></a>
+File search
   </h3>
 </div>
-
-
 <p>Access files absolute from root or relative from current directory:</p>
-
-
-<div class="highlight"><pre><code>file:///etc/myapp.yml   # absolute path
+<pre><code class="text">file:///etc/myapp.yml   # absolute path
 /etc/myapp.yml          # shortcut
 
 file://config/myapp.yml # relative path
 config/myapp.yaml       # shortcut
-</code></pre></div>
-
-
-
+</code></pre>
 <p>You can search by using asterisk as placeholder or a double asterisk to
 go multiple level depth:</p>
-
-
-<div class="highlight"><pre><code>/etc/myapp.*            # search for any extension
+<pre><code class="text">/etc/myapp.*            # search for any extension
 /etc/myapp/*.yml        # find all files with this extension
 /etc/myapp/*            # find all files in the directory
 /etc/myapp/*/*.yml      # fin one level depth
 /etc/myapp/**           # find all files in directory or subdirectories
 /etc/myapp/**/*.yml     # find files in the directory or subdirectories
-</code></pre></div>
-
-
-
+</code></pre>
 <p>See more about the possible matchings at
 <a href="http://alinex.github.io/node-fs/README.md.html#file%2Fpath%20matching">FS</a>.</p>
-
-
-<div class="pilwrap" id="parsing%20data">
+<div class="pilwrap" id="parsing-data">
   <h3>
-    <a href="#parsing%20data" name="parsing%20data" class="pilcrow">&#182;</a>
-    Parsing data
+    <a href="#parsing-data" name="parsing-data" class="pilcrow"></a>
+Parsing data
   </h3>
 </div>
-
-
 <p>The data loaded from the given URI will be parsed if it is a string. You may
 set one of the following parsers in <code>parser</code> to use:</p>
-
 <ul>
 <li>yaml</li>
 <li>json</li>
@@ -749,138 +770,94 @@ set one of the following parsers in <code>parser</code> to use:</p>
 <li>coffee</li>
 <li>javascript</li>
 </ul>
-
 <p>But if you don't specify it, it will be auto detected based on the file extension
 or the contents itself.</p>
-
-
-<div class="pilwrap" id="combine%20contents">
+<div class="pilwrap" id="combine-contents">
   <h3>
-    <a href="#combine%20contents" name="combine%20contents" class="pilcrow">&#182;</a>
-    Combine contents
+    <a href="#combine-contents" name="combine-contents" class="pilcrow"></a>
+Combine contents
   </h3>
 </div>
-
-
 <p>Use the <code>filter</code> path to only use a subset of the loaded structure and the
 <code>path</code> to specify where it belongs to.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">filter</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span>
-<span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;database/test&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code>filter: 'test'
+path: 'database/test'
+</code></pre>
 <p>This will only use the <code>test</code> settings from the loaded data and put them into
 <code>data.database.test</code>.</p>
-
 <p>If multiple files are found (maybe through multiple origins) their contents
 will be merged together in the order they are specified in the origin tree list.
 This means that the later one will overwrite the earlier one if they have values
 for the same element.</p>
-
-
-<div class="pilwrap" id="origin%20structure">
+<div class="pilwrap" id="origin-structure">
   <h3>
-    <a href="#origin%20structure" name="origin%20structure" class="pilcrow">&#182;</a>
-    Origin Structure
+    <a href="#origin-structure" name="origin-structure" class="pilcrow"></a>
+Origin Structure
   </h3>
 </div>
-
-
 <p>The origin structure is a tree list which will be processed top down. This means
 that you can add new origin objects at the top to use them as defaults or at
 the end of the list to make this the highest priority.</p>
-
 <p>In case of registering applications they will make a sublist with their search
 paths (see below).</p>
-
-
-<div class="pilwrap" id="register%20application">
+<div class="pilwrap" id="register-application">
   <h3>
-    <a href="#register%20application" name="register%20application" class="pilcrow">&#182;</a>
-    Register Application
+    <a href="#register-application" name="register-application" class="pilcrow"></a>
+Register Application
   </h3>
 </div>
-
-
 <p>An application have the possibility to search for their file based configuration
 on multiple locations out of the box:</p>
-
 <ul>
 <li>var/src/config - defaults in the source code</li>
 <li>var/local/config - local within the installed program</li>
 <li>/etc/<app> - global for the application</li>
 <li>~/.app/config - user specific settings</li>
 </ul>
-
 <p>As described above the last has the highest priority.</p>
-
 <p>To support this in an easy way you may use the <code>register</code> method which if given
 an application name and the app directory will do everything for you.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="nx">myapp</span><span class="p">,</span> <span class="nx">__dirname</span><span class="p">,</span>
-  <span class="nv">uri: </span><span class="s">&#39;*.yml&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">config.register myapp, __dirname,
+  <span class="hljs-attribute">uri</span>: <span class="hljs-string">'*.yml'</span>
+</code></pre>
 <p>Like you see, you may also add the  attributes from the normal configuration
 like <code>uri</code>, <code>filter</code> and <code>path</code>.</p>
-
 <p>You may also register a module. Therefore give <code>null</code> as application name and
 it will only add the first two paths based on the given directory.</p>
-
 <p>If you won't have your settings in the 'config' folder you may specify another
-one using <code>folder: "..."</code> as additional parameter.</p>
-
-
-<div class="pilwrap" id="setup%20schema">
+one using <code>folder: &quot;...&quot;</code> as additional parameter.</p>
+<div class="pilwrap" id="setup-schema">
   <h2>
-    <a href="#setup%20schema" name="setup%20schema" class="pilcrow">&#182;</a>
-    Setup schema
+    <a href="#setup-schema" name="setup-schema" class="pilcrow"></a>
+Setup schema
   </h2>
 </div>
-
-
 <p>The schema defines some validation and optimization rules which has to be
 processed before using the values. If the validation fails it will return a
 descriptive Error and don't use the values.</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/&#39;</span><span class="p">,</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">name:</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">job:</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-<span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="c1"># go on and load the data</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">config.setSchema <span class="hljs-string">'/'</span>,
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">name</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">job</span>:
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  <span class="hljs-comment"># go on and load the data</span>
+</code></pre>
 <p>To set a schema, give the root path for the schema and it's values which describe
 the concrete data format. The real validation is done using the
 <a href="http://alinex.github.io/node-validator">Validator</a>. Therefore look at the
 description there for all the possibilities you have.</p>
-
-
 <div class="pilwrap" id="initialize">
   <h2>
-    <a href="#initialize" name="initialize" class="pilcrow">&#182;</a>
-    Initialize
+    <a href="#initialize" name="initialize" class="pilcrow"></a>
+Initialize
   </h2>
 </div>
-
-
 <p>After everything is setup you have to call the <code>init()</code> method to initialize
 it. This will:</p>
-
 <ul>
 <li>search for the configurations</li>
 <li>load them</li>
@@ -888,158 +865,101 @@ it. This will:</p>
 <li>combine all together</li>
 <li>check using schema</li>
 </ul>
-
 <p>After everything is done the given callback is called.</p>
-
 <p>You may also call this method if you didn't know if everything is initialized.
 It will check and return immediately if nothing to do.</p>
-
-
-<div class="pilwrap" id="access%20configuration">
+<div class="pilwrap" id="access-configuration">
   <h2>
-    <a href="#access%20configuration" name="access%20configuration" class="pilcrow">&#182;</a>
-    Access configuration
+    <a href="#access-configuration" name="access-configuration" class="pilcrow"></a>
+Access configuration
   </h2>
 </div>
-
-
 <p>After everything is setup and loaded you may access the values or part of the
 value tree. You always get a reference for performance reasons. So don't change
 it's content.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">()</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">conf = config.get()
+</code></pre>
 <p>Thats a simple call to get the complete data structure.</p>
-
-
-<div class="highlight"><pre><code><span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;server&#39;</span>
-<span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;database/master/address&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">conf = config.get <span class="hljs-string">'server'</span>
+conf = config.get <span class="hljs-string">'database/master/address'</span>
+</code></pre>
 <p>Or give an path to get only a subpart of the configuration.</p>
-
-
-<div class="highlight"><pre><code><span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;server&#39;</span><span class="p">)</span><span class="o">?</span>
-  <span class="c1"># value found</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee"><span class="hljs-keyword">if</span> config.get(<span class="hljs-string">'server'</span>)?
+  <span class="hljs-comment"># value found</span>
+</code></pre>
 <p>And at last you may check that a specific part is set.</p>
-
-
-<div class="pilwrap" id="web%20services">
+<div class="pilwrap" id="web-services">
   <h2>
-    <a href="#web%20services" name="web%20services" class="pilcrow">&#182;</a>
-    Web Services
+    <a href="#web-services" name="web-services" class="pilcrow"></a>
+Web Services
   </h2>
 </div>
-
-
 <p>Like using files you may also always use a web service to get the configuration.
 But keep in mind that your system may not start if the web service is down.</p>
-
 <p>It is as easy as using files:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">config</span><span class="p">.</span><span class="nx">pushOrigin</span>
-  <span class="nv">uri: </span><span class="s">&quot;http://echo.jsontest.com/key/value/one/two&quot;</span>
-  <span class="nv">path: </span><span class="s">&#39;echo&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee">config.pushOrigin
+  <span class="hljs-attribute">uri</span>: <span class="hljs-string">"http://echo.jsontest.com/key/value/one/two"</span>
+  <span class="hljs-attribute">path</span>: <span class="hljs-string">'echo'</span>
+</code></pre>
 <p>This will result in the following configuration (after loaded via <code>init()</code>).</p>
-
-
-<div class="highlight"><pre><code><span class="nv">echo:</span>
-  <span class="nv">one: </span><span class="s">&#39;two&#39;</span>
-  <span class="nv">key: </span><span class="s">&#39;value&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee"><span class="hljs-attribute">echo</span>:
+  <span class="hljs-attribute">one</span>: <span class="hljs-string">'two'</span>
+  <span class="hljs-attribute">key</span>: <span class="hljs-string">'value'</span>
+</code></pre>
 <blockquote>
-  <p>Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
-  later. Also the support of possibilities to specify the concrete request may be
-  extended on demand.</p>
+<p>Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
+later. Also the support of possibilities to specify the concrete request may be
+extended on demand.</p>
 </blockquote>
-
-
 <div class="pilwrap" id="examples">
   <h2>
-    <a href="#examples" name="examples" class="pilcrow">&#182;</a>
-    Examples
+    <a href="#examples" name="examples" class="pilcrow"></a>
+Examples
   </h2>
 </div>
-
-
 <p>I often use the pattern of giving my modules two functions called setup() and init().
 The setup() is first called to set up the basics like configuring the configuration
 system.</p>
-
-
-<div class="highlight"><pre><code><span class="c1"># set the modules config paths and validation schema</span>
-<span class="nv">setup = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
-  <span class="c1"># set module search path</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
-  <span class="c1"># add schema for module&#39;s configuration</span>
-  <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/exec&#39;</span><span class="p">,</span> <span class="nx">schema</span><span class="p">,</span> <span class="nx">cb</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee"><span class="hljs-comment"># set the modules config paths and validation schema</span>
+setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-comment"># set module search path</span>
+  config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
+  <span class="hljs-comment"># add schema for module's configuration</span>
+  config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb
+</code></pre>
 <p>The call of <code>async.once</code> will look that this method is only run one time (see
 <a href="http://alinex.github.io/node-async">Async</a>.</p>
-
 <p>Now you may add additional configuration paths...</p>
-
-
-<div class="highlight"><pre><code><span class="c1"># set the modules config paths, validation schema and initialize the configuration</span>
-<span class="nv">init = </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
-  <span class="nx">debug</span> <span class="s">&quot;initialize&quot;</span>
-  <span class="c1"># set module search path</span>
-  <span class="nx">@setup</span> <span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-</code></pre></div>
-
-
-
+<pre><code class="coffee"><span class="hljs-comment"># set the modules config paths, validation schema and initialize the configuration</span>
+init = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  debug <span class="hljs-string">"initialize"</span>
+  <span class="hljs-comment"># set module search path</span>
+  <span class="hljs-property">@setup</span> -&gt;
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    config.init cb
+</code></pre>
 <p>The init() method now makes the system ready to use and if not up to date or
 initialized will initialize the config system. The setup() is also called to make
 it possible to call in one step if no special configuration is needed.</p>
-
-
 <div class="pilwrap" id="license">
   <h2>
-    <a href="#license" name="license" class="pilcrow">&#182;</a>
-    License
+    <a href="#license" name="license" class="pilcrow"></a>
+License
   </h2>
 </div>
-
-
 <p>Copyright 2014-2016 Alexander Schilling</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p></div>
+limitations under the License.</p>
+</div>
   </div>
 </body>
 </html>
