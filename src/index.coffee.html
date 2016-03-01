@@ -154,8 +154,7 @@ debugValue = <span class="hljs-built_in">require</span>(<span class="hljs-string
 debugAccess = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:access'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-</pre>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
     
@@ -169,8 +168,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
         </td>
         <td class="code highlight">
           <pre class="coffeescript">{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-</pre>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
         </td>
       </tr>
     
@@ -183,9 +181,7 @@ async = <span class="hljs-built_in">require</span> <span class="hljs-string">'al
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">load = <span class="hljs-built_in">require</span> <span class="hljs-string">'./load'</span>
-
-</pre>
+          <pre class="coffeescript">load = <span class="hljs-built_in">require</span> <span class="hljs-string">'./load'</span></pre>
         </td>
       </tr>
     
@@ -200,9 +196,7 @@ Define singleton instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports =
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports =</pre>
         </td>
       </tr>
     
@@ -230,8 +224,7 @@ Data container
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">origin</span>: []
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">origin</span>: []</pre>
         </td>
       </tr>
     
@@ -245,8 +238,7 @@ Data container
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">schema</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-</pre>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span></pre>
         </td>
       </tr>
     
@@ -259,8 +251,7 @@ Data container
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">value</span>: {}
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">value</span>: {}</pre>
         </td>
       </tr>
     
@@ -273,8 +264,7 @@ Data container
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">meta</span>: {}
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">meta</span>: {}</pre>
         </td>
       </tr>
     
@@ -287,9 +277,7 @@ Data container
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">listener</span>: {}
-
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">listener</span>: {}</pre>
         </td>
       </tr>
     
@@ -306,9 +294,7 @@ Setup methods
         <td class="code highlight">
           <pre class="coffeescript">
   <span class="hljs-attribute">pushOrigin</span>: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span> <span class="hljs-property">@origin</span>.push conf
-  <span class="hljs-attribute">unshiftOrigin</span>: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span> <span class="hljs-property">@origin</span>.unshift conf
-
-</pre>
+  <span class="hljs-attribute">unshiftOrigin</span>: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span> <span class="hljs-property">@origin</span>.unshift conf</pre>
         </td>
       </tr>
     
@@ -327,8 +313,7 @@ basedir - path</p>
     folder = setup.folder ? <span class="hljs-string">'config'</span>
     list = []
     <span class="hljs-keyword">if</span> basedir
-      dir = fspath.resolve basedir
-</pre>
+      dir = fspath.resolve basedir</pre>
         </td>
       </tr>
     
@@ -346,8 +331,7 @@ basedir - path</p>
         <span class="hljs-attribute">parser</span>: setup.parser
         <span class="hljs-attribute">path</span>: setup.path
 
-        <span class="hljs-attribute">filter</span>: setup.filter
-</pre>
+        <span class="hljs-attribute">filter</span>: setup.filter</pre>
         </td>
       </tr>
     
@@ -365,8 +349,7 @@ basedir - path</p>
         <span class="hljs-attribute">parser</span>: setup.parser
         <span class="hljs-attribute">path</span>: setup.path
         <span class="hljs-attribute">filter</span>: setup.filter
-    <span class="hljs-keyword">if</span> app
-</pre>
+    <span class="hljs-keyword">if</span> app</pre>
         </td>
       </tr>
     
@@ -383,8 +366,7 @@ basedir - path</p>
         <span class="hljs-attribute">uri</span>: <span class="hljs-string">"/etc/<span class="hljs-subst">#{app}</span>/<span class="hljs-subst">#{folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
         <span class="hljs-attribute">parser</span>: setup.parser
         <span class="hljs-attribute">path</span>: setup.path
-        <span class="hljs-attribute">filter</span>: setup.filter
-</pre>
+        <span class="hljs-attribute">filter</span>: setup.filter</pre>
         </td>
       </tr>
     
@@ -408,8 +390,7 @@ basedir - path</p>
 
   <span class="hljs-attribute">setSchema</span>: <span class="hljs-function"><span class="hljs-params">(path, schema, cb = -&gt; )</span> -&gt;</span>
     path = string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
-    ref = <span class="hljs-property">@schema</span>
-</pre>
+    ref = <span class="hljs-property">@schema</span></pre>
         </td>
       </tr>
     
@@ -423,8 +404,7 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> path.length <span class="hljs-keyword">and</span> path[<span class="hljs-number">0</span>]
-      <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> path
-</pre>
+      <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> path</pre>
         </td>
       </tr>
     
@@ -440,8 +420,7 @@ basedir - path</p>
           <pre class="coffeescript">        ref.type ?= <span class="hljs-string">'object'</span>
         ref.keys ?= {}
         ref.keys[p] ?= {}
-        ref = ref.keys[p]
-</pre>
+        ref = ref.keys[p]</pre>
         </td>
       </tr>
     
@@ -454,8 +433,7 @@ basedir - path</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">delete</span> ref[k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">of</span> ref
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">delete</span> ref[k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">of</span> ref</pre>
         </td>
       </tr>
     
@@ -468,8 +446,7 @@ basedir - path</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    object.extend ref, schema
-</pre>
+          <pre class="coffeescript">    object.extend ref, schema</pre>
         </td>
       </tr>
     
@@ -486,9 +463,7 @@ basedir - path</p>
     debug <span class="hljs-string">"revalidate against schema because <span class="hljs-subst">#{path ? <span class="hljs-string">'/'</span>}</span> changed"</span>
     load.validate <span class="hljs-keyword">this</span>, <span class="hljs-property">@value</span>, <span class="hljs-function"><span class="hljs-params">(err, value)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-property">@value</span> = value
-
-</pre>
+      <span class="hljs-property">@value</span> = value</pre>
         </td>
       </tr>
     
@@ -506,8 +481,7 @@ previous values.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">reload</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    debug <span class="hljs-string">"reload configuration system"</span>
-</pre>
+    debug <span class="hljs-string">"reload configuration system"</span></pre>
         </td>
       </tr>
     
@@ -520,8 +494,7 @@ previous values.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    origin.loaded = <span class="hljs-literal">false</span> <span class="hljs-keyword">for</span> origin <span class="hljs-keyword">in</span> load.listOrigins <span class="hljs-property">@origin</span>
-</pre>
+          <pre class="coffeescript">    origin.loaded = <span class="hljs-literal">false</span> <span class="hljs-keyword">for</span> origin <span class="hljs-keyword">in</span> load.listOrigins <span class="hljs-property">@origin</span></pre>
         </td>
       </tr>
     
@@ -537,10 +510,7 @@ previous values.</p>
           <pre class="coffeescript">    load.init <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       debugValue <span class="hljs-string">"new configuration \n<span class="hljs-subst">#{chalk.grey util.inspect <span class="hljs-property">@value</span>, {depth: <span class="hljs-literal">null</span>}</span>}"</span>
-      cb()
-
-
-</pre>
+      cb()</pre>
         </td>
       </tr>
     
@@ -560,8 +530,7 @@ Access methods
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> path <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
       path = string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
       debugAccess <span class="hljs-string">"returning <span class="hljs-subst">#{path.join <span class="hljs-string">'/'</span>}</span>"</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-property">@value</span> <span class="hljs-keyword">unless</span> path.length <span class="hljs-keyword">and</span> path[<span class="hljs-number">0</span>]
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@value</span> <span class="hljs-keyword">unless</span> path.length <span class="hljs-keyword">and</span> path[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -579,9 +548,7 @@ Access methods
       <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">unless</span> ref[p]?
       ref = ref[p]
     debugAccess <span class="hljs-string">"not found <span class="hljs-subst">#{path.join <span class="hljs-string">'/'</span>}</span>"</span> <span class="hljs-keyword">unless</span> ref?
-    <span class="hljs-keyword">return</span> ref
-
-</pre>
+    <span class="hljs-keyword">return</span> ref</pre>
         </td>
       </tr>
     
@@ -609,9 +576,7 @@ Initialize
   load.init <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     debugValue <span class="hljs-string">"new configuration \n<span class="hljs-subst">#{chalk.grey util.inspect <span class="hljs-property">@value</span>, {depth: <span class="hljs-literal">null</span>}</span>}"</span>
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     

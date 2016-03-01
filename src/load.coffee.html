@@ -180,8 +180,7 @@ Node Modules
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:load'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-</pre>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
     
@@ -197,10 +196,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 {string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
-
-
-</pre>
+validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span></pre>
         </td>
       </tr>
     
@@ -217,8 +213,7 @@ Initialize origins
         <td class="code highlight">
           <pre class="coffeescript">
 exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb)</span> -&gt;</span>
-  debug <span class="hljs-string">"load all unloaded configurations"</span>
-</pre>
+  debug <span class="hljs-string">"load all unloaded configurations"</span></pre>
         </td>
       </tr>
     
@@ -233,8 +228,7 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
         <td class="code highlight">
           <pre class="coffeescript">  origins = listOrigins config.origin
   async.each origins, loadOrigin, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -249,8 +243,7 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
         <td class="code highlight">
           <pre class="coffeescript">    value = {}
     meta = {}
-    <span class="hljs-keyword">for</span> origin <span class="hljs-keyword">in</span> origins
-</pre>
+    <span class="hljs-keyword">for</span> origin <span class="hljs-keyword">in</span> origins</pre>
         </td>
       </tr>
     
@@ -264,8 +257,7 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      object.extend value, origin.value
-      object.extendArrayConcat meta, origin.meta
-</pre>
+      object.extendArrayConcat meta, origin.meta</pre>
         </td>
       </tr>
     
@@ -279,8 +271,7 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    validate config, value, <span class="hljs-function"><span class="hljs-params">(err, value)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -295,9 +286,7 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
         <td class="code highlight">
           <pre class="coffeescript">      config.value = value
       config.meta = meta
-      cb()
-
-</pre>
+      cb()</pre>
         </td>
       </tr>
     
@@ -318,9 +307,7 @@ Validate new value before store
     <span class="hljs-attribute">name</span>: <span class="hljs-string">'config'</span>
     <span class="hljs-attribute">value</span>: value
     <span class="hljs-attribute">schema</span>: config.schema
-  , cb
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -357,9 +344,7 @@ Get a flat list of origins
       list = list.concat listOrigins el
     <span class="hljs-keyword">else</span>
       list.push el
-  list
-
-</pre>
+  list</pre>
         </td>
       </tr>
     
@@ -385,9 +370,7 @@ Load origin if necessary
       <span class="hljs-keyword">return</span> loadRequest origin, uri, cb
     <span class="hljs-keyword">else</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unknown protocol <span class="hljs-subst">#{proto}</span>"</span>
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -402,8 +385,7 @@ Load file origin
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">loadFiles</span> = <span class="hljs-params">(origin, path, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">loadFiles</span> = <span class="hljs-params">(origin, path, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -456,8 +438,7 @@ Load file origin
       debug chalk.magenta <span class="hljs-string">"Failure <span class="hljs-subst">#{err.message}</span>!"</span>
       origin.loaded = <span class="hljs-literal">true</span>
       origin.lastload = date
-      <span class="hljs-keyword">return</span> cb()
-</pre>
+      <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -474,8 +455,7 @@ Load file origin
     async.map list, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
       loadFile origin, path, file, cb
     , <span class="hljs-function"><span class="hljs-params">(err, objects)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -501,8 +481,7 @@ Load file origin
   fs.readFile file,
     <span class="hljs-attribute">encoding</span>: <span class="hljs-string">'UTF-8'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, text)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -517,8 +496,7 @@ Load file origin
         <td class="code highlight">
           <pre class="coffeescript">    uri = <span class="hljs-string">"file:///<span class="hljs-subst">#{string.trim file, <span class="hljs-string">'/'</span>}</span>"</span>
     parse text, uri, origin.parser, <span class="hljs-literal">false</span>, <span class="hljs-function"><span class="hljs-params">(err, obj)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -538,8 +516,7 @@ Load file origin
       <span class="hljs-keyword">if</span> add
         list = list.concat add.split(<span class="hljs-string">'/'</span>)[<span class="hljs-number">0.</span>.-<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> ~add.indexOf <span class="hljs-string">'/'</span>
         list.push fspath.basename add
-      add = <span class="hljs-string">'/'</span> + list.join <span class="hljs-string">'/'</span> <span class="hljs-keyword">if</span> list.length
-</pre>
+      add = <span class="hljs-string">'/'</span> + list.join <span class="hljs-string">'/'</span> <span class="hljs-keyword">if</span> list.length</pre>
         </td>
       </tr>
     
@@ -556,8 +533,7 @@ Load file origin
       <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> list
         ref[k] = {}
         ref = ref[k]
-      ref[k] = v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> obj
-</pre>
+      ref[k] = v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> obj</pre>
         </td>
       </tr>
     
@@ -572,9 +548,7 @@ Load file origin
         <td class="code highlight">
           <pre class="coffeescript">      meta = setMeta value, uri, origin
       debug <span class="hljs-string">"loaded <span class="hljs-subst">#{uri}</span>"</span>
-      cb <span class="hljs-literal">null</span>, [value, meta]
-
-</pre>
+      cb <span class="hljs-literal">null</span>, [value, meta]</pre>
         </td>
       </tr>
     
@@ -591,8 +565,7 @@ Load file origin
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">loadRequest</span> = <span class="hljs-params">(origin, uri, cb)</span> -&gt;</span>
   debug <span class="hljs-string">"load   <span class="hljs-subst">#{uri}</span>"</span>
-  date = <span class="hljs-keyword">new</span> Date()
-</pre>
+  date = <span class="hljs-keyword">new</span> Date()</pre>
         </td>
       </tr>
     
@@ -606,8 +579,7 @@ Load file origin
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  request = <span class="hljs-built_in">require</span> <span class="hljs-string">'request'</span>
-  request uri, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> -&gt;</span>
-</pre>
+  request uri, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -623,8 +595,7 @@ Load file origin
           <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">if</span> response.statusCode <span class="hljs-keyword">isnt</span> <span class="hljs-number">200</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Server send wrong return code: <span class="hljs-subst">#{response.statusCode}</span>"</span>
-    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> body?
-</pre>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> body?</pre>
         </td>
       </tr>
     
@@ -641,9 +612,7 @@ Load file origin
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       meta = setMeta obj, uri, origin
       debug <span class="hljs-string">"loaded <span class="hljs-subst">#{uri}</span>"</span>
-      setOrigin origin, obj, meta, date, cb
-
-</pre>
+      setOrigin origin, obj, meta, date, cb</pre>
         </td>
       </tr>
     
@@ -658,8 +627,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">setOrigin</span> = <span class="hljs-params">(origin, value, meta, date, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">setOrigin</span> = <span class="hljs-params">(origin, value, meta, date, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -673,8 +641,7 @@ Set the extracted information to the origin element
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> origin.filter <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> object.isEmpty value
-    debug <span class="hljs-string">"set filter to <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span>
-</pre>
+    debug <span class="hljs-string">"set filter to <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span></pre>
         </td>
       </tr>
     
@@ -689,8 +656,7 @@ Set the extracted information to the origin element
         <td class="code highlight">
           <pre class="coffeescript">    res = object.path value, origin.filter
     <span class="hljs-keyword">if</span> res?
-      value = res
-</pre>
+      value = res</pre>
         </td>
       </tr>
     
@@ -706,8 +672,7 @@ Set the extracted information to the origin element
           <pre class="coffeescript">      filter = <span class="hljs-string">"<span class="hljs-subst">#{origin.filter}</span>/"</span>
       filter = <span class="hljs-string">"/<span class="hljs-subst">#{filter}</span>"</span> <span class="hljs-keyword">unless</span> filter[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'/'</span>
       res = {}
-      <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> meta
-</pre>
+      <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> meta</pre>
         </td>
       </tr>
     
@@ -720,8 +685,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> string.starts k, filter
-</pre>
+          <pre class="coffeescript">        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> string.starts k, filter</pre>
         </td>
       </tr>
     
@@ -737,8 +701,7 @@ Set the extracted information to the origin element
           <pre class="coffeescript">        res[k.substring filter.length-<span class="hljs-number">1</span>] = v
       meta = res
     <span class="hljs-keyword">else</span>
-      debug chalk.red <span class="hljs-string">"Could not set filter <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span>
-</pre>
+      debug chalk.red <span class="hljs-string">"Could not set filter <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span></pre>
         </td>
       </tr>
     
@@ -752,8 +715,7 @@ Set the extracted information to the origin element
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> origin.path
-    debug <span class="hljs-string">"set under path <span class="hljs-subst">#{origin.path}</span> for <span class="hljs-subst">#{origin.uri}</span>"</span>
-</pre>
+    debug <span class="hljs-string">"set under path <span class="hljs-subst">#{origin.path}</span> for <span class="hljs-subst">#{origin.uri}</span>"</span></pre>
         </td>
       </tr>
     
@@ -772,8 +734,7 @@ Set the extracted information to the origin element
       ref[k] = {}
       ref = ref[k]
     ref[k] = v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> value
-    value = obj
-</pre>
+    value = obj</pre>
         </td>
       </tr>
     
@@ -788,8 +749,7 @@ Set the extracted information to the origin element
         <td class="code highlight">
           <pre class="coffeescript">    ref = {}
     ref[<span class="hljs-string">"/<span class="hljs-subst">#{path}</span>/<span class="hljs-subst">#{k}</span>"</span>] = v <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> meta
-    meta = ref
-</pre>
+    meta = ref</pre>
         </td>
       </tr>
     
@@ -831,9 +791,7 @@ ext2parser =
   <span class="hljs-attribute">coffee</span>: <span class="hljs-string">'coffee'</span>
   <span class="hljs-attribute">xml</span>: <span class="hljs-string">'xml'</span>
   <span class="hljs-attribute">ini</span>: <span class="hljs-string">'ini'</span>
-  <span class="hljs-attribute">properties</span>: <span class="hljs-string">'properties'</span>
-
-</pre>
+  <span class="hljs-attribute">properties</span>: <span class="hljs-string">'properties'</span></pre>
         </td>
       </tr>
     
@@ -848,8 +806,7 @@ Parse text into object
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parse</span> = <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parse</span> = <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -883,8 +840,7 @@ Parse text into object
       <span class="hljs-keyword">unless</span> ok
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not find any valid format for <span class="hljs-subst">#{uri}</span>:\n<span class="hljs-subst">#{errors.join <span class="hljs-string">'\n'</span>}</span>"</span>
       cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">return</span>
-</pre>
+    <span class="hljs-keyword">return</span></pre>
         </td>
       </tr>
     
@@ -899,9 +855,7 @@ Parse text into object
         <td class="code highlight">
           <pre class="coffeescript">  parseFormat text, uri, parser, quiet, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
     err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{uri}</span> failed in <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
-    cb err, result
-
-</pre>
+    cb err, result</pre>
         </td>
       </tr>
     
@@ -916,8 +870,7 @@ Parse given Format
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parseFormat</span> =  <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parseFormat</span> =  <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -931,8 +884,7 @@ Parse given Format
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  color = <span class="hljs-keyword">if</span> quiet <span class="hljs-keyword">then</span> <span class="hljs-string">'grey'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'red'</span>
-  debug chalk.grey <span class="hljs-string">"try loading <span class="hljs-subst">#{uri}</span> as <span class="hljs-subst">#{parser}</span>"</span>
-</pre>
+  debug chalk.grey <span class="hljs-string">"try loading <span class="hljs-subst">#{uri}</span> as <span class="hljs-subst">#{parser}</span>"</span></pre>
         </td>
       </tr>
     
@@ -993,8 +945,7 @@ Parse given Format
       <span class="hljs-keyword">try</span>
         result = ini.decode text
       <span class="hljs-keyword">catch</span> error
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
-</pre>
+        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span></pre>
         </td>
       </tr>
     
@@ -1020,8 +971,7 @@ Parse given Format
       xml2js = <span class="hljs-built_in">require</span> <span class="hljs-string">'xml2js'</span>
       xml2js.parseString text, {<span class="hljs-attribute">explicitArray</span>: <span class="hljs-literal">false</span>}, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
         <span class="hljs-keyword">if</span> err
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{err.message.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span>}</span>"</span>
-</pre>
+          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{err.message.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span>}</span>"</span></pre>
         </td>
       </tr>
     
@@ -1036,9 +986,7 @@ Parse given Format
         <td class="code highlight">
           <pre class="coffeescript">        cb <span class="hljs-literal">null</span>, xmlOptimize result
     <span class="hljs-keyword">else</span>
-      cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"Parser for <span class="hljs-subst">#{parser}</span> not found"</span>
-
-</pre>
+      cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"Parser for <span class="hljs-subst">#{parser}</span> not found"</span></pre>
         </td>
       </tr>
     
@@ -1055,8 +1003,7 @@ Optimize parsed cml
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">xmlOptimize</span> = <span class="hljs-params">(data)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> data <span class="hljs-keyword">unless</span> <span class="hljs-keyword">typeof</span> data <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
-  <span class="hljs-keyword">if</span> Array.isArray data
-</pre>
+  <span class="hljs-keyword">if</span> Array.isArray data</pre>
         </td>
       </tr>
     
@@ -1074,8 +1021,7 @@ Optimize parsed cml
       result.push xmlOptimize v
     <span class="hljs-keyword">return</span> result
   result = {}
-  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> data
-</pre>
+  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> data</pre>
         </td>
       </tr>
     
@@ -1089,8 +1035,7 @@ Optimize parsed cml
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'_'</span>
-      result.value = v
-</pre>
+      result.value = v</pre>
         </td>
       </tr>
     
@@ -1105,8 +1050,7 @@ Optimize parsed cml
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'$'</span>
       <span class="hljs-keyword">for</span> s, w <span class="hljs-keyword">of</span> xmlOptimize v
-        result[s] = w
-</pre>
+        result[s] = w</pre>
         </td>
       </tr>
     
@@ -1121,9 +1065,7 @@ Optimize parsed cml
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">else</span>
       result[k] = xmlOptimize v
-  <span class="hljs-keyword">return</span> result
-
-</pre>
+  <span class="hljs-keyword">return</span> result</pre>
         </td>
       </tr>
     
@@ -1144,9 +1086,7 @@ Check that the properties parser for correct result
     <span class="hljs-keyword">if</span> v <span class="hljs-keyword">is</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">or</span> ~<span class="hljs-string">'[]{}/'</span>.indexOf k.charAt <span class="hljs-number">0</span>
       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> propertiesCheck v
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-
-</pre>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -1174,9 +1114,7 @@ Set Meta Data to all elements
         <span class="hljs-attribute">origin</span>: origin
         <span class="hljs-attribute">value</span>: v
       ]
-  <span class="hljs-keyword">return</span> meta
-
-</pre>
+  <span class="hljs-keyword">return</span> meta</pre>
         </td>
       </tr>
     
