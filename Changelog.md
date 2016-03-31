@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.15 (2016-03-31)
+-------------------------------------------------
+- Upgraded validator package.
+
 Version 1.0.14 (2016-03-21)
 -------------------------------------------------
 - Upgraded validator, util, yaml and builder.
