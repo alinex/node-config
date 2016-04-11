@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.18 (2016-04-11)
+-------------------------------------------------
+- Updated validator for fix in datetime lib.
+
 Version 1.0.17 (2016-04-08)
 -------------------------------------------------
 - Upgraded package validator.
