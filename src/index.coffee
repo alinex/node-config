@@ -24,10 +24,9 @@ debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 debugAccess = require('debug')('config:access')
 chalk = require 'chalk'
-util = require 'util'
 fspath = require 'path'
 # load other alinex modules
-{string, object, extend} = require 'alinex-util'
+util = require 'alinex-util'
 async = require 'alinex-async'
 # load helper modules
 load = require './load'
@@ -60,7 +59,7 @@ module.exports =
   # name - application name
   # basedir - path
   register: (app, basedir, setup = {} ) ->
-    uri = string.trim(setup.uri, '/') ? '*'
+    uri = util.string.trim(setup.uri, '/') ? '*'
     folder = setup.folder ? 'config'
     list = []
     if basedir
@@ -96,7 +95,7 @@ module.exports =
     @origin.push list
 
   setSchema: (path, schema, cb = -> ) ->
-    path = string.trim(path, '/').split '/'
+    path = util.string.trim(path, '/').split '/'
     ref = @schema
     # go into path
     if path.length and path[0]
@@ -109,9 +108,9 @@ module.exports =
     # remove previous settings
     delete ref[k] for k of ref
     # set new schema
-    extend ref, schema
+    util.extend ref, util.clone schema
     # revalidate if already loaded
-    return cb() if object.isEmpty @value
+    return cb() if util.object.isEmpty @value
     debug "revalidate against schema because #{path ? '/'} changed"
     load.validate this, @value, (err, value) ->
       return cb err if err
@@ -136,7 +135,7 @@ module.exports =
 
   get: (path) ->
     if typeof path is 'string'
-      path = string.trim(path, '/').split '/'
+      path = util.string.trim(path, '/').split '/'
       debugAccess "returning #{path.join '/'}"
     return @value unless path.length and path[0]
     # get sub path

@@ -8,12 +8,18 @@
 # include base modules
 debug = require('debug')('config:load')
 chalk = require 'chalk'
-util = require 'util'
 fspath = require 'path'
+request = null # loaded on demand
+yaml = null # loaded on demand
+vm = null # loaded on demand
+coffee = null # loaded on demand
+properties = null # loaded on demand
+ini = null # loaded on demand
+xml2js = null # loaded on demand
 # include more alinex modules
 fs = require 'alinex-fs'
 async = require 'alinex-async'
-{string, object, extend} = require 'alinex-util'
+util = require 'alinex-util'
 validator = require 'alinex-validator'
 
 
@@ -31,8 +37,8 @@ exports.init = (config, cb) ->
     meta = {}
     for origin in origins
       # put together
-      extend value, origin.value
-      object.extendArrayConcat meta, origin.meta
+      util.extend value, origin.value
+      util.extend meta, origin.meta
     # validate
     validate config, value, (err, value) ->
       return cb err if err
@@ -122,7 +128,7 @@ loadFiles = (origin, path, cb) ->
       origin.lastload = date
       return cb()
     # load them
-    path = "file:///#{string.trim path, '/'}"
+    path = "file:///#{util.string.trim path, '/'}"
     async.map list, (file, cb) ->
       loadFile origin, path, file, cb
     , (err, objects) ->
@@ -133,8 +139,8 @@ loadFiles = (origin, path, cb) ->
       for [o, m] in objects
         obj.push o
         meta.push m
-      obj = object.extend.apply {}, obj
-      meta = object.extendArrayConcat.apply {}, meta
+      obj = util.extend.apply {}, obj
+      meta = util.extend.apply {}, meta
       setOrigin origin, obj, meta, date, cb
 
 loadFile = (origin, path, file, cb) ->
@@ -143,13 +149,13 @@ loadFile = (origin, path, file, cb) ->
   , (err, text) ->
     return cb err if err
     # parse
-    uri = "file:///#{string.trim file, '/'}"
+    uri = "file:///#{util.string.trim file, '/'}"
     parse text, uri, origin.parser, false, (err, obj) ->
       return cb err if err
       # get additional path
       add = uri.substring path.length+1
       add = add[0..-fspath.extname(add).length-1]
-      add = add[0..-7] if string.ends add, '/index'
+      add = add[0..-7] if util.string.ends add, '/index'
       list = []
       if add
         list = list.concat add.split('/')[0..-2] if ~add.indexOf '/'
@@ -171,7 +177,7 @@ loadRequest = (origin, uri, cb) ->
   debug "load   #{uri}"
   date = new Date()
   # make request
-  request = require 'request'
+  request ?= require 'request'
   request uri, (err, response, body) ->
     # error checking
     return cb err if err
@@ -188,10 +194,10 @@ loadRequest = (origin, uri, cb) ->
 # ### Set the extracted information to the origin element
 setOrigin = (origin, value, meta, date, cb) ->
   # set filter
-  if origin.filter and not object.isEmpty value
+  if origin.filter and not util.object.isEmpty value
     debug "set filter to #{origin.filter} in #{origin.uri}"
     # step into data
-    res = object.path value, origin.filter
+    res = util.object.path value, origin.filter
     if res?
       value = res
       # optimize the meta list
@@ -200,7 +206,7 @@ setOrigin = (origin, value, meta, date, cb) ->
       res = {}
       for k, v of meta
         # remove entries not starting with /filter/
-        continue unless string.starts k, filter
+        continue unless util.string.starts k, filter
         # replace /filter/ with / in all meta paths
         res[k.substring filter.length-1] = v
       meta = res
@@ -210,7 +216,7 @@ setOrigin = (origin, value, meta, date, cb) ->
   if origin.path
     debug "set under path #{origin.path} for #{origin.uri}"
     # add path to value
-    path = string.trim origin.path, '/'
+    path = util.string.trim origin.path, '/'
     obj = ref = {}
     for k in path.split '/'
       ref[k] = {}
@@ -279,7 +285,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
   # parser given
   switch parser
     when 'yaml'
-      yaml = require 'js-yaml'
+      yaml ?= require 'js-yaml'
       try
         result = yaml.safeLoad text
       catch error
@@ -287,7 +293,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
         return cb new Error chalk[color] "#{parser} parser: #{error.message.replace /[\s^]+/g, ' '}"
       cb null, result
     when 'js'
-      vm = require 'vm'
+      vm ?= require 'vm'
       try
         result = vm.runInNewContext "x=#{text}"
       catch error
@@ -300,7 +306,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
         return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       cb null, result
     when 'coffee'
-      coffee = require 'coffee-script'
+      coffee ?= require 'coffee-script'
       try
         text = "module.exports =\n  " + text.replace /\n/g, '\n  '
         m = new module.constructor()
@@ -309,7 +315,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
         return cb new Error chalk[color] "#{parser} parser: #{error.message}"
       cb null, m.exports
     when 'properties'
-      properties = require 'properties'
+      properties ?= require 'properties'
       properties.parse text,
         sections: true
         namespaces: true
@@ -321,7 +327,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
           in key name found"
         cb null, result
     when 'ini'
-      ini = require 'ini'
+      ini ?= require 'ini'
       try
         result = ini.decode text
       catch error
@@ -337,7 +343,7 @@ parseFormat =  (text, uri, parser, quiet=false, cb) ->
           ':' with value true"
       cb null, result
     when 'xml'
-      xml2js = require 'xml2js'
+      xml2js ?= require 'xml2js'
       xml2js.parseString text, {explicitArray: false}, (err, result) ->
         if err
           return cb new Error chalk[color] "#{parser} parser: #{err.message.replace /\n/g, ' '}"
