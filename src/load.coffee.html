@@ -151,8 +151,14 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:load'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+request = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+yaml = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+vm = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+coffee = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+properties = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+ini = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
+xml2js = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span></pre>
         </td>
       </tr>
     
@@ -167,7 +173,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
         <td class="code highlight">
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span></pre>
         </td>
       </tr>
@@ -228,8 +234,8 @@ exports.init = <span class="hljs-function"><span class="hljs-params">(config, cb
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      object.extend value, origin.value
-      object.extendArrayConcat meta, origin.meta</pre>
+          <pre class="coffeescript">      util.extend value, origin.value
+      util.extend meta, origin.meta</pre>
         </td>
       </tr>
     
@@ -423,7 +429,7 @@ Load file origin
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    path = <span class="hljs-string">"file:///<span class="hljs-subst">#{string.trim path, <span class="hljs-string">'/'</span>}</span>"</span>
+          <pre class="coffeescript">    path = <span class="hljs-string">"file:///<span class="hljs-subst">#{util.string.trim path, <span class="hljs-string">'/'</span>}</span>"</span>
     async.map list, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
       loadFile origin, path, file, cb
     , <span class="hljs-function"><span class="hljs-params">(err, objects)</span> -&gt;</span>
@@ -445,8 +451,8 @@ Load file origin
       <span class="hljs-keyword">for</span> [o, m] <span class="hljs-keyword">in</span> objects
         obj.push o
         meta.push m
-      obj = object.extend.apply {}, obj
-      meta = object.extendArrayConcat.apply {}, meta
+      obj = util.extend.apply {}, obj
+      meta = util.extend.apply {}, meta
       setOrigin origin, obj, meta, date, cb
 <span class="hljs-function">
 <span class="hljs-title">loadFile</span> = <span class="hljs-params">(origin, path, file, cb)</span> -&gt;</span>
@@ -466,7 +472,7 @@ Load file origin
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    uri = <span class="hljs-string">"file:///<span class="hljs-subst">#{string.trim file, <span class="hljs-string">'/'</span>}</span>"</span>
+          <pre class="coffeescript">    uri = <span class="hljs-string">"file:///<span class="hljs-subst">#{util.string.trim file, <span class="hljs-string">'/'</span>}</span>"</span>
     parse text, uri, origin.parser, <span class="hljs-literal">false</span>, <span class="hljs-function"><span class="hljs-params">(err, obj)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
@@ -483,7 +489,7 @@ Load file origin
         <td class="code highlight">
           <pre class="coffeescript">      add = uri.substring path.length+<span class="hljs-number">1</span>
       add = add[<span class="hljs-number">0.</span>.-fspath.extname(add).length-<span class="hljs-number">1</span>]
-      add = add[<span class="hljs-number">0.</span>.-<span class="hljs-number">7</span>] <span class="hljs-keyword">if</span> string.ends add, <span class="hljs-string">'/index'</span>
+      add = add[<span class="hljs-number">0.</span>.-<span class="hljs-number">7</span>] <span class="hljs-keyword">if</span> util.string.ends add, <span class="hljs-string">'/index'</span>
       list = []
       <span class="hljs-keyword">if</span> add
         list = list.concat add.split(<span class="hljs-string">'/'</span>)[<span class="hljs-number">0.</span>.-<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> ~add.indexOf <span class="hljs-string">'/'</span>
@@ -550,7 +556,7 @@ Load file origin
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  request = <span class="hljs-built_in">require</span> <span class="hljs-string">'request'</span>
+          <pre class="coffeescript">  request ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'request'</span>
   request uri, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> -&gt;</span></pre>
         </td>
       </tr>
@@ -612,7 +618,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> origin.filter <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> object.isEmpty value
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> origin.filter <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> util.object.isEmpty value
     debug <span class="hljs-string">"set filter to <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span></pre>
         </td>
       </tr>
@@ -626,7 +632,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    res = object.path value, origin.filter
+          <pre class="coffeescript">    res = util.object.path value, origin.filter
     <span class="hljs-keyword">if</span> res?
       value = res</pre>
         </td>
@@ -657,7 +663,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> string.starts k, filter</pre>
+          <pre class="coffeescript">        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> util.string.starts k, filter</pre>
         </td>
       </tr>
     
@@ -700,7 +706,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    path = string.trim origin.path, <span class="hljs-string">'/'</span>
+          <pre class="coffeescript">    path = util.string.trim origin.path, <span class="hljs-string">'/'</span>
     obj = ref = {}
     <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> path.split <span class="hljs-string">'/'</span>
       ref[k] = {}
@@ -871,7 +877,7 @@ Parse given Format
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">switch</span> parser
     <span class="hljs-keyword">when</span> <span class="hljs-string">'yaml'</span>
-      yaml = <span class="hljs-built_in">require</span> <span class="hljs-string">'js-yaml'</span>
+      yaml ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'js-yaml'</span>
       <span class="hljs-keyword">try</span>
         result = yaml.safeLoad text
       <span class="hljs-keyword">catch</span> error
@@ -879,7 +885,7 @@ Parse given Format
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message.replace <span class="hljs-regexp">/[\s^]+/g</span>, <span class="hljs-string">' '</span>}</span>"</span>
       cb <span class="hljs-literal">null</span>, result
     <span class="hljs-keyword">when</span> <span class="hljs-string">'js'</span>
-      vm = <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
+      vm ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
       <span class="hljs-keyword">try</span>
         result = vm.runInNewContext <span class="hljs-string">"x=<span class="hljs-subst">#{text}</span>"</span>
       <span class="hljs-keyword">catch</span> error
@@ -892,7 +898,7 @@ Parse given Format
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
       cb <span class="hljs-literal">null</span>, result
     <span class="hljs-keyword">when</span> <span class="hljs-string">'coffee'</span>
-      coffee = <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span>
+      coffee ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span>
       <span class="hljs-keyword">try</span>
         text = <span class="hljs-string">"module.exports =\n  "</span> + text.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">'\n  '</span>
         m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">module</span>.constructor()
@@ -901,7 +907,7 @@ Parse given Format
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
       cb <span class="hljs-literal">null</span>, m.exports
     <span class="hljs-keyword">when</span> <span class="hljs-string">'properties'</span>
-      properties = <span class="hljs-built_in">require</span> <span class="hljs-string">'properties'</span>
+      properties ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'properties'</span>
       properties.parse text,
         <span class="hljs-attribute">sections</span>: <span class="hljs-literal">true</span>
         <span class="hljs-attribute">namespaces</span>: <span class="hljs-literal">true</span>
@@ -913,7 +919,7 @@ Parse given Format
           in key name found"</span>
         cb <span class="hljs-literal">null</span>, result
     <span class="hljs-keyword">when</span> <span class="hljs-string">'ini'</span>
-      ini = <span class="hljs-built_in">require</span> <span class="hljs-string">'ini'</span>
+      ini ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'ini'</span>
       <span class="hljs-keyword">try</span>
         result = ini.decode text
       <span class="hljs-keyword">catch</span> error
@@ -940,7 +946,7 @@ Parse given Format
           ':' with value true"</span>
       cb <span class="hljs-literal">null</span>, result
     <span class="hljs-keyword">when</span> <span class="hljs-string">'xml'</span>
-      xml2js = <span class="hljs-built_in">require</span> <span class="hljs-string">'xml2js'</span>
+      xml2js ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'xml2js'</span>
       xml2js.parseString text, {<span class="hljs-attribute">explicitArray</span>: <span class="hljs-literal">false</span>}, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
         <span class="hljs-keyword">if</span> err
           <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{err.message.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span>}</span>"</span></pre>

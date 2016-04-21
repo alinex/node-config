@@ -153,7 +153,6 @@ Node Modules
 debugValue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:value'</span>)
 debugAccess = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:access'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
 fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
         </td>
       </tr>
@@ -167,7 +166,7 @@ fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'p
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{string, object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+          <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
         </td>
       </tr>
@@ -309,7 +308,7 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">register</span>: <span class="hljs-function"><span class="hljs-params">(app, basedir, setup = {} )</span> -&gt;</span>
-    uri = string.trim(setup.uri, <span class="hljs-string">'/'</span>) ? <span class="hljs-string">'*'</span>
+    uri = util.string.trim(setup.uri, <span class="hljs-string">'/'</span>) ? <span class="hljs-string">'*'</span>
     folder = setup.folder ? <span class="hljs-string">'config'</span>
     list = []
     <span class="hljs-keyword">if</span> basedir
@@ -389,7 +388,7 @@ basedir - path</p>
     <span class="hljs-property">@origin</span>.push list
 
   <span class="hljs-attribute">setSchema</span>: <span class="hljs-function"><span class="hljs-params">(path, schema, cb = -&gt; )</span> -&gt;</span>
-    path = string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
+    path = util.string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
     ref = <span class="hljs-property">@schema</span></pre>
         </td>
       </tr>
@@ -446,7 +445,7 @@ basedir - path</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    object.extend ref, schema</pre>
+          <pre class="coffeescript">    util.extend ref, util.clone schema</pre>
         </td>
       </tr>
     
@@ -459,7 +458,7 @@ basedir - path</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> object.isEmpty <span class="hljs-property">@value</span>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> util.object.isEmpty <span class="hljs-property">@value</span>
     debug <span class="hljs-string">"revalidate against schema because <span class="hljs-subst">#{path ? <span class="hljs-string">'/'</span>}</span> changed"</span>
     load.validate <span class="hljs-keyword">this</span>, <span class="hljs-property">@value</span>, <span class="hljs-function"><span class="hljs-params">(err, value)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
@@ -528,7 +527,7 @@ Access methods
           <pre class="coffeescript">
   <span class="hljs-attribute">get</span>: <span class="hljs-function"><span class="hljs-params">(path)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> path <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-      path = string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
+      path = util.string.trim(path, <span class="hljs-string">'/'</span>).split <span class="hljs-string">'/'</span>
       debugAccess <span class="hljs-string">"returning <span class="hljs-subst">#{path.join <span class="hljs-string">'/'</span>}</span>"</span>
     <span class="hljs-keyword">return</span> <span class="hljs-property">@value</span> <span class="hljs-keyword">unless</span> path.length <span class="hljs-keyword">and</span> path[<span class="hljs-number">0</span>]</pre>
         </td>
