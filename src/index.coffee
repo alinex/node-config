@@ -27,7 +27,7 @@ chalk = require 'chalk'
 util = require 'util'
 fspath = require 'path'
 # load other alinex modules
-{string, object} = require 'alinex-util'
+{string, object, extend} = require 'alinex-util'
 async = require 'alinex-async'
 # load helper modules
 load = require './load'
@@ -109,7 +109,7 @@ module.exports =
     # remove previous settings
     delete ref[k] for k of ref
     # set new schema
-    object.extend ref, schema
+    extend ref, schema
     # revalidate if already loaded
     return cb() if object.isEmpty @value
     debug "revalidate against schema because #{path ? '/'} changed"

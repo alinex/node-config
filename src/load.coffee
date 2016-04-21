@@ -13,7 +13,7 @@ fspath = require 'path'
 # include more alinex modules
 fs = require 'alinex-fs'
 async = require 'alinex-async'
-{string, object} = require 'alinex-util'
+{string, object, extend} = require 'alinex-util'
 validator = require 'alinex-validator'
 
 
@@ -31,7 +31,7 @@ exports.init = (config, cb) ->
     meta = {}
     for origin in origins
       # put together
-      object.extend value, origin.value
+      extend value, origin.value
       object.extendArrayConcat meta, origin.meta
     # validate
     validate config, value, (err, value) ->
