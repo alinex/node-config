@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2016-04-29)
+-------------------------------------------------
+- Upgraded to raw async 2.0 and builder 2.0.
+
 Version 1.1.0 (2016-04-21)
 -------------------------------------------------
 - Use new extend and clone methods.
