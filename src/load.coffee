@@ -8,6 +8,7 @@
 # include base modules
 debug = require('debug')('config:load')
 chalk = require 'chalk'
+async = require 'async'
 fspath = require 'path'
 request = null # loaded on demand
 yaml = null # loaded on demand
@@ -18,7 +19,6 @@ ini = null # loaded on demand
 xml2js = null # loaded on demand
 # include more alinex modules
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 util = require 'alinex-util'
 validator = require 'alinex-validator'
 
@@ -266,8 +266,8 @@ parse = (text, uri, parser, quiet=false, cb) ->
           errors.push err.message
           debug chalk.grey "#{uri} failed in #{err.message}"
         result = obj
-        cb not err? and obj?
-    , (ok) ->
+        cb null, not err? and obj?
+    , (err, ok) ->
       unless ok
         return cb new Error "Could not find any valid format for #{uri}:\n#{errors.join '\n'}"
       cb null, result

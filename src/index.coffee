@@ -24,10 +24,10 @@ debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 debugAccess = require('debug')('config:access')
 chalk = require 'chalk'
+async = require 'async'
 fspath = require 'path'
 # load other alinex modules
 util = require 'alinex-util'
-async = require 'alinex-async'
 # load helper modules
 load = require './load'
 
@@ -147,7 +147,7 @@ module.exports =
     return ref
 
 # ### Initialize
-module.exports.init = async.onceTime module.exports, (cb) ->
+module.exports.init = util.function.onceTime module.exports, (cb) ->
   debug "initialize configuration system"
   needLoad = false
   for origin in load.listOrigins @origin
