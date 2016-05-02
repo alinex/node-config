@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2016-05-02)
+-------------------------------------------------
+This brings the nobr handlebar helpers in to be used.
+
+- Upgraded validator and builder.
+- Added v6 for travis but didn't activate, yet.
+
 Version 1.1.1 (2016-04-29)
 -------------------------------------------------
 - Upgraded to raw async 2.0 and builder 2.0.
