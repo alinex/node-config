@@ -24,7 +24,6 @@ debug = require('debug')('config')
 debugValue = require('debug')('config:value')
 debugAccess = require('debug')('config:access')
 chalk = require 'chalk'
-async = require 'async'
 fspath = require 'path'
 # load other alinex modules
 util = require 'alinex-util'
