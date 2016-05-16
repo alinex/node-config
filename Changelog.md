@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.3 (2016-05-16)
+-------------------------------------------------
+Changed config parser which supports more formats but changed some minor parts of xml parsing.
+
+- Use formatter package instead own implementation.
+- Small code style optimization.
+
 Version 1.1.2 (2016-05-02)
 -------------------------------------------------
 This brings the nobr handlebar helpers in to be used.
