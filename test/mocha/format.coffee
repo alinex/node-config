@@ -184,7 +184,7 @@ describe "Format", ->
           list: [ '1', '2', '3' ]
           person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+          attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
     it "should parse (auto)", (cb) ->
@@ -196,7 +196,7 @@ describe "Format", ->
           list: [ '1', '2', '3' ]
           person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+          attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
     it "should parse (auto by content)", (cb) ->
@@ -208,7 +208,7 @@ describe "Format", ->
           list: [ '1', '2', '3' ]
           person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+          attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
   describe "ini", ->

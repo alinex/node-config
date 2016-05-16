@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- use an object -->
-<xml>
+<config>
+  <xml>
 
-  <!-- include a string -->
-  <name>test</name>
+    <!-- include a string -->
+    <name>test</name>
 
-  <!-- and a list of numbers -->
-  <list>1</list>
-  <list>2</list>
-  <list>3</list>
+    <!-- and a list of numbers -->
+    <list>1</list>
+    <list>2</list>
+    <list>3</list>
 
-  <!-- sub object -->
-  <person>
-    <name>Alexander Schilling</name><job>Developer</job>
-  </person>
+    <!-- sub object -->
+    <person>
+      <name>Alexander Schilling</name><job>Developer</job>
+    </person>
 
-  <!-- cdata section -->
-  <cdata><![CDATA[i\'m not escaped: <xml>!]]></cdata>
+    <!-- cdata section -->
+    <cdata><![CDATA[i\'m not escaped: <xml>!]]></cdata>
 
-  <!-- using attributes -->
-  <attributes type="detail">
-    Hello all together
-  </attributes>
+    <!-- using attributes -->
+    <attributes type="detail">
+      Hello all together
+    </attributes>
 
-</xml>
+  </xml>
+</config>

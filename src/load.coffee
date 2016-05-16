@@ -11,16 +11,11 @@ chalk = require 'chalk'
 async = require 'async'
 fspath = require 'path'
 request = null # loaded on demand
-yaml = null # loaded on demand
-vm = null # loaded on demand
-coffee = null # loaded on demand
-properties = null # loaded on demand
-ini = null # loaded on demand
-xml2js = null # loaded on demand
 # include more alinex modules
 fs = require 'alinex-fs'
 util = require 'alinex-util'
 validator = require 'alinex-validator'
+formatter = require 'alinex-formatter'
 
 
 # Initialize origins
@@ -150,7 +145,7 @@ loadFile = (origin, path, file, cb) ->
     return cb err if err
     # parse
     uri = "file:///#{util.string.trim file, '/'}"
-    parse text, uri, origin.parser, false, (err, obj) ->
+    formatter.parse text, (origin.parser ? uri), (err, obj) ->
       return cb err if err
       # get additional path
       add = uri.substring path.length+1
@@ -185,7 +180,7 @@ loadRequest = (origin, uri, cb) ->
       return cb new Error "Server send wrong return code: #{response.statusCode}"
     return cb() unless body?
     # parse content
-    parse body, uri, origin.parser, false, (err, obj) ->
+    formatter.parse body, (origin.parser ? uri), (err, obj) ->
       return cb err if err
       meta = setMeta obj, uri, origin
       debug "loaded #{uri}"
@@ -234,155 +229,6 @@ setOrigin = (origin, value, meta, date, cb) ->
   debug "loaded #{origin.path ? 'ROOT'} with: \n
   #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
-
-ext2parser =
-  yml: 'yaml'
-  yaml: 'yaml'
-  js: 'js'
-  javascript: 'javascript'
-  json: 'json'
-  cson: 'coffee'
-  coffee: 'coffee'
-  xml: 'xml'
-  ini: 'ini'
-  properties: 'properties'
-
-# ### Parse text into object
-parse = (text, uri, parser, quiet=false, cb) ->
-  # auto detection
-  list = ['xml', 'ini', 'properties', 'coffee', 'yaml', 'json', 'js']
-  unless parser in list
-    detect = list[0..]
-    ext = fspath.extname(uri).substring 1
-    if type = ext2parser[ext]
-      i = detect.indexOf type
-      detect.splice i, 1 if i > -1
-      detect.unshift type
-    result = null
-    errors = []
-    async.detectSeries detect, (type, cb) ->
-      parseFormat text, uri, type, true, (err, obj) ->
-        if err
-          errors.push err.message
-          debug chalk.grey "#{uri} failed in #{err.message}"
-        result = obj
-        cb null, not err? and obj?
-    , (err, ok) ->
-      unless ok
-        return cb new Error "Could not find any valid format for #{uri}:\n#{errors.join '\n'}"
-      cb null, result
-    return
-  # parse direct given format only
-  parseFormat text, uri, parser, quiet, (err, result) ->
-    err = new Error "#{uri} failed in #{err.message}" if err
-    cb err, result
-
-# ### Parse given Format
-parseFormat =  (text, uri, parser, quiet=false, cb) ->
-  # parse specified format
-  color = if quiet then 'grey' else 'red'
-  debug chalk.grey "try loading #{uri} as #{parser}"
-  # parser given
-  switch parser
-    when 'yaml'
-      yaml ?= require 'js-yaml'
-      try
-        result = yaml.safeLoad text
-      catch error
-        error.message = error.message.replace 'JS-YAML: ', ''
-        return cb new Error chalk[color] "#{parser} parser: #{error.message.replace /[\s^]+/g, ' '}"
-      cb null, result
-    when 'js'
-      vm ?= require 'vm'
-      try
-        result = vm.runInNewContext "x=#{text}"
-      catch error
-        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
-      cb null, result
-    when 'json'
-      try
-        result = JSON.parse text
-      catch error
-        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
-      cb null, result
-    when 'coffee'
-      coffee ?= require 'coffee-script'
-      try
-        text = "module.exports =\n  " + text.replace /\n/g, '\n  '
-        m = new module.constructor()
-        m._compile coffee.compile(text), uri
-      catch error
-        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
-      cb null, m.exports
-    when 'properties'
-      properties ?= require 'properties'
-      properties.parse text,
-        sections: true
-        namespaces: true
-      , (err, result) ->
-        if err
-          return cb new Error chalk[color] "#{parser} parser: #{err.message}"
-        unless propertiesCheck result
-          return cb new Error chalk[color] "#{parser} parser: Unexpected characters []{}/
-          in key name found"
-        cb null, result
-    when 'ini'
-      ini ?= require 'ini'
-      try
-        result = ini.decode text
-      catch error
-        return cb new Error chalk[color] "#{parser} parser: #{error.message}"
-      # detect failed parsing
-      if not result?
-        return cb new Error chalk[color] "#{parser} parser: could not parse any result"
-      if result['{']
-        return cb new Error chalk[color] "#{parser} parser: Unexpected token { at start"
-      for k, v of result
-        if v is true and k.match /:/
-          return cb new Error chalk[color] "#{parser} parser: Unexpected key name containing
-          ':' with value true"
-      cb null, result
-    when 'xml'
-      xml2js ?= require 'xml2js'
-      xml2js.parseString text, {explicitArray: false}, (err, result) ->
-        if err
-          return cb new Error chalk[color] "#{parser} parser: #{err.message.replace /\n/g, ' '}"
-        # optimize result of attributes
-        cb null, xmlOptimize result
-    else
-      cb new Error chalk[color] "Parser for #{parser} not found"
-
-# ### Optimize parsed cml
-xmlOptimize = (data) ->
-  return data unless typeof data is 'object'
-  if Array.isArray data
-    # seep analyze array
-    result = []
-    for v in data
-      result.push xmlOptimize v
-    return result
-  result = {}
-  for k, v of data
-    # set value
-    if k is '_'
-      result.value = v
-    # set attributes
-    else if k is '$'
-      for s, w of xmlOptimize v
-        result[s] = w
-    # keep other but check contents
-    else
-      result[k] = xmlOptimize v
-  return result
-
-# ### Check that the properties parser for correct result
-propertiesCheck = (data) ->
-  return true unless typeof data is 'object'
-  for k, v of data
-    if v is null or ~'[]{}/'.indexOf k.charAt 0
-      return false
-    return false unless propertiesCheck v
-  return true
 
 # ### Set Meta Data to all elements
 setMeta = (obj, uri, origin, prefix='') ->

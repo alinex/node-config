@@ -68,7 +68,7 @@ describe "Access", ->
               job: 'Developer'
             cdata: 'i\\\'m not escaped: <xml>!'
             attributes:
-              value: '\n    Hello all together\n  '
+              _: 'Hello all together'
               type: 'detail'
           yaml:
             string: 'test'
@@ -132,7 +132,7 @@ describe "Access", ->
               job: 'Developer'
             cdata: 'i\\\'m not escaped: <xml>!'
             attributes:
-              value: '\n    Hello all together\n  '
+              _: 'Hello all together'
               type: 'detail'
           yaml:
             string: 'test'

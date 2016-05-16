@@ -233,7 +233,7 @@ describe "Load", ->
             list: [ '1', '2', '3' ]
             person: {name: 'Alexander Schilling', job: 'Developer'}
             cdata: 'i\\\'m not escaped: <xml>!'
-            attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+            attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
     it "should merge together data", (cb) ->
@@ -256,7 +256,7 @@ describe "Load", ->
           list: [ 'red', 'green', 'blue', '1', '2', '3' ]
           person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+          attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
     it "should merge (overwrite) data", (cb) ->
@@ -275,7 +275,7 @@ describe "Load", ->
           list: [ '1', '2', '3' ]
           person: {name: 'Alexander Schilling', job: 'Developer'}
           cdata: 'i\\\'m not escaped: <xml>!'
-          attributes: {value: '\n    Hello all together\n  ', type: 'detail'}
+          attributes: {_: 'Hello all together', type: 'detail'}
         cb()
 
   describe "register", ->
