@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-config/src/load.coffee";
+    var thisFile = "src/load.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -81,22 +81,6 @@
       </div>
 
       <div class="heading h3">
-        <a href="#parse-text-into-object">Parse text into object</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#parse-given-format">Parse given Format</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#optimize-parsed-cml">Optimize parsed cml</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#check-that-the-properties-parser-for-correct-result">Check that the properties parser for correct result</a>
-      </div>
-
-      <div class="heading h3">
         <a href="#set-meta-data-to-all-elements">Set Meta Data to all elements</a>
       </div>
 
@@ -151,14 +135,9 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'config:load'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-request = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-yaml = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-vm = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-coffee = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-properties = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-ini = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span>
-xml2js = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span></pre>
+request = <span class="hljs-literal">null</span> <span class="hljs-comment"># loaded on demand</span></pre>
         </td>
       </tr>
     
@@ -172,9 +151,9 @@ xml2js = <span class="hljs-literal">null</span> <span class="hljs-comment"># loa
         </td>
         <td class="code highlight">
           <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span></pre>
+validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
+formatter = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-formatter'</span></pre>
         </td>
       </tr>
     
@@ -282,9 +261,9 @@ Validate new value before store
           <pre class="coffeescript">validate = exports.validate = <span class="hljs-function"><span class="hljs-params">(config, value, cb)</span> -&gt;</span>
   debug <span class="hljs-string">"validate results"</span>
   validator.check
-    <span class="hljs-attribute">name</span>: <span class="hljs-string">'config'</span>
-    <span class="hljs-attribute">value</span>: value
-    <span class="hljs-attribute">schema</span>: config.schema
+    name: <span class="hljs-string">'config'</span>
+    value: value
+    schema: config.schema
   , cb</pre>
         </td>
       </tr>
@@ -404,11 +383,11 @@ Load file origin
       [value, meta] = result
       setOrigin origin, value, meta, date, cb
   fs.find path,
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'f'</span>
-    <span class="hljs-attribute">include</span>: pattern
-    <span class="hljs-attribute">dereference</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">mindepth</span>: path.split(<span class="hljs-regexp">/\//</span>).length - <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> pattern
-    <span class="hljs-attribute">maxdepth</span>: path.split(<span class="hljs-regexp">/\//</span>).length - <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> pattern
+    type: <span class="hljs-string">'f'</span>
+    include: pattern
+    dereference: <span class="hljs-literal">true</span>
+    mindepth: path.split(<span class="hljs-regexp">/\//</span>).length - <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> pattern
+    maxdepth: path.split(<span class="hljs-regexp">/\//</span>).length - <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> pattern
   , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
     date = <span class="hljs-keyword">new</span> Date()
     <span class="hljs-keyword">if</span> err
@@ -457,7 +436,7 @@ Load file origin
 <span class="hljs-function">
 <span class="hljs-title">loadFile</span> = <span class="hljs-params">(origin, path, file, cb)</span> -&gt;</span>
   fs.readFile file,
-    <span class="hljs-attribute">encoding</span>: <span class="hljs-string">'UTF-8'</span>
+    encoding: <span class="hljs-string">'UTF-8'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, text)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
@@ -473,7 +452,7 @@ Load file origin
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    uri = <span class="hljs-string">"file:///<span class="hljs-subst">#{util.string.trim file, <span class="hljs-string">'/'</span>}</span>"</span>
-    parse text, uri, origin.parser, <span class="hljs-literal">false</span>, <span class="hljs-function"><span class="hljs-params">(err, obj)</span> -&gt;</span>
+    formatter.parse text, <span class="hljs-function"><span class="hljs-params">(origin.parser ? uri)</span>, <span class="hljs-params">(err, obj)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
@@ -488,11 +467,11 @@ Load file origin
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      add = uri.substring path.length+<span class="hljs-number">1</span>
-      add = add[<span class="hljs-number">0.</span>.-fspath.extname(add).length-<span class="hljs-number">1</span>]
-      add = add[<span class="hljs-number">0.</span>.-<span class="hljs-number">7</span>] <span class="hljs-keyword">if</span> util.string.ends add, <span class="hljs-string">'/index'</span>
+      add = add[<span class="hljs-number">0.</span>.-fspath.extname(add).length<span class="hljs-number">-1</span>]
+      add = add[<span class="hljs-number">0.</span>.<span class="hljs-number">-7</span>] <span class="hljs-keyword">if</span> util.string.ends add, <span class="hljs-string">'/index'</span>
       list = []
       <span class="hljs-keyword">if</span> add
-        list = list.concat add.split(<span class="hljs-string">'/'</span>)[<span class="hljs-number">0.</span>.-<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> ~add.indexOf <span class="hljs-string">'/'</span>
+        list = list.concat add.split(<span class="hljs-string">'/'</span>)[<span class="hljs-number">0.</span>.<span class="hljs-number">-2</span>] <span class="hljs-keyword">if</span> ~add.indexOf <span class="hljs-string">'/'</span>
         list.push fspath.basename add
       add = <span class="hljs-string">'/'</span> + list.join <span class="hljs-string">'/'</span> <span class="hljs-keyword">if</span> list.length</pre>
         </td>
@@ -586,7 +565,7 @@ Load file origin
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    parse body, uri, origin.parser, <span class="hljs-literal">false</span>, <span class="hljs-function"><span class="hljs-params">(err, obj)</span> -&gt;</span>
+          <pre class="coffeescript">    formatter.parse body, <span class="hljs-function"><span class="hljs-params">(origin.parser ? uri)</span>, <span class="hljs-params">(err, obj)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       meta = setMeta obj, uri, origin
       debug <span class="hljs-string">"loaded <span class="hljs-subst">#{uri}</span>"</span>
@@ -676,7 +655,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">        res[k.substring filter.length-<span class="hljs-number">1</span>] = v
+          <pre class="coffeescript">        res[k.substring filter.length<span class="hljs-number">-1</span>] = v
       meta = res
     <span class="hljs-keyword">else</span>
       debug chalk.red <span class="hljs-string">"Could not set filter <span class="hljs-subst">#{origin.filter}</span> in <span class="hljs-subst">#{origin.uri}</span>"</span></pre>
@@ -757,314 +736,7 @@ Set the extracted information to the origin element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  cb()
-
-ext2parser =
-  <span class="hljs-attribute">yml</span>: <span class="hljs-string">'yaml'</span>
-  <span class="hljs-attribute">yaml</span>: <span class="hljs-string">'yaml'</span>
-  <span class="hljs-attribute">js</span>: <span class="hljs-string">'js'</span>
-  <span class="hljs-attribute">javascript</span>: <span class="hljs-string">'javascript'</span>
-  <span class="hljs-attribute">json</span>: <span class="hljs-string">'json'</span>
-  <span class="hljs-attribute">cson</span>: <span class="hljs-string">'coffee'</span>
-  <span class="hljs-attribute">coffee</span>: <span class="hljs-string">'coffee'</span>
-  <span class="hljs-attribute">xml</span>: <span class="hljs-string">'xml'</span>
-  <span class="hljs-attribute">ini</span>: <span class="hljs-string">'ini'</span>
-  <span class="hljs-attribute">properties</span>: <span class="hljs-string">'properties'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="parse-text-into-object">
-  <h3>
-    <a href="#parse-text-into-object" name="parse-text-into-object" class="pilcrow"></a>
-Parse text into object
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parse</span> = <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39"></a>
-</div>
-<p>auto detection</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  list = [<span class="hljs-string">'xml'</span>, <span class="hljs-string">'ini'</span>, <span class="hljs-string">'properties'</span>, <span class="hljs-string">'coffee'</span>, <span class="hljs-string">'yaml'</span>, <span class="hljs-string">'json'</span>, <span class="hljs-string">'js'</span>]
-  <span class="hljs-keyword">unless</span> parser <span class="hljs-keyword">in</span> list
-    detect = list[<span class="hljs-number">0.</span>.]
-    ext = fspath.extname(uri).substring <span class="hljs-number">1</span>
-    <span class="hljs-keyword">if</span> type = ext2parser[ext]
-      i = detect.indexOf type
-      detect.splice i, <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> i &gt; -<span class="hljs-number">1</span>
-      detect.unshift type
-    result = <span class="hljs-literal">null</span>
-    errors = []
-    async.detectSeries detect, <span class="hljs-function"><span class="hljs-params">(type, cb)</span> -&gt;</span>
-      parseFormat text, uri, type, <span class="hljs-literal">true</span>, <span class="hljs-function"><span class="hljs-params">(err, obj)</span> -&gt;</span>
-        <span class="hljs-keyword">if</span> err
-          errors.push err.message
-          debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{uri}</span> failed in <span class="hljs-subst">#{err.message}</span>"</span>
-        result = obj
-        cb <span class="hljs-keyword">not</span> err? <span class="hljs-keyword">and</span> obj?
-    , <span class="hljs-function"><span class="hljs-params">(ok)</span> -&gt;</span>
-      <span class="hljs-keyword">unless</span> ok
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not find any valid format for <span class="hljs-subst">#{uri}</span>:\n<span class="hljs-subst">#{errors.join <span class="hljs-string">'\n'</span>}</span>"</span>
-      cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">return</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40"></a>
-</div>
-<p>parse direct given format only</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  parseFormat text, uri, parser, quiet, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
-    err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{uri}</span> failed in <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
-    cb err, result</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="parse-given-format">
-  <h3>
-    <a href="#parse-given-format" name="parse-given-format" class="pilcrow"></a>
-Parse given Format
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">parseFormat</span> =  <span class="hljs-params">(text, uri, parser, quiet=<span class="hljs-literal">false</span>, cb)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42"></a>
-</div>
-<p>parse specified format</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  color = <span class="hljs-keyword">if</span> quiet <span class="hljs-keyword">then</span> <span class="hljs-string">'grey'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'red'</span>
-  debug chalk.grey <span class="hljs-string">"try loading <span class="hljs-subst">#{uri}</span> as <span class="hljs-subst">#{parser}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43"></a>
-</div>
-<p>parser given</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">switch</span> parser
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'yaml'</span>
-      yaml ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'js-yaml'</span>
-      <span class="hljs-keyword">try</span>
-        result = yaml.safeLoad text
-      <span class="hljs-keyword">catch</span> error
-        error.message = error.message.replace <span class="hljs-string">'JS-YAML: '</span>, <span class="hljs-string">''</span>
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message.replace <span class="hljs-regexp">/[\s^]+/g</span>, <span class="hljs-string">' '</span>}</span>"</span>
-      cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'js'</span>
-      vm ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
-      <span class="hljs-keyword">try</span>
-        result = vm.runInNewContext <span class="hljs-string">"x=<span class="hljs-subst">#{text}</span>"</span>
-      <span class="hljs-keyword">catch</span> error
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
-      cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'json'</span>
-      <span class="hljs-keyword">try</span>
-        result = JSON.parse text
-      <span class="hljs-keyword">catch</span> error
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
-      cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'coffee'</span>
-      coffee ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span>
-      <span class="hljs-keyword">try</span>
-        text = <span class="hljs-string">"module.exports =\n  "</span> + text.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">'\n  '</span>
-        m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">module</span>.constructor()
-        m._compile coffee.compile(text), uri
-      <span class="hljs-keyword">catch</span> error
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span>
-      cb <span class="hljs-literal">null</span>, m.exports
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'properties'</span>
-      properties ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'properties'</span>
-      properties.parse text,
-        <span class="hljs-attribute">sections</span>: <span class="hljs-literal">true</span>
-        <span class="hljs-attribute">namespaces</span>: <span class="hljs-literal">true</span>
-      , <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
-        <span class="hljs-keyword">if</span> err
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{err.message}</span>"</span>
-        <span class="hljs-keyword">unless</span> propertiesCheck result
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: Unexpected characters []{}/
-          in key name found"</span>
-        cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'ini'</span>
-      ini ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'ini'</span>
-      <span class="hljs-keyword">try</span>
-        result = ini.decode text
-      <span class="hljs-keyword">catch</span> error
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{error.message}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44"></a>
-</div>
-<p>detect failed parsing</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> result?
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: could not parse any result"</span>
-      <span class="hljs-keyword">if</span> result[<span class="hljs-string">'{'</span>]
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: Unexpected token { at start"</span>
-      <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> result
-        <span class="hljs-keyword">if</span> v <span class="hljs-keyword">is</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">and</span> k.match <span class="hljs-regexp">/:/</span>
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: Unexpected key name containing
-          ':' with value true"</span>
-      cb <span class="hljs-literal">null</span>, result
-    <span class="hljs-keyword">when</span> <span class="hljs-string">'xml'</span>
-      xml2js ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'xml2js'</span>
-      xml2js.parseString text, {<span class="hljs-attribute">explicitArray</span>: <span class="hljs-literal">false</span>}, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
-        <span class="hljs-keyword">if</span> err
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"<span class="hljs-subst">#{parser}</span> parser: <span class="hljs-subst">#{err.message.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span>}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
-</div>
-<p>optimize result of attributes</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">        cb <span class="hljs-literal">null</span>, xmlOptimize result
-    <span class="hljs-keyword">else</span>
-      cb <span class="hljs-keyword">new</span> Error chalk[color] <span class="hljs-string">"Parser for <span class="hljs-subst">#{parser}</span> not found"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="optimize-parsed-cml">
-  <h3>
-    <a href="#optimize-parsed-cml" name="optimize-parsed-cml" class="pilcrow"></a>
-Optimize parsed cml
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">xmlOptimize</span> = <span class="hljs-params">(data)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> data <span class="hljs-keyword">unless</span> <span class="hljs-keyword">typeof</span> data <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
-  <span class="hljs-keyword">if</span> Array.isArray data</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
-</div>
-<p>seep analyze array</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    result = []
-    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> data
-      result.push xmlOptimize v
-    <span class="hljs-keyword">return</span> result
-  result = {}
-  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> data</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
-</div>
-<p>set value</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'_'</span>
-      result.value = v</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
-</div>
-<p>set attributes</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'$'</span>
-      <span class="hljs-keyword">for</span> s, w <span class="hljs-keyword">of</span> xmlOptimize v
-        result[s] = w</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50"></a>
-</div>
-<p>keep other but check contents</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">else</span>
-      result[k] = xmlOptimize v
-  <span class="hljs-keyword">return</span> result</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="check-that-the-properties-parser-for-correct-result">
-  <h3>
-    <a href="#check-that-the-properties-parser-for-correct-result" name="check-that-the-properties-parser-for-correct-result" class="pilcrow"></a>
-Check that the properties parser for correct result
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">propertiesCheck</span> = <span class="hljs-params">(data)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> <span class="hljs-keyword">typeof</span> data <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
-  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> data
-    <span class="hljs-keyword">if</span> v <span class="hljs-keyword">is</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">or</span> ~<span class="hljs-string">'[]{}/'</span>.indexOf k.charAt <span class="hljs-number">0</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> propertiesCheck v
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
+          <pre class="coffeescript">  cb()</pre>
         </td>
       </tr>
     
@@ -1088,9 +760,9 @@ Set Meta Data to all elements
         meta[key] = val
     <span class="hljs-keyword">else</span>
       meta[path] = [
-        <span class="hljs-attribute">uri</span>: uri
-        <span class="hljs-attribute">origin</span>: origin
-        <span class="hljs-attribute">value</span>: v
+        uri: uri
+        origin: origin
+        value: v
       ]
   <span class="hljs-keyword">return</span> meta</pre>
         </td>

@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-config/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -53,31 +53,7 @@
       </div>
 
       <div class="heading h3">
-        <a href="#yaml">YAML</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#json">JSON</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#javascript">JavaScript</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#cson">CSON</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#xml">XML</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#ini">INI</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#properties">PROPERTIES</a>
+        <a href="#file-formats">File formats</a>
       </div>
 
       <div class="heading h3">
@@ -195,7 +171,7 @@ Install
 <p>And update it to the latest version later:</p>
 <pre><code class="sh">npm update alinex-config --save
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="formats">
   <h2>
     <a href="#formats" name="formats" class="pilcrow"></a>
@@ -203,330 +179,15 @@ Formats
   </h2>
 </div>
 <p>This configuration class allows multiple formats to be used alternatively or combined.
-So you may use the format you know best. The following table will give a short
-comparison.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Format</th>
-<th style="text-align:right">YAML</th>
-<th style="text-align:right">XML</th>
-<th style="text-align:right">JSON</th>
-<th style="text-align:right">JS</th>
-<th style="text-align:right">CSON</th>
-<th style="text-align:right">INI</th>
-<th style="text-align:right">PROP</th>
-<th style="text-align:right">RDBMS</th>
-<th style="text-align:right">ObjDB</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Supported</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-</tr>
-<tr>
-<td style="text-align:left">Comments</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">(yes)</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">(yes)</td>
-</tr>
-<tr>
-<td style="text-align:left">Structure</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-</tr>
-<tr>
-<td style="text-align:left">Arrays</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-</tr>
-<tr>
-<td style="text-align:left">Reloadable</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">(yes)</td>
-<td style="text-align:right">(yes)</td>
-</tr>
-<tr>
-<td style="text-align:left">Readiness</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">-</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">++</td>
-</tr>
-<tr>
-<td style="text-align:left">Calculations</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">yes</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-<td style="text-align:right">no</td>
-</tr>
-<tr>
-<td style="text-align:left">Performance</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">-</td>
-<td style="text-align:right">+</td>
-</tr>
-<tr>
-<td style="text-align:left">Common</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">+</td>
-<td style="text-align:right">++</td>
-<td style="text-align:right">--</td>
-<td style="text-align:right">---</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">+++</td>
-<td style="text-align:right">-</td>
-<td style="text-align:right">--</td>
-</tr>
-</tbody>
-</table>
-<div class="pilwrap" id="yaml">
+So you may use the format you know best.</p>
+<div class="pilwrap" id="file-formats">
   <h3>
-    <a href="#yaml" name="yaml" class="pilcrow"></a>
-YAML
+    <a href="#file-formats" name="file-formats" class="pilcrow"></a>
+File formats
   </h3>
 </div>
-<p>This is a simplified and best human readable language to write structured
-information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
-<p>Common file extensions <code>yml</code> or <code>yaml</code>.</p>
-<p><strong>Example</strong></p>
-<pre><code class="yaml"># include text elements
-text: test
-
-# commas, colons and brackets has to be in quotes
-longtext: &quot;And a long text with ' and &quot;&quot; is possible, too&quot;
-
-# multiline text with newlines removed
-multiline: &gt;
-  This may be a very long
-  line in which newlines
-  will be removed.
-
-# and now the newlines are kept
-keepnewlines: |
-  Line 1
-  Line 2
-  Line 3
-
-# and some lists
-simplelist: 1, 2, 3
-list:
-  - red
-  - green
-  - blue
-
-# an sub object
-person:
-  name: Alexander Schilling
-  job: Developer
-</code></pre>
-<div class="pilwrap" id="json">
-  <h3>
-    <a href="#json" name="json" class="pilcrow"></a>
-JSON
-  </h3>
-</div>
-<p>This format uses the javascript object notation a human readable structure. It
-is widely used in different languages not only JavaScript. See description at
-<a href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>.</p>
-<p>Common file extension <code>json</code>.</p>
-<pre><code class="json">{
-  "<span class="hljs-attribute">string</span>": <span class="hljs-value"><span class="hljs-string">"test"</span></span>,
-  "<span class="hljs-attribute">list</span>": <span class="hljs-value">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]</span>,
-  "<span class="hljs-attribute">person</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling"</span></span>,
-    "<span class="hljs-attribute">job</span>": <span class="hljs-value"><span class="hljs-string">"Developer"</span>
-  </span>}
-</span>}
-</code></pre>
-<p>JSON won't allow comments but you may use JavaScript like comments using
-<code>//</code> and <code>/*...*/</code> like known in javascript. Therefore use the javascript
-parsing.</p>
-<div class="pilwrap" id="javascript">
-  <h3>
-    <a href="#javascript" name="javascript" class="pilcrow"></a>
-JavaScript
-  </h3>
-</div>
-<p>Also allowed are normal JavaScript files. In comparison to the JSON format it
-is more loosely so you may use single quotes, keys don't need quotes at all and
-at last you may use calculations. But you may only access elements in the same
-file accessing data from outside is prevented by security.</p>
-<p>Common file extension <code>js</code>.</p>
-<pre><code class="javascript">{
-  <span class="hljs-comment">// include a string</span>
-  string: <span class="hljs-string">"test"</span>,
-
-  <span class="hljs-comment">// and a list of numbers</span>
-  list: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
-
-  <span class="hljs-comment">// add a sub object</span>
-  person: {
-    name: <span class="hljs-string">"Alexander Schilling"</span>,
-    job: <span class="hljs-string">"Developer"</span>
-  },
-
-  <span class="hljs-comment">// calculate session timeout in milliseconds</span>
-  session: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>,
-  calc: <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">16</span>)
-}
-</code></pre>
-<div class="pilwrap" id="cson">
-  <h3>
-    <a href="#cson" name="cson" class="pilcrow"></a>
-CSON
-  </h3>
-</div>
-<p>Like above you may write the modules in CoffeeScript like in JSON.</p>
-<p>Common file extension <code>cson</code>.</p>
-<pre><code class="coffee"><span class="hljs-comment"># include a string</span>
-<span class="hljs-attribute">string</span>: <span class="hljs-string">"test"</span>
-
-<span class="hljs-comment"># and a list of numbers</span>
-<span class="hljs-attribute">list</span>: [
-  <span class="hljs-number">1</span>
-  <span class="hljs-number">2</span>
-  <span class="hljs-number">3</span>
-]
-
-<span class="hljs-comment"># add a sub object</span>
-<span class="hljs-attribute">person</span>:
-  <span class="hljs-attribute">name</span>: <span class="hljs-string">"Alexander Schilling"</span>
-  <span class="hljs-attribute">job</span>: <span class="hljs-string">"Developer"</span>
-
-<span class="hljs-comment"># calculate session timeout in milliseconds</span>
-<span class="hljs-attribute">session</span>: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>
-<span class="hljs-attribute">calc</span>: Math.sqrt <span class="hljs-number">16</span>
-</code></pre>
-<div class="pilwrap" id="xml">
-  <h3>
-    <a href="#xml" name="xml" class="pilcrow"></a>
-XML
-  </h3>
-</div>
-<p>The XML format should only use Tags and values, but no arguments.</p>
-<p>Common file extension <code>xml</code>.</p>
-<pre><code class="xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
-<span class="hljs-comment">&lt;!-- use an object --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">xml</span>&gt;</span>
-
-  <span class="hljs-comment">&lt;!-- include a string --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
-
-  <span class="hljs-comment">&lt;!-- and a list of numbers --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">list</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-title">list</span>&gt;</span>
-
-  <span class="hljs-comment">&lt;!-- sub object --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">person</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>Alexander Schilling<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">job</span>&gt;</span>Developer<span class="hljs-tag">&lt;/<span class="hljs-title">job</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">person</span>&gt;</span>
-
-  <span class="hljs-comment">&lt;!-- cdata section --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">cdata</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[i\'m not escaped: &lt;xml&gt;!]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">cdata</span>&gt;</span>
-
-  <span class="hljs-comment">&lt;!-- using attributes --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-title">attributes</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"detail"</span>&gt;</span>
-    Hello all together
-  <span class="hljs-tag">&lt;/<span class="hljs-title">attributes</span>&gt;</span>
-
-<span class="hljs-tag">&lt;/<span class="hljs-title">xml</span>&gt;</span>
-</code></pre>
-<div class="pilwrap" id="ini">
-  <h3>
-    <a href="#ini" name="ini" class="pilcrow"></a>
-INI
-  </h3>
-</div>
-<p>This is one of the oldest formats used for configurations. It is very simple but
-allows also complex objects through extended groups.</p>
-<p>Common file extension <code>ini</code>.</p>
-<pre><code class="ini"><span class="hljs-comment">; put everything in a main group</span>
-<span class="hljs-title">[ini]</span>
-<span class="hljs-setting">string = <span class="hljs-value">test</span></span>
-
-<span class="hljs-comment">; add a simple list</span>
-<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">1</span></span></span>
-<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">2</span></span></span>
-<span class="hljs-setting">list[] = <span class="hljs-value"><span class="hljs-number">3</span></span></span>
-
-<span class="hljs-comment">; add a sub object</span>
-<span class="hljs-title">[ini.person]</span>
-<span class="hljs-setting">name = <span class="hljs-value">Alexander Schilling</span></span>
-<span class="hljs-setting">job = <span class="hljs-value">Developer</span></span>
-</code></pre>
-<div class="pilwrap" id="properties">
-  <h3>
-    <a href="#properties" name="properties" class="pilcrow"></a>
-PROPERTIES
-  </h3>
-</div>
-<p>Mainly in the Java world properties are used to setup configuration values.
-But it won't have support for arrays, you only may use objects with numbered keys.</p>
-<pre><code class="properties"># put everything in a main group
-prop.string = test
-
-! add a simple list
-prop.list.1 = 1
-prop.list.2 = 2
-prop.list.3 = 3
-
-! add a sub object
-prop.person.name : Alexander Schilling
-prop.person.job: Developer
-</code></pre>
+<p>See the <a href="http://alinex.github.io/node-formatter">formatter</a> package for a detailed
+description of the allowed formats and description of how to write them.</p>
 <div class="pilwrap" id="rdbms">
   <h3>
     <a href="#rdbms" name="rdbms" class="pilcrow"></a>
@@ -607,41 +268,41 @@ Object DB
 File Structure
   </h2>
 </div>
-<p>As seen above you can use different formats but you can also mix it or split your
+<p>As described above you can use different formats but you can also mix it or split your
 configuration into multiple files.</p>
 <p>So as an first example if you have a very large configuration of three major
 parts you may split it up into 3 different files.</p>
-<pre><code class="yaml"># config/server/http.yml
-listen:
-  ip: 192.168.0.1
-  port: 80
+<pre><code class="yaml"><span class="hljs-comment"># config/server/http.yml</span>
+<span class="hljs-attr">listen:</span>
+<span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">80</span>
 </code></pre>
-<pre><code class="yaml"># config/server/ftp.yml
-listen:
-  ip: 192.168.0.1
-  port: 21
+<pre><code class="yaml"><span class="hljs-comment"># config/server/ftp.yml</span>
+<span class="hljs-attr">listen:</span>
+<span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">21</span>
 </code></pre>
-<pre><code class="yaml"># config/server/mail.yml
-pop:
-  port: 110
-imap:
-  port: 143
+<pre><code class="yaml"><span class="hljs-comment"># config/server/mail.yml</span>
+<span class="hljs-attr">pop:</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">110</span>
+<span class="hljs-attr">imap:</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">143</span>
 </code></pre>
 <p>And if the program now reads <code>config/**</code> you will get the combined structure:</p>
-<pre><code class="yaml">server:
-  http:
-    listen:
-      ip: 192.168.0.1
-      port: 80
-  ftp:
-    listen:
-      ip: 192.168.0.1
-      port: 21
-  mail:
-    pop:
-      port: 110
-    imap:
-      port: 143
+<pre><code class="yaml"><span class="hljs-attr">server:</span>
+<span class="hljs-attr">  http:</span>
+<span class="hljs-attr">    listen:</span>
+<span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">      port:</span> <span class="hljs-number">80</span>
+<span class="hljs-attr">  ftp:</span>
+<span class="hljs-attr">    listen:</span>
+<span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">      port:</span> <span class="hljs-number">21</span>
+<span class="hljs-attr">  mail:</span>
+<span class="hljs-attr">    pop:</span>
+<span class="hljs-attr">      port:</span> <span class="hljs-number">110</span>
+<span class="hljs-attr">    imap:</span>
+<span class="hljs-attr">      port:</span> <span class="hljs-number">143</span>
 </code></pre>
 <p>This is because the config system will use the names behind the asterisk as
 structure levels automatically but you may control the combination rules using
@@ -662,10 +323,10 @@ already done and initialize it:</p>
 config.register <span class="hljs-string">'myapp'</span>, __dirname
 <span class="hljs-comment"># add a special path on the end (highest priority)</span>
 config.pushOrigin
-  <span class="hljs-attribute">uri</span>: <span class="hljs-string">'file:///etc/my-config.yml'</span>
+  uri: <span class="hljs-string">'file:///etc/my-config.yml'</span>
 <span class="hljs-comment"># and add a schema to verify the database settings are correct</span>
 config.setSchema <span class="hljs-string">'database'</span>,
-  <span class="hljs-attribute">type</span>: ....  <span class="hljs-comment"># schema</span>
+  type: ....  <span class="hljs-comment"># schema</span>
 
 <span class="hljs-comment"># start initializing the configuration and load the data</span>
 config.init (err) -&gt;
@@ -818,7 +479,7 @@ on multiple locations out of the box:</p>
 <p>To support this in an easy way you may use the <code>register</code> method which if given
 an application name and the app directory will do everything for you.</p>
 <pre><code class="coffee">config.register myapp, __dirname,
-  <span class="hljs-attribute">uri</span>: <span class="hljs-string">'*.yml'</span>
+  uri: <span class="hljs-string">'*.yml'</span>
 </code></pre>
 <p>Like you see, you may also add the  attributes from the normal configuration
 like <code>uri</code>, <code>filter</code> and <code>path</code>.</p>
@@ -836,13 +497,13 @@ Setup schema
 processed before using the values. If the validation fails it will return a
 descriptive Error and don't use the values.</p>
 <pre><code class="coffee">config.setSchema <span class="hljs-string">'/'</span>,
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">name</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">job</span>:
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    name:
+      type: <span class="hljs-string">'string'</span>
+    job:
+      type: <span class="hljs-string">'string'</span>
 , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
   <span class="hljs-comment"># go on and load the data</span>
 </code></pre>
@@ -898,13 +559,13 @@ Web Services
 But keep in mind that your system may not start if the web service is down.</p>
 <p>It is as easy as using files:</p>
 <pre><code class="coffee">config.pushOrigin
-  <span class="hljs-attribute">uri</span>: <span class="hljs-string">"http://echo.jsontest.com/key/value/one/two"</span>
-  <span class="hljs-attribute">path</span>: <span class="hljs-string">'echo'</span>
+  uri: <span class="hljs-string">"http://echo.jsontest.com/key/value/one/two"</span>
+  path: <span class="hljs-string">'echo'</span>
 </code></pre>
 <p>This will result in the following configuration (after loaded via <code>init()</code>).</p>
-<pre><code class="coffee"><span class="hljs-attribute">echo</span>:
-  <span class="hljs-attribute">one</span>: <span class="hljs-string">'two'</span>
-  <span class="hljs-attribute">key</span>: <span class="hljs-string">'value'</span>
+<pre><code class="coffee">echo:
+  one: <span class="hljs-string">'two'</span>
+  key: <span class="hljs-string">'value'</span>
 </code></pre>
 <blockquote>
 <p>Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
@@ -934,7 +595,7 @@ setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-fun
 init = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   debug <span class="hljs-string">"initialize"</span>
   <span class="hljs-comment"># set module search path</span>
-  <span class="hljs-property">@setup</span> -&gt;
+  @setup -&gt;
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     config.init cb
 </code></pre>
