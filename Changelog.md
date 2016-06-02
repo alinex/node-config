@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.5 (2016-06-02)
+-------------------------------------------------
+- Upgraded  validator and builder packages.
+
 Version 1.1.4 (2016-05-17)
 -------------------------------------------------
 Changed config parser which supports more formats but changed some minor parts of xml parsing.
