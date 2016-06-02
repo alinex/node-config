@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.6 (2016-06-02)
+-------------------------------------------------
+- Upgraded validator for new handlebars-helper.
+
 Version 1.1.5 (2016-06-02)
 -------------------------------------------------
 - Upgraded  validator and builder packages.
