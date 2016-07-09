@@ -10,6 +10,7 @@ describe "Load", ->
   beforeEach ->
     # reset
     config.origin.shift() while config.origin.length
+    config.register 'alinex'
     config.schema =
       type: 'object'
     config.value = {}
@@ -297,17 +298,17 @@ describe "Load", ->
             src: "source position"
         cb()
 
-    it "should combine all data for apps", (cb) ->
+    it.only "should combine all data for apps", (cb) ->
       config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
       # fix user and global settings
-      config.origin[0][2].uri = config.origin[0][2].uri.replace '/etc/XXXXX',
+      config.origin[1][2].uri = config.origin[1][2].uri.replace '/etc/XXXXX',
         fspath.resolve __dirname, '../data/app/global'
-      config.origin[0][3].uri = config.origin[0][3].uri.replace /.*?\.XXXXX/,
+      config.origin[1][3].uri = config.origin[1][3].uri.replace /.*?\.XXXXX/,
         fspath.resolve __dirname, '../data/app/user'
       # test
       config.init (err) ->
         expect(err, 'error').to.not.exist
-        expect(config.origin[0].length, 'first origin entry length').to.be.equal 4
+        expect(config.origin[1].length, 'first origin entry length').to.be.equal 4
         d = config.value
         expect(d, 'yaml+xml root').to.deep.equal
           register:

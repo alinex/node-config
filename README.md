@@ -240,7 +240,7 @@ go multiple level depth:
 /etc/myapp.*            # search for any extension
 /etc/myapp/*.yml        # find all files with this extension
 /etc/myapp/*            # find all files in the directory
-/etc/myapp/*/*.yml      # fin one level depth
+/etc/myapp/*/*.yml      # find one level depth
 /etc/myapp/**           # find all files in directory or subdirectories
 /etc/myapp/**/*.yml     # find files in the directory or subdirectories
 ```

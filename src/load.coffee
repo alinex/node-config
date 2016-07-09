@@ -25,6 +25,7 @@ exports.init = (config, cb) ->
   debug "load all unloaded configurations"
   # step through origins
   origins = listOrigins config.origin
+  .filter (e) -> e.type is 'config'
   async.each origins, loadOrigin, (err) ->
     return cb err if err
     # combine all
@@ -41,6 +42,49 @@ exports.init = (config, cb) ->
       config.value = value
       config.meta = meta
       cb()
+
+exports.typeSearch = (config, type, cb) ->
+  origins = listOrigins config.origin
+  .filter (e) -> e.type is type
+  async.map origins, (origin, cb) ->
+    # find files
+    parts = origin.uri.match ///
+      ^
+      (
+        [^?*[{@]*$    # everything till end without pattern
+      |
+        [^?*[{@]*\/   # everything without pattern (dirs)
+      )?
+      (.*)            # part containing pattern to end
+      $
+    ///
+    [path, pattern] = parts[1..] if parts.length > 1
+    path ?= process.cwd() # make relative links absolute
+    path = "#{process.cwd()}/#{path}" unless path[0] is '/'
+    path = fspath.resolve path
+    unless pattern
+      return fs.exists path, (exists) ->
+        cb null, if exists then path else null
+    # search with pattern
+    fs.find path,
+      type: 'f'
+      include: pattern
+      dereference: true
+      mindepth: path.split(/\//).length - 1 unless pattern
+      maxdepth: path.split(/\//).length - 1 unless pattern
+    , (err, list) ->
+      return cb() if err
+
+  , (err, list) ->
+    return cb err if err
+    map = {}
+    for l in list
+      unless Array.isArray l
+        map[l] = l
+      for f in l
+        map[f] = f
+    cb null, map
+
 
 # ### Validate new value before store
 validate = exports.validate = (config, value, cb) ->

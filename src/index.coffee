@@ -38,6 +38,11 @@ module.exports =
   # -------------------------------------------------
 
   # configuration for loading
+  #  uri: '/home/alex/github/node-config/test/data/app/var/local/config/*',
+  #  parser: undefined,
+  #  path: undefined,
+  #  filter: undefined
+  #  type: # content type, defaults to config
   origin: []
   # validation schema
   schema:
@@ -52,41 +57,49 @@ module.exports =
   # Setup methods
   # -------------------------------------------------
 
-  pushOrigin: (conf) -> @origin.push conf
-  unshiftOrigin: (conf) -> @origin.unshift conf
+  pushOrigin: (conf) ->
+    conf.type ?= 'config'
+    @origin.push conf
+  unshiftOrigin: (conf) ->
+    conf.type ?= 'config'
+    @origin.unshift conf
 
   # name - application name
   # basedir - path
   register: (app, basedir, setup = {} ) ->
-    uri = util.string.trim(setup.uri, '/') ? '*'
-    folder = setup.folder ? 'config'
+    uri = util.string.trim(setup.uri, '/') ? '**'
+    setup.folder ?= 'config'
+    setup.type ?= 'config'
     list = []
     if basedir
       dir = fspath.resolve basedir
       # add src
       list.push
-        uri: "#{dir}/var/src/#{folder}/#{uri}"
+        uri: "#{dir}/var/src/#{setup.folder}/#{uri}"
+        type: setup.type
         parser: setup.parser
         path: setup.path
-
         filter: setup.filter
       # add local
       list.push
-        uri: "#{dir}/var/local/#{folder}/#{uri}"
+        uri: "#{dir}/var/local/#{setup.folder}/#{uri}"
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter
     if app
       # add global
       list.push
-        uri: "/etc/#{app}/#{folder}/#{uri}"
+        uri: "/etc/#{app}/#{setup.folder}/#{uri}"
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter
       # add user
       dir = process.env.HOME ? process.env.USERPROFILE
       list.push
-        uri: "#{dir}/.#{app}/#{folder}/#{uri}"
+        uri: "#{dir}/.#{app}/#{setup.folder}/#{uri}"
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter
@@ -114,6 +127,8 @@ module.exports =
     load.validate this, @value, (err, value) ->
       return cb err if err
       @value = value
+
+  typeSearch: (cb) -> load.typeSearch this, cb
 
   # ### Reload
   # This will re-import everything from scratch and if successful overwrite the
@@ -160,3 +175,5 @@ module.exports.init = util.function.onceTime module.exports, (cb) ->
     return cb err if err
     debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
+
+module.exports.register 'alinex'
