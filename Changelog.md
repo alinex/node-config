@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.1 (2016-07-09)
+-------------------------------------------------
+- Always add alinex app for template search.
+
 Version 1.2.0 (2016-07-09)
 -------------------------------------------------
 Added support for other file formats.
