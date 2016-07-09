@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.0 (2016-07-09)
+-------------------------------------------------
+Added support for other file formats.
+
+- Allow use of search path for other file formats.
+- Use general search path alinex.
+
 Version 1.1.6 (2016-06-02)
 -------------------------------------------------
 - Upgraded validator for new handlebars-helper.
