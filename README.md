@@ -419,6 +419,28 @@ echo:
 > extended on demand.
 
 
+Other file formats
+-------------------------------------------------
+
+Beside configuration files you may also access templates or other user changeable
+files in the same manner using such an search path.
+
+Therefore you have to register an app with a type:
+
+``` coffee
+config.register 'alinex', null,
+  folder: 'template'
+  type: 'template'
+```
+
+And later you may get all the possible files:
+
+``` coffee
+config.typeSearch 'template', (err, map) ->
+  console.log err, map
+```
+
+
 Examples
 -------------------------------------------------
 

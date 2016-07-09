@@ -286,7 +286,7 @@ describe "Load", ->
       # test
       config.init (err) ->
         expect(err, 'error').to.not.exist
-        expect(config.origin[0].length, 'first origin entry length').to.be.equal 2
+        expect(config.origin[1].length, 'first origin entry length').to.be.equal 2
         d = config.value
         expect(d, 'yaml+xml root').to.deep.equal
           register:
@@ -298,9 +298,9 @@ describe "Load", ->
             src: "source position"
         cb()
 
-    it.only "should combine all data for apps", (cb) ->
-      config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
+    it "should combine all data for apps", (cb) ->
       # fix user and global settings
+      config.register 'XXXXX', fspath.resolve __dirname, '../data/app'
       config.origin[1][2].uri = config.origin[1][2].uri.replace '/etc/XXXXX',
         fspath.resolve __dirname, '../data/app/global'
       config.origin[1][3].uri = config.origin[1][3].uri.replace /.*?\.XXXXX/,

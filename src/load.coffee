@@ -64,7 +64,12 @@ exports.typeSearch = (config, type, cb) ->
     path = fspath.resolve path
     unless pattern
       return fs.exists path, (exists) ->
-        cb null, if exists then path else null
+        return cb() unless exists
+        map = {}
+        name = fspath.basename path
+        name = "#{origin.path.trim '/'}/name" if origin.path
+        map[name] = path
+        cb null, map
     # search with pattern
     fs.find path,
       type: 'f'
@@ -74,15 +79,16 @@ exports.typeSearch = (config, type, cb) ->
       maxdepth: path.split(/\//).length - 1 unless pattern
     , (err, list) ->
       return cb() if err
-
-  , (err, list) ->
+      map = {}
+      for f in list
+        name = f[path.length+1..]
+        name = "#{origin.path.trim '/'}/name" if origin.path
+        map[name] = f
+      cb null, map
+  , (err, results) ->
     return cb err if err
     map = {}
-    for l in list
-      unless Array.isArray l
-        map[l] = l
-      for f in l
-        map[f] = f
+    util.extend map, res for res in results
     cb null, map
 
 

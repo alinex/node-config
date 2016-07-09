@@ -128,7 +128,7 @@ module.exports =
       return cb err if err
       @value = value
 
-  typeSearch: (cb) -> load.typeSearch this, cb
+  typeSearch: (type, cb) -> load.typeSearch this, type, cb
 
   # ### Reload
   # This will re-import everything from scratch and if successful overwrite the
