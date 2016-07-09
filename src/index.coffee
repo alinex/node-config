@@ -176,4 +176,8 @@ module.exports.init = util.function.onceTime module.exports, (cb) ->
     debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
 
+# Setup the general search path
 module.exports.register 'alinex'
+module.exports.register 'alinex', null,
+  folder: 'template'
+  type: 'template'
