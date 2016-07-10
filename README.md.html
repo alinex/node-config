@@ -117,6 +117,10 @@
       </div>
 
       <div class="heading h2">
+        <a href="#other-file-formats">Other file formats</a>
+      </div>
+
+      <div class="heading h2">
         <a href="#examples">Examples</a>
       </div>
 
@@ -408,7 +412,7 @@ go multiple level depth:</p>
 <pre><code class="text">/etc/myapp.*            # search for any extension
 /etc/myapp/*.yml        # find all files with this extension
 /etc/myapp/*            # find all files in the directory
-/etc/myapp/*/*.yml      # fin one level depth
+/etc/myapp/*/*.yml      # find one level depth
 /etc/myapp/**           # find all files in directory or subdirectories
 /etc/myapp/**/*.yml     # find files in the directory or subdirectories
 </code></pre>
@@ -572,6 +576,23 @@ But keep in mind that your system may not start if the web service is down.</p>
 later. Also the support of possibilities to specify the concrete request may be
 extended on demand.</p>
 </blockquote>
+<div class="pilwrap" id="other-file-formats">
+  <h2>
+    <a href="#other-file-formats" name="other-file-formats" class="pilcrow"></a>
+Other file formats
+  </h2>
+</div>
+<p>Beside configuration files you may also access templates or other user changeable
+files in the same manner using such an search path.</p>
+<p>Therefore you have to register an app with a type:</p>
+<pre><code class="coffee">config.register <span class="hljs-string">'alinex'</span>, <span class="hljs-literal">null</span>,
+  folder: <span class="hljs-string">'template'</span>
+  type: <span class="hljs-string">'template'</span>
+</code></pre>
+<p>And later you may get all the possible files:</p>
+<pre><code class="coffee">config.typeSearch <span class="hljs-string">'template'</span>, <span class="hljs-function"><span class="hljs-params">(err, map)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log err, map
+</code></pre>
 <div class="pilwrap" id="examples">
   <h2>
     <a href="#examples" name="examples" class="pilcrow"></a>

@@ -218,7 +218,12 @@ Data container
           <div class="pilwrap">
   <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
-<p>configuration for loading</p>
+<p>configuration for loading
+uri: '/home/alex/github/node-config/test/data/app/var/local/config/*',
+parser: undefined,
+path: undefined,
+filter: undefined
+type: # content type, defaults to config</p>
 
         </td>
         <td class="code highlight">
@@ -291,8 +296,12 @@ Setup methods
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-  pushOrigin: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span> @origin.push conf
-  unshiftOrigin: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span> @origin.unshift conf</pre>
+  pushOrigin: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span>
+    conf.type ?= <span class="hljs-string">'config'</span>
+    @origin.push conf
+  unshiftOrigin: <span class="hljs-function"><span class="hljs-params">(conf)</span> -&gt;</span>
+    conf.type ?= <span class="hljs-string">'config'</span>
+    @origin.unshift conf</pre>
         </td>
       </tr>
     
@@ -307,8 +316,9 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  register: <span class="hljs-function"><span class="hljs-params">(app, basedir, setup = {} )</span> -&gt;</span>
-    uri = util.string.trim(setup.uri, <span class="hljs-string">'/'</span>) ? <span class="hljs-string">'*'</span>
-    folder = setup.folder ? <span class="hljs-string">'config'</span>
+    uri = util.string.trim(setup.uri, <span class="hljs-string">'/'</span>) ? <span class="hljs-string">'**'</span>
+    setup.folder ?= <span class="hljs-string">'config'</span>
+    setup.type ?= <span class="hljs-string">'config'</span>
     list = []
     <span class="hljs-keyword">if</span> basedir
       dir = fspath.resolve basedir</pre>
@@ -325,10 +335,10 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      list.push
-        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/var/src/<span class="hljs-subst">#{folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/var/src/<span class="hljs-subst">#{setup.folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        type: setup.type
         parser: setup.parser
         path: setup.path
-
         filter: setup.filter</pre>
         </td>
       </tr>
@@ -343,7 +353,8 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      list.push
-        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/var/local/<span class="hljs-subst">#{folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/var/local/<span class="hljs-subst">#{setup.folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter
@@ -361,7 +372,8 @@ basedir - path</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      list.push
-        uri: <span class="hljs-string">"/etc/<span class="hljs-subst">#{app}</span>/<span class="hljs-subst">#{folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        uri: <span class="hljs-string">"/etc/<span class="hljs-subst">#{app}</span>/<span class="hljs-subst">#{setup.folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter</pre>
@@ -379,7 +391,8 @@ basedir - path</p>
         <td class="code highlight">
           <pre class="coffeescript">      dir = process.env.HOME ? process.env.USERPROFILE
       list.push
-        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/.<span class="hljs-subst">#{app}</span>/<span class="hljs-subst">#{folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        uri: <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/.<span class="hljs-subst">#{app}</span>/<span class="hljs-subst">#{setup.folder}</span>/<span class="hljs-subst">#{uri}</span>"</span>
+        type: setup.type
         parser: setup.parser
         path: setup.path
         filter: setup.filter
@@ -461,7 +474,9 @@ basedir - path</p>
     debug <span class="hljs-string">"revalidate against schema because <span class="hljs-subst">#{path ? <span class="hljs-string">'/'</span>}</span> changed"</span>
     load.validate <span class="hljs-keyword">this</span>, @value, <span class="hljs-function"><span class="hljs-params">(err, value)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      @value = value</pre>
+      @value = value
+
+  typeSearch: <span class="hljs-function"><span class="hljs-params">(type, cb)</span> -&gt;</span> load.typeSearch <span class="hljs-keyword">this</span>, type, cb</pre>
         </td>
       </tr>
     
@@ -575,6 +590,22 @@ Initialize
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     debugValue <span class="hljs-string">"new configuration \n<span class="hljs-subst">#{chalk.grey util.inspect @value, {depth: <span class="hljs-literal">null</span>}</span>}"</span>
     cb()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
+</div>
+<p>Setup the general search path</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.register <span class="hljs-string">'alinex'</span>
+<span class="hljs-built_in">module</span>.exports.register <span class="hljs-string">'alinex'</span>, <span class="hljs-literal">null</span>,
+  folder: <span class="hljs-string">'template'</span>
+  type: <span class="hljs-string">'template'</span></pre>
         </td>
       </tr>
     
