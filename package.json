@@ -34,7 +34,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-formatter": "^1.0.1",
+    "alinex-format": "^1.1.5",
     "alinex-fs": "^3.0.3",
     "alinex-util": "^2.4.2",
     "alinex-validator": "^2.0.1",

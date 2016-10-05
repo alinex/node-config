@@ -15,7 +15,7 @@ request = null # loaded on demand
 fs = require 'alinex-fs'
 util = require 'alinex-util'
 validator = require 'alinex-validator'
-formatter = require 'alinex-formatter'
+format = require 'alinex-format'
 
 
 # Initialize origins
@@ -195,7 +195,7 @@ loadFile = (origin, path, file, cb) ->
     return cb err if err
     # parse
     uri = "file:///#{util.string.trim file, '/'}"
-    formatter.parse text, (origin.parser ? uri), (err, obj) ->
+    format.parse text, (origin.parser ? uri), (err, obj) ->
       return cb err if err
       # get additional path
       add = uri.substring path.length+1
@@ -230,7 +230,7 @@ loadRequest = (origin, uri, cb) ->
       return cb new Error "Server send wrong return code: #{response.statusCode}"
     return cb() unless body?
     # parse content
-    formatter.parse body, (origin.parser ? uri), (err, obj) ->
+    format.parse body, (origin.parser ? uri), (err, obj) ->
       return cb err if err
       meta = setMeta obj, uri, origin
       debug "loaded #{uri}"
