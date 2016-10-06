@@ -72,11 +72,12 @@ exports.typeSearch = (config, type, cb) ->
         cb null, map
     # search with pattern
     fs.find path,
-      type: 'f'
-      include: pattern
-      dereference: true
-      mindepth: path.split(/\//).length - 1 unless pattern
-      maxdepth: path.split(/\//).length - 1 unless pattern
+      filter:
+        type: 'f'
+        include: pattern
+        dereference: true
+        mindepth: path.split(/\//).length - 1 unless pattern
+        maxdepth: path.split(/\//).length - 1 unless pattern
     , (err, list) ->
       return cb() if err
       map = {}
@@ -159,11 +160,12 @@ loadFiles = (origin, path, cb) ->
       [value, meta] = result
       setOrigin origin, value, meta, date, cb
   fs.find path,
-    type: 'f'
-    include: pattern
-    dereference: true
-    mindepth: path.split(/\//).length - 1 unless pattern
-    maxdepth: path.split(/\//).length - 1 unless pattern
+    filter:
+      type: 'f'
+      include: pattern
+      dereference: true
+      mindepth: path.split(/\//).length - 1 unless pattern
+      maxdepth: path.split(/\//).length - 1 unless pattern
   , (err, list) ->
     date = new Date()
     if err
