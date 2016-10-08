@@ -29,7 +29,7 @@ describe "Other files", ->
         fspath.resolve __dirname, '../data/app/user'
       config.typeSearch 'template', (err, map) ->
         expect(err).to.not.exist
-        expect(map).to.deep.equal
-          'default.hb': '/home/alex/github/node-config/test/data/app/user/template/default.hb'
-          'alinex.hb': '/home/alex/github/node-config/test/data/app/user/template/alinex.hb'
+        expect(Object.keys(map).length).to.equal 2
+        expect(map['default.hb']).to.contain '/test/data/app/user/template/default.hb'
+        expect(map['alinex.hb']).to.contain '/test/data/app/user/template/alinex.hb'
         cb()
