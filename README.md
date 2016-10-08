@@ -1,9 +1,35 @@
-Package: alinex-config
+Alinex Config: Readme
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-config.svg?branch=master)](https://travis-ci.org/alinex/node-config)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-config/badge.svg?branch=master)](https://coveralls.io/r/alinex/node-config?branch=master)
-[![Dependency Status](https://gemnasium.com/alinex/node-config.png)](https://gemnasium.com/alinex/node-config)
+[![GitHub watchers](
+  https://img.shields.io/github/watchers/alinex/node-config.svg?style=social&label=Watch&maxAge=2592000)](
+  https://github.com/alinex/node-config/subscription)<!-- {.hidden-small} -->
+[![GitHub stars](
+  https://img.shields.io/github/stars/alinex/node-config.svg?style=social&label=Star&maxAge=2592000)](
+  https://github.com/alinex/node-config)
+[![GitHub forks](
+  https://img.shields.io/github/forks/alinex/node-config.svg?style=social&label=Fork&maxAge=2592000)](
+  https://github.com/alinex/node-config)<!-- {.hidden-small} -->
+<!-- {p:.right} -->
+
+[![npm package](
+  https://img.shields.io/npm/v/alinex-config.svg?maxAge=2592000&label=latest%20version)](
+  https://www.npmjs.com/package/alinex-config)
+[![latest version](
+  https://img.shields.io/npm/l/alinex-config.svg?maxAge=2592000)](
+  #license)<!-- {.hidden-small} -->
+[![Travis status](
+  https://img.shields.io/travis/alinex/node-config.svg?maxAge=2592000&label=develop)](
+  https://travis-ci.org/alinex/node-config)
+[![Coveralls status](
+  https://img.shields.io/coveralls/alinex/node-config.svg?maxAge=2592000)](
+  https://coveralls.io/r/alinex/node-config?branch=master)
+[![Gemnasium status](
+  https://img.shields.io/gemnasium/alinex/node-config.svg?maxAge=2592000)](
+  https://gemnasium.com/alinex/node-config)
+[![GitHub issues](
+  https://img.shields.io/github/issues/alinex/node-config.svg?maxAge=2592000)](
+  https://github.com/alinex/node-config/issues)<!-- {.hidden-small} -->
 
 This package will give you an easy way to load and use configuration settings in
 your application or module.
@@ -21,8 +47,12 @@ The major features are:
 - supports value modification rules
 - automatically reloads on file changes
 
-> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
+
+__Read the complete documentation under
+[https://alinex.github.io/node-config](https://alinex.github.io/node-config).__
+<!-- {p: .hidden} -->
 
 
 Install
