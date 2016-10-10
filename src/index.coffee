@@ -1,19 +1,10 @@
-# Configuration
-# =================================================
-# This package will give you an easy way to load and use configuration settings
-# into your application or module.
+###
+API Usage
+=================================================
+This package will give you an easy way to load and use configuration settings
+into your application or module.
+###
 
-# Architecture
-# -------------------------------------------------
-# The configuration handling consists of a singleton class as central information
-# storage like a registry. On access you will get references to the data.
-#
-# A special behavior is the reloading of the configuration after the files
-# changed. This is done using a watcher on the file search path which will
-# automatically load all configurations which are changed into the class cache.
-# Through class events the instances will get informed if anything changed, so
-# they can reload their data and emit events for their application listeners
-# to update this data, too.
 
 
 # Node Modules
@@ -31,29 +22,26 @@ util = require 'alinex-util'
 # load helper modules
 load = require './load'
 
-# Define singleton instance
+
+# Data container
 # -------------------------------------------------
-module.exports =
+# configuration for loading
+#  uri: '/home/alex/github/node-config/test/data/app/var/local/config/*',
+#  parser: undefined,
+#  path: undefined,
+#  filter: undefined
+#  type: # content type, defaults to config
+module.exports.origin = []
+# validation schema
 
-  # Data container
-  # -------------------------------------------------
-  # configuration for loading
-  #  uri: '/home/alex/github/node-config/test/data/app/var/local/config/*',
-  #  parser: undefined,
-  #  path: undefined,
-  #  filter: undefined
-  #  type: # content type, defaults to config
-  origin: []
-  # validation schema
-
-  schema:
-    type: 'object'
-  # contents
-  value: {}
-  # meta data for each data element
-  meta: {}
-  # event listener for onChange event
-  listener: {}
+module.exports.schema =
+  type: 'object'
+# contents
+module.exports.value = {}
+# meta data for each data element
+module.exports.meta = {}
+# event listener for onChange event
+module.exports.listener = {}
 
   # Setup methods
   # -------------------------------------------------

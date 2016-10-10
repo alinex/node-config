@@ -234,25 +234,21 @@ The following URI types are possible here:
 
 Access files absolute from root or relative from current directory:
 
-``` text
-file:///etc/myapp.yml   # absolute path
-/etc/myapp.yml          # shortcut
+    file:///etc/myapp.yml   # absolute path
+    /etc/myapp.yml          # shortcut
 
-file://config/myapp.yml # relative path
-config/myapp.yaml       # shortcut
-```
+    file://config/myapp.yml # relative path
+    config/myapp.yaml       # shortcut
 
 You can search by using asterisk as placeholder or a double asterisk to
 go multiple level depth:
 
-``` text
-/etc/myapp.*            # search for any extension
-/etc/myapp/*.yml        # find all files with this extension
-/etc/myapp/*            # find all files in the directory
-/etc/myapp/*/*.yml      # find one level depth
-/etc/myapp/**           # find all files in directory or subdirectories
-/etc/myapp/**/*.yml     # find files in the directory or subdirectories
-```
+    /etc/myapp.*            # search for any extension
+    /etc/myapp/*.yml        # find all files with this extension
+    /etc/myapp/*            # find all files in the directory
+    /etc/myapp/*/*.yml      # find one level depth
+    /etc/myapp/**           # find all files in directory or subdirectories
+    /etc/myapp/**/*.yml     # find files in the directory or subdirectories
 
 See more about the possible matchings at
 [FS](http://alinex.github.io/node-fs/README.md.html#file%2Fpath%20matching).
