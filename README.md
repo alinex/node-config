@@ -86,33 +86,12 @@ So you may use the format you know best.
 
 ### File formats
 
-See the [formatter](http://alinex.github.io/node-formatter) package for a detailed
+See the {@link alinex-format} package for a detailed
 description of the allowed formats and description of how to write them.
 
-### RDBMS
 
-> Not supported, yet.
-
-| lastchange       | group | key          |  value | comment |
-|------------------|-------|:-------------|:-------|:--------|
-| 2014-12-11 19:45 | test  | rdbms        | null   | use an object |
-| 2014-12-11 19:45 | test  | rdbms.name   | "name" | include a string |
-| 2014-12-11 19:45 | test  | rdbms.list   | null   | and a list of numbers |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 1      |  |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 2      |  |
-| 2014-12-11 19:45 | test  | rdbms.list[] | 3      |  |
-
-### Object DB
-
-> Not supported, yet.
-
-Here, the JSON will be stored in the database like in the JSON file.
-
-
-File Structure
--------------------------------------------------
-As described above you can use different formats but you can also mix it or split your
-configuration into multiple files.
+As described in the link above you can use different formats but you can also
+split your configuration into multiple files and use different formats.
 
 So as an first example if you have a very large configuration of three major
 parts you may split it up into 3 different files.
