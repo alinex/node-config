@@ -78,20 +78,17 @@ npm update alinex-config --save
 Always have a look at the latest [changes](Changelog.md).
 
 
-Formats
+Sources / File Formats
 -------------------------------------------------
 
 This configuration class allows multiple formats to be used alternatively or combined.
-So you may use the format you know best.
-
-### File formats
-
-See the {@link alinex-format} package for a detailed
+So you may use the format you know best. See the
+{@link alinex-format/src/type/index.md alinex-format} package for a detailed
 description of the allowed formats and description of how to write them.
 
-
 As described in the link above you can use different formats but you can also
-split your configuration into multiple files and use different formats.
+split your configuration into multiple files and use different formats in each of
+them.
 
 So as an first example if you have a very large configuration of three major
 parts you may split it up into 3 different files.
@@ -198,6 +195,21 @@ conf = config.get 'database/master/address'
 
 > To don't mess with the names: I always address the instance with `config` and use
 > a short name like `conf` for some data out of it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Setup origin
