@@ -1,6 +1,16 @@
 # Load files
 # =================================================
 # This will load and validate the configuration.
+#
+# Each origin will get the additional values:
+# - `value` - `Object` structure read from source
+# - `meta` - `Object` meta information of each element as map with the elements
+# path as key (separated by dots)
+#   - `uri` - `String` location of source object
+#   - `origin` - `Object` reference to origin object
+#   - `value` - the elements original value
+# - `loaded` - `Boolean` set to true if successfully loaded
+# - `lastload` - `Date` of the time the data is read from source
 
 
 # Node Modules
@@ -32,8 +42,8 @@ exports.init = (config, cb) ->
     # combine all
     value = {}
     meta = {}
+    # put together
     for origin in origins
-      # put together
       util.extend value, origin.value
       util.extend meta, origin.meta
     # validate
@@ -45,22 +55,13 @@ exports.init = (config, cb) ->
       cb()
 
 
-# @param {Object} config reference to the config module
-# @param {Object} value the value structure to check
-# @param {Function(Error)} cb callback with `Error` on any problems
-validate = exports.validate = (config, value, cb) ->
-  debug "validate results"
-  validator.check
-    name: 'config'
-    value: value
-    schema: config.schema
-  , cb
-
-
 # Loading
 # -------------------------------------------------
 
-# ### Get a flat list of origins
+# Get the flat list of origins.
+#
+# @param {Array<Object>} obj origin list as defined
+# @return {Array<Object>} flat list of origins
 listOrigins = exports.listOrigins = (obj) ->
   list = []
   for el in obj
@@ -70,7 +71,11 @@ listOrigins = exports.listOrigins = (obj) ->
       list.push el
   list
 
-# ### Load origin if necessary
+# Load origin if necessary. This fills up the `origin.value`, `origin.meta` and
+# sets `origin.loaded` on success.
+#
+# @param {Object} origin to load
+# @param {Function(Error)} cb callback with `Error` on any problems
 loadOrigin = (origin, cb) ->
   return cb() if origin.loaded
   uri = if ~origin.uri.indexOf '://' then origin.uri else 'file://' + origin.uri
@@ -84,7 +89,12 @@ loadOrigin = (origin, cb) ->
       return cb new Error "Unknown protocol #{proto}"
   cb()
 
-# ### Load file origin
+# Load origin from files. This fills up the `origin.value`, `origin.meta` and
+# sets `origin.loaded` on success.
+#
+# @param {Object} origin to store results
+# @param {String} path extracted from the `origin.uri`
+# @param {Function(Error)} cb callback with `Error` on any problems
 loadFiles = (origin, path, cb) ->
   # find files
   parts = path.match ///
@@ -125,6 +135,7 @@ loadFiles = (origin, path, cb) ->
     date = new Date()
     if err
       return cb err unless err.code is 'ENOENT'
+      # not existing file is no problem and will be ignored
       debug chalk.magenta "Failure #{err.message}!"
       origin.loaded = true
       origin.lastload = date
@@ -145,6 +156,15 @@ loadFiles = (origin, path, cb) ->
       meta = util.extend.apply {}, meta
       setOrigin origin, obj, meta, date, cb
 
+# Load origin from file. This fills up the `origin.value`, `origin.meta` and
+# sets `origin.loaded` on success.
+#
+# @param {Object} origin to store results
+# @param {String} path extracted from the `origin.uri` but made absolute
+# @param {String} file absolute path of file to load
+# @param {Function(Error, Array)} cb callback with `Error` on any problems or
+# - `value` - `Object` complete value structure
+# - `meta` - `Object` meta information
 loadFile = (origin, path, file, cb) ->
   fs.readFile file,
     encoding: 'UTF-8'
@@ -174,7 +194,12 @@ loadFile = (origin, path, file, cb) ->
       debug "loaded #{uri}"
       cb null, [value, meta]
 
-# ### Load file origin
+# Load origin from web resource. This fills up the `origin.value`, `origin.meta` and
+# sets `origin.loaded` on success.
+#
+# @param {Object} origin to store results
+# @param {String} uri to retrieve
+# @param {Function(Error)} cb callback with `Error` on any problems
 loadRequest = (origin, uri, cb) ->
   debug "load   #{uri}"
   date = new Date()
@@ -193,7 +218,39 @@ loadRequest = (origin, uri, cb) ->
       debug "loaded #{uri}"
       setOrigin origin, obj, meta, date, cb
 
-# ### Set the extracted information to the origin element
+# Create the meta data structure.
+#
+# @param {Object} obj parsed data structure
+# @param {String} uri location of source object
+# @param {Object} origin to store results
+# @param {String} [prefix] path within structure on recursive calls
+# @return {Object} meta data Object with information of each element and the
+# path separated by '.' as key
+# - `uri` - `String` location of source object
+# - `origin` - `Object` reference to origin object
+# - `value` - the elements original value
+setMeta = (obj, uri, origin, prefix='') ->
+  meta = {}
+  for k, v of obj
+    path = "#{prefix}/#{k}"
+    if typeof v is 'object'
+      for key, val of setMeta v, uri, origin, path
+        meta[key] = val
+    else
+      meta[path] = [
+        uri: uri
+        origin: origin
+        value: v
+      ]
+  return meta
+
+# Set the extracted information in the origin element.
+#
+# @param {Object} origin to store results
+# @param {Object} value complete parsed value structure
+# @return {Object} meta data object with information of each element from {@link setMeta}
+# @param {Date} date from when the source was read
+# @param {Function(Error)} cb callback with `Error` on any problems
 setOrigin = (origin, value, meta, date, cb) ->
   # set filter
   if origin.filter and not util.object.isEmpty value
@@ -232,28 +289,31 @@ setOrigin = (origin, value, meta, date, cb) ->
   # store in origin
   origin.value = value
   origin.meta = meta
+  origin.loaded = true
   origin.lastload = date
   debug "loaded #{origin.path ? 'ROOT'} with: \n
   #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
 
-# ### Set Meta Data to all elements
-setMeta = (obj, uri, origin, prefix='') ->
-  meta = {}
-  for k, v of obj
-    path = "#{prefix}/#{k}"
-    if typeof v is 'object'
-      for key, val of setMeta v, uri, origin, path
-        meta[key] = val
-    else
-      meta[path] = [
-        uri: uri
-        origin: origin
-        value: v
-      ]
-  return meta
+
+# Validation
+# ---------------------------------------------
+# Run the validation before setting the values into the internal registry.
+
+# @param {Object} config reference to the config module
+# @param {Object} value the value structure to check
+# @param {Function(Error)} cb callback with `Error` on any problems
+validate = exports.validate = (config, value, cb) ->
+  debug "validate results"
+  validator.check
+    name: 'config'
+    value: value
+    schema: config.schema
+  , cb
 
 
+# Type Search
+# --------------------------------------------
 
 # @param {Object} config reference to the config module
 # @param {String} type the name of this files
