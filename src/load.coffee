@@ -2,10 +2,9 @@
 # =================================================
 # This will load and validate the configuration.
 
+
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 debug = require('debug')('config:load')
 chalk = require 'chalk'
 async = require 'async'
@@ -21,6 +20,8 @@ format = require 'alinex-format'
 # Initialize origins
 # -------------------------------------------------
 
+# @param {Object} config reference to the config module
+# @param {Function(Error)} cb callback with `Error` on any problems
 exports.init = (config, cb) ->
   debug "load all unloaded configurations"
   # step through origins
@@ -43,57 +44,10 @@ exports.init = (config, cb) ->
       config.meta = meta
       cb()
 
-exports.typeSearch = (config, type, cb) ->
-  origins = listOrigins config.origin
-  .filter (e) -> e.type is type
-  async.map origins, (origin, cb) ->
-    # find files
-    parts = origin.uri.match ///
-      ^
-      (
-        [^?*[{@]*$    # everything till end without pattern
-      |
-        [^?*[{@]*\/   # everything without pattern (dirs)
-      )?
-      (.*)            # part containing pattern to end
-      $
-    ///
-    [path, pattern] = parts[1..] if parts.length > 1
-    path ?= process.cwd() # make relative links absolute
-    path = "#{process.cwd()}/#{path}" unless path[0] is '/'
-    path = fspath.resolve path
-    unless pattern
-      return fs.exists path, (exists) ->
-        return cb() unless exists
-        map = {}
-        name = fspath.basename path
-        name = "#{origin.path.trim '/'}/name" if origin.path
-        map[name] = path
-        cb null, map
-    # search with pattern
-    fs.find path,
-      filter:
-        type: 'f'
-        include: pattern
-        dereference: true
-        mindepth: path.split(/\//).length - 1 unless pattern
-        maxdepth: path.split(/\//).length - 1 unless pattern
-    , (err, list) ->
-      return cb() if err
-      map = {}
-      for f in list
-        name = f[path.length+1..]
-        name = "#{origin.path.trim '/'}/name" if origin.path
-        map[name] = f
-      cb null, map
-  , (err, results) ->
-    return cb err if err
-    map = {}
-    util.extend map, res for res in results
-    cb null, map
 
-
-# ### Validate new value before store
+# @param {Object} config reference to the config module
+# @param {Object} value the value structure to check
+# @param {Function(Error)} cb callback with `Error` on any problems
 validate = exports.validate = (config, value, cb) ->
   debug "validate results"
   validator.check
@@ -101,6 +55,7 @@ validate = exports.validate = (config, value, cb) ->
     value: value
     schema: config.schema
   , cb
+
 
 # Loading
 # -------------------------------------------------
@@ -297,3 +252,57 @@ setMeta = (obj, uri, origin, prefix='') ->
         value: v
       ]
   return meta
+
+
+
+# @param {Object} config reference to the config module
+# @param {String} type the name of this files
+# @param {Function(Error, Object)} cb callback with the results map or an `Error` on any problems
+exports.typeSearch = (config, type, cb) ->
+  origins = listOrigins config.origin
+  .filter (e) -> e.type is type
+  async.map origins, (origin, cb) ->
+    # find files
+    parts = origin.uri.match ///
+      ^
+      (
+        [^?*[{@]*$    # everything till end without pattern
+      |
+        [^?*[{@]*\/   # everything without pattern (dirs)
+      )?
+      (.*)            # part containing pattern to end
+      $
+    ///
+    [path, pattern] = parts[1..] if parts.length > 1
+    path ?= process.cwd() # make relative links absolute
+    path = "#{process.cwd()}/#{path}" unless path[0] is '/'
+    path = fspath.resolve path
+    unless pattern
+      return fs.exists path, (exists) ->
+        return cb() unless exists
+        map = {}
+        name = fspath.basename path
+        name = "#{origin.path.trim '/'}/name" if origin.path
+        map[name] = path
+        cb null, map
+    # search with pattern
+    fs.find path,
+      filter:
+        type: 'f'
+        include: pattern
+        dereference: true
+        mindepth: path.split(/\//).length - 1 unless pattern
+        maxdepth: path.split(/\//).length - 1 unless pattern
+    , (err, list) ->
+      return cb() if err
+      map = {}
+      for f in list
+        name = f[path.length+1..]
+        name = "#{origin.path.trim '/'}/name" if origin.path
+        map[name] = f
+      cb null, map
+  , (err, results) ->
+    return cb err if err
+    map = {}
+    util.extend map, res for res in results
+    cb null, map

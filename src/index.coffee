@@ -113,6 +113,33 @@ go multiple level depth:
 See more about the possible matchings at
 {@link alinex-fs/README.md.html#file%2Fpath%20matching alinex-fs}.
 
+__Web Services__
+
+Like using files you may also always use a web service to get the configuration.
+But keep in mind that your system may not start if the web service is down.
+
+It is as easy as using files:
+
+``` coffee
+config.pushOrigin
+  uri: "http://echo.jsontest.com/key/value/one/two"
+  path: 'echo'
+```
+
+This will result in the following configuration (after loaded via `init()`).
+
+``` coffee
+echo:
+  one: 'two'
+  key: 'value'
+```
+
+> Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
+> later. Also the support of possibilities to specify the concrete request may be
+> extended on demand.
+
+Here you won't have a search possibility.
+
 __Parsing data__
 
 The data loaded from the given URI will be parsed if it is a string. You may
@@ -213,6 +240,14 @@ it will only add the first two paths based on the given directory.
 
 If you won't have your settings in the 'config' folder you may specify another
 one using `folder: "..."` as additional parameter.
+
+::: info
+The __general__ search path 'alinex' for all Alinex applications is already set
+after requiring config. This allows to always use the following folders if no other
+ones are given:
+- /etc/alinex
+- ~/.alinex
+:::
 ###
 
 ###
@@ -390,12 +425,16 @@ module.exports.initSync = deasync module.exports.init
 ###
 Reload
 ----------------------------------------------------------
+It is also possible to reread all data sources and change the registry to the new
+structure using the {@link reload} method.
+This will do the same as the inital {@link init} already did.
 ###
 
-
-  # ### Reload
-  # This will re-import everything from scratch and if successful overwrite the
-  # previous values.
+###
+@param {Function(Error)} cb callback with `Error` on any problems
+@see {@link reloadSync}
+@see {@link init}
+###
 module.exports.reload = (cb) ->
   debug "reload configuration system"
   # step through origins and set as unloaded
@@ -406,13 +445,47 @@ module.exports.reload = (cb) ->
     debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
 
+###
+@param {Function(Error)} cb callback with `Error` on any problems
+@see {@link reload}
+@see {@link initSync}
+###
 module.exports.reloadSync = deasync module.exports.reload
+
 
 ###
 Access
 ----------------------------------------------------------
+After everything is setup and loaded you may access the values or part of the
+value tree. You always get a reference for performance reasons. So don't change
+it's content.
+
+``` coffee
+conf = config.get()
+```
+
+Thats a simple call to get the complete data structure.
+
+
+``` coffee
+conf = config.get 'server'
+conf = config.get 'database/master/address'
+```
+
+Or give an path to get only a subpart of the configuration.
+
+``` coffee
+if config.get('server')?
+  # value found
+```
+
+And at last you may check that a specific part is set.
 ###
 
+###
+@param {String} path to the element to read
+@return the value at this element position
+###
 module.exports.get = (path) ->
   if typeof path is 'string'
     path = util.string.trim(path, '/').split '/'
@@ -426,19 +499,104 @@ module.exports.get = (path) ->
   debugAccess "not found #{path.join '/'}" unless ref?
   return ref
 
+
 ###
 Other Types
 ----------------------------------------------------------
+Beside configuration files you may also access templates or other user changeable
+files in the same manner using such an search path.
+
+Therefore you have to {@link register} an app with a type:
+
+``` coffee
+config.register 'alinex', null,
+  folder: 'template'
+  type: 'template'
+```
+
+And later you may get all the possible files:
+
+``` coffee
+config.typeSearch 'template', (err, map) ->
+  console.log err, map
+```
+
+You will get a map of files with
+- key: path relative from the URI
+- value: absolute file path
+
+Web requests are not possible here.
 ###
 
-# search only for other types like templates
+###
+Search for files of the given `type`. The resulting map contains the path relative
+from the defined origin URI and the real path to access.
+
+@param {String} type the name of this files
+@param {Function(Error, Object)} cb callback with the results map or an `Error` on any problems
+@see {@link typeSearchSync}
+###
 module.exports.typeSearch = (type, cb) -> load.typeSearch this, type, cb
 
+###
+Search for files of the given `type`. The resulting map contains the path relative
+from the defined origin URI and the real path to access.
+
+@param {String} type the name of this files
+@return {Object} the results map
+@throws {Error} on any problems
+@see {@link typeSearch}
+###
+module.exports.typeSearchSync = deasync module.exports.typeSearch
 
 
-
-# Setup the general search path
+# Setup Alinex Path
+# --------------------------------------------------------
+# Setup the general search path common to all alinex applications also with templates.
 module.exports.register 'alinex'
 module.exports.register 'alinex', null,
   folder: 'template'
   type: 'template'
+
+
+###
+Best Practice
+-------------------------------------------------
+I often use the pattern of giving my modules two functions called setup() and init().
+The setup() is first called to set up the basics like configuring the configuration
+system.
+
+``` coffee
+# set the modules config paths and validation schema
+setup = util.function.once this, (cb) ->
+  # set module search path
+  config.register false, fspath.dirname __dirname
+  # add schema for module's configuration
+  config.setSchema '/exec', schema, cb
+```
+
+The call of `util.function.once` will look that this method is only run one time (see
+{@link alinex-util}).
+
+Now you may add additional configuration paths...
+
+``` coffee
+# set the modules config paths, validation schema and initialize the configuration
+init = util.function.once this, (cb) ->
+  debug "initialize"
+  # set module search path
+  @setup ->
+    return cb err if err
+    config.init cb
+```
+
+The init() method now makes the system ready to use and if not up to date or
+initialized will initialize the config system. The setup() is also called to make
+it possible to call in one step if no special configuration is needed.
+###
+
+###
+Events
+----------------------------------------------------------------
+The following events are supported on the
+###
