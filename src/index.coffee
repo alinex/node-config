@@ -78,10 +78,7 @@ To setup the origin for the configuration module you have to extend the origin
 list by adding a new origin object.
 
 The single origin object describes where to find the configuration, what to use
-and where to put them in the final data structure. It contains the following
-possible elements:
-
-{@schema #originImportSchema}
+and where to put them in the final data structure. {@schema #originImportSchema}
 
 __URI Type__
 
