@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Version changes</title>
+    <title>Architecture</title>
     <meta name="HandheldFriendly" content="true" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -51,16 +51,16 @@
           </form>
           <ul class="nav sidebar-to-top">
                 <li class="level0">
-                  <a href="README.md.html" title="Alinex Config: Readme (/README.md)" class="btn btn-primary">Readme</a>
+                  <a href="../README.md.html" title="Alinex Config: Readme (/README.md)" class="btn btn-primary">Readme</a>
                 </li>
-                <li class="level1">
-                  <a href="src/architecture.md.html" title="Architecture (/src/architecture.md)" class="btn btn-primary">Architecture</a>
+                <li class="active level1">
+                  <a href="architecture.md.html" title="Architecture (/src/architecture.md)" class="btn btn-warning">Architecture <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level0">
-                  <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
+                  <a href="index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
                 </li>
-                <li class="active level0">
-                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-warning">Version changes <span class="sr-only">(current)</span></a>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
                 </li>
           </ul>
         </div>
@@ -86,423 +86,43 @@
 </script>
 <gcse:searchresults-only></gcse:searchresults-only>
 
-          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
-<li><a href="#version-130-2016-10-14">Version 1.3.0 (2016-10-14)</a></li>
-<li><a href="#version-121-2016-07-09">Version 1.2.1 (2016-07-09)</a></li>
-<li><a href="#version-120-2016-07-09">Version 1.2.0 (2016-07-09)</a></li>
-<li><a href="#version-116-2016-06-02">Version 1.1.6 (2016-06-02)</a></li>
-<li><a href="#version-115-2016-06-02">Version 1.1.5 (2016-06-02)</a></li>
-<li><a href="#version-114-2016-05-17">Version 1.1.4 (2016-05-17)</a></li>
-<li><a href="#version-113-2016-05-16">Version 1.1.3 (2016-05-16)</a></li>
-<li><a href="#version-112-2016-05-02">Version 1.1.2 (2016-05-02)</a></li>
-<li><a href="#version-111-2016-04-29">Version 1.1.1 (2016-04-29)</a></li>
-<li><a href="#version-110-2016-04-21">Version 1.1.0 (2016-04-21)</a></li>
-<li><a href="#version-1019-2016-04-15">Version 1.0.19 (2016-04-15)</a></li>
-<li><a href="#version-1018-2016-04-11">Version 1.0.18 (2016-04-11)</a></li>
-<li><a href="#version-1017-2016-04-08">Version 1.0.17 (2016-04-08)</a></li>
-<li><a href="#version-1016-2016-04-08">Version 1.0.16 (2016-04-08)</a></li>
-<li><a href="#version-1015-2016-03-31">Version 1.0.15 (2016-03-31)</a></li>
-<li><a href="#version-1014-2016-03-21">Version 1.0.14 (2016-03-21)</a></li>
-<li><a href="#version-1013-2016-02-26">Version 1.0.13 (2016-02-26)</a></li>
-<li><a href="#version-1012-2016-02-10">Version 1.0.12 (2016-02-10)</a></li>
-<li><a href="#version-1011-2016-02-04">Version 1.0.11 (2016-02-04)</a></li>
-<li><a href="#version-1010-2016-02-03">Version 1.0.10 (2016-02-03)</a></li>
-<li><a href="#version-109-2016-02-01">Version 1.0.9 (2016-02-01)</a></li>
-<li><a href="#version-108-2016-02-01">Version 1.0.8 (2016-02-01)</a></li>
-<li><a href="#version-107-2015-10-21">Version 1.0.7 (2015-10-21)</a></li>
-<li><a href="#version-106-2015-09-22">Version 1.0.6 (2015-09-22)</a></li>
-<li><a href="#version-105-2015-09-03">Version 1.0.5 (2015-09-03)</a></li>
-<li><a href="#version-104-2015-08-19">Version 1.0.4 (2015-08-19)</a></li>
-<li><a href="#version-103-2015-07-10">Version 1.0.3 (2015-07-10)</a></li>
-<li><a href="#version-102-2015-07-09">Version 1.0.2 (2015-07-09)</a></li>
-<li><a href="#version-101-2015-07-07">Version 1.0.1 (2015-07-07)</a></li>
-<li><a href="#version-100-2015-07-04">Version 1.0.0 (2015-07-04)</a></li>
-<li><a href="#version-045-2015-03-20">Version 0.4.5 (2015-03-20)</a></li>
-<li><a href="#version-044-2015-03-20">Version 0.4.4 (2015-03-20)</a></li>
-<li><a href="#version-043-2015-03-17">Version 0.4.3 (2015-03-17)</a></li>
-<li><a href="#version-042-2015-03-16">Version 0.4.2 (2015-03-16)</a></li>
-<li><a href="#version-041-2015-03-16">Version 0.4.1 (2015-03-16)</a></li>
-<li><a href="#version-040-2015-03-14">Version 0.4.0 (2015-03-14)</a></li>
-<li><a href="#version-034-2014-12-30">Version 0.3.4 (2014-12-30)</a></li>
-<li><a href="#version-033-2014-12-11">Version 0.3.3 (2014-12-11)</a></li>
-<li><a href="#version-032-2014-12-04">Version 0.3.2 (2014-12-04)</a></li>
-<li><a href="#version-031-2014-10-08">Version 0.3.1 (2014-10-08)</a></li>
-<li><a href="#version-030-2014-09-17">Version 0.3.0 (2014-09-17)</a></li>
-<li><a href="#version-022-2014-08-01">Version 0.2.2 (2014-08-01)</a></li>
-<li><a href="#version-021-2014-07-18">Version 0.2.1 (2014-07-18)</a></li>
-<li><a href="#version-020-2014-07-16">Version 0.2.0 (2014-07-16)</a></li>
-<li><a href="#version-010-2014-07-11">Version 0.1.0 (2014-07-11)</a></li>
-</ul>
-</p>
-<h1 id="version-changes">Version changes</h1>
-<p>The following list gives a short overview about what is changed between
-individual versions:</p>
-<h2 id="version-130-2016-10-14">Version 1.3.0 (2016-10-14)</h2>
-<ul>
-<li>Update async@2.1.1.</li>
-<li>Check origin schema in debug mode.</li>
-<li>Optimize debug calls.</li>
-<li>Update internal documentation of loader.</li>
-<li>Finish Documentation of API Usage.</li>
-<li>Update setup documentation.</li>
-<li>Describe architecture.</li>
-<li>Restructure doc pages.</li>
-<li>Update docs.</li>
-<li>Fixed test to also work on travis.</li>
-<li>Fix documentation link.</li>
-<li>Remove uglify compression from build.</li>
-<li>Fix file find calls to support new module version.</li>
-<li>Replace alinex-formatter with alinex-format.</li>
-<li>Update async@2.0.1, alinex-util@2.4.2, request@2.75.0, alinex-builder@2.3.8, alinex-fs@3.0.3, alinex-validator@2.0.1</li>
-<li>Update travis checks.</li>
-<li>Rename links to Alinex Namespace.</li>
-<li>Add copyright sign.</li>
-</ul>
-<h2 id="version-121-2016-07-09">Version 1.2.1 (2016-07-09)</h2>
-<ul>
-<li>Always add alinex app for template search.</li>
-</ul>
-<h2 id="version-120-2016-07-09">Version 1.2.0 (2016-07-09)</h2>
-<p>Added support for other file formats.</p>
-<ul>
-<li>Allow use of search path for other file formats.</li>
-<li>Use general search path alinex.</li>
-</ul>
-<h2 id="version-116-2016-06-02">Version 1.1.6 (2016-06-02)</h2>
-<ul>
-<li>Upgraded validator for new handlebars-helper.</li>
-</ul>
-<h2 id="version-115-2016-06-02">Version 1.1.5 (2016-06-02)</h2>
-<ul>
-<li>Upgraded  validator and builder packages.</li>
-</ul>
-<h2 id="version-114-2016-05-17">Version 1.1.4 (2016-05-17)</h2>
-<p>Changed config parser which supports more formats but changed some minor parts of xml parsing.</p>
-<ul>
-<li></li>
-</ul>
-<h2 id="version-113-2016-05-16">Version 1.1.3 (2016-05-16)</h2>
-<p>Changed config parser which supports more formats but changed some minor parts of xml parsing.</p>
-<ul>
-<li>Use formatter package instead own implementation.</li>
-<li>Small code style optimization.</li>
-</ul>
-<h2 id="version-112-2016-05-02">Version 1.1.2 (2016-05-02)</h2>
-<p>This brings the nobr handlebar helpers in to be used.</p>
-<ul>
-<li>Upgraded validator and builder.</li>
-<li>Added v6 for travis but didn’t activate, yet.</li>
-</ul>
-<h2 id="version-111-2016-04-29">Version 1.1.1 (2016-04-29)</h2>
-<ul>
-<li>Upgraded to raw async 2.0 and builder 2.0.</li>
-</ul>
-<h2 id="version-110-2016-04-21">Version 1.1.0 (2016-04-21)</h2>
-<ul>
-<li>Use new extend and clone methods.</li>
-<li>Upgraded util and validator package - BREAKING CHANGES in handlebars templates.</li>
-<li>Upgraded util, yaml and request package.</li>
-</ul>
-<h2 id="version-1019-2016-04-15">Version 1.0.19 (2016-04-15)</h2>
-<ul>
-<li>Upgraded validator and request.</li>
-</ul>
-<h2 id="version-1018-2016-04-11">Version 1.0.18 (2016-04-11)</h2>
-<ul>
-<li>Updated validator for fix in datetime lib.</li>
-</ul>
-<h2 id="version-1017-2016-04-08">Version 1.0.17 (2016-04-08)</h2>
-<ul>
-<li>Upgraded package validator.</li>
-</ul>
-<h2 id="version-1016-2016-04-08">Version 1.0.16 (2016-04-08)</h2>
-<ul>
-<li>Upgraded packages util, validator and request.</li>
-</ul>
-<h2 id="version-1015-2016-03-31">Version 1.0.15 (2016-03-31)</h2>
-<ul>
-<li>Upgraded validator package.</li>
-</ul>
-<h2 id="version-1014-2016-03-21">Version 1.0.14 (2016-03-21)</h2>
-<ul>
-<li>Upgraded validator, util, yaml and builder.</li>
-<li>Fixed general link in README.</li>
-<li>Updated inline documentation.</li>
-</ul>
-<h2 id="version-1013-2016-02-26">Version 1.0.13 (2016-02-26)</h2>
-<ul>
-<li>Upgrade validator.</li>
-</ul>
-<h2 id="version-1012-2016-02-10">Version 1.0.12 (2016-02-10)</h2>
-<ul>
-<li>Updated validator to support handlebars with international dates.</li>
-</ul>
-<h2 id="version-1011-2016-02-04">Version 1.0.11 (2016-02-04)</h2>
-<ul>
-<li>Updated subpackages to newest versions.</li>
-<li>updated ignore files.</li>
-<li>Move optional dependencies to normal.</li>
-<li>Added missing packages for ini and properties format.</li>
-</ul>
-<h2 id="version-1010-2016-02-03">Version 1.0.10 (2016-02-03)</h2>
-<ul>
-<li>Added missing validator.</li>
-<li>Fixed style of test cases.</li>
-<li>Fixed lint warnings in code.</li>
-<li>Updated meta data of package and travis build versions.</li>
-<li>Upgraded some subpackages.</li>
-</ul>
-<h2 id="version-109-2016-02-01">Version 1.0.9 (2016-02-01)</h2>
-<ul>
-<li>Now allow newest validator version again.</li>
-</ul>
-<h2 id="version-108-2016-02-01">Version 1.0.8 (2016-02-01)</h2>
-<ul>
-<li>Prevent newest validator version (buggy build).</li>
-<li>Optimized debug output.</li>
-<li>Example for error output.</li>
-<li>Add debug entry for registering urls.</li>
-</ul>
-<h2 id="version-107-2015-10-21">Version 1.0.7 (2015-10-21)</h2>
-<ul>
-<li>Remove only keys.</li>
-<li>Fixed bug in default folder name.</li>
-<li>Add the ability to change config folder.</li>
-</ul>
-<h2 id="version-106-2015-09-22">Version 1.0.6 (2015-09-22)</h2>
-<ul>
-<li>Fix path resolve, which leads to wrong main name.</li>
-</ul>
-<h2 id="version-105-2015-09-03">Version 1.0.5 (2015-09-03)</h2>
-<ul>
-<li>Use other url for web tests.</li>
-<li>Use other url for web tests.</li>
-<li>Fixed test timeouts.</li>
-<li>Fixed use of config filename in config.</li>
-<li>Remove debug output through console.log.</li>
-<li>Fix auto path generation for direct file load.</li>
-<li>Optimize direct file load and fix error output in debug mode.</li>
-<li>Don’t use index as path.</li>
-</ul>
-<h2 id="version-104-2015-08-19">Version 1.0.4 (2015-08-19)</h2>
-<ul>
-<li>Add example for splitted configuration.</li>
-<li>Fix automatic path addition to structure which had the filename two times.</li>
-<li>Add example for using config in modules.</li>
-<li>Start adding ssh support.</li>
-<li>Added error messages if file parsing failed completely.</li>
-</ul>
-<h2 id="version-103-2015-07-10">Version 1.0.3 (2015-07-10)</h2>
-<ul>
-<li>Fixed register() to work for modules - was doing nothing.</li>
-</ul>
-<h2 id="version-102-2015-07-09">Version 1.0.2 (2015-07-09)</h2>
-<ul>
-<li>Use onceTime() to run the init method not simultaneously.</li>
-<li>Remove check for if nothing found because it is allowed.</li>
-<li>Allow init() to be called anytime also if not sure if it is already done.</li>
-<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-config">https://github.com/alinex/node-config</a></li>
-<li>Add coverage badge.</li>
-</ul>
-<h2 id="version-101-2015-07-07">Version 1.0.1 (2015-07-07)</h2>
-<ul>
-<li>Allow register() to be used for modules, too.</li>
-</ul>
-<h2 id="version-100-2015-07-04">Version 1.0.0 (2015-07-04)</h2>
-<ul>
-<li>Added paging for blog posts.</li>
-<li>Added test for web load.</li>
-<li>Remove old code.</li>
-<li>Fixed access of subpath.</li>
-<li>Fixed non-existent directory to not throw error.</li>
-<li>Testet register method.</li>
-<li>Added get() for accessing and rehister().</li>
-<li>Fixed tests because of test file renames.</li>
-<li>Fixed validation and test file search and loading.</li>
-<li>Added setSchema() method with validation.</li>
-<li>Tested validation.</li>
-<li>Finished filter and path settings.</li>
-<li>Add properties file support.</li>
-<li>Finished parsing of xml with cdata and attributes.</li>
-<li>Added lookup table by extensions to speed up config format detection.</li>
-<li>Fixed and tested formats yaml, ja, javascript, json, coffee.</li>
-<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-config">https://github.com/alinex/node-config</a></li>
-<li>Add path from file directory and name.</li>
-<li>Combine all configuration origins together with filter and path.</li>
-<li>Added possibility to load config over web service.</li>
-<li>Optimized code style.</li>
-<li>Added stub for filtering.</li>
-<li>Added travis-ci.</li>
-<li>Updated insstall documentation.</li>
-<li>Added ini support and meta collections.</li>
-<li>Update planning document.</li>
-<li>Enabled search in filesystem, load and parse files.</li>
-<li>Updated planing structure.</li>
-<li>Updated planing mindmap.</li>
-<li>Describe setup procedure.</li>
-<li>Restart code for new major version.</li>
-<li>Made badge links npm compatible in documentation.</li>
-<li>Added planing mindmap.</li>
-<li>Remove io.js from travis tests.</li>
-<li>Add coveralls.</li>
-<li>Structure change of package.json.</li>
-<li>Updated some minor issues.</li>
-</ul>
-<h2 id="version-045-2015-03-20">Version 0.4.5 (2015-03-20)</h2>
-<ul>
-<li></li>
-</ul>
-<h2 id="version-044-2015-03-20">Version 0.4.4 (2015-03-20)</h2>
-<ul>
-<li>Added real life example to use.</li>
-<li>Added get() in the API doc.</li>
-<li>Make debug output correct with ~ path.</li>
-</ul>
-<h2 id="version-043-2015-03-17">Version 0.4.3 (2015-03-17)</h2>
-<ul>
-<li>Resolve homedir in platform agnostic way.</li>
-<li>Fixed chokidar versions.</li>
-</ul>
-<h2 id="version-042-2015-03-16">Version 0.4.2 (2015-03-16)</h2>
-<ul>
-<li>Allow also lower versions of chokidar.</li>
-</ul>
-<h2 id="version-041-2015-03-16">Version 0.4.1 (2015-03-16)</h2>
-<ul>
-<li></li>
-</ul>
-<h2 id="version-040-2015-03-14">Version 0.4.0 (2015-03-14)</h2>
-<ul>
-<li>Add new node versions to travis checks.</li>
-<li>Upgraded dependend packages.</li>
-<li>Added test case for new get method.</li>
-<li>Add the get() method for quick access.</li>
-<li>Small fixes.</li>
-<li>Updated documentation.</li>
-<li>Update API documentation for new version.</li>
-<li>Fixed code to work with new coffeescript version.</li>
-<li>Update documentation structure.</li>
-<li>Update documentation structure.</li>
-<li>Print debug values not before they are validated.</li>
-</ul>
-<h2 id="version-034-2014-12-30">Version 0.3.4 (2014-12-30)</h2>
-<ul>
-<li>Disable watching per default and support enabling it per each instance.</li>
-</ul>
-<h2 id="version-033-2014-12-11">Version 0.3.3 (2014-12-11)</h2>
-<ul>
-<li>Extended documentation and optimized internal listener handling.</li>
-<li>Fixed double callbacks on reload.</li>
-<li>Set event listeners high but not too high.</li>
-<li>Fixed reload problems</li>
-<li>Changed sort order if using multiple config files.</li>
-<li>Allow softlinks in configuration paths.</li>
-<li>Added error message if no config file could be found.</li>
-<li>Better display of loaded config in debug mode.</li>
-<li>Changed alinex-util to dependency.</li>
-</ul>
-<h2 id="version-032-2014-12-04">Version 0.3.2 (2014-12-04)</h2>
-<ul>
-<li>Adding debug entry to display loaded values.</li>
-<li>Optimized reloading of values.</li>
-<li>Don’t output config settings on debug.</li>
-<li>Set debug message if config loaded successfully.</li>
-<li>Integrated travis and coveralls tracking.</li>
-<li>Fixed bug in not sending errors back if load called multiple times.</li>
-<li>Small fix of unneccessary call.</li>
-<li>Fixed package.json version notation.</li>
-</ul>
-<h2 id="version-031-2014-10-08">Version 0.3.1 (2014-10-08)</h2>
-<ul>
-<li>Upgraded chokidar submodule.</li>
-<li>Small optimization in event callbacks.</li>
-<li>Fixed default value handling.</li>
-<li>Rename method addCheck -&gt; setCheck</li>
-<li>Updated code documentation.</li>
-<li>Updated validator dependency.</li>
-<li>Redesign to be more robust for concurrent access.</li>
-<li>Reenable watch feature.</li>
-<li>Remove watch option till further tested.</li>
-</ul>
-<h2 id="version-030-2014-09-17">Version 0.3.0 (2014-09-17)</h2>
-<ul>
-<li>Updated debug to 2.0.0</li>
-<li>Changed .gitignore.</li>
-<li>Upgraded to validator 0.2.</li>
-<li>Fixed calls to new make tool.</li>
-<li>Updated to alinex-make 0.3 for development.</li>
-<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-config">https://github.com/alinex/node-config</a></li>
-<li>Added support for auto reloading of configurations.</li>
-<li>Prepend ‘config’ to the source names for checks.</li>
-<li>Don’t include directories in find.</li>
-<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-config">https://github.com/alinex/node-config</a></li>
-<li>Addded documentation for validator integration.</li>
-<li>Added alinex-validator support.</li>
-<li>Updated changelog.</li>
-</ul>
-<h2 id="version-022-2014-08-01">Version 0.2.2 (2014-08-01)</h2>
-<ul>
-<li>Made usage of checks for subgroup more clear in documentation.</li>
-<li>Added find() to search for config files.</li>
-<li>Added possibility to retrieve instance in callback of constructor.</li>
-<li>Added file-type constraint for file search.</li>
-<li>Fixed typo in documentation example.</li>
-<li>Fixed spellcheck error in documentation.</li>
-<li>Merge branch ‘master’ of <a href="https://github.com/alinex/node-config">https://github.com/alinex/node-config</a></li>
-<li>Added documentation to run checks on subgroup.</li>
-<li>Support ‘change’ event on Class.events and config instance.</li>
-<li>Updated documentation.</li>
-<li>Small code restructuring.</li>
-<li>Changed some inline comments.</li>
-<li>Let initialization also work if check failed.</li>
-<li>Removed alinex-error integration in productive code.</li>
-</ul>
-<h2 id="version-021-2014-07-18">Version 0.2.1 (2014-07-18)</h2>
-<ul>
-<li>Added support for events.</li>
-<li>Small typo fixes.</li>
-</ul>
-<h2 id="version-020-2014-07-16">Version 0.2.0 (2014-07-16)</h2>
-<ul>
-<li>Add tests for optimization checks.</li>
-<li>Added test for preloading values before check.</li>
-<li>Added support for xml configuration.</li>
-<li>Fixed checks to succeed or fail correctly.</li>
-<li>Fixed syntax errors in code.</li>
-<li>Added checks for validation and manipulation.</li>
-<li>Adding support for default values.</li>
-<li>Document the overloading order.</li>
-</ul>
-<h2 id="version-010-2014-07-11">Version 0.1.0 (2014-07-11)</h2>
-<ul>
-<li>Added support for JavaScript and CoffeeScript files.</li>
-<li>Changed syntax to access instance properties without function.</li>
-<li>Made base structure with YAML loading working.</li>
-<li>Added untested code for reading files.</li>
-<li>Base structure partly running.</li>
-<li>Changed structure with static data storage.</li>
-<li>Restructure into classes.</li>
-<li>Added mocha test.</li>
-<li>Initial commit</li>
-</ul>
+          <main><p></p>
+<h1 id="architecture">Architecture</h1>
+<p>The configuration handling consists of a singleton class as central information
+storage like a registry. On access you will get references to the data.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><svg class="right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="531px" style="width:452px;height:531px;" version="1.1" viewBox="0 0 452 531" width="452px"><defs><filter height="300%" id="f1" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFA07A" filter="url(#f1)" height="385.7266" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="122" y="135.4297"/><rect fill="#FFFFFF" filter="url(#f1)" height="187.7969" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="127" y="193.6953"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="30" x2="30" y1="61.2969" y2="530.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="127" x2="127" y1="61.2969" y2="530.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="210.5" x2="210.5" y1="61.2969" y2="530.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="267.5" x2="267.5" y1="61.2969" y2="530.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="326.5" x2="326.5" y1="61.2969" y2="530.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="404.5" x2="404.5" y1="61.2969" y2="530.1563"/><rect fill="#FEFECE" filter="url(#f1)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="40" x="8" y="26"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="26" x="15" y="45.9951">app</text><rect fill="#FEFECE" filter="url(#f1)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="56" x="97" y="26"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="42" x="104" y="45.9951">config</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="182.5" y="57.9951">registry</text><path d="M193,13 C193,3 211,3 211,3 C211,3 229,3 229,13 L229,35 C229,45 211,45 211,45 C211,45 193,45 193,35 L193,13 " fill="#FEFECE" filter="url(#f1)" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M193,13 C193,23 211,23 211,23 C211,23 229,23 229,13 " fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="19" x="255" y="57.9951">file</text><path d="M249.5,13 C249.5,3 267.5,3 267.5,3 C267.5,3 285.5,3 285.5,13 L285.5,35 C285.5,45 267.5,45 267.5,45 C267.5,45 249.5,45 249.5,35 L249.5,13 " fill="#FEFECE" filter="url(#f1)" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M249.5,13 C249.5,23 267.5,23 267.5,23 C267.5,23 285.5,23 285.5,13 " fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" filter="url(#f1)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="58" x="295.5" y="26"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="302.5" y="45.9951">format</text><rect fill="#FEFECE" filter="url(#f1)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="71" x="367.5" y="26"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="57" x="374.5" y="45.9951">validator</text><rect fill="#FFA07A" filter="url(#f1)" height="385.7266" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="122" y="135.4297"/><rect fill="#FFFFFF" filter="url(#f1)" height="187.7969" style="stroke: #A80036; stroke-width: 1.0;" width="10" x="127" y="193.6953"/><rect fill="#EEEEEE" filter="url(#f1)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="444.5" x="3" y="91.8633"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="447.5" y1="91.8633" y2="91.8633"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="447.5" y1="94.8633" y2="94.8633"/><rect fill="#EEEEEE" filter="url(#f1)" height="23.1328" style="stroke: #000000; stroke-width: 2.0;" width="74" x="188.25" y="81.2969"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="55" x="194.25" y="97.3638">Startup</text><polygon fill="#A80036" points="110,131.4297,120,135.4297,110,139.4297,114,135.4297" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="30" x2="116" y1="135.4297" y2="135.4297"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="45" x="37" y="130.4966">require</text><polygon fill="#A80036" points="110,160.5625,120,164.5625,110,168.5625,114,164.5625" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="30" x2="116" y1="164.5625" y2="164.5625"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="58" x="37" y="159.6294">setup(...)</text><polygon fill="#A80036" points="115,189.6953,125,193.6953,115,197.6953,119,193.6953" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="30" x2="121" y1="193.6953" y2="193.6953"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="44" x="37" y="188.7622">init(cb)</text><polygon fill="#A80036" points="255.5,218.8281,265.5,222.8281,255.5,226.8281,259.5,222.8281" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="137" x2="261.5" y1="222.8281" y2="222.8281"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="69" x="144" y="217.895">find + load</text><polygon fill="#A80036" points="314.5,247.9609,324.5,251.9609,314.5,255.9609,318.5,251.9609" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="137" x2="320.5" y1="251.9609" y2="251.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="36" x="144" y="247.0278">parse</text><polygon fill="#A80036" points="393,277.0938,403,281.0938,393,285.0938,397,281.0938" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="137" x2="399" y1="281.0938" y2="281.0938"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="124" x="144" y="276.1606">check and optimize</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="137" x2="179" y1="310.3594" y2="310.3594"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="179" x2="179" y1="310.3594" y2="323.3594"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="138" x2="179" y1="323.3594" y2="323.3594"/><polygon fill="#A80036" points="148,319.3594,138,323.3594,148,327.3594,144,323.3594" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="55" x="144" y="305.2935">combine</text><polygon fill="#A80036" points="199,348.3594,209,352.3594,199,356.3594,203,352.3594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="137" x2="205" y1="352.3594" y2="352.3594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="33" x="144" y="347.4263">store</text><polygon fill="#A80036" points="41,377.4922,31,381.4922,41,385.4922,37,381.4922" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="35" x2="121" y1="381.4922" y2="381.4922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="15" x="47" y="376.5591">ok</text><rect fill="#EEEEEE" filter="url(#f1)" height="3" style="stroke: #EEEEEE; stroke-width: 1.0;" width="444.5" x="3" y="410.1914"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="447.5" y1="410.1914" y2="410.1914"/><line style="stroke: #000000; stroke-width: 1.0;" x1="3" x2="447.5" y1="413.1914" y2="413.1914"/><rect fill="#EEEEEE" filter="url(#f1)" height="23.1328" style="stroke: #000000; stroke-width: 2.0;" width="46" x="202.25" y="399.625"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="27" x="208.25" y="415.6919">Use</text><polygon fill="#A80036" points="110,449.7578,120,453.7578,110,457.7578,114,453.7578" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="30" x2="116" y1="453.7578" y2="453.7578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="68" x="37" y="448.8247">get(name)</text><polygon fill="#A80036" points="199,478.8906,209,482.8906,199,486.8906,203,482.8906" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="132" x2="205" y1="482.8906" y2="482.8906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="29" x="139" y="477.9575">read</text><polygon fill="#A80036" points="41,508.0234,31,512.0234,41,516.0234,37,512.0234" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="35" x2="210" y1="512.0234" y2="512.0234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="29" x="47" y="507.0903">data</text></g></svg><p>The most things are done while starting up your application (app). You will load
+the config module and setup the config module with the file storage and validation
+schema, first. When you call the <code>init()</code> method it will initialize everything. This
+is the heaviest process because it will search for the configuration files, load
+them, parse them and validate the resulting structure with the schema given in the
+setup.</p>
+<p>After that step the config module keeps the ready to use registry. If you query it
+using the <code>get()</code> method it will do no less than retrieve the data on the defined path.
+So it’s very fast now.</p>
+<p>A special behavior is the reloading of the configuration after the files
+changed. This can be triggered using the <code>reload()</code> method which will run the
+whole process from the initializing again and on the end replaces the current
+configuration with the new one. You can do this in the asynchronously in the background.
+To get your application parts be notified then to update the possible changed data
+you can use the event listener interface.</p>
 </main>
         </div>
         <div class="col-sm-3 col-cm-pull-9 sidebar">
           <ul class="nav nav-sidebar">
             <li class="header">
-              <a href="README.md.html">Alinex Config</a>
+              <a href="../README.md.html">Alinex Config</a>
             </li>
                 <li class="level0">
-                  <a href="README.md.html" title="Alinex Config: Readme (/README.md)">Readme</a>
+                  <a href="../README.md.html" title="Alinex Config: Readme (/README.md)">Readme</a>
                 </li>
-                <li class="level1">
-                  <a href="src/architecture.md.html" title="Architecture (/src/architecture.md)">Architecture</a>
+                <li class="active level1">
+                  <a href="architecture.md.html" title="Architecture (/src/architecture.md)">Architecture <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="level0">
-                  <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
+                  <a href="index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
                 </li>
-                <li class="active level0">
-                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)">Version changes <span class="sr-only">(current)</span></a>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
                 </li>
           </ul>
         </div>

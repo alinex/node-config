@@ -1,152 +1,115 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>README.md</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="doc-style.css" />
-  <script src="doc-filelist.js"></script>
-  <script>
-    var relativeDir = "";
-    var thisFile = "README.md";
-    var defaultSidebar = true;
-  </script>
-  <script src="doc-script.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alinex Config: Readme</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" /><style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body>
-  <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
-  </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
-</div>
-<div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
-</div>
-</nav><div id="sidebar_wrapper">
-    <div id="sidebar_switch">
-      <span class="tree">Files</span>
-      <span class="headings">Headings</span>
-    </div>
-    <div id="tree"></div>
-    <div id="headings">
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
 
-      <div class="heading h1">
-        <a href="#package-alinex-config">Package: alinex-config</a>
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="active level0">
+                  <a href="README.md.html" title="Alinex Config: Readme (/README.md)" class="btn btn-warning">Readme <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level1">
+                  <a href="src/architecture.md.html" title="Architecture (/src/architecture.md)" class="btn btn-primary">Architecture</a>
+                </li>
+                <li class="level0">
+                  <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
+                </li>
+                <li class="level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
-      <div class="heading h2">
-        <a href="#install">Install</a>
-      </div>
+    <div class="navbar-spacer"></div>
 
-      <div class="heading h2">
-        <a href="#formats">Formats</a>
-      </div>
+    <div class="container-fluid">
+      <div class="row">
 
-      <div class="heading h3">
-        <a href="#file-formats">File formats</a>
-      </div>
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
 
-      <div class="heading h3">
-        <a href="#rdbms">RDBMS</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#object-db">Object DB</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#file-structure">File Structure</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#usage">Usage</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#setup-origin">Setup origin</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#origin-object">Origin Object</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#file-search">File search</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#parsing-data">Parsing data</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#combine-contents">Combine contents</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#origin-structure">Origin Structure</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#register-application">Register Application</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#setup-schema">Setup schema</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#initialize">Initialize</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#access-configuration">Access configuration</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#web-services">Web Services</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#other-file-formats">Other file formats</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#examples">Examples</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#license">License</a>
-      </div>
-
-    </div>
-  </div>
-  <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-config" title="Fork me on GitHub"></a>
-    <div class="docs markdown"><div class="pilwrap" id="package-alinex-config">
-  <h1>
-    <a href="#package-alinex-config" name="package-alinex-config" class="pilcrow"></a>
-Package: alinex-config
-  </h1>
-</div>
-<p><a href="https://travis-ci.org/alinex/node-config"><img src="https://travis-ci.org/alinex/node-config.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://coveralls.io/repos/alinex/node-config/badge.svg?branch=master" alt="Coverage Status"></a>
-<a href="https://gemnasium.com/alinex/node-config"><img src="https://gemnasium.com/alinex/node-config.png" alt="Dependency Status"></a></p>
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#install">Install</a></li>
+<li><a href="#sources-file-formats">Sources / File Formats</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#debugging">Debugging</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+</p>
+<h1 id="alinex-config-readme">Alinex Config: Readme</h1>
+<p class="right"><a href="https://github.com/alinex/node-config/subscription"><img src="https://img.shields.io/github/watchers/alinex/node-config.svg?style=social&amp;label=Watch&amp;maxAge=2592000" alt="GitHub watchers" class="hidden-small" /></a>
+<a href="https://github.com/alinex/node-config"><img src="https://img.shields.io/github/stars/alinex/node-config.svg?style=social&amp;label=Star&amp;maxAge=2592000" alt="GitHub stars" /></a>
+<a href="https://github.com/alinex/node-config"><img src="https://img.shields.io/github/forks/alinex/node-config.svg?style=social&amp;label=Fork&amp;maxAge=2592000" alt="GitHub forks" class="hidden-small" /></a></p>
+<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://img.shields.io/npm/v/alinex-config.svg?maxAge=2592000&amp;label=latest%20version" alt="npm package" /></a>
+<a href="#license"><img src="https://img.shields.io/npm/l/alinex-config.svg?maxAge=2592000" alt="latest version" class="hidden-small" /></a>
+<a href="https://travis-ci.org/alinex/node-config"><img src="https://img.shields.io/travis/alinex/node-config.svg?maxAge=2592000&amp;label=develop" alt="Travis status" /></a>
+<a href="https://coveralls.io/r/alinex/node-config?branch=master"><img src="https://img.shields.io/coveralls/alinex/node-config.svg?maxAge=2592000" alt="Coveralls status" /></a>
+<a href="https://gemnasium.com/alinex/node-config"><img src="https://img.shields.io/gemnasium/alinex/node-config.svg?maxAge=2592000" alt="Gemnasium status" /></a>
+<a href="https://github.com/alinex/node-config/issues"><img src="https://img.shields.io/github/issues/alinex/node-config.svg?maxAge=2592000" alt="GitHub issues" class="hidden-small" /></a></p>
 <p>This package will give you an easy way to load and use configuration settings in
 your application or module.</p>
 <p>It will read named files in different formats (YAML, JSON, XML, JavaScript,
 CoffeeScript) and supports validation and optimization/completion. Also the
 configuration will automatically be updated on changes in the file system
-and may inform it's dependent objects.</p>
+and may inform it’s dependent objects.</p>
 <p>The major features are:</p>
 <ul>
 <li>over writable configurations</li>
@@ -156,492 +119,158 @@ and may inform it's dependent objects.</p>
 <li>automatically reloads on file changes</li>
 </ul>
 <blockquote>
-<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="https://alinex.github.io/code.html">Alinex Namespace</a>
+following the code standards defined in the <a href="https://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
-<div class="pilwrap" id="install">
-  <h2>
-    <a href="#install" name="install" class="pilcrow"></a>
-Install
-  </h2>
-</div>
-<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
-<img src="https://nodei.co/npm-dl/alinex-config.png?months=9&amp;height=3" alt="Downloads">
+<p class="hidden"><strong>Read the complete documentation under
+<a href="https://alinex.github.io/node-config">https://alinex.github.io/node-config</a>.</strong></p>
+<h2 id="install">Install</h2>
+<p><a href="https://www.npmjs.com/package/alinex-config"><img src="https://nodei.co/npm/alinex-config.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" />
+<img src="https://nodei.co/npm-dl/alinex-config.png?months=9&amp;height=3" alt="Downloads" />
 </a></p>
 <p>The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):</p>
-<pre><code class="sh">npm install alinex-config --save
-</code></pre>
+<pre class="language bash"><header>Shell Script</header><code>npm install alinex-config --save</code></pre>
 <p>And update it to the latest version later:</p>
-<pre><code class="sh">npm update alinex-config --save
-</code></pre>
+<pre class="language bash"><header>Shell Script</header><code>npm update alinex-config --save</code></pre>
 <p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-<div class="pilwrap" id="formats">
-  <h2>
-    <a href="#formats" name="formats" class="pilcrow"></a>
-Formats
-  </h2>
-</div>
+<h2 id="sources-file-formats">Sources / File Formats</h2>
 <p>This configuration class allows multiple formats to be used alternatively or combined.
-So you may use the format you know best.</p>
-<div class="pilwrap" id="file-formats">
-  <h3>
-    <a href="#file-formats" name="file-formats" class="pilcrow"></a>
-File formats
-  </h3>
-</div>
-<p>See the <a href="http://alinex.github.io/node-formatter">formatter</a> package for a detailed
+So you may use the format you know best. See the
+<a href="https://alinex.github.io/node-format/src/type/index.md">alinex-format</a> package for a detailed
 description of the allowed formats and description of how to write them.</p>
-<div class="pilwrap" id="rdbms">
-  <h3>
-    <a href="#rdbms" name="rdbms" class="pilcrow"></a>
-RDBMS
-  </h3>
-</div>
-<blockquote>
-<p>Not supported, yet.</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>lastchange</th>
-<th>group</th>
-<th style="text-align:left">key</th>
-<th style="text-align:left">value</th>
-<th style="text-align:left">comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms</td>
-<td style="text-align:left">null</td>
-<td style="text-align:left">use an object</td>
-</tr>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms.name</td>
-<td style="text-align:left">&quot;name&quot;</td>
-<td style="text-align:left">include a string</td>
-</tr>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms.list</td>
-<td style="text-align:left">null</td>
-<td style="text-align:left">and a list of numbers</td>
-</tr>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms.list[]</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms.list[]</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td>2014-12-11 19:45</td>
-<td>test</td>
-<td style="text-align:left">rdbms.list[]</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<div class="pilwrap" id="object-db">
-  <h3>
-    <a href="#object-db" name="object-db" class="pilcrow"></a>
-Object DB
-  </h3>
-</div>
-<blockquote>
-<p>Not supported, yet.</p>
-</blockquote>
-<p>Here, the JSON will be stored in the database like in the JSON file.</p>
-<div class="pilwrap" id="file-structure">
-  <h2>
-    <a href="#file-structure" name="file-structure" class="pilcrow"></a>
-File Structure
-  </h2>
-</div>
-<p>As described above you can use different formats but you can also mix it or split your
-configuration into multiple files.</p>
+<p>As described in the link above you can use different formats but you can also
+split your configuration into multiple files and use different formats in each of
+them.</p>
 <p>So as an first example if you have a very large configuration of three major
 parts you may split it up into 3 different files.</p>
-<pre><code class="yaml"><span class="hljs-comment"># config/server/http.yml</span>
-<span class="hljs-attr">listen:</span>
-<span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-attr">  port:</span> <span class="hljs-number">80</span>
-</code></pre>
-<pre><code class="yaml"><span class="hljs-comment"># config/server/ftp.yml</span>
-<span class="hljs-attr">listen:</span>
-<span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-attr">  port:</span> <span class="hljs-number">21</span>
-</code></pre>
-<pre><code class="yaml"><span class="hljs-comment"># config/server/mail.yml</span>
-<span class="hljs-attr">pop:</span>
-<span class="hljs-attr">  port:</span> <span class="hljs-number">110</span>
-<span class="hljs-attr">imap:</span>
-<span class="hljs-attr">  port:</span> <span class="hljs-number">143</span>
-</code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-comment"># config/server/http.yml</span></code>
+<code><span class="hljs-attr">listen:</span></code>
+<code><span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code>
+<code><span class="hljs-attr">  port:</span> <span class="hljs-number">80</span></code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-comment"># config/server/ftp.yml</span></code>
+<code><span class="hljs-attr">listen:</span></code>
+<code><span class="hljs-attr">  ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code>
+<code><span class="hljs-attr">  port:</span> <span class="hljs-number">21</span></code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-comment"># config/server/mail.yml</span></code>
+<code><span class="hljs-attr">pop:</span></code>
+<code><span class="hljs-attr">  port:</span> <span class="hljs-number">110</span></code>
+<code><span class="hljs-attr">imap:</span></code>
+<code><span class="hljs-attr">  port:</span> <span class="hljs-number">143</span></code></pre>
 <p>And if the program now reads <code>config/**</code> you will get the combined structure:</p>
-<pre><code class="yaml"><span class="hljs-attr">server:</span>
-<span class="hljs-attr">  http:</span>
-<span class="hljs-attr">    listen:</span>
-<span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-attr">      port:</span> <span class="hljs-number">80</span>
-<span class="hljs-attr">  ftp:</span>
-<span class="hljs-attr">    listen:</span>
-<span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-attr">      port:</span> <span class="hljs-number">21</span>
-<span class="hljs-attr">  mail:</span>
-<span class="hljs-attr">    pop:</span>
-<span class="hljs-attr">      port:</span> <span class="hljs-number">110</span>
-<span class="hljs-attr">    imap:</span>
-<span class="hljs-attr">      port:</span> <span class="hljs-number">143</span>
-</code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-attr">server:</span></code>
+<code><span class="hljs-attr">  http:</span></code>
+<code><span class="hljs-attr">    listen:</span></code>
+<code><span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code>
+<code><span class="hljs-attr">      port:</span> <span class="hljs-number">80</span></code>
+<code><span class="hljs-attr">  ftp:</span></code>
+<code><span class="hljs-attr">    listen:</span></code>
+<code><span class="hljs-attr">      ip:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code>
+<code><span class="hljs-attr">      port:</span> <span class="hljs-number">21</span></code>
+<code><span class="hljs-attr">  mail:</span></code>
+<code><span class="hljs-attr">    pop:</span></code>
+<code><span class="hljs-attr">      port:</span> <span class="hljs-number">110</span></code>
+<code><span class="hljs-attr">    imap:</span></code>
+<code><span class="hljs-attr">      port:</span> <span class="hljs-number">143</span></code></pre>
 <p>This is because the config system will use the names behind the asterisk as
 structure levels automatically but you may control the combination rules using
 filter and path in the origin setup (see below).</p>
-<div class="pilwrap" id="usage">
-  <h2>
-    <a href="#usage" name="usage" class="pilcrow"></a>
-Usage
-  </h2>
-</div>
+<h2 id="usage">Usage</h2>
 <p>To use the configuration management you have to load the module first:</p>
-<pre><code class="coffee">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></code></pre>
 <p>This gives you back the main configuration instance.
 But before you can access your configuration you have to setup the system if not
 already done and initialize it:</p>
-<pre><code class="coffee"><span class="hljs-comment"># register common configuration paths for application</span>
-config.register <span class="hljs-string">'myapp'</span>, __dirname
-<span class="hljs-comment"># add a special path on the end (highest priority)</span>
-config.pushOrigin
-  uri: <span class="hljs-string">'file:///etc/my-config.yml'</span>
-<span class="hljs-comment"># and add a schema to verify the database settings are correct</span>
-config.setSchema <span class="hljs-string">'database'</span>,
-  type: ....  <span class="hljs-comment"># schema</span>
-
-<span class="hljs-comment"># start initializing the configuration and load the data</span>
-config.init (err) -&gt;
-  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-  <span class="hljs-comment"># all configurations are loaded successfully</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code><span class="hljs-comment"># register common configuration paths for application</span></code>
+<code>config.register <span class="hljs-string">'myapp'</span>, __dirname</code>
+<code><span class="hljs-comment"># add a special path on the end (highest priority)</span></code>
+<code>config.pushOrigin</code>
+<code>  uri: <span class="hljs-string">'file:///etc/my-config.yml'</span></code>
+<code><span class="hljs-comment"># and add a schema to verify the database settings are correct</span></code>
+<code>config.setSchema <span class="hljs-string">'database'</span>,</code>
+<code>  type: ....  <span class="hljs-comment"># schema</span></code>
+<code></code>
+<code><span class="hljs-comment"># start initializing the configuration and load the data</span></code>
+<code>config.init (err) -&gt;</code>
+<code>  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</code>
+<code>  <span class="hljs-comment"># all configurations are loaded successfully</span></code></pre>
 <p>Alternatively you may skip your program with a detailed error message:</p>
-<pre><code class="coffee">config.init (err) -&gt;
-  <span class="hljs-keyword">if</span> err
-    <span class="hljs-built_in">console</span>.error <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span>
-    <span class="hljs-built_in">console</span>.error err.description
-    process.exit <span class="hljs-number">1</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config.init (err) -&gt;</code>
+<code>  <span class="hljs-keyword">if</span> err</code>
+<code>    <span class="hljs-built_in">console</span>.error <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span></code>
+<code>    <span class="hljs-built_in">console</span>.error err.description</code>
+<code>    process.exit <span class="hljs-number">1</span></code></pre>
 <p>Make sure that the initialization is completely done for all configuration data
 before using it. If you change the setup later you have to reinit everything which
 causes an extra afford which you should skip if possible.</p>
 <p>After that is done you can easily access the configuration like:</p>
-<pre><code class="coffee">conf = config.data
-<span class="hljs-comment"># here you have the whole registry data</span>
-conf = config.get <span class="hljs-string">'server'</span>
-<span class="hljs-comment"># and now you have only the server structure</span>
-conf = config.get <span class="hljs-string">'database/master/address'</span>
-<span class="hljs-comment"># or only a specific database connection</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>conf = config.data</code>
+<code><span class="hljs-comment"># here you have the whole registry data</span></code>
+<code>conf = config.get <span class="hljs-string">'server'</span></code>
+<code><span class="hljs-comment"># and now you have only the server structure</span></code>
+<code>conf = config.get <span class="hljs-string">'database/master/address'</span></code>
+<code><span class="hljs-comment"># or only a specific database connection</span></code></pre>
 <blockquote>
-<p>To don't mess with the names: I always address the instance with <code>config</code> and use
+<p>To don’t mess with the names: I always address the instance with <code>config</code> and use
 a short name like <code>conf</code> for some data out of it.</p>
 </blockquote>
-<div class="pilwrap" id="setup-origin">
-  <h2>
-    <a href="#setup-origin" name="setup-origin" class="pilcrow"></a>
-Setup origin
-  </h2>
-</div>
-<p>The origin is the place the configuration data comes from. For alinex-config you
-have the possibility to specify multiple search paths, you can also overload
-configurations with another file in higher priority and combine values from
-different files together.
-So the specification of the origin is the main part and is the base to build
-the registry data.</p>
-<div class="pilwrap" id="origin-object">
-  <h3>
-    <a href="#origin-object" name="origin-object" class="pilcrow"></a>
-Origin Object
-  </h3>
-</div>
-<p>To setup the origin for the configuration module you have to extend the origin
-list by adding a new origin object.</p>
-<p>The single origin object describes where to find the configuration, what to use
-and where to put them in the final data structure. It contains the following
-possible elements:</p>
+<h2 id="debugging">Debugging</h2>
+<p>If you have any problems you may debug the code with the predefined flags. It uses
+the debug module to let you define what to debug.</p>
+<p>Call it with the DEBUG environment variable set to</p>
 <ul>
-<li>uri - pointing to the search</li>
-<li>parser - (optional) type to use for parsing the data</li>
-<li>filter - (optional) which part to use</li>
-<li>path - (optional) where to put it in the data structure</li>
+<li>‘config’ for basic information</li>
+<li>‘config:value’ with structure after loaded</li>
+<li>‘config:access’ with info about data accessed</li>
+<li>‘config*’ for all of them</li>
 </ul>
-<p>The following URI types are possible here:</p>
-<ul>
-<li>No Protocol =&gt; using the file protocol</li>
-<li><code>file://</code> =&gt; load from local file</li>
-<li><code>http://</code> or <code>https://</code> =&gt; load from web service</li>
-</ul>
-<div class="pilwrap" id="file-search">
-  <h3>
-    <a href="#file-search" name="file-search" class="pilcrow"></a>
-File search
-  </h3>
-</div>
-<p>Access files absolute from root or relative from current directory:</p>
-<pre><code class="text">file:///etc/myapp.yml   # absolute path
-/etc/myapp.yml          # shortcut
-
-file://config/myapp.yml # relative path
-config/myapp.yaml       # shortcut
-</code></pre>
-<p>You can search by using asterisk as placeholder or a double asterisk to
-go multiple level depth:</p>
-<pre><code class="text">/etc/myapp.*            # search for any extension
-/etc/myapp/*.yml        # find all files with this extension
-/etc/myapp/*            # find all files in the directory
-/etc/myapp/*/*.yml      # find one level depth
-/etc/myapp/**           # find all files in directory or subdirectories
-/etc/myapp/**/*.yml     # find files in the directory or subdirectories
-</code></pre>
-<p>See more about the possible matchings at
-<a href="http://alinex.github.io/node-fs/README.md.html#file%2Fpath%20matching">FS</a>.</p>
-<div class="pilwrap" id="parsing-data">
-  <h3>
-    <a href="#parsing-data" name="parsing-data" class="pilcrow"></a>
-Parsing data
-  </h3>
-</div>
-<p>The data loaded from the given URI will be parsed if it is a string. You may
-set one of the following parsers in <code>parser</code> to use:</p>
-<ul>
-<li>yaml</li>
-<li>json</li>
-<li>xml</li>
-<li>ini</li>
-<li>properties</li>
-<li>coffee</li>
-<li>javascript</li>
-</ul>
-<p>But if you don't specify it, it will be auto detected based on the file extension
-or the contents itself.</p>
-<div class="pilwrap" id="combine-contents">
-  <h3>
-    <a href="#combine-contents" name="combine-contents" class="pilcrow"></a>
-Combine contents
-  </h3>
-</div>
-<p>Use the <code>filter</code> path to only use a subset of the loaded structure and the
-<code>path</code> to specify where it belongs to.</p>
-<pre><code>filter: 'test'
-path: 'database/test'
-</code></pre>
-<p>This will only use the <code>test</code> settings from the loaded data and put them into
-<code>data.database.test</code>.</p>
-<p>If multiple files are found (maybe through multiple origins) their contents
-will be merged together in the order they are specified in the origin tree list.
-This means that the later one will overwrite the earlier one if they have values
-for the same element.</p>
-<div class="pilwrap" id="origin-structure">
-  <h3>
-    <a href="#origin-structure" name="origin-structure" class="pilcrow"></a>
-Origin Structure
-  </h3>
-</div>
-<p>The origin structure is a tree list which will be processed top down. This means
-that you can add new origin objects at the top to use them as defaults or at
-the end of the list to make this the highest priority.</p>
-<p>In case of registering applications they will make a sublist with their search
-paths (see below).</p>
-<div class="pilwrap" id="register-application">
-  <h3>
-    <a href="#register-application" name="register-application" class="pilcrow"></a>
-Register Application
-  </h3>
-</div>
-<p>An application have the possibility to search for their file based configuration
-on multiple locations out of the box:</p>
-<ul>
-<li>var/src/config - defaults in the source code</li>
-<li>var/local/config - local within the installed program</li>
-<li>/etc/<app> - global for the application</li>
-<li>~/.app/config - user specific settings</li>
-</ul>
-<p>As described above the last has the highest priority.</p>
-<p>To support this in an easy way you may use the <code>register</code> method which if given
-an application name and the app directory will do everything for you.</p>
-<pre><code class="coffee">config.register myapp, __dirname,
-  uri: <span class="hljs-string">'*.yml'</span>
-</code></pre>
-<p>Like you see, you may also add the  attributes from the normal configuration
-like <code>uri</code>, <code>filter</code> and <code>path</code>.</p>
-<p>You may also register a module. Therefore give <code>null</code> as application name and
-it will only add the first two paths based on the given directory.</p>
-<p>If you won't have your settings in the 'config' folder you may specify another
-one using <code>folder: &quot;...&quot;</code> as additional parameter.</p>
-<div class="pilwrap" id="setup-schema">
-  <h2>
-    <a href="#setup-schema" name="setup-schema" class="pilcrow"></a>
-Setup schema
-  </h2>
-</div>
-<p>The schema defines some validation and optimization rules which has to be
-processed before using the values. If the validation fails it will return a
-descriptive Error and don't use the values.</p>
-<pre><code class="coffee">config.setSchema <span class="hljs-string">'/'</span>,
-  type: <span class="hljs-string">'object'</span>
-  allowedKeys: <span class="hljs-literal">true</span>
-  keys:
-    name:
-      type: <span class="hljs-string">'string'</span>
-    job:
-      type: <span class="hljs-string">'string'</span>
-, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-  <span class="hljs-comment"># go on and load the data</span>
-</code></pre>
-<p>To set a schema, give the root path for the schema and it's values which describe
-the concrete data format. The real validation is done using the
-<a href="http://alinex.github.io/node-validator">Validator</a>. Therefore look at the
-description there for all the possibilities you have.</p>
-<div class="pilwrap" id="initialize">
-  <h2>
-    <a href="#initialize" name="initialize" class="pilcrow"></a>
-Initialize
-  </h2>
-</div>
-<p>After everything is setup you have to call the <code>init()</code> method to initialize
-it. This will:</p>
-<ul>
-<li>search for the configurations</li>
-<li>load them</li>
-<li>parse them</li>
-<li>combine all together</li>
-<li>check using schema</li>
-</ul>
-<p>After everything is done the given callback is called.</p>
-<p>You may also call this method if you didn't know if everything is initialized.
-It will check and return immediately if nothing to do.</p>
-<div class="pilwrap" id="access-configuration">
-  <h2>
-    <a href="#access-configuration" name="access-configuration" class="pilcrow"></a>
-Access configuration
-  </h2>
-</div>
-<p>After everything is setup and loaded you may access the values or part of the
-value tree. You always get a reference for performance reasons. So don't change
-it's content.</p>
-<pre><code class="coffee">conf = config.get()
-</code></pre>
-<p>Thats a simple call to get the complete data structure.</p>
-<pre><code class="coffee">conf = config.get <span class="hljs-string">'server'</span>
-conf = config.get <span class="hljs-string">'database/master/address'</span>
-</code></pre>
-<p>Or give an path to get only a subpart of the configuration.</p>
-<pre><code class="coffee"><span class="hljs-keyword">if</span> config.get(<span class="hljs-string">'server'</span>)?
-  <span class="hljs-comment"># value found</span>
-</code></pre>
-<p>And at last you may check that a specific part is set.</p>
-<div class="pilwrap" id="web-services">
-  <h2>
-    <a href="#web-services" name="web-services" class="pilcrow"></a>
-Web Services
-  </h2>
-</div>
-<p>Like using files you may also always use a web service to get the configuration.
-But keep in mind that your system may not start if the web service is down.</p>
-<p>It is as easy as using files:</p>
-<pre><code class="coffee">config.pushOrigin
-  uri: <span class="hljs-string">"http://echo.jsontest.com/key/value/one/two"</span>
-  path: <span class="hljs-string">'echo'</span>
-</code></pre>
-<p>This will result in the following configuration (after loaded via <code>init()</code>).</p>
-<pre><code class="coffee">echo:
-  one: <span class="hljs-string">'two'</span>
-  key: <span class="hljs-string">'value'</span>
-</code></pre>
-<blockquote>
-<p>Support for webservice formats like XML-RPC, JSON-RPC and SOAP may be integrated
-later. Also the support of possibilities to specify the concrete request may be
-extended on demand.</p>
-</blockquote>
-<div class="pilwrap" id="other-file-formats">
-  <h2>
-    <a href="#other-file-formats" name="other-file-formats" class="pilcrow"></a>
-Other file formats
-  </h2>
-</div>
-<p>Beside configuration files you may also access templates or other user changeable
-files in the same manner using such an search path.</p>
-<p>Therefore you have to register an app with a type:</p>
-<pre><code class="coffee">config.register <span class="hljs-string">'alinex'</span>, <span class="hljs-literal">null</span>,
-  folder: <span class="hljs-string">'template'</span>
-  type: <span class="hljs-string">'template'</span>
-</code></pre>
-<p>And later you may get all the possible files:</p>
-<pre><code class="coffee">config.typeSearch <span class="hljs-string">'template'</span>, <span class="hljs-function"><span class="hljs-params">(err, map)</span> -&gt;</span>
-  <span class="hljs-built_in">console</span>.log err, map
-</code></pre>
-<div class="pilwrap" id="examples">
-  <h2>
-    <a href="#examples" name="examples" class="pilcrow"></a>
-Examples
-  </h2>
-</div>
-<p>I often use the pattern of giving my modules two functions called setup() and init().
-The setup() is first called to set up the basics like configuring the configuration
-system.</p>
-<pre><code class="coffee"><span class="hljs-comment"># set the modules config paths and validation schema</span>
-setup = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-comment"># set module search path</span>
-  config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
-  <span class="hljs-comment"># add schema for module's configuration</span>
-  config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb
-</code></pre>
-<p>The call of <code>async.once</code> will look that this method is only run one time (see
-<a href="http://alinex.github.io/node-async">Async</a>.</p>
-<p>Now you may add additional configuration paths...</p>
-<pre><code class="coffee"><span class="hljs-comment"># set the modules config paths, validation schema and initialize the configuration</span>
-init = async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  debug <span class="hljs-string">"initialize"</span>
-  <span class="hljs-comment"># set module search path</span>
-  @setup -&gt;
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    config.init cb
-</code></pre>
-<p>The init() method now makes the system ready to use and if not up to date or
-initialized will initialize the config system. The setup() is also called to make
-it possible to call in one step if no special configuration is needed.</p>
-<div class="pilwrap" id="license">
-  <h2>
-    <a href="#license" name="license" class="pilcrow"></a>
-License
-  </h2>
-</div>
-<p>Copyright 2014-2016 Alexander Schilling</p>
-<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+<p>You can also combine them using comma or use only DEBUG=* to show all debug messages
+of all modules.</p>
+<p>Additional value checking will be done if the debugging for the general <code>config</code>
+is enabled.</p>
+<h2 id="license">License</h2>
+<p>© Copyright 2014-2016 Alexander Schilling</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
 <blockquote>
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+distributed under the License is distributed on an “AS IS” BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</p>
-</div>
-  </div>
-</body>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="README.md.html">Alinex Config</a>
+            </li>
+                <li class="active level0">
+                  <a href="README.md.html" title="Alinex Config: Readme (/README.md)">Readme <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level1">
+                  <a href="src/architecture.md.html" title="Architecture (/src/architecture.md)">Architecture</a>
+                </li>
+                <li class="level0">
+                  <a href="src/index.coffee.html" title="API Usage (/src/index.coffee)">API Usage</a>
+                </li>
+                <li class="level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
 </html>
