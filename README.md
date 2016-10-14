@@ -197,6 +197,24 @@ conf = config.get 'database/master/address'
 > a short name like `conf` for some data out of it.
 
 
+Debugging
+-------------------------------------------------
+If you have any problems you may debug the code with the predefined flags. It uses
+the debug module to let you define what to debug.
+
+Call it with the DEBUG environment variable set to
+- 'config' for basic information
+- 'config:value' with structure after loaded
+- 'config:access' with info about data accessed
+- 'config*' for all of them
+
+You can also combine them using comma or use only DEBUG=* to show all debug messages
+of all modules.
+
+Additional value checking will be done if the debugging for the general `config`
+is enabled.
+
+
 License
 -------------------------------------------------
 
