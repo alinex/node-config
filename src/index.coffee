@@ -16,6 +16,7 @@ fspath = require 'path'
 deasync = require 'deasync'
 # load other alinex modules
 util = require 'alinex-util'
+validator = null # load on demand
 # load helper modules
 load = require './load'
 
@@ -28,11 +29,19 @@ load = require './load'
 # following Structure:
 #
 # `Array<Object>` with
-# - uri - `String` path to search with possible placeholders
-# - parser - `String` type to use for parsing the data (optional)
-# - filter - `Object` which part to use (optional)
-# - path - `String` where to put it in the data structure (optional)
-# - type - `String` content type (optional, default is 'config')
+# - `uri` - `String` path to search with possible placeholders
+# - `parser` - `String` type to use for parsing the data (optional)
+# - `filter` - `Object` which part to use (optional)
+# - `path` - `String` where to put it in the data structure (optional)
+# - `type` - `String` content type (optional, default is 'config')
+# - `value` - `Object` structure read from source
+# - `meta` - `Object` meta information of each element as map with the elements
+# path as key (separated by dots)
+#   - `uri` - `String` location of source object
+#   - `origin` - `Object` reference to origin object
+#   - `value` - the elements original value
+# - `loaded` - `Boolean` set to true if successfully loaded
+# - `lastload` - `Date` of the time the data is read from source
 module.exports.origin = []
 
 # Store the validation schema used after loading new values or on setting an element.
@@ -72,10 +81,7 @@ The single origin object describes where to find the configuration, what to use
 and where to put them in the final data structure. It contains the following
 possible elements:
 
-- uri - `String` path to search with possible placeholders
-- parser - `String` type to use for parsing the data (optional)
-- filter - `Object` which part to use (optional)
-- path - `String` where to put it in the data structure (optional)
+{@schema #originImportSchema}
 
 __URI Type__
 
@@ -192,6 +198,12 @@ Add a new element to the origin list.
 @param {Object} conf origin specification (see above)
 ###
 module.exports.pushOrigin = (conf) ->
+  if debug.enabled
+    validator ?= require 'alinex-validator'
+    validator.checkSync
+      name: 'originToAdd'
+      value: conf
+      schema: module.exports.originImportSchema
   conf.type ?= 'config'
   @origin.push conf
 
@@ -202,6 +214,12 @@ Add a new element at the start of the origin list.
 @param {Object} conf origin specification (see above)
 ###
 module.exports.unshiftOrigin = (conf) ->
+  if debug.enabled
+    validator ?= require 'alinex-validator'
+    validator.checkSync
+      name: 'originToAdd'
+      value: conf
+      schema: module.exports.originImportSchema
   conf.type ?= 'config'
   @origin.unshift conf
 
@@ -283,12 +301,19 @@ module.exports.register = (app, basedir, setup = {} ) ->
       filter: setup.filter
     # add user
     dir = process.env.HOME ? process.env.USERPROFILE
-    list.push
+    origin =
       uri: "#{dir}/.#{app}/#{setup.folder}/#{uri}"
       type: setup.type
       parser: setup.parser
       path: setup.path
       filter: setup.filter
+    if debug.enabled
+      validator ?= require 'alinex-validator'
+      validator.checkSync
+        name: 'originToAdd'
+        value: origin
+        schema: module.exports.originImportSchema
+    list.push origin
   debug chalk.grey "register urls: #{list.map (e) -> e.uri}" if debug.enabled
   @origin.push list
 
@@ -546,6 +571,53 @@ from the defined origin URI and the real path to access.
 @see {@link typeSearch}
 ###
 module.exports.typeSearchSync = deasync module.exports.typeSearch
+
+
+###
+Schema
+-------------------------------------------------
+###
+
+###
+The schema may be used to validate possible origins before use. This is only done
+within the config module if debug is enabled.
+###
+module.exports.originImportSchema =
+  title: "Origin Import"
+  description: "the definition of origins to add to the internal list"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    uri:
+      title: "URI"
+      description: "the path to search with possible placeholders"
+      type: 'string'
+      minLength: 1
+    parser:
+      title: "Parser"
+      description: "the type to use for parsing the data"
+      type: 'string'
+      values: ['csv', 'yml', 'yaml', 'js', 'javascript', 'json', 'bson', 'cson',
+      'coffee', 'xml', 'ini', 'properties']
+      optional: true
+    filter:
+      title: "Filter"
+      description: "the part of the structure to use"
+      type: 'string'
+      minLength: 1
+      optional: true
+    path:
+      title: "Path"
+      description: "the position where to put it in the data structure"
+      type: 'string'
+      minLength: 1
+      optional: true
+    type:
+      title: "Type"
+      description: "the type of data in this origin"
+      type: 'string'
+      values: ['config', 'template']
+      optional: true
 
 
 # Setup Alinex Path
