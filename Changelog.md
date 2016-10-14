@@ -4,6 +4,27 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.3.0 (2016-10-14)
+-------------------------------------------------
+- Update async@2.1.1.
+- Check origin schema in debug mode.
+- Optimize debug calls.
+- Update internal documentation of loader.
+- Finish Documentation of API Usage.
+- Update setup documentation.
+- Describe architecture.
+- Restructure doc pages.
+- Update docs.
+- Fixed test to also work on travis.
+- Fix documentation link.
+- Remove uglify compression from build.
+- Fix file find calls to support new module version.
+- Replace alinex-formatter with alinex-format.
+- Update async@2.0.1, alinex-util@2.4.2, request@2.75.0, alinex-builder@2.3.8, alinex-fs@3.0.3, alinex-validator@2.0.1
+- Update travis checks.
+- Rename links to Alinex Namespace.
+- Add copyright sign.
+
 Version 1.2.1 (2016-07-09)
 -------------------------------------------------
 - Always add alinex app for template search.
