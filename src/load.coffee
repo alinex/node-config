@@ -118,7 +118,7 @@ loadFiles = (origin, path, cb) ->
     return loadFile origin, "file://#{path}", file, (err, result) ->
       if err
         return cb err unless err.code is 'ENOENT'
-        debug chalk.magenta "Failure #{err.message}!"
+        debug chalk.magenta "Failure #{err.message}!" if debug.enabled
         origin.loaded = true
         origin.lastload = date
         return cb()
@@ -136,7 +136,7 @@ loadFiles = (origin, path, cb) ->
     if err
       return cb err unless err.code is 'ENOENT'
       # not existing file is no problem and will be ignored
-      debug chalk.magenta "Failure #{err.message}!"
+      debug chalk.magenta "Failure #{err.message}!" if debug.enabled
       origin.loaded = true
       origin.lastload = date
       return cb()
@@ -191,7 +191,7 @@ loadFile = (origin, path, file, cb) ->
       ref[k] = v for k, v of obj
       # make meta data
       meta = setMeta value, uri, origin
-      debug "loaded #{uri}"
+      debug "loaded #{uri}" if debug.enabled
       cb null, [value, meta]
 
 # Load origin from web resource. This fills up the `origin.value`, `origin.meta` and
@@ -201,7 +201,7 @@ loadFile = (origin, path, file, cb) ->
 # @param {String} uri to retrieve
 # @param {Function(Error)} cb callback with `Error` on any problems
 loadRequest = (origin, uri, cb) ->
-  debug "load   #{uri}"
+  debug "load   #{uri}" if debug.enabled
   date = new Date()
   # make request
   request ?= require 'request'
@@ -215,7 +215,7 @@ loadRequest = (origin, uri, cb) ->
     format.parse body, (origin.parser ? uri), (err, obj) ->
       return cb err if err
       meta = setMeta obj, uri, origin
-      debug "loaded #{uri}"
+      debug "loaded #{uri}" if debug.enabled
       setOrigin origin, obj, meta, date, cb
 
 # Create the meta data structure.
@@ -254,7 +254,7 @@ setMeta = (obj, uri, origin, prefix='') ->
 setOrigin = (origin, value, meta, date, cb) ->
   # set filter
   if origin.filter and not util.object.isEmpty value
-    debug "set filter to #{origin.filter} in #{origin.uri}"
+    debug "set filter to #{origin.filter} in #{origin.uri}" if debug.enabled
     # step into data
     res = util.object.path value, origin.filter
     if res?
@@ -270,10 +270,11 @@ setOrigin = (origin, value, meta, date, cb) ->
         res[k.substring filter.length-1] = v
       meta = res
     else
-      debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
+      if debug.enabled
+        debug chalk.red "Could not set filter #{origin.filter} in #{origin.uri}"
   # set specific path
   if origin.path
-    debug "set under path #{origin.path} for #{origin.uri}"
+    debug "set under path #{origin.path} for #{origin.uri}" if debug.enabled
     # add path to value
     path = util.string.trim origin.path, '/'
     obj = ref = {}
@@ -291,8 +292,9 @@ setOrigin = (origin, value, meta, date, cb) ->
   origin.meta = meta
   origin.loaded = true
   origin.lastload = date
-  debug "loaded #{origin.path ? 'ROOT'} with: \n
-  #{ chalk.grey util.inspect origin.value, {depth: null}}"
+  if debug.enabled
+    debug "loaded #{origin.path ? 'ROOT'} with: \n
+    #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
 
 

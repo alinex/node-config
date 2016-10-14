@@ -52,11 +52,6 @@ module.exports.value = {}
 # `Object`
 module.exports.meta = {}
 
-# Event listener for `onChange` event.
-#
-# `Object`
-module.exports.listener = {}
-
 
 ###
 Setup Origin
@@ -294,7 +289,7 @@ module.exports.register = (app, basedir, setup = {} ) ->
       parser: setup.parser
       path: setup.path
       filter: setup.filter
-  debug chalk.grey "register urls: #{list.map (e) -> e.uri}"
+  debug chalk.grey "register urls: #{list.map (e) -> e.uri}" if debug.enabled
   @origin.push list
 
 
@@ -348,7 +343,7 @@ module.exports.setSchema = (path, schema, cb = -> ) ->
   util.extend ref, util.clone schema
   # revalidate if already loaded
   return cb() if util.object.isEmpty @value
-  debug "revalidate against schema because #{path ? '/'} changed"
+  debug "revalidate against schema because #{path ? '/'} changed" if debug.enabled
   load.validate this, @value, (err, value) ->
     return cb err if err
     @value = value
@@ -405,14 +400,15 @@ module.exports.init = util.function.onceTime module.exports, (cb) ->
   needLoad = false
   for origin in load.listOrigins @origin
     if origin.loaded
-      debug chalk.grey "origin url: #{origin.uri} (already loaded)"
+      debug chalk.grey "origin url: #{origin.uri} (already loaded)" if debug.enabled
       continue
-    debug chalk.grey "origin url: #{origin.uri}"
+    debug chalk.grey "origin url: #{origin.uri}" if debug.enabled
     needLoad = true
   return cb() unless needLoad
   load.init this, (err) =>
     return cb err if err
-    debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+    if debugValue.enabled
+      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
 
 ###
@@ -442,7 +438,8 @@ module.exports.reload = (cb) ->
   # run init again
   load.init this, (err) =>
     return cb err if err
-    debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+    if debugValue.enabled
+      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()
 
 ###
@@ -489,14 +486,15 @@ And at last you may check that a specific part is set.
 module.exports.get = (path) ->
   if typeof path is 'string'
     path = util.string.trim(path, '/').split '/'
-    debugAccess "returning #{path.join '/'}"
+    debugAccess "returning #{path.join '/'}" if debugAccess.enabled
   return @value unless path.length and path[0]
   # get sub path
   ref = @value
   for p in path
     return null unless ref[p]?
     ref = ref[p]
-  debugAccess "not found #{path.join '/'}" unless ref?
+  unless ref?
+    debugAccess "not found #{path.join '/'}" if debugAccess.enabled
   return ref
 
 
@@ -593,10 +591,4 @@ init = util.function.once this, (cb) ->
 The init() method now makes the system ready to use and if not up to date or
 initialized will initialize the config system. The setup() is also called to make
 it possible to call in one step if no special configuration is needed.
-###
-
-###
-Events
-----------------------------------------------------------------
-The following events are supported on the
 ###
