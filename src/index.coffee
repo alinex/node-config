@@ -14,11 +14,18 @@ debugAccess = require('debug')('config:access')
 chalk = require 'chalk'
 fspath = require 'path'
 deasync = require 'deasync'
+events = require 'events'
 # load other alinex modules
 util = require 'alinex-util'
 validator = null # load on demand
 # load helper modules
 load = require './load'
+
+
+# Setup
+# -------------------------------------------------
+# Create initial module as event emitter.
+module.exports = new events.EventEmitter()
 
 
 # Data container
@@ -660,4 +667,26 @@ init = util.function.once this, (cb) ->
 The init() method now makes the system ready to use and if not up to date or
 initialized will initialize the config system. The setup() is also called to make
 it possible to call in one step if no special configuration is needed.
+###
+
+
+###
+Events
+--------------------------------------------------------
+If you use the reload possibility, you may also add a function as listener which get
+informed if a specific part in the value changed.
+
+To do so you can listen to value changes using the common `on` or `once` methods:
+
+``` coffee
+config = require 'alinex-config'
+...
+config.on 'email', (value, uri, origin) ->
+  # what to do
+config.on 'app.title', (value, uri, origin) ->
+  # change the title in the view
+```
+
+Your event listener will get called if the given value or the data below changed.
+A reloading of the same value won't count if the data keeps the same.
 ###
