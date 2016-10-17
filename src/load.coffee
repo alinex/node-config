@@ -50,7 +50,8 @@ exports.init = (config, cb) ->
     validate config, value, (err, value) ->
       return cb err if err
       # collect events to send
-      events = util.array.unique diff '/', config.value, value
+      console.log util.inspect value, {depth: null}
+      #events = util.array.unique diff '', config.value, value
       # set
       config.value = value
       config.meta = meta
@@ -64,6 +65,7 @@ exports.init = (config, cb) ->
 # @param old value from current config
 # @param new value, just read
 diff = (path, old, value) ->
+  console.log '-> ', path
   changes = []
   switch typeof value
     when 'undefined'
@@ -71,34 +73,23 @@ diff = (path, old, value) ->
     when 'object'
       if Array.isArray value
         for e, i in value
+          console.log path, i
           changes = changes.concat diff "#{path}/#{i}", old?[i], e
       else
+        console.log value
         for k, e of value
+          console.log path, k, 'ooo'
           changes = changes.concat diff "#{path}/#{k}", old?[k], e
     else
       # add value as changed
       if old isnt value
-        changes.push path
+        changes.push path ? '/'
+        parent = path ? '/'
         loop
-          path = fspath.dirname path
-          break if path.length is 1
-          changes.push path unless changes[path]?
-  switch typeof old
-    when 'object'
-      if Array.isArray old
-        for e, i in old
-          changes = changes.concat diff "#{path}/#{i}", value[i], e
-      else
-        for k, e of old
-          changes = changes.concat diff "#{path}/#{k}", value[k], e
-    else
-      # add value as changed
-      if old isnt value
-        changes.push unless changes[path]?
-        loop
-          path = fspath.dirname path
-          break if path.length is 1
-          changes.push path unless changes[path]?
+          parent = fspath.dirname parent
+          break if parent.length is 1
+          changes.push parent unless changes[parent]?
+  console.log '=================', path
   changes
 
 
