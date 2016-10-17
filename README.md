@@ -196,6 +196,25 @@ conf = config.get 'database/master/address'
 > To don't mess with the names: I always address the instance with `config` and use
 > a short name like `conf` for some data out of it.
 
+On demand you may also reload the configuration completely:
+
+``` coffee
+config.reload (err) ->
+  if err
+    console.error "FAILED: #{err.message}"
+    console.error err.description
+    process.exit 1
+```
+
+But if you want tp know in your app then some configuration was changed you can use
+the path as an event which is fired if this element or one below is changed.
+
+``` coffee
+config.on '/address', ->
+  console.log "New addresses found, reinit the list..."
+  myList = config.get '/address'
+```
+
 
 Debugging
 -------------------------------------------------

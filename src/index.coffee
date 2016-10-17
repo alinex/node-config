@@ -681,12 +681,12 @@ To do so you can listen to value changes using the common `on` or `once` methods
 ``` coffee
 config = require 'alinex-config'
 ...
-config.on 'email', (value, uri, origin) ->
+config.on '/email', ->
   # what to do
-config.on 'app.title', (value, uri, origin) ->
+config.on '/app/title', ->
   # change the title in the view
 ```
 
-Your event listener will get called if the given value or the data below changed.
+Your event listener will get called if the given value or the data below was changed.
 A reloading of the same value won't count if the data keeps the same.
 ###
