@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.4.0 (2016-10-17)
+-------------------------------------------------
+Added events to listen on changes while reloading.
+
+- Update events documentation.
+- Fire events after change.
+- Describe usage of new event logic.
+- Document debugging.
+
 Version 1.3.0 (2016-10-14)
 -------------------------------------------------
 - Update async@2.1.1.
