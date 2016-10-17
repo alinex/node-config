@@ -214,6 +214,17 @@ causes an extra afford which you should skip if possible.</p>
 <p>To don’t mess with the names: I always address the instance with <code>config</code> and use
 a short name like <code>conf</code> for some data out of it.</p>
 </blockquote>
+<p>On demand you may also reload the configuration completely:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config.reload (err) -&gt;</code>
+<code>  <span class="hljs-keyword">if</span> err</code>
+<code>    <span class="hljs-built_in">console</span>.error <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span></code>
+<code>    <span class="hljs-built_in">console</span>.error err.description</code>
+<code>    process.exit <span class="hljs-number">1</span></code></pre>
+<p>But if you want tp know in your app then some configuration was changed you can use
+the path as an event which is fired if this element or one below is changed.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config.<span class="hljs-literal">on</span> <span class="hljs-string">'/address'</span>, <span class="hljs-function">-&gt;</span></code>
+<code>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"New addresses found, reinit the list..."</span></code>
+<code>  myList = config.get <span class="hljs-string">'/address'</span></code></pre>
 <h2 id="debugging">Debugging</h2>
 <p>If you have any problems you may debug the code with the predefined flags. It uses
 the debug module to let you define what to debug.</p>

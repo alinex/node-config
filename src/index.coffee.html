@@ -138,6 +138,7 @@
 </ul>
 </li>
 <li><a href="#best-practice">Best Practice</a></li>
+<li><a href="#events">Events</a></li>
 </ul>
 </p>
 <h1 id="api-usage">API Usage</h1>
@@ -623,6 +624,18 @@ system.</p>
 <p>The init() method now makes the system ready to use and if not up to date or
 initialized will initialize the config system. The setup() is also called to make
 it possible to call in one step if no special configuration is needed.</p>
+<h2 id="events">Events</h2>
+<p>If you use the reload possibility, you may also add a function as listener which get
+informed if a specific part in the value changed.</p>
+<p>To do so you can listen to value changes using the common <code>on</code> or <code>once</code> methods:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></code>
+<code>...</code>
+<code>config.<span class="hljs-literal">on</span> <span class="hljs-string">'/email'</span>, <span class="hljs-function">-&gt;</span></code>
+<code>  <span class="hljs-comment"># what to do</span></code>
+<code>config.<span class="hljs-literal">on</span> <span class="hljs-string">'/app/title'</span>, <span class="hljs-function">-&gt;</span></code>
+<code>  <span class="hljs-comment"># change the title in the view</span></code></pre>
+<p>Your event listener will get called if the given value or the data below was changed.
+A reloading of the same value won’t count if the data keeps the same.</p>
 </main>
         </div>
         <div class="col-sm-3 col-cm-pull-9 sidebar">
