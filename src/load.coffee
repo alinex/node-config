@@ -49,10 +49,57 @@ exports.init = (config, cb) ->
     # validate
     validate config, value, (err, value) ->
       return cb err if err
+      # collect events to send
+      events = util.array.unique diff '/', config.value, value
       # set
       config.value = value
       config.meta = meta
+      # send events
+      config.emit e for e in events
       cb()
+
+# Get a list of changes in path (with parents).
+#
+# @param {String} path to the element under inspection
+# @param old value from current config
+# @param new value, just read
+diff = (path, old, value) ->
+  changes = []
+  switch typeof value
+    when 'undefined'
+      changes = []
+    when 'object'
+      if Array.isArray value
+        for e, i in value
+          changes = changes.concat diff "#{path}/#{i}", old?[i], e
+      else
+        for k, e of value
+          changes = changes.concat diff "#{path}/#{k}", old?[k], e
+    else
+      # add value as changed
+      if old isnt value
+        changes.push path
+        loop
+          path = fspath.dirname path
+          break if path.length is 1
+          changes.push path unless changes[path]?
+  switch typeof old
+    when 'object'
+      if Array.isArray old
+        for e, i in old
+          changes = changes.concat diff "#{path}/#{i}", value[i], e
+      else
+        for k, e of old
+          changes = changes.concat diff "#{path}/#{k}", value[k], e
+    else
+      # add value as changed
+      if old isnt value
+        changes.push unless changes[path]?
+        loop
+          path = fspath.dirname path
+          break if path.length is 1
+          changes.push path unless changes[path]?
+  changes
 
 
 # Loading
