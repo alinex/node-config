@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.4.1 (2016-10-18)
+-------------------------------------------------
+- Optimize event list creation only for events there listeners are available.
+- Try to find bug in validation.
+- Fix travis config.
+
 Version 1.4.0 (2016-10-17)
 -------------------------------------------------
 Added events to listen on changes while reloading.
