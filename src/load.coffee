@@ -50,13 +50,21 @@ exports.init = (config, cb) ->
     validate config, value, (err, value) ->
       return cb err if err
       # collect events to send
-      console.log util.inspect value, {depth: null}
-      #events = util.array.unique diff '', config.value, value
+      listeners = Object.keys config._events
+      if listeners.length
+        events = diff '', config.value, value
+        .concat diff '', value, config.value
+        .filter (e) -> e in listeners
+        events = util.array.unique events
+        events.sort()
+      else
+        events = []
       # set
       config.value = value
       config.meta = meta
       # send events
-      config.emit e for e in events
+      if events.length
+        config.emit e for e in events
       cb()
 
 # Get a list of changes in path (with parents).
@@ -65,7 +73,6 @@ exports.init = (config, cb) ->
 # @param old value from current config
 # @param new value, just read
 diff = (path, old, value) ->
-  console.log '-> ', path
   changes = []
   switch typeof value
     when 'undefined'
@@ -73,23 +80,19 @@ diff = (path, old, value) ->
     when 'object'
       if Array.isArray value
         for e, i in value
-          console.log path, i
           changes = changes.concat diff "#{path}/#{i}", old?[i], e
       else
-        console.log value
         for k, e of value
-          console.log path, k, 'ooo'
           changes = changes.concat diff "#{path}/#{k}", old?[k], e
     else
       # add value as changed
       if old isnt value
-        changes.push path ? '/'
         parent = path ? '/'
+        changes.push parent
         loop
           parent = fspath.dirname parent
+          changes.push parent
           break if parent.length is 1
-          changes.push parent unless changes[parent]?
-  console.log '=================', path
   changes
 
 
@@ -347,6 +350,7 @@ validate = exports.validate = (config, value, cb) ->
   debug "validate results"
   validator.check
     name: 'config'
+    title: 'Configuration'
     value: value
     schema: config.schema
   , cb
