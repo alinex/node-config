@@ -436,7 +436,9 @@ module.exports.init = util.function.onceTime module.exports, (cb) ->
     needLoad = true
   return cb() unless needLoad
   load.init this, (err) =>
-    return cb err if err
+    if err
+      debug chalk.red "config error: #{err.message}" if debug.enabled
+      return cb err
     if debugValue.enabled
       debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
     cb()

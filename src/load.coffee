@@ -334,7 +334,7 @@ setOrigin = (origin, value, meta, date, cb) ->
   origin.loaded = true
   origin.lastload = date
   if debug.enabled
-    debug "loaded #{origin.path ? 'ROOT'} with: \n
+    debug "loaded origin #{origin.uri} with #{origin.path ? 'ROOT'}: \n
     #{ chalk.grey util.inspect origin.value, {depth: null}}"
   cb()
 
