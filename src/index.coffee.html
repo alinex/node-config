@@ -633,7 +633,8 @@ informed if a specific part in the value changed.</p>
 <code>config.<span class="hljs-literal">on</span> <span class="hljs-string">'/email'</span>, <span class="hljs-function">-&gt;</span></code>
 <code>  <span class="hljs-comment"># what to do</span></code>
 <code>config.<span class="hljs-literal">on</span> <span class="hljs-string">'/app/title'</span>, <span class="hljs-function">-&gt;</span></code>
-<code>  <span class="hljs-comment"># change the title in the view</span></code></pre>
+<code>  <span class="hljs-comment"># change the title in the view</span></code>
+<code>  title = config.get <span class="hljs-string">'/app/title'</span></code></pre>
 <p>Your event listener will get called if the given value or the data below was changed.
 A reloading of the same value won’t count if the data keeps the same.</p>
 </main>
