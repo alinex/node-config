@@ -685,6 +685,7 @@ config.on '/email', ->
   # what to do
 config.on '/app/title', ->
   # change the title in the view
+  title = config.get '/app/title'
 ```
 
 Your event listener will get called if the given value or the data below was changed.
