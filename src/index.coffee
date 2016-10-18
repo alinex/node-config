@@ -206,6 +206,7 @@ module.exports.pushOrigin = (conf) ->
     validator ?= require 'alinex-validator'
     validator.checkSync
       name: 'originToAdd'
+      title: "Origin to add to Config"
       value: conf
       schema: module.exports.originImportSchema
   conf.type ?= 'config'
