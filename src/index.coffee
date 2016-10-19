@@ -359,6 +359,8 @@ with `Error` if validation failed
 module.exports.setSchema = (path, schema, cb = -> ) ->
   path = util.string.trim(path, '/').split '/'
   ref = @schema
+  if debug.enabled
+    debug "set schema for #{path}:\n" + chalk.grey util.inspect schema, {depth: null}
   # go into path
   if path.length and path[0]
     for p in path
@@ -440,7 +442,7 @@ module.exports.init = util.function.onceTime module.exports, (cb) ->
       debug chalk.red "config error: #{err.message}" if debug.enabled
       return cb err
     if debugValue.enabled
-      debugValue "new configuration \n#{chalk.grey util.inspect @value, {depth: null}}"
+      debugValue "new configuration \n" + chalk.grey util.inspect @value, {depth: null}
     cb()
 
 ###
