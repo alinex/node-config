@@ -3,13 +3,15 @@ Alinex Config: Readme
 
 [![GitHub watchers](
   https://img.shields.io/github/watchers/alinex/node-config.svg?style=social&label=Watch&maxAge=2592000)](
-  https://github.com/alinex/node-config/subscription)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-config/subscription)
+<!-- {.hidden-small} -->
 [![GitHub stars](
   https://img.shields.io/github/stars/alinex/node-config.svg?style=social&label=Star&maxAge=2592000)](
   https://github.com/alinex/node-config)
 [![GitHub forks](
   https://img.shields.io/github/forks/alinex/node-config.svg?style=social&label=Fork&maxAge=2592000)](
-  https://github.com/alinex/node-config)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-config)
+<!-- {.hidden-small} -->
 <!-- {p:.right} -->
 
 [![npm package](
@@ -17,7 +19,8 @@ Alinex Config: Readme
   https://www.npmjs.com/package/alinex-config)
 [![latest version](
   https://img.shields.io/npm/l/alinex-config.svg?maxAge=2592000)](
-  #license)<!-- {.hidden-small} -->
+  #license)
+<!-- {.hidden-small} -->
 [![Travis status](
   https://img.shields.io/travis/alinex/node-config.svg?maxAge=2592000&label=develop)](
   https://travis-ci.org/alinex/node-config)
@@ -29,7 +32,9 @@ Alinex Config: Readme
   https://gemnasium.com/alinex/node-config)
 [![GitHub issues](
   https://img.shields.io/github/issues/alinex/node-config.svg?maxAge=2592000)](
-  https://github.com/alinex/node-config/issues)<!-- {.hidden-small} -->
+  https://github.com/alinex/node-config/issues)
+<!-- {.hidden-small} -->
+
 
 This package will give you an easy way to load and use configuration settings in
 your application or module.
