@@ -360,7 +360,9 @@ module.exports.setSchema = (path, schema, cb = -> ) ->
   path = util.string.trim(path, '/').split '/'
   ref = @schema
   if debug.enabled
-    debug "set schema for #{path}:\n" + chalk.grey util.inspect schema, {depth: null}
+    debug "set schema for #{path}"
+    if debugValue.enabled
+      debugValue chalk.grey "#{path} schema:\n" + util.inspect schema, {depth: null}
   # go into path
   if path.length and path[0]
     for p in path
