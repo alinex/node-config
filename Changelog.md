@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.4.2 (2017-03-27)
+-------------------------------------------------
+- Update alinex-util@2.5.1, async@2.2.0, debug@2.6.3, request@2.81.0, alinex-builder@2.4.1, deasync@0.1.9
+- Fix missing callback after revalidation.
+- Debug schema values in sublevel config:values.
+- Update some dependencies.
+- Fix documentation to hide style comments in github view.
+- Optimize debugging output.
+- Optimize debugging output.
+- Add title for validating on debug.
+- Extend example in documentation.
+
 Version 1.4.1 (2016-10-18)
 -------------------------------------------------
 - Optimize event list creation only for events there listeners are available.
