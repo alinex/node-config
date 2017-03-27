@@ -381,6 +381,7 @@ module.exports.setSchema = (path, schema, cb = -> ) ->
   load.validate this, @value, (err, value) ->
     return cb err if err
     @value = value
+    cb()
 
 ###
 ``` coffee
