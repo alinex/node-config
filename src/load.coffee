@@ -44,7 +44,7 @@ exports.init = (config, cb) ->
     meta = {}
     # put together
     for origin in origins
-      util.extend value, origin.value
+      util.extend 'MODE OVERWRITE', value, origin.value
       util.extend meta, origin.meta
     # validate
     validate config, value, (err, value) ->

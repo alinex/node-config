@@ -563,6 +563,8 @@ You will get a map of files with
 Web requests are not possible here.
 ###
 
+fileSearch = {}
+
 ###
 Search for files of the given `type`. The resulting map contains the path relative
 from the defined origin URI and the real path to access.
@@ -571,7 +573,12 @@ from the defined origin URI and the real path to access.
 @param {Function(Error, Object)} cb callback with the results map or an `Error` on any problems
 @see {@link typeSearchSync}
 ###
-module.exports.typeSearch = (type, cb) -> load.typeSearch this, type, cb
+module.exports.typeSearch = (type, cb) ->
+  return cb null, fileSearch[type] if fileSearch[type]
+  load.typeSearch this, type, (err, result) ->
+    fileSearch[type] = result
+    cb err, result
+
 
 ###
 Search for files of the given `type`. The resulting map contains the path relative
