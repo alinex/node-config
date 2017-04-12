@@ -429,6 +429,7 @@ It will check and return immediately if nothing to do.
 ###
 @param {Function(Error)} cb callback with `Error` on any problems
 @see {@link initSync}
+@see {@link reinit}
 ###
 module.exports.init = util.function.once module.exports, (cb) ->
   debug "initialize configuration system"
@@ -448,6 +449,10 @@ module.exports.init = util.function.once module.exports, (cb) ->
       debugValue "new configuration \n" + chalk.grey util.inspect @value, {depth: null}
     cb()
 
+###
+@param {Function(Error)} cb callback with `Error` on any problems
+@see {@link init}
+###
 module.exports.reinit = util.function.onceTime module.exports, (cb) ->
   debug "reinitialize configuration system"
   needLoad = false
