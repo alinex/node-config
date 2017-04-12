@@ -430,8 +430,26 @@ It will check and return immediately if nothing to do.
 @param {Function(Error)} cb callback with `Error` on any problems
 @see {@link initSync}
 ###
-module.exports.init = util.function.onceTime module.exports, (cb) ->
+module.exports.init = util.function.once module.exports, (cb) ->
   debug "initialize configuration system"
+  needLoad = false
+  for origin in load.listOrigins @origin
+    if origin.loaded
+      debug chalk.grey "origin url: #{origin.uri} (already loaded)" if debug.enabled
+      continue
+    debug chalk.grey "origin url: #{origin.uri}" if debug.enabled
+    needLoad = true
+  return cb() unless needLoad
+  load.init this, (err) =>
+    if err
+      debug chalk.red "config error: #{err.message}" if debug.enabled
+      return cb err
+    if debugValue.enabled
+      debugValue "new configuration \n" + chalk.grey util.inspect @value, {depth: null}
+    cb()
+
+module.exports.reinit = util.function.onceTime module.exports, (cb) ->
+  debug "reinitialize configuration system"
   needLoad = false
   for origin in load.listOrigins @origin
     if origin.loaded
