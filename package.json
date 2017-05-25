@@ -25,10 +25,17 @@
   },
   "contributors": [],
   "license": "Apache-2.0",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/builder compile",
-    "test": "node_modules/.bin/builder test -vvv"
+    "dev": "nodemon src/index.js --exec 'npm run lint; babel-node --exec node_modules/.bin/babel-node'",
+    "build": "babel src -d dist",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "precommit": "npm run lint",
+    "prepublish": "npm run build",
+    "unit": "nyc --require babel-core/register mocha test/mocha",
+    "test": "npm run lint && npm run unit",
+    "test-travis": "nyc --reporter=lcov --require babel-core/register mocha test/mocha",
+    "lint": "eslint src --ext .js"
   },
   "directories": {
     "lib": "./lib"
@@ -45,11 +52,29 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
-    "alinex-builder": "^2.4.1",
-    "chai": "^3.5.0"
+    "@mocha/eslint-config-mocha": "^0.0.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "coveralls": "^2.13.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-mocha-only": "^0.0.3",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.4.1",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.3.2",
+    "request": "^2.81.0",
+    "should": "^11.2.1",
+    "should-http": "^0.1.1"
   },
   "engines": {
-    "node": ">=0.10"
-  },
-  "os": []
+    "node": ">=4"
+  }
 }
