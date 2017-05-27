@@ -1,6 +1,6 @@
-//import RestServer from './server'
+// import Compiler from './compiler'
 
 // start the server
-//RestServer.start()
+// RestServer.start()
 
 console.log('Done')

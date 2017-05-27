@@ -1,7 +1,7 @@
 import should from 'should'
 import Debug from 'debug'
 
-import * as compiler from '../../src/compiler'
+import Compiler from '../../src/compiler'
 
 const debug = Debug('test')
 
@@ -9,7 +9,8 @@ const debug = Debug('test')
 describe('environment', () => {
 
   it('find config folders', () => {
-    debug({folder: compiler.folder})
+    const compiler = new Compiler
+    debug(compiler)
     compiler.folder.should.be.Array()
     compiler.folder.length.should.be.equal(3)
     compiler.folder[0].should.containEql('/etc/')

@@ -10,6 +10,15 @@ to import and access them.
 
 
 
+Compiler methods:
+- compiler.setup.configName = 'alinex'
+- compiler.setup.schemaPath = 'dist/config'
+- compiler.source()
+- compiler.schema()
+- compiler.find(schema)
+- compiler.load(schema, path)
+- compiler.validate(schema, data)
+- compiler.write(schema, data)
 
 
 # Old concept
