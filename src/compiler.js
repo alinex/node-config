@@ -34,17 +34,14 @@ class Compiler {
   }
 
   // get list of schema definitions
-  schema() {
-    return new Promise((cb) => {
+  async schema() {
+    return new Promise((resolve, reject) => {
       // get files from
       fs.readdir(this.schemaPath, (err, files) => {
-        if (err) {
-          return cb(err)
-        }
-        files.forEach((file) => {
-          console.log(file)
-        })
-        return cb()
+        if (err) return reject(err)
+        const jsFiles = files.filter(file => file.match(/\.js$/))
+        .map(file => path.join(this.schemaPath, file))
+        return resolve(jsFiles)
       })
     })
   }

@@ -24,22 +24,10 @@ describe('environment', () => {
   })
 })
 
-it('async await', () => {
-  function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  const wait = async () => {
-    console.log(await timeout(5))
-    return "done"
-  }
-  wait()
-})
-
 describe('compiling', () => {
-  it('have default folders', (cb) => {
+  it('have default folders', async () => {
     const compiler = new Compiler({schemaPath: 'test/data/config'})
-    compiler.schema()
-    .then(cb)
+    const files = await compiler.schema()
+    console.log(files)
   })
 })
