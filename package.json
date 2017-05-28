@@ -28,13 +28,13 @@
   "main": "./dist/index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec 'yarn lint && yarn unit'",
-    "build": "babel src -d dist",
+    "build": "babel src -d dist --require babel-polyfill",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "precommit": "npm run lint",
     "prepublish": "npm run build",
-    "unit": "nyc --require babel-core/register mocha test/mocha",
+    "unit": "nyc --require babel-core/register --require babel-polyfill mocha test/mocha",
     "test": "npm run lint && npm run unit",
-    "test-travis": "nyc --reporter=lcov --require babel-core/register mocha test/mocha",
+    "test-travis": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test/mocha",
     "lint": "eslint src --ext .js"
   },
   "directories": {
@@ -47,9 +47,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2016": "^6.24.1",
-    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",

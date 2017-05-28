@@ -1,7 +1,0 @@
-# specific element
-local: "local position"
-
-# elements which will be overwritten partly
-data1: 'local'
-data2: 'local'
-data3: 'local'

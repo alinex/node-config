@@ -9,6 +9,7 @@ dist/config
 
 ## Local configuration
 
+config
 
 ## Active values
 
