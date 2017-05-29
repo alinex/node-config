@@ -3,4 +3,4 @@
 // start the server
 // RestServer.start()
 
-console.log('Done')
+console.log('Done') // eslint-disable-line no-console

@@ -13,12 +13,26 @@ to import and access them.
 Compiler methods:
 - compiler.setup.configName = 'alinex'
 - compiler.setup.schemaPath = 'dist/config'
-- compiler.source()
 - compiler.schema()
 - compiler.find(schema)
 - compiler.load(schema, path)
 - compiler.validate(schema, data)
 - compiler.write(schema, data)
+
+
+Schema as class
+
+    import * as Config from 'alinex-config'
+
+    const server = new IntegerSchema({
+      name: 'webserver',
+      description: 'settings for the webserver component',      
+    })
+
+    server.add Schema
+
+    exports default server
+
 
 
 # Old concept

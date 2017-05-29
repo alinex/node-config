@@ -39,9 +39,10 @@ class Compiler {
       // get files from
       fs.readdir(this.schemaPath, (err, files) => {
         if (err) return reject(err)
-        const jsFiles = files.filter(file => file.match(/\.js$/))
+        const list = files.filter(file => file.match(/\.js$/))
         .map(file => path.join(this.schemaPath, file))
-        return resolve(jsFiles)
+        // 
+        return resolve(list)
       })
     })
   }
