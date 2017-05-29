@@ -33,31 +33,28 @@ Alinex Config: Readme
 [![GitHub issues](
   https://img.shields.io/github/issues/alinex/node-config.svg?maxAge=2592000)](
   https://github.com/alinex/node-config/issues)
-<!-- {.hidden-small} -->
-
 
 This package will give you an easy way to load and use configuration settings in
-your application or module.
+your application or module in different ways.
 
-It will read named files in different formats (YAML, JSON, XML, JavaScript,
-CoffeeScript) and supports validation and optimization/completion. Also the
-configuration will automatically be updated on changes in the file system
-and may inform it's dependent objects.
+You set up a schema out of the contained classes which allows to work with the
+specific data structure. Then you can call the CLI to transform the configuration
+files into pure JavaScript objects which now can be loaded using `import`.
+But it is also possible to inject the values directly and to direct get the optimized
+data structure instead of getting written down.
 
 The major features are:
-
-- over writable configurations
 - allows different file formats
-- supports value validation
-- supports value modification rules
-- automatically reloads on file changes
+- supports validation
+- supports modification rules
+- can store optimized data structure as JavaScript module
 
 > It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](https://alinex.github.io/develop).
 
-__Read the complete documentation under
-[https://alinex.github.io/node-config](https://alinex.github.io/node-config).__
-<!-- {p: .hidden} -->
+
+
+
 
 
 Install

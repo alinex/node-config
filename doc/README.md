@@ -4,10 +4,26 @@ This package will give you an easy way to load and use configuration settings in
 your application or module.
 
 Version 2 is a complete backward incompatible rewrite of the class. It has the goal
-to make it slimmer, faster and easier to use. The key concept is to do this steps as
-a precompiler before starting the app. This allows use a small config access module
+to make it compacter, faster and easier to use. The key concept is to do this steps as
+a precompiler before starting the app, too. This allows the use of a small config access module
 to import and access them.
 
+
+
+This package will give you an easy way to load and use configuration settings in
+your application or module in different ways.
+
+You set up a schema out of the contained classes which allows to work with the
+specific data structure. Then you can call the CLI to transform the configuration
+files into pure JavaScript objects which now can be loaded using `import`.
+But it is also possible to inject the values directly and to direct get the optimized
+data structure instead of getting written down.
+
+The major features are:
+- allows different file formats
+- supports validation
+- supports modification rules
+- can store optimized data structure as JavaScript module
 
 
 Compiler methods:
