@@ -49,12 +49,8 @@ The major features are:
 - supports value modification rules
 - automatically reloads on file changes
 
-> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
-
 __Read the complete documentation under
-[https://alinex.github.io/node-config](https://alinex.github.io/node-config).__
-<!-- {p: .hidden} -->
+[https://alinex.gitbooks.io/config](https://alinex.gitbooks.io/config)__
 
 
 Install
