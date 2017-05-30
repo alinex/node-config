@@ -41,7 +41,7 @@ class Compiler {
         if (err) return reject(err)
         const list = files.filter(file => file.match(/\.js$/))
         .map(file => path.join(this.schemaPath, file))
-        // 
+        // return list
         return resolve(list)
       })
     })
