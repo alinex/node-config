@@ -1,18 +1,14 @@
-Alinex Config: Readme
-=================================================
+# Alinex Config
 
 [![GitHub watchers](
   https://img.shields.io/github/watchers/alinex/node-config.svg?style=social&label=Watch&maxAge=2592000)](
   https://github.com/alinex/node-config/subscription)
-<!-- {.hidden-small} -->
 [![GitHub stars](
   https://img.shields.io/github/stars/alinex/node-config.svg?style=social&label=Star&maxAge=2592000)](
   https://github.com/alinex/node-config)
 [![GitHub forks](
   https://img.shields.io/github/forks/alinex/node-config.svg?style=social&label=Fork&maxAge=2592000)](
   https://github.com/alinex/node-config)
-<!-- {.hidden-small} -->
-<!-- {p:.right} -->
 
 [![npm package](
   https://img.shields.io/npm/v/alinex-config.svg?maxAge=2592000&label=latest%20version)](
@@ -20,11 +16,13 @@ Alinex Config: Readme
 [![latest version](
   https://img.shields.io/npm/l/alinex-config.svg?maxAge=2592000)](
   #license)
-<!-- {.hidden-small} -->
+[![Codacy Badge](
+  https://api.codacy.com/project/badge/Grade/d1c36b200a8b47ffb31a1eabd2522d9e)](
+  https://www.codacy.com/app/alinex/node-rest/dashboard)
 [![Travis status](
   https://img.shields.io/travis/alinex/node-config.svg?maxAge=2592000&label=develop)](
   https://travis-ci.org/alinex/node-config)
-[![Coveralls status](
+[![Coverage status](
   https://img.shields.io/coveralls/alinex/node-config.svg?maxAge=2592000)](
   https://coveralls.io/r/alinex/node-config?branch=master)
 [![Gemnasium status](
@@ -33,7 +31,6 @@ Alinex Config: Readme
 [![GitHub issues](
   https://img.shields.io/github/issues/alinex/node-config.svg?maxAge=2592000)](
   https://github.com/alinex/node-config/issues)
-<!-- {.hidden-small} -->
 
 
 This package will give you an easy way to load and use configuration settings in
@@ -242,7 +239,7 @@ is enabled.
 License
 -------------------------------------------------
 
-(C) Copyright 2014-2016 Alexander Schilling
+(C) Copyright 2014-2017 Alexander Schilling
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
